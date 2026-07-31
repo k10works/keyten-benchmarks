@@ -1,0 +1,11 @@
+{
+  "suites": [
+    {
+      "id": "taq-small",
+      "title": "TAQ · market data, in-memory",
+      "dataset": "One simulated market day: 9.4M quotes, 0.6M trades, sorted by symbol and time",
+      "note": "53 queries over the NYSETAQBenchmarks in-memory suite: filters, aggregations, per-symbol windows, asof joins, OHLC bars. Best of three runs per query, 8 threads, all engines over the same Parquet input.",
+      "engines": ["keyten", "duckdb", "polars"]
+    }
+  ]
+}

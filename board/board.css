@@ -1,0 +1,85 @@
+/* Copyright (c) 2026 Rayforce Technologies Inc. Licensed under the MIT License. */
+
+:root {
+  --bg: #0b0d10;
+  --panel: #11151a;
+  --line: #232a32;
+  --ink: #e9eadf;
+  --ink-2: #9a9ea7;
+  --ink-3: #747b85;
+  --accent: #b5e72b;
+  /* Engine identities — validated categorical palette on the dark surface. */
+  --c-keyten: #7fa112;
+  --c-duckdb: #4a8ed0;
+  --c-polars: #c65c8d;
+}
+
+* { box-sizing: border-box; margin: 0; }
+html, body { background: var(--bg); color: var(--ink); }
+body {
+  font: 15px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+.hd { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.hd .shell { display: flex; align-items: baseline; gap: 10px; }
+.brand { color: var(--ink); font-weight: 700; letter-spacing: .02em; }
+.brand-sub { color: var(--ink-3); }
+.hd nav { margin-left: auto; display: flex; gap: 18px; font-size: 14px; }
+.hd nav a { color: var(--ink-2); }
+
+.intro { padding: 40px 0 8px; max-width: 720px; }
+.intro h1 { font-size: 30px; line-height: 1.2; margin-bottom: 12px; }
+.intro p { color: var(--ink-2); }
+
+.tabs { display: flex; gap: 8px; margin: 26px 0 14px; }
+.tabs button {
+  background: var(--panel); color: var(--ink-2); border: 1px solid var(--line);
+  border-radius: 6px; padding: 7px 14px; font: inherit; cursor: pointer;
+}
+.tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--accent); }
+
+.meta { color: var(--ink-3); font-size: 13.5px; margin-bottom: 22px; max-width: 760px; }
+.meta b { color: var(--ink-2); font-weight: 600; }
+
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 30px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px;
+}
+.card .eng { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-2); }
+.card .eng i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.card .val { font-size: 26px; font-weight: 700; margin: 4px 0 2px; font-variant-numeric: tabular-nums; }
+.card .rel { color: var(--ink-3); font-size: 13px; }
+.card.best { border-color: var(--accent); }
+
+.tblwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 12px; text-align: left; white-space: nowrap; }
+thead th {
+  position: sticky; top: 0; background: var(--panel); color: var(--ink-2);
+  font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--line);
+}
+thead th .chip { width: 9px; height: 9px; border-radius: 3px; display: inline-block; margin-right: 7px; }
+tbody tr { border-top: 1px solid var(--line); }
+tbody tr:hover { background: #12161b; }
+td.q { color: var(--ink-3); font-size: 13px; }
+td.cell { min-width: 170px; }
+.barrow { display: flex; align-items: center; gap: 10px; }
+.bar {
+  height: 8px; border-radius: 4px; min-width: 2px;
+  flex: 0 0 auto;
+}
+.ms { color: var(--ink-2); font-size: 13.5px; min-width: 64px; }
+.ms.best { color: var(--ink); font-weight: 650; }
+.gap { color: var(--ink-3); }
+
+.ft { margin: 34px 0 46px; color: var(--ink-3); font-size: 13px; max-width: 760px; }
+.ft p + p { margin-top: 8px; }
+
+.tip {
+  position: fixed; z-index: 10; max-width: 460px; background: #171c22; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 6px; padding: 8px 11px; font-size: 12.5px;
+  pointer-events: none; white-space: pre-wrap; word-break: break-word;
+}

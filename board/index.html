@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- Copyright (c) 2026 Rayforce Technologies Inc. Licensed under the MIT License. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keyten benchmarks</title>
+<link rel="stylesheet" href="board.css">
+</head>
+<body>
+<header class="hd">
+  <div class="shell">
+    <a class="brand" href="https://k10.works/">keyten</a>
+    <span class="brand-sub">benchmarks</span>
+    <nav>
+      <a href="https://k10.works/docs/">docs</a>
+      <a href="https://github.com/k10works/keyten-benchmarks">reproduce</a>
+    </nav>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="intro">
+    <h1>Same machine, same data, same queries.</h1>
+    <p>Every number on this page comes from the public harness in
+    <a href="https://github.com/k10works/keyten-benchmarks">keyten-benchmarks</a>:
+    clone it, run one script, and it installs each engine from PyPI, prepares the
+    dataset, and produces this exact result format on your hardware.
+    Lower is better throughout; per-query bars are scaled to the slowest engine
+    on that query.</p>
+  </section>
+
+  <nav class="tabs" id="tabs"></nav>
+  <section id="meta" class="meta"></section>
+  <section id="summary" class="summary"></section>
+  <section id="detail"></section>
+
+  <footer class="ft">
+    <p>Engines run through their current PyPI releases with default settings and an
+    equal thread count. Query results are checked for matching statuses and result
+    sizes before timings are compared; a query an engine does not complete is shown
+    as a gap and excluded from the common-subset total.</p>
+    <p>© 2026 Rayforce Technologies Inc. · MIT License · <a href="https://k10.works/">k10.works</a></p>
+  </footer>
+</main>
+
+<div id="tip" class="tip" hidden></div>
+<script src="board.js"></script>
+</body>
+</html>
