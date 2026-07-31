@@ -35,11 +35,11 @@ sample day — see the harness README for generating the Parquet layout.
 
 ## Suites
 
-| Suite | Status | What it measures |
+| Suite | Runner | What it measures |
 | --- | --- | --- |
-| TAQ (in-memory) | published | Market-data analytics: filters, per-symbol windows, asof joins, OHLC bars over one trading day |
-| ClickBench | planned | The standard web-analytics suite, via the upstream harness plus a `keyten` adapter (upstream submission planned) |
-| PDS-H | planned | Decision-support queries derived from TPC-H, via the upstream harness |
+| TAQ (in-memory) | `runner/run_taq.sh` | Market-data analytics: filters, per-symbol windows, asof joins, OHLC bars over one trading day |
+| ClickBench 10M | `runner/run_clickbench.sh` | The standard 43 web-analytics queries over a 10M-row subset of the public hits dataset (full-scale upstream submission planned) |
+| PDS-H SF10 | `runner/run_pdsh.sh` | 22 decision-support queries derived from TPC-H, via the public polars-benchmark harness (results not comparable to official TPC results) |
 
 ## Contributing
 

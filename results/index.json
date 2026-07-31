@@ -2,9 +2,23 @@
   "suites": [
     {
       "id": "taq-small",
-      "title": "TAQ · market data, in-memory",
+      "title": "TAQ · market data",
       "dataset": "One simulated market day: 9.4M quotes, 0.6M trades, sorted by symbol and time",
       "note": "53 queries over the NYSETAQBenchmarks in-memory suite: filters, aggregations, per-symbol windows, asof joins, OHLC bars. Best of three runs per query, 8 threads, all engines over the same Parquet input.",
+      "engines": ["keyten", "duckdb", "polars"]
+    },
+    {
+      "id": "clickbench-10m",
+      "title": "ClickBench · web analytics",
+      "dataset": "10M-row subset of the public ClickBench hits dataset",
+      "note": "The standard 43 ClickBench queries; each engine queries its own in-memory representation of the same rows (keyten its native store, polars a scanned Parquet, duckdb an in-memory table). Warm, best of three per query.",
+      "engines": ["keyten", "duckdb", "polars"]
+    },
+    {
+      "id": "pdsh-sf10",
+      "title": "PDS-H SF10 · decision support",
+      "dataset": "PDS-H (TPC-H derived) at scale factor 10 — 60M-row lineitem",
+      "note": "22 decision-support queries via the polars-benchmark harness, in-memory (\"skip\") IO for every engine. Best of three per query after a warm-up pass. Derived from TPC-H; results are not comparable to official TPC results.",
       "engines": ["keyten", "duckdb", "polars"]
     }
   ]
