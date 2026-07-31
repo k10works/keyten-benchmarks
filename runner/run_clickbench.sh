@@ -28,12 +28,15 @@ run_daemon() { # dir, env, out
 }
 
 # keyten: first run converts the parquet into the engine's native store.
+# The EAGER path (read then write) is deliberate: the whole-column write
+# applies the at-rest encoding verdicts (dictionaries, statistics) that
+# the streaming sink does not yet decide as well.
 "$WORK/venv/bin/python" - "$HITS" "$WORK/hits10m.k10dir" <<'PYEOF'
 import sys, os
 import keyten as kt
 src, dst = sys.argv[1], sys.argv[2]
 if not os.path.exists(dst):
-    kt.scan_parquet(src).collect_to_native(dst)
+    kt.DataFrame.read_parquet(src).write_native(dst)
 PYEOF
 run_daemon adapters/clickbench-keyten "KEYTEN_NATIVE=$PWD/$WORK/hits10m.k10dir" "$WORK/cb_keyten.txt"
 run_daemon adapters/clickbench-polars "POLARS_PARQUET=$HITS" "$WORK/cb_polars.txt"
