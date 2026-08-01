@@ -16,15 +16,13 @@ cd "$(dirname "$0")/.."
 
 DATA="${1:?usage: run_taq.sh <data-dir> [threads]}"
 THREADS="${2:-$(nproc)}"
-HARNESS_REPO="https://github.com/singaraiona/NYSETAQBenchmarks"
-HARNESS_REV="main"   # pin to a commit when publishing new numbers
 WORK=".work"
 
 mkdir -p "$WORK" results/taq-small
-if [ ! -d "$WORK/harness" ]; then
-    git clone --depth 1 "$HARNESS_REPO" "$WORK/harness"
-fi
-git -C "$WORK/harness" checkout -q "$HARNESS_REV"
+# The harness is vendored in-repo (harnesses/taq) with Keyten engine
+# support, until the upstream NYSETAQBenchmarks PR is accepted.
+rm -rf "$WORK/harness"
+cp -r harnesses/taq "$WORK/harness"
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"

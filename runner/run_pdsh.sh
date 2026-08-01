@@ -11,10 +11,11 @@ cd "$(dirname "$0")/.."
 SCALE="${1:-10.0}"
 WORK=".work"; mkdir -p "$WORK" results/pdsh-sf10
 
+# The harness is vendored in-repo (harnesses/pdsh, Keyten query set
+# included) until the upstream polars-benchmark PR is accepted.
 if [ ! -d "$WORK/pdsh" ]; then
-    git clone --depth 1 https://github.com/pola-rs/polars-benchmark "$WORK/pdsh"
+    cp -r harnesses/pdsh "$WORK/pdsh"
 fi
-cp -r adapters/pdsh-keyten "$WORK/pdsh/queries/keyten"
 cd "$WORK/pdsh"
 python3 -m venv .venv 2>/dev/null || true
 .venv/bin/pip install -q -r requirements.txt keyten duckdb polars
