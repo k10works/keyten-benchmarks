@@ -1,334 +1,334 @@
 {
  "suite": "taq-small",
  "engine": "keyten",
- "version": "0.1.33",
+ "version": "0.1.34",
  "threads": 8,
  "machine": {
-  "cpu": "Intel Core i7-6700 @ 3.40GHz",
+  "cpu": "Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
   "cores": 8,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-07-31"
+  "date": "2026-08-01"
  },
  "queries": [
   {
    "idx": 1,
-   "tags": "simple,rawcolumn,timefilter,originalorder",
+   "tags": "timefilter,rawcolumn,originalorder,simple",
    "query": "quote.lazy().filter(kt.col('time') < time_ns(8)).collect()",
-   "ms": 19.37
+   "ms": 19.28
   },
   {
    "idx": 2,
-   "tags": "emptyresult,simple,rawcolumn",
+   "tags": "rawcolumn,emptyresult,simple",
    "query": "trade.lazy().filter(kt.col('seq') == 0).collect()",
-   "ms": 0.65
+   "ms": 0.63
   },
   {
    "idx": 3,
-   "tags": "rawcolumn,simple,timefilter,manydummyfilters",
+   "tags": "timefilter,manydummyfilters,rawcolumn,simple",
    "query": "trade.lazy().filter((kt.col('seq') > 0) & (kt.col('price') > 0.0) & (kt.col('time') >= time_ns(0)) & (kt.col('time') < time_ns(24)) & (kt.col('size') < 21474836",
-   "ms": 0.98
+   "ms": 1.12
   },
   {
    "idx": 4,
-   "tags": "timefilter,simple,rawcolumn",
+   "tags": "rawcolumn,timefilter,simple",
    "query": "trade.lazy().filter((kt.col('time') >= time_ns(10)) & (kt.col('time') <= time_ns(10,0,10))).collect()",
-   "ms": 1.1
+   "ms": 1.16
   },
   {
    "idx": 5,
-   "tags": "simple,rawcolumn,timefilter,singleinstrument",
+   "tags": "timefilter,singleinstrument,rawcolumn,simple",
    "query": "quote.lazy().filter((kt.col('sym') == anInfreqInstr) & (kt.col('time') >= time_ns(8,30)) & (kt.col('time') <= time_ns(16,30))).collect()",
-   "ms": 13.92
+   "ms": 14.81
   },
   {
    "idx": 6,
-   "tags": "simple,rawcolumn,fewinstruments,timefilter",
+   "tags": "timefilter,fewinstruments,rawcolumn,simple",
    "query": "quote.lazy().filter(kt.col('sym').is_in(hundredInstrs) & (kt.col('time') >= time_ns(8,30)) & (kt.col('time') <= time_ns(8,35))).collect()",
-   "ms": 18.36
+   "ms": 19.74
   },
   {
    "idx": 7,
-   "tags": "simple,rawcolumn",
+   "tags": "rawcolumn,simple",
    "query": "trade.lazy().filter(kt.col('source') == 'N').select(['sym','time','price','size','stop','cond','ex']).collect()",
-   "ms": 2.05
+   "ms": 2.01
   },
   {
    "idx": 8,
-   "tags": "simple,singleinstrument",
+   "tags": "singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == mostFreqInstr).select([kt.col('time'), ((kt.col('bid') + kt.col('ask')) / 2.0).alias('mid')]).collect()",
-   "ms": 6.23
+   "ms": 5.36
   },
   {
    "idx": 9,
-   "tags": "unnecessarycolumnfetch,simple,singleinstrument",
+   "tags": "unnecessarycolumnfetch,singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == mostFreqInstr).select([kt.col('time'), ((kt.col('bid') + kt.col('ask')) / 2.0).alias('mid')]).collect()",
-   "ms": 6.18
+   "ms": 5.35
   },
   {
    "idx": 10,
-   "tags": "simple,sort,singleinstrument",
+   "tags": "sort,singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == mostFreqInstr).select([kt.col('time'), ((kt.col('bid') + kt.col('ask')) / 2.0).alias('mid')]).sort('mid', descending=True).",
-   "ms": 65.54
+   "ms": 64.44
   },
   {
    "idx": 11,
-   "tags": "simple,rawcolumn,singleinstrument",
+   "tags": "rawcolumn,singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == aFreqInstr).select(['sym','time','bid','ask','bsize','asize','cond','ex']).collect()",
-   "ms": 4.22
+   "ms": 4.26
   },
   {
    "idx": 12,
-   "tags": "simple,rawcolumn,fewinstruments",
+   "tags": "rawcolumn,fewinstruments,simple",
    "query": "quote.lazy().filter(kt.col('sym').is_in(fivehundredInfreqInstrs) & ((kt.col('bsize') + kt.col('asize')) > 2000)).select(['sym','time','bid','ask','bsize','asize",
-   "ms": 114.5
+   "ms": 103.3
   },
   {
    "idx": 13,
-   "tags": "simple,singleinstrument",
+   "tags": "singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == anInfreqInstr).select([liq_w_mid().alias('mid')]).filter(kt.col('mid').is_nan() == False).select([kt.col('mid').mean().alia",
-   "ms": 3.91
+   "ms": 3.46
   },
   {
    "idx": 14,
-   "tags": "groupby,simple,singleinstrument",
+   "tags": "groupby,singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == anInfreqInstr).group_by([bucket(10*MIN_NS).alias('minute'), kt.col('ex')]).agg([liq_w_mid().mean().alias('avgLiqWMid')]).so",
-   "ms": 6.12
+   "ms": 5.81
   },
   {
    "idx": 15,
-   "tags": "groupby,pivot,advanced,singleinstrument",
+   "tags": "singleinstrument,groupby,advanced,pivot",
    "query": "quote.lazy().filter(kt.col('sym') == anInfreqInstr).group_by([bucket(10*MIN_NS).alias('minute'), kt.col('ex')]).agg([liq_w_mid().mean().alias('avgLiqWMid')]).co",
-   "ms": 6.95
+   "ms": 6.26
   },
   {
    "idx": 16,
-   "tags": "fewinstruments,groupby,pivot,advanced",
+   "tags": "fewinstruments,groupby,advanced,pivot",
    "query": "quote.lazy().filter(kt.col('sym').is_in(fivehundredInfreqInstrs)).group_by([bucket(10*MIN_NS).alias('minute'), kt.col('sym')]).agg([liq_w_mid().mean().alias('av",
-   "ms": 167.29
+   "ms": 116.61
   },
   {
    "idx": 17,
-   "tags": "fewinstruments,groupby,pivot,advanced,fillforward",
+   "tags": "fewinstruments,groupby,advanced,fillforward,pivot",
    "query": "(lambda wide: wide.lazy().sort('minute').select([kt.col(c).forward_fill().alias(c) if c != 'minute' else kt.col(c) for c in wide.columns]).collect())(quote.lazy",
-   "ms": 168.62
+   "ms": 119.63
   },
   {
    "idx": 18,
-   "tags": "groupby,simple,singleinstrument",
+   "tags": "groupby,singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == aFreqInstr).group_by([bucket(10*MIN_NS).alias('minute')]).agg([(kt.col('ask') - kt.col('bid')).mean().alias('avgSpread')]).",
-   "ms": 9.94
+   "ms": 7.62
   },
   {
    "idx": 19,
-   "tags": "groupby,simple,fewinstruments",
+   "tags": "fewinstruments,groupby,simple",
    "query": "quote.lazy().filter(kt.col('sym').is_in(hundredInstrs)).group_by([kt.col('sym'), bucket(10*MIN_NS).alias('minute')]).agg([(kt.col('ask') - kt.col('bid')).mean()",
-   "ms": 117.19
+   "ms": 98.88
   },
   {
    "idx": 20,
    "tags": "advanced,singleinstrument",
    "query": "quote.lazy().filter(kt.col('sym') == anInfreqInstr).select([((kt.col('ask') - kt.col('bid')) * (kt.col('bsize') + kt.col('asize'))).sum().alias('ws'), (kt.col('",
-   "ms": 3.79
+   "ms": 3.41
   },
   {
    "idx": 21,
    "tags": "timefilter,advanced",
    "query": "quote.lazy().filter((kt.col('time') >= time_ns(8,30)) & (kt.col('time') <= time_ns(8,35))).select([((kt.col('ask') - kt.col('bid')) * (kt.col('asize') + kt.col(",
-   "ms": 4.0
+   "ms": 4.9
   },
   {
    "idx": 22,
    "tags": "groupby,advanced,singleinstrument",
    "query": "quote.lazy().filter(kt.col('sym') == mostFreqInstr).group_by([ex_named()]).agg([((kt.col('ask') - kt.col('bid')) * (kt.col('asize') + kt.col('bsize'))).sum().al",
-   "ms": 107.6
+   "ms": 95.84
   },
   {
    "idx": 23,
    "tags": "groupby,advanced,singleinstrument",
    "query": "quote.lazy().filter(kt.col('sym') == mostFreqInstr).with_columns([(kt.col('ask') - kt.col('bid')).alias('spread'), (kt.col('asize') + kt.col('bsize')).alias('si",
-   "ms": 107.93
+   "ms": 97.57
   },
   {
    "idx": 24,
-   "tags": "groupby,advanced,fewinstruments",
+   "tags": "fewinstruments,groupby,advanced",
    "query": "quote.lazy().filter(kt.col('sym').is_in(hundredInstrs)).group_by([kt.col('sym'), ex_named()]).agg([((kt.col('ask') - kt.col('bid')) * (kt.col('asize') + kt.col(",
-   "ms": 260.33
+   "ms": 233.8
   },
   {
    "idx": 25,
    "tags": "groupby,advanced",
    "query": "quote.lazy().filter(kt.col('shortSaleRestrictionIndicator') == '0').group_by([ex_named()]).agg([((kt.col('ask') - kt.col('bid')) * (kt.col('asize') + kt.col('bs",
-   "ms": 82.29
+   "ms": 69.79
   },
   {
    "idx": 26,
    "tags": "simple",
    "query": "trade.lazy().filter(kt.col('size') > 700000.0).group_by([kt.col('sym'), kt.col('ex')]).agg([]).collect()",
-   "ms": 0.6
+   "ms": 0.69
   },
   {
    "idx": 27,
-   "tags": "groupby,simple,fewinstruments",
+   "tags": "fewinstruments,groupby,simple",
    "query": "quote.lazy().filter(kt.col('sym').is_in(twentyInstrs)).group_by([kt.col('sym')]).agg([(kt.col('bsize') * kt.col('bid')).sum().alias('wb'), kt.col('bsize').sum()",
-   "ms": 18.68
+   "ms": 15.15
   },
   {
    "idx": 28,
    "tags": "advanced,singleinstrument",
    "query": "trade.lazy().filter(kt.col('sym') == mostFreqInstr).select([kt.col('time'), kt.col('price').rolling_mean(20).alias('price')]).collect()",
-   "ms": 1.04
+   "ms": 1.11
   },
   {
    "idx": 29,
-   "tags": "groupby,advanced,fewinstruments",
+   "tags": "fewinstruments,groupby,advanced",
    "query": "quote.lazy().filter(kt.col('sym').is_in(twentyInstrs)).select([kt.col('sym'), kt.col('time'), liq_w_mid().rolling_mean(5, 1).over([kt.col('sym')]).alias('moving",
-   "ms": 316.11
+   "ms": 227.93
   },
   {
    "idx": 30,
    "tags": "advanced,singleinstrument",
    "query": "trade.lazy().filter(kt.col('sym') == aFreqInstr).select([kt.col('time'), kt.col('size').cum_sum().alias('size')]).collect()",
-   "ms": 0.43
+   "ms": 0.4
   },
   {
    "idx": 31,
    "tags": "advanced",
    "query": "trade.lazy().filter(kt.col('ex') == 'L').select([kt.col('time'), kt.col('size').cum_sum().alias('size')]).collect()",
-   "ms": 0.7
+   "ms": 0.72
   },
   {
    "idx": 32,
-   "tags": "groupby,timefilter,complex",
+   "tags": "groupby,complex,timefilter",
    "query": "trade.lazy().filter((kt.col('time') >= time_ns(8)) & (kt.col('time') <= time_ns(8,15))).select([kt.col('sym'), kt.col('time'), kt.col('price'), kt.col('size'), ",
-   "ms": 0.8
+   "ms": 0.84
   },
   {
    "idx": 33,
    "tags": "advanced",
    "query": "trade.lazy().filter(kt.col('ex') == 'T').select([kt.col('time'), kt.col('size').cum_sum().alias('size')]).collect()",
-   "ms": 2.02
+   "ms": 2.03
   },
   {
    "idx": 34,
-   "tags": "groupby,advanced,rawcolumn",
+   "tags": "rawcolumn,groupby,advanced",
    "query": "trade.lazy().filter(kt.col('size') == kt.col('size').max().over([kt.col('ex')])).collect()",
-   "ms": 24.71
+   "ms": 22.09
   },
   {
    "idx": 35,
    "tags": "groupby,advanced,singleinstrument",
    "query": "kt.concat([quote.lazy().filter(kt.col('sym') == mostFreqInstr).filter(kt.col('bid') == kt.col('bid').max().over([kt.col('ex')])).filter(kt.col('time') == kt.col",
-   "ms": 143.6
+   "ms": 136.09
   },
   {
    "idx": 36,
    "tags": "groupby,advanced",
    "query": "trade.lazy().filter(kt.col('size') == kt.col('size').min().over([kt.col('ex'), kt.col('sym')])).collect()",
-   "ms": 40.29
+   "ms": 36.58
   },
   {
    "idx": 37,
    "tags": "groupby,advanced",
    "query": "trade.lazy().filter(kt.col('size') == kt.col('size').min().over([kt.col('ex'), kt.col('sym')])).sort('sym').collect()",
-   "ms": 43.32
+   "ms": 39.6
   },
   {
    "idx": 38,
    "tags": "groupby,advanced",
    "query": "trade.lazy().with_columns([kt.col('seq').diff().over([kt.col('sym')]).alias('seq_delta')]).filter(kt.col('seq_delta') < 0).select([kt.col('sym'), kt.col('seq').",
-   "ms": 11.44
+   "ms": 9.96
   },
   {
    "idx": 39,
    "tags": "groupby,complex",
    "query": "trade.lazy().with_columns([bucket_index().alias('bidx')]).group_by([kt.col('ex'), kt.col('bidx')]).agg([kt.lit(0).count().alias('cnt'), kt.col('size').sum().ali",
-   "ms": 12.91
+   "ms": 8.89
   },
   {
    "idx": 40,
    "tags": "groupby,complex",
    "query": "trade.lazy().filter(kt.col('corr') != 0).with_columns([bucket_index().alias('bidx')]).group_by([kt.col('sym'), kt.col('bidx')]).agg([kt.lit(0).count().alias('cn",
-   "ms": 1.23
+   "ms": 1.46
   },
   {
    "idx": 41,
-   "tags": "groupby,simple,fewinstruments",
+   "tags": "fewinstruments,groupby,simple",
    "query": "trade.lazy().filter(kt.col('sym').is_in(hundredInstrs) & (kt.col('stop') != '')).group_by([kt.col('sym'), bucket(5*MIN_NS).alias('minute')]).agg([kt.col('price'",
-   "ms": 8.09
+   "ms": 7.07
   },
   {
    "idx": 42,
-   "tags": "groupby,simple,singleinstrument",
+   "tags": "groupby,singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == anInfreqInstr).group_by([bucket(MIN_NS).alias('minute')]).agg([kt.col('asize').first().alias('asize'), kt.col('bsize').firs",
-   "ms": 3.71
+   "ms": 3.55
   },
   {
    "idx": 43,
-   "tags": "groupby,advanced,fewinstruments",
+   "tags": "fewinstruments,groupby,advanced",
    "query": "quote.lazy().filter(kt.col('sym').is_in(fivehundredInfreqInstrs)).group_by([kt.col('sym')]).agg([(kt.col('ask') * kt.col('asize')).sum().alias('wsumAsk'), (kt.c",
-   "ms": 102.42
+   "ms": 69.7
   },
   {
    "idx": 44,
-   "tags": "groupby,advanced,rawcolumn",
+   "tags": "rawcolumn,groupby,advanced",
    "query": "trade.lazy().filter(kt.col('price') == kt.col('price').min().over([kt.col('sym')])).collect()",
-   "ms": 23.73
+   "ms": 20.91
   },
   {
    "idx": 45,
    "tags": "groupby,complex,singleinstrument",
    "query": "trade.lazy().filter(kt.col('sym') == mostFreqInstr).with_columns([(kt.col('price').shift(1) != kt.col('price')).fill_null(True).cum_sum().alias('pricegroup')]).",
-   "ms": 5.67
+   "ms": 5.63
   },
   {
    "idx": 46,
-   "tags": "groupby,complex,fewinstruments",
+   "tags": "fewinstruments,complex,groupby",
    "query": "trade.lazy().filter(kt.col('sym').is_in(hundredInstrs)).with_columns([(kt.col('price').shift(1).over([kt.col('sym')]) != kt.col('price')).fill_null(True).alias(",
-   "ms": 114.12
+   "ms": 114.81
   },
   {
    "idx": 47,
    "tags": "groupby,complex",
    "query": "trade.lazy().filter(kt.col('ex').is_in(['L','M'])).with_columns([(kt.col('price').shift(1).over([kt.col('sym')]) != kt.col('price')).fill_null(True).alias('pc')",
-   "ms": 2.22
+   "ms": 2.04
   },
   {
    "idx": 48,
-   "tags": "simple,singleinstrument",
+   "tags": "singleinstrument,simple",
    "query": "quote.lazy().filter(kt.col('sym') == anInfreqInstr).select([(kt.col('bsize') + kt.col('asize')).median().alias('medMidSize')]).collect()",
-   "ms": 2.55
+   "ms": 2.56
   },
   {
    "idx": 49,
    "tags": "groupby,simple",
    "query": "trade.lazy().group_by([kt.col('ex')]).agg([kt.col('size').median().alias('medSize')]).sort('ex').collect()",
-   "ms": 10.92
+   "ms": 10.26
   },
   {
    "idx": 50,
-   "tags": "fewinstruments,rawcolumn,advanced,asofjoin",
+   "tags": "fewinstruments,rawcolumn,asofjoin,advanced",
    "query": "trade.lazy().filter(kt.col('sym').is_in(twentyInstrs)).select(['sym','time','price','size','stop','cond','ex']).join_asof(quote.lazy().select([kt.col('sym'), kt",
-   "ms": 91.37
+   "ms": 91.07
   },
   {
    "idx": 51,
-   "tags": "rawcolumn,advanced,asofjoin,singleinstrument",
+   "tags": "singleinstrument,rawcolumn,asofjoin,advanced",
    "query": "trade.lazy().filter(kt.col('sym') == aFreqInstr).select([kt.col('time'), kt.col('price'), kt.col('size'), kt.col('stop'), kt.col('cond'), kt.col('ex')]).join_as",
-   "ms": 7.76
+   "ms": 7.73
   },
   {
    "idx": 52,
-   "tags": "asofjoin,advanced,rawcolumn",
+   "tags": "rawcolumn,asofjoin,advanced",
    "query": "trade.lazy().filter(kt.col('size') > 500000.0).select(['sym','time','price','size','stop','cond','ex']).join_asof(quote.lazy().select([kt.col('sym'), kt.col('ti",
-   "ms": 73.35
+   "ms": 71.54
   },
   {
    "idx": 53,
-   "tags": "rawcolumn,timefilter,advanced,asofjoin",
+   "tags": "timefilter,rawcolumn,asofjoin,advanced",
    "query": "trade.lazy().filter((kt.col('time') >= time_ns(16,20)) & (kt.col('time') <= time_ns(16,30))).select(['sym','time','price','size','stop','cond','ex']).join_asof(",
-   "ms": 71.24
+   "ms": 69.18
   }
  ],
- "total_ms": 2434.1
+ "total_ms": 2084.6
 }

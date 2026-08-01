@@ -1,14 +1,14 @@
 {
  "suite": "clickbench-10m",
  "engine": "polars",
- "version": "1.43.0",
+ "version": "1.43.2",
  "threads": 8,
  "machine": {
-  "cpu": "Intel Core i7-6700 @ 3.40GHz",
+  "cpu": "Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
   "cores": 8,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-07-31"
+  "date": "2026-08-01"
  },
  "queries": [
   {
@@ -19,27 +19,27 @@
   {
    "idx": 2,
    "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;",
-   "ms": 5.0
+   "ms": 4.0
   },
   {
    "idx": 3,
    "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;",
-   "ms": 8.0
+   "ms": 7.0
   },
   {
    "idx": 4,
    "query": "SELECT AVG(UserID) FROM hits;",
-   "ms": 14.0
+   "ms": 13.0
   },
   {
    "idx": 5,
    "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
-   "ms": 66.0
+   "ms": 58.0
   },
   {
    "idx": 6,
    "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
-   "ms": 139.0
+   "ms": 134.0
   },
   {
    "idx": 7,
@@ -54,12 +54,12 @@
   {
    "idx": 9,
    "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
-   "ms": 176.0
+   "ms": 182.0
   },
   {
    "idx": 10,
    "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
-   "ms": 210.0
+   "ms": 204.0
   },
   {
    "idx": 11,
@@ -69,42 +69,42 @@
   {
    "idx": 12,
    "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
-   "ms": 20.0
+   "ms": 21.0
   },
   {
    "idx": 13,
    "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "ms": 113.0
+   "ms": 109.0
   },
   {
    "idx": 14,
    "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
-   "ms": 201.0
+   "ms": 193.0
   },
   {
    "idx": 15,
    "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "ms": 140.0
+   "ms": 133.0
   },
   {
    "idx": 16,
    "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
-   "ms": 81.0
+   "ms": 74.0
   },
   {
    "idx": 17,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
-   "ms": 330.0
+   "ms": 318.0
   },
   {
    "idx": 18,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
-   "ms": 335.0
+   "ms": 314.0
   },
   {
    "idx": 19,
    "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
-   "ms": 583.0
+   "ms": 549.0
   },
   {
    "idx": 20,
@@ -114,47 +114,47 @@
   {
    "idx": 21,
    "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
-   "ms": 208.0
+   "ms": 198.0
   },
   {
    "idx": 22,
    "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "ms": 230.0
+   "ms": 226.0
   },
   {
    "idx": 23,
    "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP",
-   "ms": 599.0
+   "ms": 578.0
   },
   {
    "idx": 24,
    "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;",
-   "ms": 753.0
+   "ms": 705.0
   },
   {
    "idx": 25,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
-   "ms": 75.0
+   "ms": 68.0
   },
   {
    "idx": 26,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
-   "ms": 62.0
+   "ms": 60.0
   },
   {
    "idx": 27,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
-   "ms": 89.0
+   "ms": 81.0
   },
   {
    "idx": 28,
    "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
-   "ms": 368.0
+   "ms": 359.0
   },
   {
    "idx": 29,
    "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
-   "ms": 2472.0
+   "ms": 2392.0
   },
   {
    "idx": 30,
@@ -164,62 +164,62 @@
   {
    "idx": 31,
    "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
-   "ms": 123.0
+   "ms": 115.0
   },
   {
    "idx": 32,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
-   "ms": 124.0
+   "ms": 120.0
   },
   {
    "idx": 33,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
-   "ms": 597.0
+   "ms": 575.0
   },
   {
    "idx": 34,
    "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
-   "ms": 740.0
+   "ms": 729.0
   },
   {
    "idx": 35,
    "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
-   "ms": 747.0
+   "ms": 718.0
   },
   {
    "idx": 36,
    "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
-   "ms": 69.0
+   "ms": 68.0
   },
   {
    "idx": 37,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
-   "ms": 61.0
+   "ms": 55.0
   },
   {
    "idx": 38,
    "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
-   "ms": 18.0
+   "ms": 20.0
   },
   {
    "idx": 39,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
-   "ms": 21.0
+   "ms": 20.0
   },
   {
    "idx": 40,
    "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
-   "ms": 156.0
+   "ms": 152.0
   },
   {
    "idx": 41,
    "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
-   "ms": 9.0
+   "ms": 8.0
   },
   {
    "idx": 42,
    "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A",
-   "ms": 7.0
+   "ms": 6.0
   },
   {
    "idx": 43,
@@ -227,5 +227,5 @@
    "ms": 9.0
   }
  ],
- "total_ms": 10042.0
+ "total_ms": 9659.0
 }
