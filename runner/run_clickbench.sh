@@ -27,6 +27,8 @@ run_daemon() { # dir, env, out
   until curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1; do sleep 1; done
   ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py > "../../$out" )
   kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
+  # Drain: the next daemon must not see this one's socket answering.
+  until ! curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1; do sleep 1; done
 }
 
 # keyten: first run converts the parquet into the engine's native store.
