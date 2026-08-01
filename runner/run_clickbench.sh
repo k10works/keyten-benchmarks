@@ -21,7 +21,9 @@ python3 -m venv "$WORK/venv" 2>/dev/null || true
 
 run_daemon() { # dir, env, out
   local dir="$1" envs="$2" out="$3"
-  ( cd "$dir" && env $envs "../../$WORK/venv/bin/python" "$(ls server*.py)" & echo $! > "../../$WORK/srv.pid" ) 
+  # exec so $! is the server itself; the pid file writes from repo root.
+  ( cd "$dir" && exec env $envs "../../$WORK/venv/bin/python" "$(ls server*.py)" ) &
+  echo $! > "$WORK/srv.pid"
   until curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1; do sleep 1; done
   ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py > "../../$out" )
   kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
