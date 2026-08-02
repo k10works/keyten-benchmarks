@@ -19,7 +19,12 @@ fi
 cd "$WORK/pdsh"
 python3 -m venv .venv 2>/dev/null || true
 .venv/bin/pip install -q -r requirements.txt keyten duckdb polars
-PYTHONPATH=. SCALE_FACTOR="$SCALE" .venv/bin/python scripts/prepare_data.py
+if [ ! -d "data/tables/scale-$SCALE" ] || [ -z "$(ls data/tables/scale-$SCALE/*.parquet 2>/dev/null)" ]; then
+    .venv/bin/pip install -q tpchgen-cli
+    mkdir -p "data/tables/scale-$SCALE"
+    .venv/bin/tpchgen-cli --output-dir="data/tables/scale-$SCALE" --format=tbl -s "${SCALE%.0}"
+    PYTHONPATH=. .venv/bin/python -m scripts.prepare_data --tpch_gen_folder="data/tables/scale-$SCALE"
+fi
 rm -f output/run/timings.csv
 for e in keyten polars duckdb; do
   SCALE_FACTOR="$SCALE" RUN_IO_TYPE=skip RUN_LOG_TIMINGS=1 RUN_PRE_RUN=true RUN_ITERATIONS=3 \
