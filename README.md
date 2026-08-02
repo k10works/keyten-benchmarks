@@ -18,20 +18,48 @@ The rules, applied to every published number:
 
 ## Reproduce
 
+Every suite runs from this repository alone: the query harnesses (with their
+Keyten engine additions) are vendored under `harnesses/`, and each runner
+creates a virtual environment, installs `keyten`, `duckdb`, and `polars` from
+PyPI, runs all three engines in one sitting, and writes results in the
+board's format to `results/<suite>/`. Open `board/index.html` (or
+`python3 -m http.server` and browse to `/board/`) to see your numbers
+rendered exactly like the published ones.
+
+If `python3 -m venv` on your machine creates environments without `pip`
+(some distributions), pre-create them with `uv venv --seed .work/venv` and
+`uv venv --seed .work/pdsh/.venv` first. Right after a keyten release, pin
+the exact version (`pip install keyten==X.Y.Z`) — a stale package index can
+silently install the previous one.
+
 ```bash
 git clone https://github.com/k10works/keyten-benchmarks
 cd keyten-benchmarks
-./runner/run_taq.sh <path-to-taq-parquet-dataset>
 ```
 
-The runner creates a virtual environment, installs `keyten`, `duckdb`, and
-`polars` from PyPI, clones the public
-[NYSETAQBenchmarks](https://github.com/singaraiona/NYSETAQBenchmarks) harness
-at the pinned revision, runs all three engines, and writes results in the
-board's format to `results/taq-small/`. Open `board/index.html` (or
-`python3 -m http.server` and browse to `/board/`) to see your numbers rendered
-exactly like the published ones. The dataset derives from the public TAQ
-sample day — see the harness README for generating the Parquet layout.
+**TAQ** — the dataset derives from the public TAQ sample day; generate the
+Parquet layout with `harnesses/taq/generateDB.sh` (see `harnesses/taq/
+README.md`), then point the runner at the rowgroup directory:
+
+```bash
+./runner/run_taq.sh <data>/small/parquet/rowgroup
+```
+
+**PDS-H (SF10)** — table generation is driven by the vendored harness's
+Makefile (TPC-H derived; see `harnesses/pdsh/README.md`):
+
+```bash
+./runner/run_pdsh.sh 10.0
+```
+
+**ClickBench (10M)** — derive the subset from the public ClickBench hits
+file, then run:
+
+```bash
+duckdb -c "COPY (FROM read_parquet('hits.parquet') LIMIT 10000000)
+           TO 'hits10m.parquet'"
+./runner/run_clickbench.sh hits10m.parquet
+```
 
 ## Suites
 
