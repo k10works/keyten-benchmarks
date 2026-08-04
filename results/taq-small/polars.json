@@ -8,315 +8,315 @@
   "cores": 8,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-08-03"
+  "date": "2026-08-04"
  },
  "queries": [
   {
    "idx": 1,
-   "tags": "timefilter,rawcolumn,simple,originalorder",
+   "tags": "timefilter,originalorder,simple,rawcolumn",
    "query": "quote.filter(pl.col(\"time\") < timedelta(hours=8))",
-   "ms": 7.0
+   "ms": 6.91
   },
   {
    "idx": 2,
-   "tags": "simple,emptyresult,rawcolumn",
+   "tags": "emptyresult,simple,rawcolumn",
    "query": "trade.filter(pl.col(\"seq\") == 0)",
-   "ms": 0.57
+   "ms": 0.61
   },
   {
    "idx": 3,
-   "tags": "timefilter,rawcolumn,manydummyfilters,simple",
+   "tags": "timefilter,simple,rawcolumn,manydummyfilters",
    "query": "trade.filter(pl.col(\"seq\") > 0, pl.col(\"price\") > 0, pl.col(\"time\").is_between(timedelta(), timedelta(days=1), closed=\"left\"), pl.col(\"size\") < 2147483647)",
-   "ms": 1.45
+   "ms": 1.47
   },
   {
    "idx": 4,
-   "tags": "simple,timefilter,rawcolumn",
+   "tags": "timefilter,simple,rawcolumn",
    "query": "trade.filter(pl.col(\"time\").is_between(timedelta(hours=10), timedelta(hours=10, seconds=10), closed=\"both\"))",
-   "ms": 1.16
+   "ms": 1.07
   },
   {
    "idx": 5,
-   "tags": "timefilter,rawcolumn,simple,singleinstrument",
+   "tags": "timefilter,simple,rawcolumn,singleinstrument",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr, pl.col(\"time\").is_between(timedelta(hours=8, minutes=30), timedelta(hours=16, minutes=30), closed=\"both\"))",
-   "ms": 8.31
+   "ms": 8.43
   },
   {
    "idx": 6,
-   "tags": "fewinstruments,timefilter,rawcolumn,simple",
+   "tags": "fewinstruments,timefilter,simple,rawcolumn",
    "query": "quote.filter(pl.col(\"sym\").is_in(hundredInstrs), pl.col(\"time\").is_between(timedelta(hours=8, minutes=30), timedelta(hours=8, minutes=35), closed=\"both\"))",
-   "ms": 17.89
+   "ms": 14.48
   },
   {
    "idx": 7,
    "tags": "simple,rawcolumn",
    "query": "trade.filter(pl.col(\"source\") == \"N\").select(\"sym\", \"time\", \"price\", \"size\", \"stop\", \"cond\", \"ex\")",
-   "ms": 4.08
+   "ms": 3.9
   },
   {
    "idx": 8,
-   "tags": "simple,singleinstrument",
+   "tags": "singleinstrument,simple",
    "query": "quote.filter(pl.col(\"sym\") == mostFreqInstr).select(\"time\", mid=((pl.col(\"bid\") + pl.col(\"ask\")) / 2))",
-   "ms": 3.88
+   "ms": 3.83
   },
   {
    "idx": 9,
-   "tags": "simple,unnecessarycolumnfetch,singleinstrument",
+   "tags": "singleinstrument,unnecessarycolumnfetch,simple",
    "query": "quote.filter(pl.col(\"sym\") == mostFreqInstr).select(pl.all()).select(\"time\", mid=(pl.col(\"bid\") + pl.col(\"ask\")) / 2)",
-   "ms": 4.09
+   "ms": 4.13
   },
   {
    "idx": 10,
-   "tags": "sort,simple,singleinstrument",
+   "tags": "singleinstrument,sort,simple",
    "query": "quote.filter(pl.col(\"sym\") == mostFreqInstr).select(\"time\", mid=(pl.col(\"bid\") + pl.col(\"ask\")) / 2).sort(\"mid\", descending=True)",
-   "ms": 25.53
+   "ms": 21.05
   },
   {
    "idx": 11,
-   "tags": "simple,singleinstrument,rawcolumn",
+   "tags": "singleinstrument,simple,rawcolumn",
    "query": "quote.filter(pl.col(\"sym\") == aFreqInstr).select(\"sym\", \"time\", \"bid\", \"ask\", \"bsize\", \"asize\", \"cond\", \"ex\")",
-   "ms": 2.57
+   "ms": 2.59
   },
   {
    "idx": 12,
-   "tags": "simple,fewinstruments,rawcolumn",
+   "tags": "fewinstruments,simple,rawcolumn",
    "query": "quote.filter(pl.col(\"sym\").is_in(fivehundredInfreqInstrs), pl.col(\"bsize\") + pl.col(\"asize\") > 2000).select(\"sym\", \"time\", \"bid\", \"ask\", \"bsize\", \"asize\", \"cond",
-   "ms": 59.42
+   "ms": 59.43
   },
   {
    "idx": 13,
-   "tags": "simple,singleinstrument",
+   "tags": "singleinstrument,simple",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr).select(((pl.col(\"bsize\") * pl.col(\"bid\") + pl.col(\"asize\") * pl.col(\"ask\")) / (pl.col(\"asize\") + pl.col(\"bsize\"))).",
-   "ms": 3.11
+   "ms": 2.91
   },
   {
    "idx": 14,
-   "tags": "simple,singleinstrument,groupby",
+   "tags": "singleinstrument,groupby,simple",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\", every=\"10m\",",
-   "ms": 6.08
+   "ms": 6.85
   },
   {
    "idx": 15,
-   "tags": "groupby,pivot,advanced,singleinstrument",
+   "tags": "pivot,groupby,advanced,singleinstrument",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\", every=\"10m\",",
-   "ms": 7.1
+   "ms": 7.07
   },
   {
    "idx": 16,
-   "tags": "fewinstruments,groupby,pivot,advanced",
+   "tags": "fewinstruments,pivot,groupby,advanced",
    "query": "quote.filter(pl.col(\"sym\").is_in(fivehundredInfreqInstrs)).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\"",
-   "ms": 413.22
+   "ms": 427.03
   },
   {
    "idx": 17,
-   "tags": "fewinstruments,fillforward,groupby,pivot,advanced",
+   "tags": "fewinstruments,pivot,groupby,advanced,fillforward",
    "query": "quote.filter(pl.col(\"sym\").is_in(fivehundredInfreqInstrs)).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\"",
-   "ms": 406.95
+   "ms": 399.01
   },
   {
    "idx": 18,
-   "tags": "simple,singleinstrument,groupby",
+   "tags": "singleinstrument,groupby,simple",
    "query": "quote.filter(pl.col(\"sym\") == aFreqInstr).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\", every=\"10m\", cl",
-   "ms": 4.5
+   "ms": 4.7
   },
   {
    "idx": 19,
-   "tags": "simple,fewinstruments,groupby",
+   "tags": "groupby,fewinstruments,simple",
    "query": "quote.filter(pl.col(\"sym\").is_in(hundredInstrs)).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\", every=\"1",
-   "ms": 445.64
+   "ms": 450.81
   },
   {
    "idx": 20,
-   "tags": "advanced,singleinstrument",
+   "tags": "singleinstrument,advanced",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr).select(((pl.col(\"ask\") - pl.col(\"bid\")).dot(pl.col(\"bsize\") + pl.col(\"asize\")) / (pl.col(\"bsize\") + pl.col(\"asize\")",
-   "ms": 2.88
+   "ms": 2.74
   },
   {
    "idx": 21,
    "tags": "timefilter,advanced",
    "query": "quote.filter(pl.col(\"time\").is_between(timedelta(hours=8, minutes=30), timedelta(hours=8, minutes=35), closed=\"both\")).select(((pl.col(\"ask\") - pl.col(\"bid\")).d",
-   "ms": 7.85
+   "ms": 7.72
   },
   {
    "idx": 22,
-   "tags": "advanced,singleinstrument,groupby",
+   "tags": "singleinstrument,advanced,groupby",
    "query": "quote.filter(pl.col(\"sym\") == mostFreqInstr).group_by(pl.col(\"ex\").replace_strict(exnames, default=\"\")).agg(((pl.col(\"ask\") - pl.col(\"bid\")).dot((pl.col(\"asize\"",
-   "ms": 54.03
+   "ms": 52.99
   },
   {
    "idx": 23,
-   "tags": "advanced,singleinstrument,groupby",
+   "tags": "singleinstrument,advanced,groupby",
    "query": "quote.filter(pl.col(\"sym\") == mostFreqInstr).with_columns(spread = pl.col(\"ask\") - pl.col(\"bid\"), sizes = pl.col(\"asize\") + pl.col(\"bsize\")).group_by(pl.col(\"ex",
-   "ms": 42.78
+   "ms": 45.96
   },
   {
    "idx": 24,
-   "tags": "fewinstruments,advanced,groupby",
+   "tags": "groupby,advanced,fewinstruments",
    "query": "quote.filter(pl.col(\"sym\").is_in(hundredInstrs)).group_by(pl.col(\"sym\"), pl.col(\"ex\").replace_strict(exnames, default=\"\")).agg(((pl.col(\"ask\") - pl.col(\"bid\")).",
-   "ms": 652.15
+   "ms": 677.43
   },
   {
    "idx": 25,
    "tags": "advanced,groupby",
    "query": "quote.filter(pl.col(\"shortSaleRestrictionIndicator\") == \"0\").group_by(pl.col(\"ex\").replace_strict(exnames, default=\"\")).agg(((pl.col(\"ask\") - pl.col(\"bid\")).dot",
-   "ms": 137.51
+   "ms": 137.43
   },
   {
    "idx": 26,
    "tags": "simple",
    "query": "trade.filter(pl.col(\"size\") > 700000).select(\"sym\", \"ex\").unique(maintain_order=True)",
-   "ms": 1.03
+   "ms": 1.01
   },
   {
    "idx": 27,
-   "tags": "simple,fewinstruments,groupby",
+   "tags": "groupby,fewinstruments,simple",
    "query": "quote.filter(pl.col(\"sym\").is_in(twentyInstrs)).group_by(\"sym\").agg((pl.col(\"bsize\").dot(pl.col(\"bid\")) / pl.col(\"bsize\").sum()).alias(\"weightedBidPrice\"), (pl.",
-   "ms": 43.49
+   "ms": 42.3
   },
   {
    "idx": 28,
-   "tags": "advanced,singleinstrument",
+   "tags": "singleinstrument,advanced",
    "query": "trade.filter(pl.col(\"sym\") == mostFreqInstr).select(\"time\", pl.col(\"price\").rolling_mean(window_size=20))",
-   "ms": 1.42
+   "ms": 1.46
   },
   {
    "idx": 29,
-   "tags": "fewinstruments,advanced,groupby",
+   "tags": "groupby,advanced,fewinstruments",
    "query": "quote.filter(pl.col(\"sym\").is_in(twentyInstrs)).select(pl.col(\"sym\"), pl.col(\"time\"), ((pl.col(\"bsize\") * pl.col(\"bid\") + pl.col(\"asize\") * pl.col(\"ask\")) / (pl",
-   "ms": 94.56
+   "ms": 93.71
   },
   {
    "idx": 30,
-   "tags": "advanced,singleinstrument",
+   "tags": "singleinstrument,advanced",
    "query": "trade.filter(pl.col(\"sym\") == aFreqInstr).select(\"time\", pl.col(\"size\").cum_sum())",
-   "ms": 0.85
+   "ms": 0.88
   },
   {
    "idx": 31,
    "tags": "advanced",
    "query": "trade.filter(pl.col(\"ex\") == \"L\").select(\"time\", pl.col(\"size\").cum_sum())",
-   "ms": 0.85
+   "ms": 0.92
   },
   {
    "idx": 32,
-   "tags": "timefilter,groupby,complex",
+   "tags": "complex,timefilter,groupby",
    "query": "trade.filter(pl.col(\"time\").is_between(timedelta(hours=8), timedelta(hours=8, minutes=15), closed=\"both\")).select(pl.col(\"sym\"), pl.col(\"time\"), pl.col(\"price\")",
-   "ms": 1.53
+   "ms": 1.49
   },
   {
    "idx": 33,
    "tags": "advanced",
    "query": "trade.filter(pl.col(\"ex\") == \"T\").select(\"time\", pl.col(\"size\").cum_sum())",
-   "ms": 1.83
+   "ms": 1.87
   },
   {
    "idx": 34,
-   "tags": "groupby,advanced,rawcolumn",
+   "tags": "advanced,groupby,rawcolumn",
    "query": "trade.filter(pl.col(\"size\") == pl.col(\"size\").max().over(\"ex\"))",
-   "ms": 5.4
+   "ms": 5.31
   },
   {
    "idx": 35,
-   "tags": "advanced,singleinstrument,groupby",
+   "tags": "singleinstrument,advanced,groupby",
    "query": "pl.concat([quote.filter(pl.col(\"sym\") == mostFreqInstr).filter(pl.col(\"bid\") == pl.col(\"bid\").max().over(\"ex\")).filter(pl.col(\"time\") == pl.col(\"time\").min().ov",
-   "ms": 27.26
+   "ms": 27.31
   },
   {
    "idx": 36,
    "tags": "advanced,groupby",
    "query": "trade.filter(pl.col(\"size\") == pl.col(\"size\").min().over([\"ex\", \"sym\"]))",
-   "ms": 9.83
+   "ms": 9.81
   },
   {
    "idx": 37,
    "tags": "advanced,groupby",
    "query": "trade.filter(pl.col(\"size\") == pl.col(\"size\").min().over([\"ex\", \"sym\"])).sort(\"sym\")",
-   "ms": 11.1
+   "ms": 11.41
   },
   {
    "idx": 38,
    "tags": "advanced,groupby",
    "query": "trade.with_columns((pl.col(\"seq\").diff().over(\"sym\")).alias(\"seq_delta\")).filter(pl.col(\"seq_delta\") < 0).select(\"sym\", pl.col(\"seq\").alias(\"seqDecr\")).sort(\"sy",
-   "ms": 6.95
+   "ms": 6.77
   },
   {
    "idx": 41,
-   "tags": "simple,fewinstruments,groupby",
+   "tags": "groupby,fewinstruments,simple",
    "query": "trade.filter(pl.col(\"sym\").is_in(hundredInstrs),pl.col(\"stop\") != \"\").with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_co",
-   "ms": 13.17
+   "ms": 12.77
   },
   {
    "idx": 42,
-   "tags": "simple,singleinstrument,groupby",
+   "tags": "singleinstrument,groupby,simple",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr).with_columns(time = pl.lit(datadate).dt.combine(pl.col(\"time\"))).group_by_dynamic(index_column=\"time\", every=\"1m\", ",
-   "ms": 3.96
+   "ms": 3.99
   },
   {
    "idx": 43,
-   "tags": "fewinstruments,advanced,groupby",
+   "tags": "groupby,advanced,fewinstruments",
    "query": "quote.filter(pl.col(\"sym\").is_in(fivehundredInfreqInstrs)).group_by(\"sym\").agg((pl.col(\"ask\") * pl.col(\"asize\")).sum().alias(\"wsumAsk\"), (pl.col(\"bid\") * pl.col",
-   "ms": 304.18
+   "ms": 315.44
   },
   {
    "idx": 44,
-   "tags": "groupby,advanced,rawcolumn",
+   "tags": "advanced,groupby,rawcolumn",
    "query": "trade.filter(pl.col(\"price\") == pl.col(\"price\").min().over(\"sym\"))",
-   "ms": 3.05
+   "ms": 3.16
   },
   {
    "idx": 45,
-   "tags": "groupby,singleinstrument,complex",
+   "tags": "complex,singleinstrument,groupby",
    "query": "trade.filter(pl.col(\"sym\") == mostFreqInstr).group_by((pl.col(\"price\").shift() != pl.col(\"price\")).fill_null(True).cum_sum().alias(\"pricegroup\"), maintain_order",
-   "ms": 3.5
+   "ms": 2.93
   },
   {
    "idx": 46,
-   "tags": "groupby,fewinstruments,complex",
+   "tags": "complex,fewinstruments,groupby",
    "query": "trade.filter(pl.col(\"sym\").is_in(hundredInstrs)).with_columns(((pl.col(\"price\").shift().over(\"sym\") != pl.col(\"price\")).fill_null(True).alias(\"price_changed\")))",
-   "ms": 57.64
+   "ms": 58.15
   },
   {
    "idx": 47,
-   "tags": "groupby,complex",
+   "tags": "complex,groupby",
    "query": "trade.filter(pl.col(\"ex\").is_in([\"L\", \"M\"])).with_columns(((pl.col(\"price\").shift().over(\"sym\") != pl.col(\"price\")).fill_null(True).alias(\"price_changed\"))).gro",
-   "ms": 2.77
+   "ms": 2.61
   },
   {
    "idx": 48,
-   "tags": "simple,singleinstrument",
+   "tags": "singleinstrument,simple",
    "query": "quote.filter(pl.col(\"sym\") == anInfreqInstr).select((pl.col(\"bsize\") + pl.col(\"asize\")).median().alias(\"medMidSize\"))",
-   "ms": 3.0
+   "ms": 2.88
   },
   {
    "idx": 49,
-   "tags": "simple,groupby",
+   "tags": "groupby,simple",
    "query": "trade.group_by(\"ex\").agg(pl.col(\"size\").median().alias(\"medSize\")).sort(\"ex\")",
-   "ms": 5.95
+   "ms": 5.87
   },
   {
    "idx": 50,
-   "tags": "fewinstruments,rawcolumn,asofjoin,advanced",
+   "tags": "fewinstruments,rawcolumn,advanced,asofjoin",
    "query": "trade.filter(pl.col(\"sym\").is_in(twentyInstrs)).select(\"sym\", \"time\", \"price\", \"size\", \"stop\", \"cond\", \"ex\").join_asof(quote.select(\"sym\", \"time\", \"bid\", \"ask\",",
-   "ms": 61.4
+   "ms": 57.49
   },
   {
    "idx": 51,
-   "tags": "rawcolumn,asofjoin,advanced,singleinstrument",
+   "tags": "rawcolumn,advanced,singleinstrument,asofjoin",
    "query": "trade.filter(pl.col(\"sym\") == aFreqInstr).select(\"time\", \"price\", \"size\", \"stop\", \"cond\", \"ex\").join_asof(quote.filter(pl.col(\"sym\") == aFreqInstr).select(\"time",
-   "ms": 3.98
+   "ms": 3.83
   },
   {
    "idx": 52,
    "tags": "asofjoin,advanced,rawcolumn",
    "query": "trade.filter(pl.col(\"size\") > 500000).select(\"sym\", \"time\", \"price\", \"size\", \"stop\", \"cond\", \"ex\").join_asof(quote.select(\"sym\", \"time\", \"bid\", \"ask\", \"bsize\", ",
-   "ms": 165.42
+   "ms": 158.35
   },
   {
    "idx": 53,
-   "tags": "timefilter,rawcolumn,asofjoin,advanced",
+   "tags": "timefilter,rawcolumn,advanced,asofjoin",
    "query": "trade.filter(pl.col(\"time\").is_between(timedelta(hours=16, minutes=20), timedelta(hours=16, minutes=30), closed=\"both\")).select(\"sym\", \"time\", \"price\", \"size\", ",
-   "ms": 63.8
+   "ms": 63.5
   }
  ],
- "total_ms": 3217.7
+ "total_ms": 3245.8
 }

@@ -14,113 +14,113 @@
   {
    "idx": 1,
    "query": "PDS-H query 1 (TPC-H derived)",
-   "ms": 545.78
+   "ms": 547.07
   },
   {
    "idx": 2,
    "query": "PDS-H query 2 (TPC-H derived)",
-   "ms": 52.47
+   "ms": 52.35
   },
   {
    "idx": 3,
    "query": "PDS-H query 3 (TPC-H derived)",
-   "ms": 251.0
+   "ms": 250.48
   },
   {
    "idx": 4,
    "query": "PDS-H query 4 (TPC-H derived)",
-   "ms": 286.64
+   "ms": 286.36
   },
   {
    "idx": 5,
    "query": "PDS-H query 5 (TPC-H derived)",
-   "ms": 248.97
+   "ms": 255.66
   },
   {
    "idx": 6,
    "query": "PDS-H query 6 (TPC-H derived)",
-   "ms": 137.06
+   "ms": 136.8
   },
   {
    "idx": 7,
    "query": "PDS-H query 7 (TPC-H derived)",
-   "ms": 306.87
+   "ms": 305.65
   },
   {
    "idx": 8,
    "query": "PDS-H query 8 (TPC-H derived)",
-   "ms": 196.56
+   "ms": 198.94
   },
   {
    "idx": 9,
    "query": "PDS-H query 9 (TPC-H derived)",
-   "ms": 1020.09
+   "ms": 1006.19
   },
   {
    "idx": 10,
    "query": "PDS-H query 10 (TPC-H derived)",
-   "ms": 515.17
+   "ms": 514.12
   },
   {
    "idx": 11,
    "query": "PDS-H query 11 (TPC-H derived)",
-   "ms": 26.02
+   "ms": 26.52
   },
   {
    "idx": 12,
    "query": "PDS-H query 12 (TPC-H derived)",
-   "ms": 349.07
+   "ms": 353.29
   },
   {
    "idx": 13,
    "query": "PDS-H query 13 (TPC-H derived)",
-   "ms": 858.94
+   "ms": 844.6
   },
   {
    "idx": 14,
    "query": "PDS-H query 14 (TPC-H derived)",
-   "ms": 209.07
+   "ms": 206.74
   },
   {
    "idx": 15,
    "query": "PDS-H query 15 (TPC-H derived)",
-   "ms": 174.12
+   "ms": 174.56
   },
   {
    "idx": 16,
    "query": "PDS-H query 16 (TPC-H derived)",
-   "ms": 198.89
+   "ms": 199.2
   },
   {
    "idx": 17,
    "query": "PDS-H query 17 (TPC-H derived)",
-   "ms": 187.28
+   "ms": 185.83
   },
   {
    "idx": 18,
    "query": "PDS-H query 18 (TPC-H derived)",
-   "ms": 754.71
+   "ms": 740.99
   },
   {
    "idx": 19,
    "query": "PDS-H query 19 (TPC-H derived)",
-   "ms": 456.79
+   "ms": 453.14
   },
   {
    "idx": 20,
    "query": "PDS-H query 20 (TPC-H derived)",
-   "ms": 230.22
+   "ms": 231.3
   },
   {
    "idx": 21,
    "query": "PDS-H query 21 (TPC-H derived)",
-   "ms": 852.33
+   "ms": 839.33
   },
   {
    "idx": 22,
    "query": "PDS-H query 22 (TPC-H derived)",
-   "ms": 141.87
+   "ms": 144.98
   }
  ],
- "total_ms": 7999.9
+ "total_ms": 7954.1
 }
