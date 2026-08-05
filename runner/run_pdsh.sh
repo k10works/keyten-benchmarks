@@ -28,7 +28,7 @@ fi
 rm -f output/run/timings.csv
 for e in keyten polars duckdb; do
   SCALE_FACTOR="$SCALE" RUN_IO_TYPE=skip RUN_LOG_TIMINGS=1 RUN_PRE_RUN=true RUN_ITERATIONS=3 \
-    .venv/bin/python -m queries.$e
+    timeout 1800 .venv/bin/python -m queries.$e
 done
 cd ../..
 MACHINE="$WORK/machine.json"   # written by run_taq.sh's probe, or create equivalently
