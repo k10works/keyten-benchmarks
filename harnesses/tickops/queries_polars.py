@@ -5,8 +5,11 @@ import polars as pl
 
 
 def load(data_dir):
-    trades = pl.scan_parquet(f"{data_dir}/trades.parquet")
-    quotes = pl.scan_parquet(f"{data_dir}/quotes.parquet")
+    """Read both tables into memory once (``read_parquet`` is eager), then
+    hand back a fresh lazy plan per table; every query starts from the
+    in-memory frame instead of re-decoding Parquet."""
+    trades = pl.read_parquet(f"{data_dir}/trades.parquet").lazy()
+    quotes = pl.read_parquet(f"{data_dir}/quotes.parquet").lazy()
     return trades, quotes
 
 
@@ -17,8 +20,12 @@ def _with_ret(trades):
 
 
 def bars_1m(trades, quotes):
+    # group_by_dynamic is polars' idiomatic per-symbol time-bucketing (vs.
+    # group_by + truncate): its defaults (closed="left", label="left",
+    # start_by="window") floor-bucket exactly like keyten's truncate("1m"),
+    # verified boundary-for-boundary against group_by+truncate.
     return (
-        trades.group_by(["sym", pl.col("ts").dt.truncate("1m").alias("minute")])
+        trades.group_by_dynamic(pl.col("ts").alias("minute"), every="1m", group_by="sym")
         .agg([
             pl.col("price").first().alias("open"),
             pl.col("price").max().alias("high"),
@@ -77,7 +84,7 @@ def asof_tol_5s(trades, quotes):
 def xsec_rank(trades, quotes):
     per_minute = (
         trades.with_columns([(pl.col("price") * pl.col("size")).alias("value")])
-        .group_by(["sym", pl.col("ts").dt.truncate("1m").alias("minute")])
+        .group_by_dynamic(pl.col("ts").alias("minute"), every="1m", group_by="sym")
         .agg([pl.col("value").sum().alias("value")])
     )
     ranked = per_minute.with_columns([
@@ -96,8 +103,8 @@ def xsec_rank(trades, quotes):
 
 QUERIES = [
     dict(idx=1, name="bars_1m", run=bars_1m,
-         code="trades.group_by(['sym', col('ts').dt.truncate('1m')]).agg([...open/high/low/close/volume, "
-              "(price*size).sum()/size.sum() as vwap]).collect()"),
+         code="trades.group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym')"
+              ".agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).collect()"),
     dict(idx=2, name="log_returns", run=log_returns,
          code="trades.with_columns([col('price').log().diff().over('sym').alias('ret')])"
               ".select(['sym','ts','ret']).collect()"),
@@ -113,6 +120,6 @@ QUERIES = [
          code="trades.join_asof(quotes, on='ts', by='sym', strategy='backward', "
               "tolerance='5s').collect()"),
     dict(idx=8, name="xsec_rank", run=xsec_rank,
-         code="value.rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_in_minute), "
-              "summed per minute"),
+         code="value = group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym').agg(sum); "
+              "rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_in_minute), summed per minute"),
 ]

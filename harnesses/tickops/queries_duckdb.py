@@ -13,8 +13,11 @@ plain SQL, no UDF.
 
 
 def load(con, data_dir):
-    con.execute(f"CREATE OR REPLACE VIEW trades AS SELECT * FROM read_parquet('{data_dir}/trades.parquet')")
-    con.execute(f"CREATE OR REPLACE VIEW quotes AS SELECT * FROM read_parquet('{data_dir}/quotes.parquet')")
+    """Materialize both tables into the (in-memory) database once, matching
+    the TAQ harness's ``CREATE TABLE ... AS`` precedent -- a VIEW would
+    re-decode the Parquet files on every query."""
+    con.execute(f"CREATE OR REPLACE TABLE trades AS SELECT * FROM read_parquet('{data_dir}/trades.parquet')")
+    con.execute(f"CREATE OR REPLACE TABLE quotes AS SELECT * FROM read_parquet('{data_dir}/quotes.parquet')")
     return con, con
 
 

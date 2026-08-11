@@ -57,15 +57,16 @@ json.dump({"cpu": cpu, "cores": os.cpu_count(), "ram_gb": ram,
            "date": datetime.date.today().isoformat()}, open(sys.argv[1], "w"))
 PYEOF
 
-run_engine() {
-  local engine="$1" envvar="$2"
-  env "$envvar=$THREADS" "$VENV/python" "$HARNESS/harness.py" run \
-    --engine "$engine" --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
-}
-
-run_engine keyten KEYTEN_WORKERS
-run_engine duckdb DUCKDB_THREADS
-run_engine polars POLARS_MAX_THREADS
+# harness.py takes thread count as --threads for every engine (keyten
+# kt.set_workers(), duckdb SET threads); polars is the one engine that
+# reads its thread count from the process environment at import time, so
+# POLARS_MAX_THREADS has to be set before the interpreter starts. Setting
+# KEYTEN_WORKERS/DUCKDB_THREADS here too would be vestigial -- harness.py
+# doesn't read them -- so only polars gets an env var.
+"$VENV/python" "$HARNESS/harness.py" run --engine keyten --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
+"$VENV/python" "$HARNESS/harness.py" run --engine duckdb --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
+env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" run \
+  --engine polars --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
 
 "$VENV/python" "$HARNESS/harness.py" check --out-dir "$OUT" --engines keyten,duckdb,polars
 

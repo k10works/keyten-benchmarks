@@ -11,9 +11,12 @@ import keyten as kt
 
 
 def load(data_dir):
-    trades = kt.scan_parquet(f"{data_dir}/trades.parquet")
-    quotes = kt.scan_parquet(f"{data_dir}/quotes.parquet")
-    return trades, quotes
+    """Read both tables into memory once (matching the TAQ harness's
+    ``read_parquet`` + ``.lazy()`` precedent); every query starts a fresh
+    lazy plan off the same in-memory frame, so no query re-decodes Parquet."""
+    trades = kt.DataFrame.read_parquet(f"{data_dir}/trades.parquet")
+    quotes = kt.DataFrame.read_parquet(f"{data_dir}/quotes.parquet")
+    return trades.lazy(), quotes.lazy()
 
 
 def _with_ret(trades):

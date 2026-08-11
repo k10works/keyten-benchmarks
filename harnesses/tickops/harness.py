@@ -1,25 +1,39 @@
 #!/usr/bin/env python3
 # Copyright (c) 2026 Rayforce Technologies Inc. Licensed under the MIT License.
-"""Tick-ops harness: load the Parquet dataset, cross-check each engine's
-query result against the others for correctness, then time best-of-3.
+"""Tick-ops harness: load the Parquet dataset once per engine, cross-check
+every query's *full* result against the other engines for correctness,
+then time best-of-3.
 
     python3 harness.py run --engine {keyten,duckdb,polars} --data-dir DIR --out-dir DIR [--threads N]
     python3 harness.py check --out-dir DIR --engines keyten,duckdb,polars
 
-``run`` executes one engine's 8 queries in-process (so KEYTEN_WORKERS /
-DUCKDB_THREADS / POLARS_MAX_THREADS parity is set per-process by the
-caller, same as run_taq.sh) and writes, per engine, ``<out-dir>/<engine>.csv``
-(idx,name,query,ms best-of-3) and ``<out-dir>/<engine>.checksum.json``
-(row counts + numeric spot-aggregates per query, computed by the engine's
-own native reduction over the *full* materialized result -- see
-``checksum()``).
+``run`` loads both tables into memory once (see each ``queries_*.load()``
+-- keyten and duckdb materialize an in-memory table, polars an eager
+``DataFrame``; no query re-decodes Parquet) with the given ``--threads``
+(keyten via ``set_workers``, duckdb via ``SET threads``; polars reads
+``POLARS_MAX_THREADS`` from the process environment at import time, so
+the caller must set it before starting Python -- see run_tickops.sh),
+then for each query:
 
-``check`` loads every engine's checksum file and compares them pairwise:
-row counts must match exactly; numeric sums must match within the
-tolerance documented in README.md. A query missing from an engine's
-checksums (a duckdb ewm_vol-style gap) is skipped, not treated as a
-mismatch. Any real mismatch exits non-zero -- correctness fails loudly,
-never silently.
+1. Correctness -- call the query once, sort the *full* result on its
+   natural key (see ``NATURAL_KEY``), and write it to
+   ``<out-dir>/<engine>.q<idx>.parquet``. Nothing here is timed.
+2. Timing -- call the query three more times, timing each engine's own
+   natural materialization: keyten's ``.collect()``, polars' ``.collect()``,
+   duckdb's ``.to_arrow_table()`` (already embedded in its query
+   functions -- for DuckDB, forcing the relation to Arrow *is* execution,
+   the same role ``.collect()`` plays for the lazy engines). The best of
+   three lands in ``<out-dir>/<engine>.csv`` (idx,name,query,ms).
+
+``check`` reads every engine's per-query Parquet file and compares them
+pairwise, column by column, over *every row* (not just an aggregate) --
+this catches a value landing in the wrong group/row that a sum alone
+would hide. Rows are matched positionally after both sides are sorted on
+the same natural key; non-floating columns must match exactly, floating
+columns within the tolerance documented in README.md. A query missing
+from an engine (a documented gap, e.g. duckdb's ewm_vol) is skipped, not
+treated as a mismatch. Any real mismatch exits non-zero -- correctness
+fails loudly, never silently.
 """
 
 import argparse
@@ -31,33 +45,22 @@ import time
 
 import pyarrow as pa
 import pyarrow.compute as pc
+import pyarrow.parquet as pq
 
 ATOL = 1e-6
 RTOL = 1e-4
 
-# Numeric columns to spot-check per query idx, keyed by the shared output
-# column names every engine module uses.
-NUMERIC_COLS = {
-    1: ["open", "high", "low", "close", "volume", "vwap"],
-    2: ["ret"],
-    3: ["roll_std"],
-    4: ["roll_std_5m"],
-    5: ["ewm_std"],
-    6: ["price", "size", "bid", "ask"],
-    7: ["price", "size", "bid", "ask"],
-    8: ["top_decile_count"],
+# The column(s) each query's result is sorted and compared on.
+NATURAL_KEY = {
+    1: ["sym", "minute"],
+    2: ["sym", "ts"],
+    3: ["sym", "ts"],
+    4: ["sym", "ts"],
+    5: ["sym", "ts"],
+    6: ["sym", "ts"],
+    7: ["sym", "ts"],
+    8: ["minute"],
 }
-
-
-def checksum(table: pa.Table, idx: int) -> dict:
-    out = {"rows": table.num_rows}
-    for c in NUMERIC_COLS[idx]:
-        col = table.column(c)
-        valid = pc.count(col, mode="only_valid").as_py()
-        s = pc.sum(col).as_py()
-        out[f"{c}__valid"] = int(valid)
-        out[f"{c}__sum"] = float(s) if s is not None else None
-    return out
 
 
 def _to_arrow(engine, result):
@@ -103,19 +106,23 @@ def run(engine, data_dir, out_dir, threads):
             print(f"[{engine}] {idx:2d} {name:15s} GAP: {q.get('gap')}", file=sys.stderr)
             continue
 
-        # Correctness: materialize once, checksum via the engine's own
-        # arrow-backed columnar reduction (no Python row loops).
+        # Correctness: materialize the full result once, sorted on its
+        # natural key, and hand it to disk for check() to compare
+        # value-for-value across engines. Not timed.
         result = q["run"](trades, quotes)
         table = _to_arrow(engine, result)
-        checksums[idx] = checksum(table, idx)
+        key = [(k, "ascending") for k in NATURAL_KEY[idx]]
+        table = table.sort_by(key)
+        pq.write_table(table, os.path.join(out_dir, f"{engine}.q{idx}.parquet"))
+        checksums[idx] = {"rows": table.num_rows, "columns": table.column_names}
         del result, table
 
-        # Timing: best of three, the query call itself (build + execute).
+        # Timing: best of three, each engine's own natural materialization
+        # call only (no extra Arrow conversion inside the timed region).
         times_ms = []
         for _ in range(3):
             t0 = time.perf_counter()
             r = q["run"](trades, quotes)
-            _to_arrow(engine, r)  # force materialization before stopping the clock
             t1 = time.perf_counter()
             times_ms.append((t1 - t0) * 1000.0)
             del r
@@ -136,45 +143,82 @@ def run(engine, data_dir, out_dir, threads):
     print(f"{csv_path}\n{checksum_path}", file=sys.stderr)
 
 
-def _close(a, b, atol=ATOL, rtol=RTOL):
-    if a is None or b is None:
-        return a is None and b is None
-    return abs(a - b) <= atol + rtol * max(abs(a), abs(b))
+def _normalize(col):
+    """Widen timestamp columns to a common unit so a us/ns storage
+    difference alone never reads as a mismatch (widening ns<-us is exact,
+    never lossy)."""
+    if pa.types.is_timestamp(col.type):
+        return pc.cast(col, pa.timestamp("ns"))
+    return col
+
+
+def _column_matches(a, b, atol=ATOL, rtol=RTOL):
+    """True if arrow columns ``a`` and ``b`` agree at every row: same null
+    positions, floating values within tolerance, everything else exact."""
+    if len(a) != len(b):
+        return False
+    a, b = _normalize(a), _normalize(b)
+    na, nb = pc.is_null(a), pc.is_null(b)
+    if not pc.all(pc.equal(na, nb)).as_py():
+        return False
+    valid = pc.is_valid(a)
+    if not pc.any(valid).as_py():
+        return True  # every row null on both sides -- nothing left to compare
+    av, bv = pc.filter(a, valid), pc.filter(b, valid)
+    if pa.types.is_floating(a.type):
+        diff = pc.abs(pc.subtract(av, bv))
+        thresh = pc.add(atol, pc.multiply(rtol, pc.max_element_wise(pc.abs(av), pc.abs(bv))))
+        return pc.all(pc.less_equal(diff, thresh)).as_py()
+    return pc.all(pc.equal(av, bv)).as_py()
+
+
+def _table_matches(a: pa.Table, b: pa.Table):
+    """Compare every shared column, row-for-row (both pre-sorted on the
+    same natural key). Returns (ok, [mismatched column names])."""
+    if a.num_rows != b.num_rows:
+        return False, ["rows"]
+    cols = [c for c in a.column_names if c in b.column_names]
+    bad = [c for c in cols if not _column_matches(a.column(c), b.column(c))]
+    return not bad, bad
 
 
 def check(out_dir, engines):
-    loaded = {}
+    gaps = {}
+    present_idx = {}
     for e in engines:
-        path = os.path.join(out_dir, f"{e}.checksum.json")
-        with open(path) as f:
-            loaded[e] = {int(k): v for k, v in json.load(f).items()}
+        with open(os.path.join(out_dir, f"{e}.checksum.json")) as f:
+            summary = {int(k): v for k, v in json.load(f).items()}
+        for idx, v in summary.items():
+            if "gap" in v:
+                gaps.setdefault(idx, {})[e] = v["gap"]
+            else:
+                present_idx.setdefault(idx, set()).add(e)
 
-    all_idx = sorted({idx for c in loaded.values() for idx in c})
+    all_idx = sorted(set(present_idx) | set(gaps))
     mismatches = []
     report = {}
     for idx in all_idx:
-        present = {e: loaded[e][idx] for e in engines if idx in loaded[e] and "gap" not in loaded[e][idx]}
-        gaps = {e: loaded[e][idx]["gap"] for e in engines if idx in loaded[e] and "gap" in loaded[e][idx]}
-        report[idx] = {"gaps": gaps}
-        if len(present) < 2:
+        engines_here = sorted(present_idx.get(idx, ()))
+        report[idx] = {"gaps": gaps.get(idx, {})}
+        if len(engines_here) < 2:
             report[idx]["status"] = "single-engine (nothing to cross-check)"
             continue
-        engines_here = sorted(present)
+        tables = {
+            e: pq.read_table(os.path.join(out_dir, f"{e}.q{idx}.parquet"))
+            for e in engines_here
+        }
         base_e = engines_here[0]
-        base = present[base_e]
-        field_ok = True
+        base = tables[base_e]
+        bad_pairs = {}
         for e in engines_here[1:]:
-            for k, v in base.items():
-                other = present[e].get(k)
-                if k == "rows" or k.endswith("__valid"):
-                    if other != v:
-                        field_ok = False
-                elif not _close(v, other):
-                    field_ok = False
-        status = "OK" if field_ok else "MISMATCH"
+            ok, bad_cols = _table_matches(base, tables[e])
+            if not ok:
+                bad_pairs[f"{base_e}~{e}"] = bad_cols
+        status = "OK" if not bad_pairs else "MISMATCH"
         report[idx]["status"] = status
-        report[idx]["engines"] = {e: present[e] for e in engines_here}
-        if status == "MISMATCH":
+        report[idx]["rows"] = base.num_rows
+        if bad_pairs:
+            report[idx]["mismatched_columns"] = bad_pairs
             mismatches.append(idx)
 
     with open(os.path.join(out_dir, "correctness_report.json"), "w") as f:
@@ -183,7 +227,8 @@ def check(out_dir, engines):
     for idx in all_idx:
         r = report[idx]
         gap_note = f" gaps={list(r['gaps'])}" if r["gaps"] else ""
-        print(f"query {idx:2d}: {r['status']}{gap_note}")
+        bad_note = f" mismatched={r['mismatched_columns']}" if "mismatched_columns" in r else ""
+        print(f"query {idx:2d}: {r['status']}{gap_note}{bad_note}")
 
     if mismatches:
         print(f"CORRECTNESS FAILURE: queries {mismatches} mismatch across engines", file=sys.stderr)

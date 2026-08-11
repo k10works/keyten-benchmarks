@@ -37,17 +37,35 @@ generated Parquet.
 | 7 | `asof_tol_5s` | Same, with a 5-second staleness tolerance (unmatched -> null). |
 | 8 | `xsec_rank` | Per-minute cross-sectional rank of symbols by traded value; top-decile count per minute. |
 
-`bars_1m` uses `group_by(['sym', col('ts').truncate('1m')])` rather than
-`group_by_bar` -- `group_by_bar` buckets the *whole* frame by time with no
-additional grouping key, so it collapses across symbols; it doesn't fit a
-per-symbol bar. VWAP is computed in-agg
+`bars_1m` (keyten) uses `group_by(['sym', col('ts').truncate('1m')])`
+rather than `group_by_bar` -- `group_by_bar` buckets the *whole* frame by
+time with no additional grouping key, so it collapses across symbols; it
+doesn't fit a per-symbol bar (verified: there is no `by`-key parameter on
+its public signature). VWAP is computed in-agg
 (`(price*size).sum() / size.sum()`), not as a follow-up `with_columns`.
+
+Polars' idiomatic per-symbol time bucketing is `group_by_dynamic`, not
+`group_by` + a truncated key -- `bars_1m` and `xsec_rank` use it
+(`group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym')`).
+Its defaults (`closed="left"`, `label="left"`, `start_by="window"`)
+floor-bucket identically to keyten's `truncate("1m")`, verified
+boundary-for-boundary against a `group_by` + `truncate` formulation before
+switching (same row counts and bucket labels).
 
 ## Engines
 
 - `queries_keyten.py` -- keyten's public 0.1.47 lazy API.
-- `queries_duckdb.py` -- plain SQL over `read_parquet` views.
+- `queries_duckdb.py` -- plain SQL over an in-memory `read_parquet` table.
 - `queries_polars.py` -- polars' public lazy API.
+
+Every `load()` materializes both tables into memory exactly once
+(`kt.DataFrame.read_parquet` + `.lazy()`, `CREATE TABLE ... AS SELECT *
+FROM read_parquet(...)`, `pl.read_parquet(...).lazy()` respectively,
+matching the TAQ harness's own in-memory precedent) -- a lazy scan or a
+DuckDB `VIEW` would silently re-decode the Parquet files on every single
+query call, understating every engine's real per-query cost by re-billing
+IO into it. Loading happens once outside every timed region; only the
+query itself is timed.
 
 **Honest gap:** DuckDB SQL has no public grouped
 exponentially-weighted-moving-stddev function, so `ewm_vol` (query 5) is
@@ -67,31 +85,59 @@ no UDF.
 
 ## Correctness
 
-`harness.py run --engine <e>` executes all 8 queries for one engine,
-computes a checksum for each result before any timing (row count, plus
-per numeric output column: count of non-null values and their sum -- via
-each engine's own Arrow-backed columnar reduction, not a Python loop),
-and writes `<out-dir>/<e>.csv` (idx,name,query,ms best-of-3) and
-`<out-dir>/<e>.checksum.json`.
+`harness.py run --engine <e>` executes all 8 queries for one engine. For
+each, before any timing: it calls the query once, sorts the *full* result
+on its natural key (`(sym, ts)` for the per-trade queries, `(sym,
+minute)` for `bars_1m`, `minute` for `xsec_rank`), and writes it to
+`<out-dir>/<e>.q<idx>.parquet`. It then writes `<out-dir>/<e>.csv`
+(idx,name,query,ms best-of-3) and a small `<out-dir>/<e>.checksum.json`
+(row count + column names, for `check` to know what's on disk).
 
-`harness.py check` loads every engine's checksum file and compares them
-pairwise: row counts and non-null counts must match **exactly**; sums are
-compared with `abs(a - b) <= 1e-6 + 1e-4 * max(abs(a), abs(b))` (looser
-than a typical tolerance because float summation order -- and therefore
-the last few bits of a 20M-row sum -- is not reproducible across engines;
+`harness.py check` reads every engine's per-query Parquet file and
+compares them pairwise **column by column, over every row** -- not just
+an aggregate, which would miss a value landing in the wrong group or row
+while the sum still comes out right. Rows are matched positionally after
+both sides are sorted on the same key (via PyArrow's `sort_by`, then
+compared with `pyarrow.compute` -- no Python row loop). Non-floating
+columns (including the sort key itself, and null positions on every
+column) must match **exactly**; floating columns are compared with
+`abs(a - b) <= 1e-6 + 1e-4 * max(abs(a), abs(b))` (looser than a typical
+tolerance because float summation/accumulation order -- and therefore the
+last few bits of a large aggregate -- is not reproducible across engines;
 see keyten's own `Expr.sum()` docs). A query missing from an engine (a
 documented gap) is skipped, not treated as a mismatch. Any real mismatch
-prints the offending query and exits non-zero -- correctness fails
-loudly, before any number is trusted enough to time.
+prints the offending query and its mismatched columns, and exits
+non-zero -- correctness fails loudly, before any number is trusted enough
+to time.
+
+Row order within a tied key (e.g. two trades at the exact same `(sym,
+ts)`) is not otherwise constrained, so a tie could in principle sort
+differently across engines; with the generator's continuous,
+nanosecond-resolution timestamps this is a measure-zero event that does
+not show up in practice.
+
+## Timing
+
+Only each engine's own natural materialization call is timed, and nothing
+else -- no Arrow conversion happens inside the timed region for any
+engine. For keyten and polars that's `.collect()`, called directly on the
+query's lazy plan. DuckDB's query relations are themselves lazy, so its
+query functions call `.to_arrow_table()` as part of building the result
+(not as a separate step after it) -- forcing a DuckDB relation to Arrow
+*is* its execution, playing the same role `.collect()` plays for the
+other two; timing it is timing the query, not an extra conversion tacked
+on afterwards. The one-off Arrow conversion used for the correctness
+Parquet dump happens from a *separate*, untimed call to the query.
 
 ## Thread parity
 
 `harness.py run` takes `--threads N`; keyten and duckdb use it directly
-(`keyten.set_workers(N)`, `SET threads = N`). Polars reads
-`POLARS_MAX_THREADS` from the process environment at import time, so
-`run_tickops.sh` sets `KEYTEN_WORKERS`/`DUCKDB_THREADS`/`POLARS_MAX_THREADS`
-to the same `$THREADS` around each engine's subprocess, mirroring
-`run_taq.sh`.
+(`keyten.set_workers(N)`, `SET threads = N`) -- no environment variable
+needed. Polars is the one engine that reads `POLARS_MAX_THREADS` from the
+process environment at *import* time, so it can't be set through an
+API call after the fact; `run_tickops.sh` sets it in the environment
+before starting polars' subprocess, same as `run_taq.sh` does for its
+engines.
 
 ## Running directly
 
