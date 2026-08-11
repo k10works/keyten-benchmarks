@@ -20,6 +20,13 @@
       "dataset": "PDS-H (TPC-H derived) at scale factor 10 — 60M-row lineitem",
       "note": "22 decision-support queries via the polars-benchmark harness, in-memory (\"skip\") IO for every engine. Best of three per query after a warm-up pass. Derived from TPC-H; results are not comparable to official TPC results.",
       "engines": ["keyten", "duckdb", "polars"]
+    },
+    {
+      "id": "tickops",
+      "title": "Tick ops · quant workloads",
+      "dataset": "One synthetic market day: 20M trades, 60M quotes, 2,000 symbols, sorted by symbol and time",
+      "note": "Eight queries over tick data: 1m OHLCV bars with in-agg VWAP, log returns, rolling volatility by row count and by 5-minute window, exponential moving volatility, asof joins (backward, and with 5s tolerance), cross-sectional ranks. Best of three runs per query, thread count same as other suites, all engines over the same in-memory data. DuckDB has an honest gap on query 5 (no EWM-stddev function).",
+      "engines": ["keyten", "duckdb", "polars"]
     }
   ]
 }

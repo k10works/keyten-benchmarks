@@ -33,7 +33,7 @@ WORK=".work"
 HARNESS="harnesses/tickops"
 OUT="$WORK/tickops"
 
-mkdir -p "$WORK" "$OUT" results/tickops-small
+mkdir -p "$WORK" "$OUT" results/tickops
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
@@ -71,7 +71,7 @@ env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" run \
 "$VENV/python" "$HARNESS/harness.py" check --out-dir "$OUT" --engines keyten,duckdb,polars
 
 ver() { "$VENV/python" -c "import $1; print($1.__version__)"; }
-python3 runner/convert_tickops.py "$OUT/keyten.csv" keyten "$(ver keyten)" "$MACHINE" results/tickops-small/keyten.json
-python3 runner/convert_tickops.py "$OUT/duckdb.csv" duckdb "$(ver duckdb)" "$MACHINE" results/tickops-small/duckdb.json
-python3 runner/convert_tickops.py "$OUT/polars.csv" polars "$(ver polars)" "$MACHINE" results/tickops-small/polars.json
-echo "results written to results/tickops-small/ — open board/index.html to view"
+python3 runner/convert_tickops.py "$OUT/keyten.csv" keyten "$(ver keyten)" "$MACHINE" results/tickops/keyten.json
+python3 runner/convert_tickops.py "$OUT/duckdb.csv" duckdb "$(ver duckdb)" "$MACHINE" results/tickops/duckdb.json
+python3 runner/convert_tickops.py "$OUT/polars.csv" polars "$(ver polars)" "$MACHINE" results/tickops/polars.json
+echo "results written to results/tickops/ — open board/index.html to view"

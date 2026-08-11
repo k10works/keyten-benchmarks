@@ -29,7 +29,7 @@ def tickops(results_csv, engine, version, out, mach):
                 "ms": round(float(row["ms"]), 2),
             })
     queries.sort(key=lambda q: q["idx"])
-    dump(engine, version, "tickops-small", queries, out, mach)
+    dump(engine, version, "tickops", queries, out, mach)
 
 
 if __name__ == "__main__":

@@ -61,6 +61,14 @@ duckdb -c "COPY (FROM read_parquet('hits.parquet') LIMIT 10000000)
 ./runner/run_clickbench.sh hits10m.parquet
 ```
 
+**Tick ops** — synthetic market data is generated deterministically on first
+run; a full day or a quick smoke test:
+
+```bash
+./runner/run_tickops.sh .work/tickops
+./runner/run_tickops.sh .work/tickops-tiny 4 -- --scale 0.005
+```
+
 ## Suites
 
 | Suite | Runner | What it measures |
@@ -68,6 +76,7 @@ duckdb -c "COPY (FROM read_parquet('hits.parquet') LIMIT 10000000)
 | TAQ (in-memory) | `runner/run_taq.sh` | Market-data analytics: filters, per-symbol windows, asof joins, OHLC bars over one trading day |
 | ClickBench 10M | `runner/run_clickbench.sh` | The standard 43 web-analytics queries over a 10M-row subset of the public hits dataset (full-scale upstream submission planned) |
 | PDS-H SF10 | `runner/run_pdsh.sh` | 22 decision-support queries derived from TPC-H, via the public polars-benchmark harness (results not comparable to official TPC results) |
+| Tick ops | `runner/run_tickops.sh` | Eight queries over synthetic market data: OHLCV bars, returns, rolling volatility, exponential volatility, asof joins, cross-sectional ranks |
 
 ## Contributing
 
