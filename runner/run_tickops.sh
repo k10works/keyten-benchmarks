@@ -14,6 +14,13 @@
 #
 #   ./runner/run_tickops.sh .work/tickops-tiny 4 -- --scale 0.005
 #
+# KEYTEN_VERSION=0.1.49 ./runner/run_tickops.sh ... pins the keyten
+# install to an exact release (default: latest via --upgrade); either way
+# the version recorded into results/tickops/keyten.json comes from the
+# venv's own imported __version__ post-install (ver() below), never from
+# the requested string -- see run_pdsh.sh for why (0.1.49-sitting
+# incident where --upgrade silently resolved to the prior release).
+#
 # Results land in results/tickops-small/<engine>.json next to the
 # published ones; correctness is cross-checked across all three engines
 # before any timing is recorded (see harness.py) and fails the run loudly
@@ -37,7 +44,17 @@ mkdir -p "$WORK" "$OUT" results/tickops
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
-"$VENV/pip" install -q --upgrade keyten duckdb polars pyarrow numpy
+if [ -n "${KEYTEN_VERSION:-}" ]; then
+  "$VENV/pip" install -q --no-cache-dir --force-reinstall "keyten==$KEYTEN_VERSION"
+  "$VENV/pip" install -q --upgrade duckdb polars pyarrow numpy
+else
+  "$VENV/pip" install -q --upgrade keyten duckdb polars pyarrow numpy
+fi
+KEYTEN_ACTUAL="$("$VENV/python" -c 'import keyten; print(keyten.__version__)')"
+if [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
+  echo "run_tickops.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
+  exit 1
+fi
 
 if [ ! -f "$DATA/trades.parquet" ]; then
   echo "generating dataset at $DATA ..."

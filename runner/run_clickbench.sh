@@ -12,12 +12,27 @@
 # in-memory table. Best of 3 per query, warm.
 #
 #   ./runner/run_clickbench.sh <hits10m.parquet>
+#
+# KEYTEN_VERSION=0.1.49 pins the keyten install to an exact release
+# (default: latest via --upgrade); the version recorded into results is
+# always the venv's own imported __version__ post-install -- see
+# run_pdsh.sh for why.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 HITS="${1:?usage: run_clickbench.sh <hits10m.parquet>}"
 WORK=".work"; mkdir -p "$WORK" results/clickbench-10m
 python3 -m venv "$WORK/venv" 2>/dev/null || true
-"$WORK/venv/bin/pip" install -q --upgrade keyten polars duckdb fastapi uvicorn
+if [ -n "${KEYTEN_VERSION:-}" ]; then
+  "$WORK/venv/bin/pip" install -q --no-cache-dir --force-reinstall "keyten==$KEYTEN_VERSION"
+  "$WORK/venv/bin/pip" install -q --upgrade polars duckdb fastapi uvicorn
+else
+  "$WORK/venv/bin/pip" install -q --upgrade keyten polars duckdb fastapi uvicorn
+fi
+KEYTEN_ACTUAL="$("$WORK/venv/bin/python" -c 'import keyten; print(keyten.__version__)')"
+if [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
+  echo "run_clickbench.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
+  exit 1
+fi
 
 run_daemon() { # dir, env, out
   local dir="$1" envs="$2" out="$3"

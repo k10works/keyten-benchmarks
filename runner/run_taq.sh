@@ -10,6 +10,11 @@
 # (DATA/small/parquet/rowgroup layout); see the harness README for
 # generating it from the public sample day. Results land in
 # results/taq-small/<engine>.json next to the published ones.
+#
+# KEYTEN_VERSION=0.1.49 pins the keyten install to an exact release
+# (default: latest via --upgrade); the version recorded into results is
+# always the venv's own imported __version__ post-install -- see
+# run_pdsh.sh for why.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -26,7 +31,17 @@ cp -r harnesses/taq "$WORK/harness"
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
-"$VENV/pip" install -q --upgrade keyten duckdb polars pandas pyarrow numpy psutil pyyaml numexpr
+if [ -n "${KEYTEN_VERSION:-}" ]; then
+  "$VENV/pip" install -q --no-cache-dir --force-reinstall "keyten==$KEYTEN_VERSION"
+  "$VENV/pip" install -q --upgrade duckdb polars pandas pyarrow numpy psutil pyyaml numexpr
+else
+  "$VENV/pip" install -q --upgrade keyten duckdb polars pandas pyarrow numpy psutil pyyaml numexpr
+fi
+KEYTEN_ACTUAL="$("$VENV/python" -c 'import keyten; print(keyten.__version__)')"
+if [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
+  echo "run_taq.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
+  exit 1
+fi
 
 MACHINE="$WORK/machine.json"
 python3 - "$MACHINE" <<'PYEOF'
