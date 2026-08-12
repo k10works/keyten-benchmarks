@@ -18,12 +18,14 @@ then for each query:
 1. Correctness -- call the query once, sort the *full* result on its
    natural key (see ``NATURAL_KEY``), and write it to
    ``<out-dir>/<engine>.q<idx>.parquet``. Nothing here is timed.
-2. Timing -- call the query three more times, timing each engine's own
-   natural materialization: keyten's ``.collect()``, polars' ``.collect()``,
-   duckdb's ``.to_arrow_table()`` (already embedded in its query
-   functions -- for DuckDB, forcing the relation to Arrow *is* execution,
-   the same role ``.collect()`` plays for the lazy engines). The best of
-   three lands in ``<out-dir>/<engine>.csv`` (idx,name,query,ms).
+2. Timing -- wait for a quiet machine (``wait_quiet``, 1-min load < 1.0,
+   bounded so an unattended run can't hang forever), then call the query
+   three more times, timing each engine's own natural materialization:
+   keyten's ``.collect()``, polars' ``.collect()``, duckdb's
+   ``.to_arrow_table()`` (already embedded in its query functions -- for
+   DuckDB, forcing the relation to Arrow *is* execution, the same role
+   ``.collect()`` plays for the lazy engines). The best of three lands in
+   ``<out-dir>/<engine>.csv`` (idx,name,query,ms).
 
 ``check`` reads every engine's per-query Parquet file and compares them
 pairwise, column by column, over *every row* (not just an aggregate) --
@@ -49,6 +51,42 @@ import pyarrow.parquet as pq
 
 ATOL = 1e-6
 RTOL = 1e-4
+
+# Max time to block waiting for a quiet machine before giving up and
+# running anyway (loudly). Long enough to ride out a neighboring CI job,
+# short enough that an unattended/CI-ish invocation doesn't hang forever.
+QUIET_MAX_WAIT_S = 300
+
+
+def wait_quiet(threshold=1.0, poll_s=2, max_wait_s=QUIET_MAX_WAIT_S):
+    """Block until the 1-min load average is under ``threshold``.
+
+    Ported from the parity-plan measurement-forensics diagnostic's rig fix
+    (.superpowers/sdd/2026-08-11-window-perf-plan/rig/tickops_ab.py): an
+    interleaved run with no per-query quiet gate lets self-load climb from
+    the harness's own back-to-back process launches, which measurably
+    inflates keyten's short/thread-heavy queries (reproduced there: a
+    clean ~260ms query read ~562ms under synthetic 8-way contention,
+    matching a historical outlier). Called before every query's timed
+    block, not just once at process start. Bounded by ``max_wait_s`` so a
+    CI-ish run can't hang forever on a host that never goes quiet -- gives
+    up with a loud warning instead of blocking indefinitely.
+    """
+    waited = 0.0
+    while True:
+        load1, _, _ = os.getloadavg()
+        if load1 < threshold:
+            return
+        if waited >= max_wait_s:
+            print(
+                f"WARNING: wait_quiet gave up after {max_wait_s}s "
+                f"(1-min load {load1:.2f} still >= {threshold}); proceeding anyway",
+                file=sys.stderr,
+            )
+            return
+        time.sleep(poll_s)
+        waited += poll_s
+
 
 # The column(s) each query's result is sorted and compared on.
 NATURAL_KEY = {
@@ -119,6 +157,8 @@ def run(engine, data_dir, out_dir, threads):
 
         # Timing: best of three, each engine's own natural materialization
         # call only (no extra Arrow conversion inside the timed region).
+        # Quiet-gate first -- see wait_quiet's docstring for why.
+        wait_quiet()
         times_ms = []
         for _ in range(3):
             t0 = time.perf_counter()
