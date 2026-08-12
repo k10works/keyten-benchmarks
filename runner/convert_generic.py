@@ -13,11 +13,43 @@ def machine(path):
 
 
 def pdsh(timings_csv, engine, out, mach, version):
+    """``version``, when given, pins which rows count: only rows for
+    ``engine`` whose own recorded ``version`` column matches are used for
+    the per-query min. This matters because the upstream harness
+    (queries/common_utils.py:log_query_timing) *appends* to timings.csv
+    rather than overwriting it, so a manual partial rerun (e.g. only
+    re-timing keyten after a version fix, without re-running the whole
+    suite) leaves older rows in the file. Without this filter, min()
+    silently blends timings from two different engine versions -- this is
+    exactly what the 0.1.49 sitting hit and had to hand-purge (see
+    official-sitting-report.md, issue 1). If ``version`` is not given, all
+    versions found for ``engine`` in the file must agree, or this refuses
+    to guess and errors out loudly instead of blending them.
+    """
+    rows = [row for row in csv.DictReader(open(timings_csv)) if row["solution"] == engine]
+    if not rows:
+        raise SystemExit(f"convert_generic pdsh: no rows for engine {engine!r} in {timings_csv}")
+
+    if version:
+        rows = [row for row in rows if row["version"] == version]
+        if not rows:
+            raise SystemExit(
+                f"convert_generic pdsh: engine {engine!r} has rows in {timings_csv} "
+                f"but none at requested version {version!r} -- refusing to blend other versions"
+            )
+    else:
+        seen_versions = {row["version"] for row in rows}
+        if len(seen_versions) > 1:
+            raise SystemExit(
+                f"convert_generic pdsh: {timings_csv} has mixed versions for engine "
+                f"{engine!r} ({sorted(seen_versions)}) and no --version was given to "
+                f"disambiguate -- refusing to silently blend them. Pass the version "
+                f"explicitly, or clear/regenerate timings.csv before rerunning."
+            )
+        version = seen_versions.pop()
+
     best = {}
-    for row in csv.DictReader(open(timings_csv)):
-        if row["solution"] != engine:
-            continue
-        version = version or row["version"]
+    for row in rows:
         qn = int(row["query_number"])
         ms = float(row["duration[s]"]) * 1000
         best[qn] = min(best.get(qn, ms), ms)
