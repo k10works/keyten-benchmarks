@@ -8,44 +8,44 @@
   "cores": 8,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-08-11"
+  "date": "2026-08-12"
  },
  "queries": [
   {
    "idx": 1,
    "query": "SELECT sym, date_trunc('minute', ts) AS minute,\n               arg_min(price, ts) AS open, max(price) AS high, min(price) AS low,\n               arg_max(price, ",
-   "ms": 693.14
+   "ms": 691.84
   },
   {
    "idx": 2,
    "query": "SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n        FROM trades",
-   "ms": 995.26
+   "ms": 972.76
   },
   {
    "idx": 3,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s",
-   "ms": 2728.32
+   "ms": 2675.52
   },
   {
    "idx": 4,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s",
-   "ms": 7388.9
+   "ms": 7352.85
   },
   {
    "idx": 6,
    "query": "SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size, q.bid AS bid, q.ask AS ask\n        FROM trades t ASOF LEFT JOIN quotes q ON t.sym = q.sym AND",
-   "ms": 5088.36
+   "ms": 5073.85
   },
   {
    "idx": 7,
    "query": "WITH matched AS (\n            SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size,\n                   q.ts AS qts, q.bid AS qbid, q.ask AS qask\n  ",
-   "ms": 5322.01
+   "ms": 5270.11
   },
   {
    "idx": 8,
    "query": "WITH per_minute AS (\n            SELECT sym, date_trunc('minute', ts) AS minute, sum(price * size) AS value\n            FROM trades\n            GROUP BY sym, mi",
-   "ms": 418.64
+   "ms": 403.22
   }
  ],
- "total_ms": 22634.6
+ "total_ms": 22440.2
 }

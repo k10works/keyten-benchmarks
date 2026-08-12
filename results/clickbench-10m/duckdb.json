@@ -8,224 +8,224 @@
   "cores": 8,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-08-11"
+  "date": "2026-08-12"
  },
  "queries": [
   {
    "idx": 1,
    "query": "SELECT COUNT(*) FROM hits;",
-   "ms": 1.11
+   "ms": 1.1
   },
   {
    "idx": 2,
    "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;",
-   "ms": 3.6
+   "ms": 3.55
   },
   {
    "idx": 3,
    "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;",
-   "ms": 3.59
+   "ms": 3.65
   },
   {
    "idx": 4,
    "query": "SELECT AVG(UserID) FROM hits;",
-   "ms": 5.22
+   "ms": 5.32
   },
   {
    "idx": 5,
    "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
-   "ms": 66.45
+   "ms": 68.77
   },
   {
    "idx": 6,
    "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
-   "ms": 97.99
+   "ms": 96.47
   },
   {
    "idx": 7,
    "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;",
-   "ms": 7.06
+   "ms": 7.0
   },
   {
    "idx": 8,
    "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;",
-   "ms": 4.89
+   "ms": 4.87
   },
   {
    "idx": 9,
    "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
-   "ms": 83.42
+   "ms": 81.8
   },
   {
    "idx": 10,
    "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
-   "ms": 131.67
+   "ms": 131.57
   },
   {
    "idx": 11,
    "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;",
-   "ms": 21.8
+   "ms": 20.93
   },
   {
    "idx": 12,
    "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
-   "ms": 25.26
+   "ms": 23.64
   },
   {
    "idx": 13,
    "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "ms": 87.87
+   "ms": 84.28
   },
   {
    "idx": 14,
    "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
-   "ms": 171.88
+   "ms": 163.37
   },
   {
    "idx": 15,
    "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "ms": 94.79
+   "ms": 94.01
   },
   {
    "idx": 16,
    "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
-   "ms": 76.33
+   "ms": 75.36
   },
   {
    "idx": 17,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
-   "ms": 170.06
+   "ms": 170.49
   },
   {
    "idx": 18,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
-   "ms": 128.7
+   "ms": 127.64
   },
   {
    "idx": 19,
    "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
-   "ms": 333.19
+   "ms": 325.49
   },
   {
    "idx": 20,
    "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;",
-   "ms": 1.65
+   "ms": 1.7
   },
   {
    "idx": 21,
    "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
-   "ms": 69.69
+   "ms": 69.77
   },
   {
    "idx": 22,
    "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "ms": 54.29
+   "ms": 47.32
   },
   {
    "idx": 23,
    "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP",
-   "ms": 77.83
+   "ms": 72.86
   },
   {
    "idx": 24,
    "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;",
-   "ms": 71.37
+   "ms": 66.0
   },
   {
    "idx": 25,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
-   "ms": 5.17
+   "ms": 5.21
   },
   {
    "idx": 26,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
-   "ms": 24.05
+   "ms": 23.91
   },
   {
    "idx": 27,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
-   "ms": 5.32
+   "ms": 5.25
   },
   {
    "idx": 28,
    "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
-   "ms": 66.47
+   "ms": 69.11
   },
   {
    "idx": 29,
    "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
-   "ms": 2966.14
+   "ms": 2969.86
   },
   {
    "idx": 30,
    "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S",
-   "ms": 10.5
+   "ms": 11.18
   },
   {
    "idx": 31,
    "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
-   "ms": 63.42
+   "ms": 63.15
   },
   {
    "idx": 32,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
-   "ms": 86.72
+   "ms": 86.43
   },
   {
    "idx": 33,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
-   "ms": 498.34
+   "ms": 506.13
   },
   {
    "idx": 34,
    "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
-   "ms": 500.65
+   "ms": 494.8
   },
   {
    "idx": 35,
    "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
-   "ms": 522.4
+   "ms": 515.49
   },
   {
    "idx": 36,
    "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
-   "ms": 97.03
+   "ms": 97.0
   },
   {
    "idx": 37,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
-   "ms": 28.62
+   "ms": 25.95
   },
   {
    "idx": 38,
    "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
-   "ms": 13.03
+   "ms": 13.04
   },
   {
    "idx": 39,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
-   "ms": 6.83
+   "ms": 7.04
   },
   {
    "idx": 40,
    "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
-   "ms": 68.96
+   "ms": 69.31
   },
   {
    "idx": 41,
    "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
-   "ms": 5.51
+   "ms": 5.45
   },
   {
    "idx": 42,
    "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A",
-   "ms": 4.71
+   "ms": 4.59
   },
   {
    "idx": 43,
    "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN",
-   "ms": 11.85
+   "ms": 11.98
   }
  ],
- "total_ms": 6775.4
+ "total_ms": 6731.8
 }
