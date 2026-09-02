@@ -50,7 +50,12 @@ if [ ! -d "data/tables/scale-$SCALE" ] || [ -z "$(ls data/tables/scale-$SCALE/*.
 fi
 rm -f output/run/timings.csv
 for e in keyten polars duckdb; do
+  POLARS_STREAMING=false
+  if [ "$e" = polars ]; then
+    POLARS_STREAMING=true
+  fi
   SCALE_FACTOR="$SCALE" RUN_IO_TYPE=skip RUN_LOG_TIMINGS=1 RUN_PRE_RUN=true RUN_ITERATIONS=3 \
+    RUN_POLARS_STREAMING="$POLARS_STREAMING" \
     timeout 1800 .venv/bin/python -m queries.$e
 done
 cd ../..
