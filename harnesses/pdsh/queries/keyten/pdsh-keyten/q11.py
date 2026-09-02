@@ -13,19 +13,23 @@ def q(**kwargs: Any) -> Any:
     partsupp = utils.get_part_supp_ds()
     supplier = utils.get_supplier_ds()
     var2 = 0.0001 / utils.settings.scale_factor
-    q1 = (
-        partsupp.inner_join(supplier, [("ps_suppkey", "s_suppkey")])
-        .inner_join(nation, [("s_nationkey", "n_nationkey")])
-        .filter(kt.col("n_name") == kt.lit("GERMANY"))
-        .with_columns((kt.col("ps_supplycost") * kt.col("ps_availqty")).alias("v"))
-        .select([kt.col("ps_partkey"), kt.col("v")])
-        .collect()
+    german_suppliers = supplier.inner_join(
+        nation.filter(kt.col("n_name") == kt.lit("GERMANY")),
+        [("s_nationkey", "n_nationkey")],
     )
-    threshold = sum(v for v in q1.column("v").to_list() if v is not None) * var2
+    # Keep the scalar threshold inside the lazy plan. Materializing every
+    # row-level value as a Python float makes object conversion and Python
+    # summation dominate this otherwise small query.
     return (
-        q1.lazy().group_by(kt.col("ps_partkey"))
-        .agg(kt.col("v").sum().alias("value"))
-        .filter(kt.col("value") > kt.lit(threshold))
+        partsupp.semi_join(german_suppliers, [("ps_suppkey", "s_suppkey")])
+        .group_by(kt.col("ps_partkey"))
+        .agg(
+            (kt.col("ps_supplycost") * kt.col("ps_availqty"))
+            .sum()
+            .alias("value")
+        )
+        .with_columns(kt.col("value").sum().over([]).alias("threshold"))
+        .filter(kt.col("value") > kt.col("threshold") * kt.lit(var2))
         .select([kt.col("ps_partkey"), kt.col("value")])
         .sort("value", descending=True)
     )
