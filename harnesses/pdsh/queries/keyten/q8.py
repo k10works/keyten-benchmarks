@@ -18,19 +18,29 @@ def q(**kwargs: Any) -> Any:
     supplier = utils.get_supplier_ds()
     var4 = utils.date(1995, 1, 1)
     var5 = utils.date(1996, 12, 31)
-    n1 = nation.select([kt.col("n_nationkey"), kt.col("n_regionkey")])
+    selected_parts = part.filter(
+        kt.col("p_type") == kt.lit("ECONOMY ANODIZED STEEL")
+    ).select([kt.col("p_partkey")])
+    america_nations = nation.semi_join(
+        region.filter(kt.col("r_name") == kt.lit("AMERICA")),
+        [("n_regionkey", "r_regionkey")],
+    ).select([kt.col("n_nationkey")])
+    america_customers = customer.semi_join(
+        america_nations, [("c_nationkey", "n_nationkey")]
+    ).select([kt.col("c_custkey")])
+    selected_orders = (
+        orders.filter(
+            (kt.col("o_orderdate") >= var4) & (kt.col("o_orderdate") <= var5)
+        )
+        .semi_join(america_customers, [("o_custkey", "c_custkey")])
+        .select([kt.col("o_orderkey"), kt.col("o_orderdate")])
+    )
     n2 = nation.select([kt.col("n_nationkey"), kt.col("n_name")])
     return (
-        part.inner_join(lineitem, [("p_partkey", "l_partkey")])
+        lineitem.semi_join(selected_parts, [("l_partkey", "p_partkey")])
+        .inner_join(selected_orders, [("l_orderkey", "o_orderkey")])
         .inner_join(supplier, [("l_suppkey", "s_suppkey")])
-        .inner_join(orders, [("l_orderkey", "o_orderkey")])
-        .inner_join(customer, [("o_custkey", "c_custkey")])
-        .inner_join(n1, [("c_nationkey", "n_nationkey")])
-        .inner_join(region, [("n_regionkey", "r_regionkey")])
-        .filter(kt.col("r_name") == kt.lit("AMERICA"))
         .inner_join(n2, [("s_nationkey", "n_nationkey")])
-        .filter((kt.col("o_orderdate") >= var4) & (kt.col("o_orderdate") <= var5))
-        .filter(kt.col("p_type") == kt.lit("ECONOMY ANODIZED STEEL"))
         .select([
             kt.col("o_orderdate").year().alias("o_year"),
             (kt.col("l_extendedprice") * (kt.lit(1.0) - kt.col("l_discount"))).alias("volume"),
