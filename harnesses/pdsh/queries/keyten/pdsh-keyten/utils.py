@@ -8,6 +8,8 @@ from queries.common_utils import get_table_path, run_query_generic
 from settings import Settings
 
 settings = Settings()
+if settings.run.workers:
+    kt.set_workers(settings.run.workers)
 
 _EPOCH = _pydate(1970, 1, 1)
 
@@ -86,6 +88,11 @@ def scalar(lf: kt.LazyFrame, column: str) -> float:
     return lf.collect().column(column).to_list()[0]
 
 
+def round2(expr: kt.Expr) -> kt.Expr:
+    """Match SQL ROUND(value, 2) using Keyten's integer-place round."""
+    return (expr * kt.lit(100.0)).round() / kt.lit(100.0)
+
+
 def run_query(query_number: int, query: Callable[[], Any]) -> None:
     run_query_generic(
         query,
@@ -97,25 +104,8 @@ def run_query(query_number: int, query: Callable[[], Any]) -> None:
 
 
 def check_result(result: Any, query_number: int) -> None:
-    """Tolerant comparison against the stored answers: dates arrive as
-    epoch-day ints and unrounded floats stand in for round(2) columns."""
-    from queries.common_utils import _get_query_answer_pl
+    """Compare against stored answers, normalizing Keyten epoch-day dates."""
+    from queries.common_utils import check_query_result_pl
 
-    expected = _get_query_answer_pl(query_number)
     got = pl.DataFrame(result.to_dict())
-    assert got.height == expected.height, f"rows {got.height} != {expected.height}"
-    assert got.columns == expected.columns, f"cols {got.columns} != {expected.columns}"
-    for name in expected.columns:
-        e = expected.get_column(name)
-        g = got.get_column(name)
-        if e.dtype == pl.Date:
-            g = g.cast(pl.Date)
-        if e.dtype.is_float() or isinstance(e.dtype, pl.Decimal):
-            ef = e.cast(pl.Float64)
-            gf = g.cast(pl.Float64)
-            diff = (ef - gf).abs()
-            tol = ef.abs() * 1e-6 + 0.011
-            bad = (diff > tol).sum()
-            assert bad == 0, f"{name}: {bad} values beyond tolerance"
-        else:
-            assert g.cast(e.dtype).equals(e), f"{name} differs"
+    check_query_result_pl(got, query_number)

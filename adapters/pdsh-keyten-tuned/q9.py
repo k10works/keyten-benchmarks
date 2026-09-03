@@ -8,20 +8,29 @@ Q_NUM = 9
 
 
 def q(**kwargs: Any) -> Any:
-
     lineitem = utils.get_line_item_ds()
     nation = utils.get_nation_ds()
     orders = utils.get_orders_ds()
     part = utils.get_part_ds()
     partsupp = utils.get_part_supp_ds()
     supplier = utils.get_supplier_ds()
-    return (
-        part.inner_join(partsupp, [("p_partkey", "ps_partkey")])
+    selected_parts = part.filter(
+        kt.col("p_name").str_contains("green")
+    ).select([kt.col("p_partkey")])
+    selected_lines = lineitem.semi_join(
+        selected_parts, [("l_partkey", "p_partkey")]
+    )
+    green_partsupp = (
+        partsupp.semi_join(selected_parts, [("ps_partkey", "p_partkey")])
         .inner_join(supplier, [("ps_suppkey", "s_suppkey")])
-        .inner_join(lineitem, [("p_partkey", "l_partkey"), ("ps_suppkey", "l_suppkey")])
+    )
+    return (
+        selected_lines.inner_join(
+            green_partsupp,
+            [("l_partkey", "ps_partkey"), ("l_suppkey", "ps_suppkey")],
+        )
         .inner_join(orders, [("l_orderkey", "o_orderkey")])
         .inner_join(nation, [("s_nationkey", "n_nationkey")])
-        .filter(kt.col("p_name").str_contains("green"))
         .select([
             kt.col("n_name").alias("nation"),
             kt.col("o_orderdate").year().alias("o_year"),

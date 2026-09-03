@@ -22,7 +22,10 @@ def q(**kwargs: Any) -> Any:
         .with_columns((kt.col("avg_quantity") * kt.lit(0.2)).alias("avg_quantity"))
         .inner_join(q1, [("p_partkey", "p_partkey")])
         .filter(kt.col("l_quantity") < kt.col("avg_quantity"))
-        .select((kt.col("l_extendedprice").sum() / kt.lit(7.0)).alias("avg_yearly"))
+        .select(
+            (kt.col("l_extendedprice").sum() / kt.lit(7.0)).alias("_avg_yearly")
+        )
+        .select(utils.round2(kt.col("_avg_yearly")).alias("avg_yearly"))
     )
 
 

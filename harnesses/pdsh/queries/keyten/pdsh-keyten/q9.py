@@ -31,7 +31,7 @@ def q(**kwargs: Any) -> Any:
             ).alias("amount"),
         ])
         .group_by([kt.col("nation"), kt.col("o_year")])
-        .agg(kt.col("amount").sum().alias("sum_profit"))
+        .agg(utils.round2(kt.col("amount").sum()).alias("sum_profit"))
         .sort(["nation", "o_year"], descending=[False, True])
     )
 

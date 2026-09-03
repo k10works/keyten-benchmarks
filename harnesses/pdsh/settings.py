@@ -29,6 +29,13 @@ class Run(BaseSettings):
 
     iterations: int = 1
     pre_run: bool = True
+    warmup_iterations: int = 1
+    workers: int = 0
+    benchmark_run_id: str = ""
+    order_position: int = -1
+    execution_mode: str = ""
+    capture_results: bool = False
+    result_dir: Path = Path("output/results")
     log_timings: bool = False
     show_results: bool = False
     check_results: bool = False  # Only available for SCALE_FACTOR=1

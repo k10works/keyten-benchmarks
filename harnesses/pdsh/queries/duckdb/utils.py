@@ -12,6 +12,8 @@ from settings import Settings
 
 settings = Settings()
 _connection = None
+if settings.run.workers:
+    duckdb.sql(f"SET threads = {settings.run.workers}")
 
 
 def _scan_ds(table_name: str) -> str:
@@ -84,6 +86,8 @@ def get_connection() -> duckdb.DuckDBPyConnection:
         else:
             # connect to in-memory db
             _connection = duckdb.connect()
+        if settings.run.workers:
+            _connection.execute(f"SET threads = {settings.run.workers}")
     return _connection
 
 
@@ -93,7 +97,7 @@ def run_query(query_number: int, query: str) -> None:
 
         def execute() -> Any:
             print(conn.sql(query))
-    elif settings.run.check_results:
+    elif settings.run.check_results or settings.run.capture_results:
 
         def execute() -> Any:
             return conn.sql(query).pl()

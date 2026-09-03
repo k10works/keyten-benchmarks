@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import re
 import statistics
@@ -20,6 +21,12 @@ if TYPE_CHECKING:
     import polars as pl
 
 settings = Settings()
+
+# The official SF1 answers use decimal arithmetic, while this public harness
+# loads price/discount columns as binary floats. Long aggregations can differ
+# by about 1e-8 relative (Q17 is ~8.6e-8); keep this reference-only tolerance
+# separate from the tighter cross-engine comparison of identical input types.
+REFERENCE_REL_TOL = 1e-7
 
 
 def get_table_path(table_name: str) -> Path | str:
@@ -53,7 +60,10 @@ def log_query_timing(
 
     with (settings.paths.timings / settings.paths.timings_filename).open("a") as f:
         if f.tell() == 0:
-            f.write("solution,version,query_number,duration[s],io_type,scale_factor\n")
+            f.write(
+                "solution,version,query_number,duration[s],io_type,scale_factor,"
+                "benchmark_run_id,order_position,execution_mode,warmup_iterations\n"
+            )
 
         line = (
             ",".join(
@@ -64,11 +74,35 @@ def log_query_timing(
                     str(time),
                     settings.run.io_type,
                     str(settings.scale_factor),
+                    settings.run.benchmark_run_id,
+                    str(settings.run.order_position),
+                    settings.run.execution_mode,
+                    str(settings.run.warmup_iterations),
                 ]
             )
             + "\n"
         )
         f.write(line)
+
+
+def capture_query_result(result: Any, solution: str, query_number: int) -> None:
+    """Persist an untimed canonical interchange result for cross-engine checks."""
+    import polars as pl
+
+    if result is None:
+        raise ValueError(f"{solution} query {query_number} returned no result to capture")
+    if isinstance(result, pl.DataFrame):
+        frame = result
+    elif hasattr(result, "to_dict"):
+        frame = pl.DataFrame(result.to_dict())
+    else:
+        raise TypeError(
+            f"cannot capture {solution} query {query_number} result of type {type(result).__name__}"
+        )
+
+    output = settings.run.result_dir / solution
+    output.mkdir(parents=True, exist_ok=True)
+    frame.write_parquet(output / f"q{query_number}.parquet")
 
 
 def on_second_call(func: Any) -> Any:
@@ -147,14 +181,18 @@ def run_query_generic(
     query_checker: Callable[..., None] | None = None,
 ) -> None:
     """Execute a query."""
-    # execute the query once to ensure we are getting a hot run
+    # Execute explicit untimed warmups before recording raw samples.
     if settings.run.pre_run:
-        query()
+        for _ in range(settings.run.warmup_iterations):
+            query()
     for _ in range(settings.run.iterations):
         with CodeTimer(
             name=f"Run {library_name} query {query_number}", unit="s"
         ) as timer:
             result = query()
+
+        if settings.run.capture_results:
+            capture_query_result(result, library_name, query_number)
 
         if settings.run.log_timings:
             log_query_timing(
@@ -178,11 +216,43 @@ def run_query_generic(
 
 
 def check_query_result_pl(result: pl.DataFrame, query_number: int) -> None:
-    """Assert that the Polars result of the query is correct."""
-    from polars.testing import assert_frame_equal
+    """Compare a result with the fixed-width vendored SF1 answer set."""
+    import polars as pl
 
     expected = _get_query_answer_pl(query_number)
-    assert_frame_equal(result, expected, check_dtypes=False)
+    tolerance_path = settings.paths.answers / "tolerances.json"
+    tolerances = {}
+    if tolerance_path.exists():
+        tolerances = json.loads(tolerance_path.read_text(encoding="utf-8")).get(
+            f"q{query_number}", {}
+        )
+    assert result.height == expected.height, (
+        f"rows {result.height} != {expected.height}"
+    )
+    assert result.columns == expected.columns, (
+        f"cols {result.columns} != {expected.columns}"
+    )
+    for name in expected.columns:
+        want = expected.get_column(name)
+        got = result.get_column(name)
+        assert got.is_null().equals(want.is_null()), f"{name}: null positions differ"
+        if want.dtype == pl.String:
+            # dbgen's answer files are fixed-width. Preserve meaningful
+            # leading spaces, but ignore indistinguishable right padding.
+            assert got.cast(pl.String).str.strip_chars_end().equals(
+                want.str.strip_chars_end()
+            ), f"{name} differs"
+        elif want.dtype.is_float() or want.dtype.is_decimal():
+            want_float = want.cast(pl.Float64)
+            got_float = got.cast(pl.Float64)
+            diff = (want_float - got_float).abs()
+            tolerance = want_float.abs() * REFERENCE_REL_TOL + float(
+                tolerances.get(name, 1e-8)
+            )
+            bad = ((diff > tolerance) & want_float.is_not_null()).sum()
+            assert bad == 0, f"{name}: {bad} values beyond tolerance"
+        else:
+            assert got.cast(want.dtype).equals(want), f"{name} differs"
 
 
 def check_query_result_pd(result: pd.DataFrame, query_number: int) -> None:

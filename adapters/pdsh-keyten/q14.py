@@ -22,8 +22,9 @@ def q(**kwargs: Any) -> Any:
             disc.alias("full"),
         ])
         .select(
-            (kt.lit(100.0) * kt.col("promo").sum() / kt.col("full").sum()).alias("promo_revenue")
+            (kt.lit(100.0) * kt.col("promo").sum() / kt.col("full").sum()).alias("_promo_revenue")
         )
+        .select(utils.round2(kt.col("_promo_revenue")).alias("promo_revenue"))
     )
 
 

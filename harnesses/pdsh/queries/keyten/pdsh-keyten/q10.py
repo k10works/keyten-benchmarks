@@ -25,7 +25,9 @@ def q(**kwargs: Any) -> Any:
             kt.col("c_custkey"), kt.col("c_name"), kt.col("c_acctbal"), kt.col("c_phone"),
             kt.col("n_name"), kt.col("c_address"), kt.col("c_comment"),
         ])
-        .agg((kt.col("l_extendedprice") * (kt.lit(1.0) - kt.col("l_discount"))).sum().alias("revenue"))
+        .agg(utils.round2(
+            (kt.col("l_extendedprice") * (kt.lit(1.0) - kt.col("l_discount"))).sum()
+        ).alias("revenue"))
         .select([
             kt.col("c_custkey"), kt.col("c_name"), kt.col("revenue"), kt.col("c_acctbal"),
             kt.col("n_name"), kt.col("c_address"), kt.col("c_phone"), kt.col("c_comment"),
