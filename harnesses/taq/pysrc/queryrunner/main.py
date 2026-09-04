@@ -27,6 +27,7 @@ import contextlib
 import csv
 import gc
 import io
+import json
 import logging
 import os
 import subprocess
@@ -150,6 +151,27 @@ def run_query(runner, db_path: Path, ios: IOStat, idx: str, tags: set, query: st
     return QueryResult(query, "success", *times, *iostats, ressize_kb)
 
 
+def capture_query(runner, idx: str, tags: set, query: str, parameter: str,
+                  queryoutput: Path) -> tuple[QueryResult, dict[str, Any]]:
+    """Execute once and persist the complete result without collecting timing."""
+    logger.info("[%s] Correctness capture: %s ...", idx, query[:50])
+    try:
+        runner.prepare_run()
+        params = runner.get_parameters(parameter)
+        res = runner.execute_query(idx, tags, query, params, 0)
+        rows, columns = res.shape
+        runner.write_csv(res, queryoutput / f"queryoutput_{idx}.csv")
+    except Exception as error:
+        logger.error("Query %s correctness capture failed: %s", idx, error)
+        return QueryResult(query, "error"), {
+            "status": "error", "error": f"{type(error).__name__}: {error}"
+        }
+    logger.info("[%s] Captured shape: %s x %s", idx, rows, columns)
+    return QueryResult(query, "success"), {
+        "status": "success", "rows": rows, "columns": columns
+    }
+
+
 def main(args: argparse.Namespace) -> None:
     start_time: datetime = datetime.now()
     if not args.db.exists():
@@ -159,6 +181,12 @@ def main(args: argparse.Namespace) -> None:
     tags = set() if args.tags is None else set(args.tags.strip().split(","))
     if args.result is not None:
         args.result.parent.mkdir(parents=True, exist_ok=True)
+    if args.correctness_only:
+        if args.queryOutputDir is None or args.status_report is None:
+            raise ValueError(
+                "-correctness-only requires -queryOutputDir and -status-report"
+            )
+        args.status_report.parent.mkdir(parents=True, exist_ok=True)
 
     logger.info("Loading parameter files...")
     engine = args.engine.lower()
@@ -264,6 +292,7 @@ def main(args: argparse.Namespace) -> None:
         if args.queryOutputDir is not None:
             args.queryOutputDir.mkdir(parents=True, exist_ok=True)
 
+        capture_status: dict[str, dict[str, Any]] = {}
         with open(args.queryfile, 'r', encoding='utf-8') as queryfile, \
              open(args.querymeta, "r", encoding="utf-8") as querymeta:
             queryreader = csv.DictReader(queryfile, delimiter='|')
@@ -286,11 +315,26 @@ def main(args: argparse.Namespace) -> None:
                     result = QueryResult(query, "idxfiltered")
                 elif len(tags) > 0 and len(tags & querytags) == 0:
                     result = QueryResult(query, "tagfiltered")
+                elif args.correctness_only:
+                    result, capture_status[idx] = capture_query(
+                        runner, idx, querytags, query,
+                        row['parameter'].strip(), args.queryOutputDir
+                    )
                 else:
                     result = run_query(runner, args.db, ios, idx, querytags, query, row['parameter'].strip(), args.queryOutputDir)
 
+                if idx not in capture_status and args.correctness_only:
+                    capture_status[idx] = {"status": result.status}
+
                 writer.writerow(row_start + [idx, ",".join(querytags)] + result.to_csv_row())
                 f_out.flush()
+
+        if args.correctness_only:
+            args.status_report.write_text(
+                json.dumps({"engine": engine, "queries": capture_status}, indent=2,
+                           sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
 
     elapsed = datetime.now() - start_time
     if args.result is not None:
@@ -317,6 +361,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument('-paramdir', type=Path, required=True, help="Directory containing parameter txt files")
     parser.add_argument('-tags', type=str, required=False, help="Comma separated tags for filtering queries.")
     parser.add_argument('-queryOutputDir', type=Path, required=False, help="Directory to save query results.")
+    parser.add_argument('-correctness-only', action='store_true',
+        help="Execute each selected query once and capture output without timing.")
+    parser.add_argument('-status-report', type=Path,
+        help="JSON status report written by -correctness-only.")
     parser.add_argument('-tableStatsDir', dest='table_stats_dir', type=Path, required=False, help="Directory to save master/trade/quote table statistics YAML files.")
     parser.add_argument('-date', type=lambda s: datetime.strptime(s, '%Y%m%d').date(), required=True, help='Date in YYYYMMDD format')
 
@@ -327,8 +375,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 if __name__ == '__main__':
-    if os.getenv('FLUSH') is None:
+    parsed_args = build_parser().parse_args()
+    if not parsed_args.correctness_only and os.getenv('FLUSH') is None:
         logger.error("Environment variable FLUSH is not set. Maybe config/queryenv was not loaded.")
         sys.exit(2)
 
-    main(build_parser().parse_args())
+    main(parsed_args)

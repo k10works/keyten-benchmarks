@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 # Copyright (c) 2026 Rayforce Technologies Inc. Licensed under the MIT License.
-"""ClickBench queries in-process through duckdb over an in-memory table."""
-import sys, time
+"""ClickBench queries in-process through DuckDB over an in-memory table."""
+import argparse
+import json
+from pathlib import Path
+import time
+
 import duckdb
+import pyarrow.parquet as pq
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("hits", type=Path)
+parser.add_argument("queries", type=Path)
+parser.add_argument("--capture-dir", type=Path)
+args = parser.parse_args()
 
 con = duckdb.connect()
 t0 = time.time()
@@ -11,18 +23,48 @@ t0 = time.time()
 con.execute(
     "CREATE TABLE hits AS SELECT * REPLACE ("
     " to_timestamp(EventTime)::TIMESTAMP AS EventTime,"
-    " (DATE '1970-01-01' + EventDate * INTERVAL 1 DAY) AS EventDate)"
-    f" FROM read_parquet('{sys.argv[1]}')"
+    " (DATE '1970-01-01' + EventDate * INTERVAL 1 DAY)::DATE AS EventDate)"
+    " FROM read_parquet(?)",
+    [str(args.hits)],
 )
 print(f"# load {time.time()-t0:.1f}s")
-queries = [l.strip() for l in open(sys.argv[2]) if l.strip()]
+queries = [line.strip() for line in args.queries.read_text().splitlines() if line.strip()]
+
+if args.capture_dir is not None:
+    args.capture_dir.mkdir(parents=True, exist_ok=True)
+    statuses = {}
+    for i, query in enumerate(queries):
+        try:
+            # Fetching Arrow is the execution and retains every result cell.
+            table = con.execute(query).to_arrow_table()
+            pq.write_table(table, args.capture_dir / f"q{i:02d}.parquet")
+            statuses[str(i)] = {
+                "status": "success",
+                "rows": table.num_rows,
+                "columns": table.num_columns,
+            }
+            print(f"q{i:02d} PASS rows={table.num_rows}")
+        except Exception as error:
+            statuses[str(i)] = {
+                "status": "error",
+                "error": f"{type(error).__name__}: {error}",
+            }
+            print(f"q{i:02d} FAIL {statuses[str(i)]['error']}")
+    (args.capture_dir.parent / "duckdb-status.json").write_text(
+        json.dumps({"engine": "duckdb", "queries": statuses}, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    raise SystemExit(0)
+
 total = 0.0
-for i, q in enumerate(queries):
+for i, query in enumerate(queries):
     best = None
     for _ in range(3):
         t0 = time.time()
         try:
-            con.execute(q).fetchall()
+            # Materialize the complete result. DuckDB no longer executes and
+            # silently discards rows on the correctness-capable adapter path.
+            con.execute(query).to_arrow_table()
         except Exception as e:
             print(f"q{i:02d} ERROR {e}")
             best = float("nan"); break

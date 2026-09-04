@@ -4,21 +4,23 @@
 every query's *full* result against the other engines for correctness,
 then time best-of-3.
 
-    python3 harness.py run --engine {keyten,duckdb,polars} --data-dir DIR --out-dir DIR [--threads N]
+    python3 harness.py capture --engine {keyten,duckdb,polars} --data-dir DIR --out-dir DIR [--threads N]
+    python3 harness.py time --engine {keyten,duckdb,polars} --data-dir DIR --out-dir DIR [--threads N]
     python3 harness.py check --out-dir DIR --engines keyten,duckdb,polars
 
-``run`` loads both tables into memory once (see each ``queries_*.load()``
+``capture`` and ``time`` each load both tables into memory once (see each ``queries_*.load()``
 -- keyten and duckdb materialize an in-memory table, polars an eager
 ``DataFrame``; no query re-decodes Parquet) with the given ``--threads``
 (keyten via ``set_workers``, duckdb via ``SET threads``; polars reads
 ``POLARS_MAX_THREADS`` from the process environment at import time, so
 the caller must set it before starting Python -- see run_tickops.sh),
-then for each query:
+then execute separate phases:
 
 1. Correctness -- call the query once, sort the *full* result on its
    natural key (see ``NATURAL_KEY``), and write it to
    ``<out-dir>/<engine>.q<idx>.parquet``. Nothing here is timed.
-2. Timing -- wait for a quiet machine (``wait_quiet``, 1-min load < 1.0,
+2. After ``check`` has passed for every engine, ``time`` waits for a quiet
+   machine (``wait_quiet``, 1-min load < 1.0,
    bounded so an unattended run can't hang forever), then call the query
    three more times, timing each engine's own natural materialization:
    keyten's ``.collect()``, polars' ``.collect()``, duckdb's
@@ -40,6 +42,7 @@ fails loudly, never silently.
 
 import argparse
 import csv
+import hashlib
 import json
 import os
 import sys
@@ -131,11 +134,10 @@ def _load_engine(engine, data_dir, threads):
     raise ValueError(f"unknown engine {engine!r}")
 
 
-def run(engine, data_dir, out_dir, threads):
+def capture(engine, data_dir, out_dir, threads):
     mod, trades, quotes = _load_engine(engine, data_dir, threads)
     os.makedirs(out_dir, exist_ok=True)
 
-    rows_csv = []
     checksums = {}
     for q in mod.QUERIES:
         idx, name = q["idx"], q["name"]
@@ -147,17 +149,46 @@ def run(engine, data_dir, out_dir, threads):
         # Correctness: materialize the full result once, sorted on its
         # natural key, and hand it to disk for check() to compare
         # value-for-value across engines. Not timed.
-        result = q["run"](trades, quotes)
-        table = _to_arrow(engine, result)
-        key = [(k, "ascending") for k in NATURAL_KEY[idx]]
-        table = table.sort_by(key)
-        pq.write_table(table, os.path.join(out_dir, f"{engine}.q{idx}.parquet"))
-        checksums[idx] = {"rows": table.num_rows, "columns": table.column_names}
-        del result, table
+        try:
+            result = q["run"](trades, quotes)
+            table = _to_arrow(engine, result)
+            key = [(k, "ascending") for k in NATURAL_KEY[idx]]
+            table = table.sort_by(key)
+            output = os.path.join(out_dir, f"{engine}.q{idx}.parquet")
+            pq.write_table(table, output)
+            checksums[idx] = {
+                "rows": table.num_rows,
+                "columns": table.column_names,
+                "sha256": _sha256(output),
+            }
+            print(
+                f"[{engine}] {idx:2d} {name:15s} CAPTURED rows={table.num_rows}",
+                file=sys.stderr,
+            )
+            del result, table
+        except Exception as error:
+            checksums[idx] = {
+                "error": f"{type(error).__name__}: {error}"
+            }
+            print(
+                f"[{engine}] {idx:2d} {name:15s} FAIL: {checksums[idx]['error']}",
+                file=sys.stderr,
+            )
 
-        # Timing: best of three, each engine's own natural materialization
-        # call only (no extra Arrow conversion inside the timed region).
-        # Quiet-gate first -- see wait_quiet's docstring for why.
+    checksum_path = os.path.join(out_dir, f"{engine}.checksum.json")
+    with open(checksum_path, "w") as f:
+        json.dump(checksums, f, indent=1)
+    print(checksum_path, file=sys.stderr)
+
+
+def time_queries(engine, data_dir, out_dir, threads):
+    mod, trades, quotes = _load_engine(engine, data_dir, threads)
+    os.makedirs(out_dir, exist_ok=True)
+    rows_csv = []
+    for q in mod.QUERIES:
+        idx, name = q["idx"], q["name"]
+        if q.get("run") is None:
+            continue
         wait_quiet()
         times_ms = []
         for _ in range(3):
@@ -168,7 +199,7 @@ def run(engine, data_dir, out_dir, threads):
             del r
         ms = round(min(times_ms), 3)
         rows_csv.append({"idx": idx, "name": name, "query": q.get("code", ""), "ms": ms})
-        print(f"[{engine}] {idx:2d} {name:15s} {ms:10.3f} ms  rows={checksums[idx]['rows']}", file=sys.stderr)
+        print(f"[{engine}] {idx:2d} {name:15s} {ms:10.3f} ms", file=sys.stderr)
 
     csv_path = os.path.join(out_dir, f"{engine}.csv")
     with open(csv_path, "w", newline="") as f:
@@ -176,11 +207,15 @@ def run(engine, data_dir, out_dir, threads):
         w.writeheader()
         w.writerows(rows_csv)
 
-    checksum_path = os.path.join(out_dir, f"{engine}.checksum.json")
-    with open(checksum_path, "w") as f:
-        json.dump(checksums, f, indent=1)
+    print(csv_path, file=sys.stderr)
 
-    print(f"{csv_path}\n{checksum_path}", file=sys.stderr)
+
+def _sha256(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def _normalize(col):
@@ -217,6 +252,8 @@ def _table_matches(a: pa.Table, b: pa.Table):
     same natural key). Returns (ok, [mismatched column names])."""
     if a.num_rows != b.num_rows:
         return False, ["rows"]
+    if a.column_names != b.column_names:
+        return False, ["columns"]
     cols = [c for c in a.column_names if c in b.column_names]
     bad = [c for c in cols if not _column_matches(a.column(c), b.column(c))]
     return not bad, bad
@@ -225,28 +262,61 @@ def _table_matches(a: pa.Table, b: pa.Table):
 def check(out_dir, engines):
     gaps = {}
     present_idx = {}
+    seen_idx = {engine: set() for engine in engines}
     for e in engines:
-        with open(os.path.join(out_dir, f"{e}.checksum.json")) as f:
+        checksum_path = os.path.join(out_dir, f"{e}.checksum.json")
+        if not os.path.isfile(checksum_path):
+            print(f"CORRECTNESS FAILURE: missing {checksum_path}", file=sys.stderr)
+            return False
+        with open(checksum_path) as f:
             summary = {int(k): v for k, v in json.load(f).items()}
         for idx, v in summary.items():
+            seen_idx[e].add(idx)
             if "gap" in v:
                 gaps.setdefault(idx, {})[e] = v["gap"]
+            elif "error" in v:
+                gaps.setdefault(idx, {})[e] = f"EXECUTION ERROR: {v['error']}"
             else:
                 present_idx.setdefault(idx, set()).add(e)
 
-    all_idx = sorted(set(present_idx) | set(gaps))
+    # The suite contract is the query inventory, not whatever happened to be
+    # emitted.  Deriving this set from observed records would let a query that
+    # vanished from every adapter pass silently.
+    all_idx = sorted(NATURAL_KEY)
     mismatches = []
     report = {}
     for idx in all_idx:
         engines_here = sorted(present_idx.get(idx, ()))
         report[idx] = {"gaps": gaps.get(idx, {})}
+        missing_status = [engine for engine in engines if idx not in seen_idx[engine]]
+        if missing_status:
+            report[idx]["status"] = "FAIL"
+            report[idx]["missing_status"] = missing_status
+            mismatches.append(idx)
+            continue
+        execution_errors = {
+            engine: reason for engine, reason in report[idx]["gaps"].items()
+            if reason.startswith("EXECUTION ERROR:")
+        }
+        if execution_errors:
+            report[idx]["status"] = "FAIL"
+            report[idx]["execution_errors"] = execution_errors
+            mismatches.append(idx)
+            continue
         if len(engines_here) < 2:
             report[idx]["status"] = "single-engine (nothing to cross-check)"
             continue
-        tables = {
-            e: pq.read_table(os.path.join(out_dir, f"{e}.q{idx}.parquet"))
-            for e in engines_here
+        paths = {e: os.path.join(out_dir, f"{e}.q{idx}.parquet") for e in engines_here}
+        missing = [f"{e}: {path}" for e, path in paths.items() if not os.path.isfile(path)]
+        if missing:
+            report[idx]["status"] = "FAIL"
+            report[idx]["missing_outputs"] = missing
+            mismatches.append(idx)
+            continue
+        report[idx]["sha256"] = {
+            engine: _sha256(path) for engine, path in paths.items()
         }
+        tables = {e: pq.read_table(path) for e, path in paths.items()}
         base_e = engines_here[0]
         base = tables[base_e]
         bad_pairs = {}
@@ -272,19 +342,21 @@ def check(out_dir, engines):
 
     if mismatches:
         print(f"CORRECTNESS FAILURE: queries {mismatches} mismatch across engines", file=sys.stderr)
-        sys.exit(1)
+        return False
     print("all cross-checked queries match", file=sys.stderr)
+    return True
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    run_p = sub.add_parser("run")
-    run_p.add_argument("--engine", required=True, choices=["keyten", "duckdb", "polars"])
-    run_p.add_argument("--data-dir", required=True)
-    run_p.add_argument("--out-dir", required=True)
-    run_p.add_argument("--threads", type=int, default=os.cpu_count() or 1)
+    for command in ("capture", "time"):
+        phase = sub.add_parser(command)
+        phase.add_argument("--engine", required=True, choices=["keyten", "duckdb", "polars"])
+        phase.add_argument("--data-dir", required=True)
+        phase.add_argument("--out-dir", required=True)
+        phase.add_argument("--threads", type=int, default=os.cpu_count() or 1)
 
     check_p = sub.add_parser("check")
     check_p.add_argument("--out-dir", required=True)
@@ -293,10 +365,12 @@ def main(argv=None):
     args = ap.parse_args(argv)
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-    if args.cmd == "run":
-        run(args.engine, args.data_dir, args.out_dir, args.threads)
-    else:
-        check(args.out_dir, args.engines.split(","))
+    if args.cmd == "capture":
+        capture(args.engine, args.data_dir, args.out_dir, args.threads)
+    elif args.cmd == "time":
+        time_queries(args.engine, args.data_dir, args.out_dir, args.threads)
+    elif not check(args.out_dir, args.engines.split(",")):
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

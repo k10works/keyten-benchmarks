@@ -41,6 +41,7 @@ HARNESS="harnesses/tickops"
 OUT="$WORK/tickops"
 
 mkdir -p "$WORK" "$OUT" results/tickops
+rm -f "$OUT/keyten.csv" "$OUT/duckdb.csv" "$OUT/polars.csv"
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
@@ -80,12 +81,21 @@ PYEOF
 # POLARS_MAX_THREADS has to be set before the interpreter starts. Setting
 # KEYTEN_WORKERS/DUCKDB_THREADS here too would be vestigial -- harness.py
 # doesn't read them -- so only polars gets an env var.
-"$VENV/python" "$HARNESS/harness.py" run --engine keyten --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
-"$VENV/python" "$HARNESS/harness.py" run --engine duckdb --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
-env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" run \
+"$VENV/python" "$HARNESS/harness.py" capture --engine keyten --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
+"$VENV/python" "$HARNESS/harness.py" capture --engine duckdb --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
+env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" capture \
   --engine polars --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
 
 "$VENV/python" "$HARNESS/harness.py" check --out-dir "$OUT" --engines keyten,duckdb,polars
+if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
+  echo "TickOps correctness gate passed; timing skipped by request"
+  exit 0
+fi
+
+"$VENV/python" "$HARNESS/harness.py" time --engine keyten --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
+"$VENV/python" "$HARNESS/harness.py" time --engine duckdb --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
+env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" time \
+  --engine polars --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
 
 ver() { "$VENV/python" -c "import $1; print($1.__version__)"; }
 python3 runner/convert_tickops.py "$OUT/keyten.csv" keyten "$(ver keyten)" "$MACHINE" results/tickops/keyten.json

@@ -24,6 +24,7 @@ THREADS="${2:-$(nproc)}"
 WORK=".work"
 
 mkdir -p "$WORK" results/taq-small
+rm -f "$WORK/keyten.psv" "$WORK/duckdb.psv" "$WORK/polars.psv"
 # The harness is vendored in-repo (harnesses/taq) with Keyten engine
 # support, until the upstream NYSETAQBenchmarks PR is accepted.
 rm -rf "$WORK/harness"
@@ -60,6 +61,31 @@ cd "$WORK/harness"
 COMMON="-storage_backend memory -querymeta ./artifacts/queries/inmemory/querymeta.psv \
   -paramdir ./artifacts/parameters/small -date 20260401 \
   -db $DATA -sortcols sym,time"
+
+if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
+  CORRECTNESS="../taq-correctness"
+  rm -rf "$CORRECTNESS"
+  mkdir -p "$CORRECTNESS"/{keyten,duckdb,polars}
+  KEYTEN_WORKERS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
+    $COMMON -engine keyten -queryfile ./artifacts/queries/inmemory/keyten.psv \
+    -correctness-only -queryOutputDir "$CORRECTNESS/keyten" \
+    -status-report "$CORRECTNESS/keyten-status.json"
+  DUCKDB_THREADS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
+    $COMMON -engine duckdb_con -queryfile ./artifacts/queries/inmemory/duckdb.psv \
+    -correctness-only -queryOutputDir "$CORRECTNESS/duckdb" \
+    -status-report "$CORRECTNESS/duckdb-status.json"
+  POLARS_MAX_THREADS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
+    $COMMON -engine polars -queryfile ./artifacts/queries/inmemory/polars.psv \
+    -correctness-only -queryOutputDir "$CORRECTNESS/polars" \
+    -status-report "$CORRECTNESS/polars-status.json"
+  ../venv/bin/python ../../runner/check_taq_results.py "$CORRECTNESS" \
+    ./artifacts/queries/inmemory/querymeta.psv \
+    --report ../taq-correctness-report.json
+  if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
+    echo "TAQ correctness gate passed; timing skipped by request"
+    exit 0
+  fi
+fi
 
 FLUSH=./flush/noflush.sh KEYTEN_WORKERS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
   $COMMON -engine keyten -queryfile ./artifacts/queries/inmemory/keyten.psv -result ../keyten.psv

@@ -53,11 +53,10 @@ Makefile (TPC-H derived; see `harnesses/pdsh/README.md`):
 ```
 
 **ClickBench (10M)** — derive the subset from the public ClickBench hits
-file, then run:
+file with a retained hash/schema manifest, then run:
 
 ```bash
-duckdb -c "COPY (FROM read_parquet('hits.parquet') LIMIT 10000000)
-           TO 'hits10m.parquet'"
+python3 runner/derive_clickbench_10m.py hits.parquet hits10m.parquet
 ./runner/run_clickbench.sh hits10m.parquet
 ```
 

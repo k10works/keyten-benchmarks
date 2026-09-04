@@ -64,7 +64,7 @@ def roll_vol_5m(trades, quotes):
 def ewm_vol(trades, quotes):
     return (
         _with_ret(trades)
-        .select(["sym", "ts", pl.col("ret").ewm_std(span=20).over("sym").alias("ewm_std")])
+        .select(["sym", "ts", pl.col("ret").ewm_std(span=20, min_samples=2).over("sym").alias("ewm_std")])
         .collect()
     )
 
@@ -113,7 +113,7 @@ QUERIES = [
     dict(idx=4, name="roll_vol_5m", run=roll_vol_5m,
          code="ret.rolling_std_by('ts', window_size='5m', min_samples=2).over('sym')"),
     dict(idx=5, name="ewm_vol", run=ewm_vol,
-         code="ret.ewm_std(span=20).over('sym')"),
+         code="ret.ewm_std(span=20, min_samples=2).over('sym')"),
     dict(idx=6, name="asof_nbbo", run=asof_nbbo,
          code="trades.join_asof(quotes, on='ts', by='sym', strategy='backward').collect()"),
     dict(idx=7, name="asof_tol_5s", run=asof_tol_5s,

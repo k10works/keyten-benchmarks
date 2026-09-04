@@ -381,9 +381,8 @@ point. Rather than renumbering by hand, use
 A benchmark is only meaningful if every engine computes the **same result** for
 each query. This is a hard requirement: a query added to a new engine must return
 output equivalent to the existing engines (same rows, columns, and values), so
-that timings compare like for like. Equivalence is exact for most types; floating
--point columns are compared within a small tolerance (`FLOATDIFFTHREASHOLD`, see
-below).
+that timings compare like for like. Equivalence is exact for most types;
+floating-point columns are compared with absolute and relative tolerances.
 
 To check this, persist each engine's query outputs and compare them:
 
@@ -403,8 +402,9 @@ To check this, persist each engine's query outputs and compare them:
 2. **Compare two engines.** Point [src/compareOutput.q](./src/compareOutput.q) at
    the two per-engine output directories. For every query in the metadata file it
    checks row count, column count, column names, and then compares content
-   cell-by-cell (floats within `FLOATDIFFTHREASHOLD`, char columns via `like`,
-   everything else by exact match), logging the first mismatch per column:
+   cell-by-cell (floats within `5e-5 + 1e-7 * max(abs(a), abs(b))`, char
+   columns via `like`, everything else by exact match), logging the first
+   mismatch per column:
 
    ```bash
    q src/compareOutput.q -querymeta ./artifacts/queries/inmemory/querymeta.psv \
@@ -412,7 +412,19 @@ To check this, persist each engine's query outputs and compare them:
        -queryoutput2 ./results/inmemory/output/duckdb
    ```
 
-   It exits `0` when every query matches; otherwise it logs the differences and
-   continues per query. Pass `-idx` to restrict the comparison to specific query
+   It exits `0` when every query matches and nonzero when any output is missing
+   or different. It logs explicit PASS/FAIL results and continues so the full
+   defect ledger is visible. Pass `-idx` to restrict the comparison to specific query
    indices — single (`42`), list (`32,42,50`) or range (`40-44`) — and `-debug`
    to keep the process alive after comparison for investigation of differences.
+
+The repository-level `runner/run_taq.sh` uses a fail-closed Python comparator
+for the three standard adapters. Each query executes once into a complete CSV
+and status record; only after all 53 captures pass does the timed best-of-three
+phase begin. `BENCH_CORRECTNESS_ONLY=true` stops after that gate.
+
+Q24's Polars weight expression widens quote sizes to `Int64` before both the
+dot product and denominator sum. On the sample day, five `(sym, exchange)`
+groups exceed `2^31 - 1` total size; leaving the physical `Int32` weights in
+place wraps the denominator and can even reverse the sign of the weighted
+spread. This is an adapter correctness requirement, not a performance tuning.

@@ -21,8 +21,11 @@ cross-system convention; the contents are not SQL).
 import os
 import timeit
 from datetime import date
+from pathlib import Path
 
 import polars as pl
+import pyarrow as pa
+import pyarrow.parquet as pq
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
@@ -33,6 +36,19 @@ app = FastAPI()
 hits: pl.LazyFrame | None = None
 import os as _os
 parquet_path: str = _os.environ.get("POLARS_PARQUET","hits.parquet")
+capture_dir: str | None = _os.environ.get("CLICKBENCH_CAPTURE_DIR")
+
+
+def _as_arrow(value) -> pa.Table:
+    if isinstance(value, pl.LazyFrame):
+        value = value.collect()
+    if isinstance(value, pl.DataFrame):
+        return value.to_arrow()
+    if isinstance(value, pl.Series):
+        return value.to_frame().to_arrow()
+    if isinstance(value, tuple):
+        return pa.table({f"c_{i}": [item] for i, item in enumerate(value)})
+    return pa.table({"c_0": [value]})
 
 
 @app.get("/health")
@@ -76,6 +92,25 @@ async def query(request: Request):
     else:
         result = repr(value)
     return {"elapsed": elapsed, "result": result}
+
+
+@app.post("/capture/{idx}")
+async def capture(idx: int, request: Request):
+    """Execute once and persist the full result, including scalar results."""
+    if hits is None:
+        raise HTTPException(status_code=409, detail="DataFrame not loaded; POST /load first")
+    if capture_dir is None:
+        raise HTTPException(status_code=409, detail="CLICKBENCH_CAPTURE_DIR is not configured")
+    code = (await request.body()).decode("utf-8").strip()
+    try:
+        value = eval(compile(code, "<query>", "eval"), {"hits": hits, "pl": pl, "date": date})
+        table = _as_arrow(value)
+        output = Path(capture_dir) / f"q{idx:02d}.parquet"
+        output.parent.mkdir(parents=True, exist_ok=True)
+        pq.write_table(table, output)
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=f"{type(error).__name__}: {error}")
+    return {"rows": table.num_rows, "columns": table.num_columns}
 
 
 @app.get("/data-size")

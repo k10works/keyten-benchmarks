@@ -26,7 +26,7 @@
 //                 (42), comma-separated list (32,42,50) or range (40-44)
 //   debug         if set, keep the process alive after comparison (no exit)
 //
-// Exits 0 when all queries match; logs errors and continues per-query otherwise.
+// Exits nonzero when any query is missing, malformed, or different.
 // -----------------------------------------------------------------------------
 
 ko: key o: first each .Q.opt .z.x;
@@ -46,7 +46,8 @@ if[`idx in ko;
 queryoutput1: hsym `$o`queryoutput1
 queryoutput2: hsym `$o`queryoutput2
 
-FLOATDIFFTHREASHOLD: 0.00005
+FLOATABSTOLERANCE: 0.00005
+FLOATRELTOLERANCE: 0.0000001
 
 
 tradeTypes: `time`ex`sym`cond`size`price`stop`corr`seq`tradeId`source`tradeReportingFacility`participantTimestamp`tradeReportingFacilityTRFTimestamp`tradeThroughExemptIndicator!"ncssieshijcsnnb"
@@ -65,10 +66,12 @@ compare: {[idx: `j; tags: `C]
     filename: `$"queryoutput_" , string[idx], ".csv";
     if[not filename in key queryoutput1;
         .log.error "Missing query output: ", string[filename], " from ", 1_string queryoutput1;
-        :()];
+        .log.error "QUERY ", string[idx], " FAIL";
+        :0b];
     if[not filename in key queryoutput2;
         .log.error "Missing query output: ", string[filename], " from ", 1_string queryoutput2;
-        :()];
+        .log.error "QUERY ", string[idx], " FAIL";
+        :0b];
 
     srct1: .Q.dd[queryoutput1; `$"queryoutput_" , string[idx], ".csv"];
     srct2: .Q.dd[queryoutput2; `$"queryoutput_" , string[idx], ".csv"];
@@ -80,7 +83,8 @@ compare: {[idx: `j; tags: `C]
 
     if[ not count[t1] = count t2;
         .log.error "Different number of rows: ", string[count t1], " vs ", string count t2;
-        :()];
+        .log.error "QUERY ", string[idx], " FAIL";
+        :0b];
     .log.info "Number of rows: \t\tOK";
 
     if[ not count[cols t1] = count cols t2;
@@ -89,30 +93,41 @@ compare: {[idx: `j; tags: `C]
             .log.error "Columns in ", (1_string srct1), " not in ", (1_string srct2), ": ", "," sv string missing];
         if[count missing: cols[t2] except cols t1;
             .log.error "Columns in ", (1_string srct2), " not in ", (1_string srct1), ": ", "," sv string missing];
-        :()];
+        .log.error "QUERY ", string[idx], " FAIL";
+        :0b];
     .log.info "Number of columns: \tOK";
 
 
     if[ not (asc cols t1) ~ asc cols t2;
         .log.error "Different columns names: ", "," sv string cols[t1] except cols t2;
-        :()];
+        .log.error "QUERY ", string[idx], " FAIL";
+        :0b];
     .log.info "Column names: \t\tOK";
 
     t2: cols[t1] xcols t2; / reorder columns to match t1
 
-    {[t1;t2;c]
-        notok: not $[.Q.ty[t1 c] in "ef"; FLOATDIFFTHREASHOLD > abs t1[c] - t2 c; "C" ~ .Q.ty t1 c; t1[c] like' t2 c; t1[c] = t2 c];
+    contentok: all {[t1;t2;c]
+        notok: not $[.Q.ty[t1 c] in "ef";
+            abs[t1[c]-t2 c] <= FLOATABSTOLERANCE + FLOATRELTOLERANCE * (abs[t1 c] | abs t2 c);
+            "C" ~ .Q.ty t1 c; t1[c] like' t2 c;
+            t1[c] = t2 c];
         if[any notok;
-            idx: first where notok;
-            .log.error "Differ in column ", string[c], " e.g. index ", string[idx], ": ", string[t1[idx;c]], " vs ", string[t2[idx;c]];
-            ;();
-        ]}[t1;t2] each cols t1;
+            rowidx: first where notok;
+            .log.error "Differ in column ", string[c], " e.g. index ", string[rowidx], ": ", string[t1[rowidx;c]], " vs ", string[t2[rowidx;c]]];
+        not any notok}[t1;t2] each cols t1;
 
+    if[not contentok;
+        .log.error "QUERY ", string[idx], " FAIL";
+        :0b];
     .log.info "Content: \t\t\tOK";
+    .log.info "QUERY ", string[idx], " PASS";
+    1b
   }
 
-(compare . value@) each querymeta;
-
-.log.info "ALL OK"
-
-if[not `debug in key o; exit 0];
+results: (compare . value@) each querymeta;
+if[all results;
+    .log.info "ALL OK";
+    if[not `debug in key o; exit 0];
+    ];
+.log.error "COMPARISON FAILED";
+if[not `debug in key o; exit 1];

@@ -32,7 +32,7 @@ generated Parquet.
 | 2 | `log_returns` | Per-sym log return per trade (`diff(log(price))`). |
 | 3 | `roll_vol_rows` | Per-sym `rolling_std` over 20 trades of the log return. |
 | 4 | `roll_vol_5m` | Per-sym duration-window (5 minute) rolling std of the log return. |
-| 5 | `ewm_vol` | Per-sym `ewm_std(span=20)` of the log return. |
+| 5 | `ewm_vol` | Per-sym `ewm_std(span=20, min_samples=2)` of the log return. |
 | 6 | `asof_nbbo` | Trades asof-joined to the latest quote per sym, backward. |
 | 7 | `asof_tol_5s` | Same, with a 5-second staleness tolerance (unmatched -> null). |
 | 8 | `xsec_rank` | Per-minute cross-sectional rank of symbols by traded value; top-decile count per minute. |
@@ -73,6 +73,14 @@ not implemented for duckdb -- no UDF workaround, per the board's rules.
 It's recorded as a gap in the checksum output and excluded from the
 duckdb result file and its `total_ms`.
 
+Query 5 states `min_samples=2` explicitly in the Polars adapter. Polars
+1.41 returned a numeric first-sample value under its old default, while
+1.43 returns null after its default changed. Neither library default is
+the benchmark contract: two observations are the minimum required by the
+unbiased sample-standard-deviation semantics used by Keyten, so the
+explicit argument makes results independent of the installed Polars
+minor version.
+
 **Tolerance edge case:** DuckDB's window `RANGE BETWEEN INTERVAL 5 MINUTE
 PRECEDING AND CURRENT ROW` is closed on both ends; keyten's
 `rolling_std_by` window is `(t - window, t]`, open on the left. The two
@@ -85,13 +93,12 @@ no UDF.
 
 ## Correctness
 
-`harness.py run --engine <e>` executes all 8 queries for one engine. For
-each, before any timing: it calls the query once, sorts the *full* result
+`harness.py capture --engine <e>` executes all 8 queries for one engine.
+For each, it calls the query once, sorts the *full* result
 on its natural key (`(sym, ts)` for the per-trade queries, `(sym,
 minute)` for `bars_1m`, `minute` for `xsec_rank`), and writes it to
-`<out-dir>/<e>.q<idx>.parquet`. It then writes `<out-dir>/<e>.csv`
-(idx,name,query,ms best-of-3) and a small `<out-dir>/<e>.checksum.json`
-(row count + column names, for `check` to know what's on disk).
+`<out-dir>/<e>.q<idx>.parquet`, and writes a small
+`<out-dir>/<e>.checksum.json` (row count, columns, and SHA-256 digest).
 
 `harness.py check` reads every engine's per-query Parquet file and
 compares them pairwise **column by column, over every row** -- not just
@@ -107,8 +114,10 @@ last few bits of a large aggregate -- is not reproducible across engines;
 see keyten's own `Expr.sum()` docs). A query missing from an engine (a
 documented gap) is skipped, not treated as a mismatch. Any real mismatch
 prints the offending query and its mismatched columns, and exits
-non-zero -- correctness fails loudly, before any number is trusted enough
-to time.
+non-zero -- correctness fails loudly. Only after all captures pass does
+`harness.py time --engine <e>` write `<out-dir>/<e>.csv`; the standard
+runner deletes stale timing CSVs before capture, so a failed check cannot
+leave a new timing artifact.
 
 Row order within a tied key (e.g. two trades at the exact same `(sym,
 ts)`) is not otherwise constrained, so a tie could in principle sort
@@ -143,10 +152,11 @@ engines.
 
 ```bash
 python3 gen_data.py /tmp/tickops-tiny --scale 0.005
-python3 harness.py run --engine keyten --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
-python3 harness.py run --engine duckdb --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
-python3 harness.py run --engine polars --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
+python3 harness.py capture --engine keyten --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
+python3 harness.py capture --engine duckdb --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
+python3 harness.py capture --engine polars --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
 python3 harness.py check --out-dir /tmp/tickops-out
+python3 harness.py time --engine keyten --data-dir /tmp/tickops-tiny --out-dir /tmp/tickops-out --threads 4
 ```
 
 Or end to end, including the venv and board JSON conversion, via

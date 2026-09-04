@@ -105,7 +105,10 @@ class QueryExecutorDuckDBCon:
 
         io_load_start = ios.get_io_stat()
         t_load_start = time.perf_counter_ns()
-        order_by = ", ".join(self.sort_cols)
+        order_by = ", ".join(
+            f"{column}::VARCHAR" if column == "sym" else column
+            for column in self.sort_cols
+        )
         logger.info("ordering trade by %s", order_by)
         self.con.execute(f"CREATE OR REPLACE TABLE trade AS SELECT * FROM trade ORDER BY {order_by}, rowid")
         logger.info("ordering quote by %s", order_by)
@@ -159,7 +162,41 @@ class QueryExecutorDuckDBCon:
 
     def execute_query(self, idx: int, tags: set, query_str: str, params: list[Any], runidx: int):
         try:
-            self.con.execute(f"CREATE TABLE res AS {query_str}", parameters=params)
+            if int(idx) in (15, 16, 17):
+                # DuckDB's PIVOT statement does not accept bound parameters.
+                # Keep the SQL relational and typed by materializing each value
+                # into a one-column temporary relation before parsing PIVOT.
+                for position, value in enumerate(params, start=1):
+                    table = f"_query_param_{position}"
+                    if isinstance(value, list):
+                        self.con.execute(
+                            f"CREATE OR REPLACE TEMP TABLE {table} AS "
+                            "SELECT UNNEST(?) AS value", [value]
+                        )
+                    else:
+                        self.con.execute(
+                            f"CREATE OR REPLACE TEMP TABLE {table} AS SELECT ? AS value",
+                            [value],
+                        )
+                    query_str = query_str.replace(
+                        f"${position}", f"(SELECT value FROM {table})"
+                    )
+                self.con.execute(f"CREATE TABLE res AS {query_str}")
+            else:
+                self.con.execute(f"CREATE TABLE res AS {query_str}", parameters=params)
+            if int(idx) in (15, 16, 17):
+                columns = [row[0] for row in self.con.sql("DESCRIBE res").fetchall()]
+                renamed = [
+                    column.removesuffix("_avgLiqWMid") for column in columns
+                ]
+                if columns != renamed:
+                    select = ", ".join(
+                        f'"{old}" AS "{new}"'
+                        for old, new in zip(columns, renamed, strict=True)
+                    )
+                    self.con.execute(
+                        f"CREATE OR REPLACE TABLE res AS SELECT {select} FROM res"
+                    )
         except Exception as e:
             logger.error("query execution failed: %s", e)
             self.con.rollback()
@@ -171,6 +208,16 @@ class QueryExecutorDuckDBCon:
         tscols = [row[0] for row in self.con.sql("SELECT column_name FROM (DESCRIBE res) WHERE column_type = 'TIMESTAMP_NS'").fetchall()]
         for col in tscols:
             self.con.sql(f"CREATE OR REPLACE TABLE res AS SELECT * REPLACE (format('0D{{:02d}}:{{:02d}}:{{:02d}}.{{:09d}}', hour({col}), minute({col}), second({col}), (epoch_ns({col}) % 1000000000)) AS {col}) FROM res")
+
+        timecols = [row[0] for row in self.con.sql("SELECT column_name FROM (DESCRIBE res) WHERE column_type = 'TIME'").fetchall()]
+        for col in timecols:
+            if col == "minute":
+                expression = f"format('{{:02d}}:{{:02d}}', hour({col}), minute({col}))"
+            else:
+                expression = f"format('0D{{:02d}}:{{:02d}}:{{:02d}}.{{:09d}}', hour({col}), minute({col}), second({col}), (epoch_ns({col}) % 1000000000))"
+            self.con.sql(
+                f"CREATE OR REPLACE TABLE res AS SELECT * REPLACE ({expression} AS {col}) FROM res"
+            )
 
         bcols = [row[0] for row in self.con.sql("SELECT column_name FROM (DESCRIBE res) WHERE column_type = 'BOOLEAN'").fetchall()]
         for col in bcols:

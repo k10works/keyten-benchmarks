@@ -16,8 +16,11 @@ matches the cross-system convention; the contents are not SQL).
 import os
 import timeit
 from datetime import date as _pydate
+from pathlib import Path
 
 import keyten as kt
+import pyarrow as pa
+import pyarrow.parquet as pq
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
@@ -26,6 +29,7 @@ hits = None
 parquet_path = "hits.parquet"
 import os as _os
 native_path = _os.environ.get("KEYTEN_NATIVE", "/skull/bench/hits10m_native.k10dir")
+capture_dir = _os.environ.get("CLICKBENCH_CAPTURE_DIR")
 
 EPOCH = _pydate(1970, 1, 1)
 
@@ -92,6 +96,27 @@ async def query(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {e}")
     return {"elapsed": elapsed, "result": str(result)}
+
+
+@app.post("/capture/{idx}")
+async def capture(idx: int, request: Request):
+    """Execute once and persist the complete Arrow result, never a repr."""
+    if hits is None:
+        raise HTTPException(status_code=409, detail="DataFrame not loaded; POST /load first")
+    if capture_dir is None:
+        raise HTTPException(status_code=409, detail="CLICKBENCH_CAPTURE_DIR is not configured")
+    code = (await request.body()).decode("utf-8").strip()
+    try:
+        result = eval(code, {**EVAL_CTX, "hits": hits})
+        table = pa.table(result)
+        output = Path(capture_dir) / f"q{idx:02d}.parquet"
+        output.parent.mkdir(parents=True, exist_ok=True)
+        pq.write_table(table, output)
+    except NotImplementedError as error:
+        raise HTTPException(status_code=501, detail=f"unsupported: {error}")
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=f"{type(error).__name__}: {error}")
+    return {"rows": table.num_rows, "columns": table.num_columns}
 
 
 @app.get("/data-size")

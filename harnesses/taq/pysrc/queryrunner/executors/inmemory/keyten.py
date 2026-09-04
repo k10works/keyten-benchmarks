@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Any
 
 import keyten as kt
+import pyarrow as pa
+import polars as pl
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +24,11 @@ EXNAMES = {
 }
 
 MIN_NS = 60_000_000_000
+RAW_NS_COLUMNS = {
+    "participantTimestamp",
+    "tradeReportingFacilityTRFTimestamp",
+    "FINRAADFTimestamp",
+}
 
 
 def _td_ns(td: timedelta) -> int:
@@ -156,4 +163,27 @@ class QueryExecutorKeytenInMemory:
         return eval(query_str, self.eval_context)
 
     def write_csv(self, res, out_file: Path) -> None:
-        res.write_csv(str(out_file))
+        # Keyten exposes logical time-of-day columns as Arrow time64[ns].
+        # Match the q-readable text convention used by the reference adapters:
+        # minute buckets are HH:MM; other time values are q durations.
+        frame = pl.from_arrow(pa.table(res))
+        exprs = [pl.col(pl.Boolean).cast(pl.Int8).cast(pl.String)]
+        for column, dtype in frame.schema.items():
+            if dtype != pl.Time and column not in RAW_NS_COLUMNS:
+                continue
+            ns = pl.col(column).cast(pl.Int64)
+            hh = ((ns // 3_600_000_000_000) % 24).cast(pl.String).str.zfill(2)
+            mm = ((ns // 60_000_000_000) % 60).cast(pl.String).str.zfill(2)
+            if column == "minute":
+                exprs.append(
+                    pl.concat_str([hh, pl.lit(":"), mm]).alias(column)
+                )
+                continue
+            days = (ns // 86_400_000_000_000).cast(pl.String)
+            ss = ((ns // 1_000_000_000) % 60).cast(pl.String).str.zfill(2)
+            subsec = (ns % 1_000_000_000).cast(pl.String).str.zfill(9)
+            exprs.append(pl.concat_str([
+                days, pl.lit("D"), hh, pl.lit(":"), mm, pl.lit(":"),
+                ss, pl.lit("."), subsec,
+            ]).alias(column))
+        frame.with_columns(exprs).write_csv(out_file)
