@@ -1,126 +1,2714 @@
 {
- "suite": "pdsh-sf10",
+ "benchmark": {
+  "adapter_track": "standard",
+  "artifacts": {
+   "adapter_sha256": "b9204fdf9820ee5ec15702d8aa3f2e42492111dc0cac2d583f3a4b887aef31e2",
+   "harness_sha256": "24dccb21f874ea0e796ee31f5bc31bb5bf4c81fcfed8aae3aaf59716dad206f8"
+  },
+  "benchmark_mode": "resident-native",
+  "benchmark_repo": {
+   "dirty": true,
+   "dirty_paths": [
+    "results/taq-small/duckdb.json",
+    "results/taq-small/keyten.json",
+    "results/taq-small/polars.json",
+    "results/tickops/duckdb.json",
+    "results/tickops/keyten.json",
+    "results/tickops/polars.json",
+    "harnesses/tickops/__pycache__/queries_duckdb.cpython-314.pyc",
+    "harnesses/tickops/__pycache__/queries_keyten.cpython-314.pyc",
+    "harnesses/tickops/__pycache__/queries_polars.cpython-314.pyc",
+    "runner/__pycache__/convert_generic.cpython-314.pyc",
+    "runner/__pycache__/materialize.cpython-314.pyc"
+   ],
+   "sha": "3c69ce10bde96a54289927ee3eebadb807d3690c",
+   "source_dirty": true
+  },
+  "engine_modes": {
+   "duckdb": "in-memory",
+   "keyten": "resident-native",
+   "polars": "streaming-resident"
+  },
+  "engines": {
+   "duckdb": {
+    "distributions": {
+     "duckdb": {
+      "native_artifacts": {
+       "_duckdb.cpython-314-x86_64-linux-gnu.so": "53e0982b496aa42b27686a3835329b867cebb8ae822fec25c65c4770839a0976"
+      },
+      "sha256": "dc9774e3ca260c88723fea00ad4269680de064bb6be3758e23737e1fcabed427",
+      "version": "1.5.3"
+     }
+    },
+    "module": "/home/hetoku/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "version": "1.5.3"
+   },
+   "keyten": {
+    "distributions": {
+     "keyten": {
+      "native_artifacts": {
+       "keyten/_keyten.abi3.so": "f7cf9d98c456077a6e020dc0ec7c8a3c260eef7e7e8bf740b3dd06248ed036f9"
+      },
+      "sha256": "895d14a955d3be08e24982efa9eb39706111fa2e6af35b53b342e033b95e6e9f",
+      "version": "0.1.53"
+     }
+    },
+    "module": "/home/hetoku/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "version": "0.1.53"
+   },
+   "polars": {
+    "distributions": {
+     "polars": {
+      "native_artifacts": {},
+      "sha256": "34b358f2fada7cacf86700aca967fd30cfaf45b480dddee2828319404272a916",
+      "version": "1.41.2"
+     },
+     "polars-runtime-32": {
+      "native_artifacts": {
+       "_polars_runtime_32/_polars_runtime.abi3.so": "0a3a70ebd3d3fe8380c2be7ca3af9fb331d874c485c60098e1dcbff3b0311eeb"
+      },
+      "sha256": "fd278df355f46d80626d768886560c3c008a4f9d1cca26635aa019f3456270ed",
+      "version": "1.41.2"
+     },
+     "polars-runtime-64": {
+      "native_artifacts": {
+       "_polars_runtime_64/_polars_runtime.abi3.so": "a7757f977eedd65a41e0105fe2f360b9f737a6e6ec4db99a83d9f2a9c2dbb548"
+      },
+      "sha256": "a712a3ba950102d5002abac9dcc979464c541e926d3987c1366a3e4535a47c5e",
+      "version": "1.41.2"
+     }
+    },
+    "module": "/home/hetoku/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/polars/__init__.py",
+    "version": "1.41.2"
+   }
+  },
+  "environment": [
+   "PyYAML==6.0.3",
+   "annotated-types==0.7.0",
+   "attrs==26.1.0",
+   "certifi==2026.5.20",
+   "charset-normalizer==3.4.7",
+   "click==8.4.1",
+   "cloudpickle==3.1.2",
+   "contourpy==1.3.3",
+   "cramjam==2.11.0",
+   "cycler==0.12.1",
+   "dask-expr==2.0.0",
+   "dask==2026.6.0",
+   "duckdb==1.5.3",
+   "fastparquet==2026.5.0",
+   "filelock==3.29.4",
+   "fonttools==4.63.0",
+   "fsspec==2026.6.0",
+   "idna==3.18",
+   "jsonschema-specifications==2025.9.1",
+   "jsonschema==4.26.0",
+   "keyten==0.1.53",
+   "kiwisolver==1.5.0",
+   "linetimer==0.1.5",
+   "locket==1.0.0",
+   "matplotlib==3.11.0",
+   "mizani==0.14.4",
+   "modin==0.37.1",
+   "msgpack==1.2.0",
+   "narwhals==2.22.1",
+   "numpy==2.4.6",
+   "packaging==26.2",
+   "pandas==2.3.3",
+   "partd==1.4.2",
+   "patsy==1.0.2",
+   "pillow==12.2.0",
+   "pip==25.1.1",
+   "plotly==6.8.0",
+   "plotnine==0.15.7",
+   "polars-cloud==0.8.0",
+   "polars-runtime-32==1.41.2",
+   "polars-runtime-64==1.41.2",
+   "polars==1.41.2",
+   "protobuf==7.35.1",
+   "psutil==7.2.2",
+   "py4j==0.10.9.9",
+   "pyarrow==24.0.0",
+   "pydantic-settings==2.14.1",
+   "pydantic==2.13.4",
+   "pydantic_core==2.46.4",
+   "pyparsing==3.3.2",
+   "pyspark==4.1.2",
+   "python-dateutil==2.9.0.post0",
+   "python-dotenv==1.2.2",
+   "pytz==2026.2",
+   "ray==2.55.1",
+   "referencing==0.37.0",
+   "requests==2.34.2",
+   "rpds-py==2026.5.1",
+   "scipy==1.17.1",
+   "setuptools==82.0.1",
+   "six==1.17.0",
+   "statsmodels==0.14.6",
+   "toolz==1.1.0",
+   "tpchgen-cli==2.0.2",
+   "typing-inspection==0.4.2",
+   "typing_extensions==4.15.0",
+   "tzdata==2026.2",
+   "urllib3==2.7.0"
+  ],
+  "methodology": {
+   "dispersion": [
+    "mad",
+    "p25",
+    "p75"
+   ],
+   "engine_order": "cyclic rotations; each engine occupies every position",
+   "expected_query_count": 22,
+   "io_included": false,
+   "raw_samples_retained": true,
+   "statistic": "median",
+   "timed_samples_per_query": 12,
+   "warmups_per_timed_sample": 2
+  },
+  "recorded_at": "2026-09-11T10:55:35.516552+00:00",
+  "workers": 32
+ },
  "engine": "polars",
- "version": "1.41.2",
- "threads": 28,
+ "execution_mode": "streaming-resident",
  "machine": {
-  "cpu": "Intel(R) Core(TM) i7-14700",
-  "cores": 28,
-  "ram_gb": 62,
-  "os": "Linux x86_64",
-  "date": "2026-08-17"
+  "affinity_cpus": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31
+  ],
+  "architecture": "x86_64",
+  "cores": 32,
+  "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
+  "governors": [
+   "performance"
+  ],
+  "kernel": "7.0.0-22-generic",
+  "l2_bytes": 524288,
+  "l3_bytes": 33554432,
+  "os": "Linux",
+  "python": "3.14.4",
+  "ram_bytes": 134962257920
  },
  "queries": [
   {
    "idx": 1,
+   "ms": 1036.28,
    "query": "PDS-H query 1 (TPC-H derived)",
-   "ms": 525.72
+   "stats": {
+    "mad_ms": 1.168408,
+    "max_ms": 1067.40098,
+    "median_ms": 1036.276865,
+    "min_ms": 1029.666631,
+    "p25_ms": 1035.729115,
+    "p75_ms": 1037.941406,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1039.036723,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1037.5763,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1067.40098,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1033.723395,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1037.314246,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1035.919686,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1029.666631,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1036.605461,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1035.886444,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1035.94827,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1050.016817,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1035.257126,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     1039.036723,
+     1037.5763,
+     1067.40098,
+     1033.723395,
+     1037.314246,
+     1035.919686,
+     1029.666631,
+     1036.605461,
+     1035.886444,
+     1035.94827,
+     1050.016817,
+     1035.257126
+    ]
+   }
   },
   {
    "idx": 2,
+   "ms": 21.68,
    "query": "PDS-H query 2 (TPC-H derived)",
-   "ms": 21.67
+   "stats": {
+    "mad_ms": 0.215528,
+    "max_ms": 22.2705,
+    "median_ms": 21.681128,
+    "min_ms": 21.019318,
+    "p25_ms": 21.381069,
+    "p75_ms": 21.816638,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 22.2705,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.82712,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 22.166356,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.741661,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.396064,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.813144,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.043683,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.597881,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.019318,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.759895,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.620594,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 21.336082,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     22.2705,
+     21.82712,
+     22.166356,
+     21.741661,
+     21.396064,
+     21.813144,
+     21.043683,
+     21.597881,
+     21.019318,
+     21.759895,
+     21.620594,
+     21.336082
+    ]
+   }
   },
   {
    "idx": 3,
+   "ms": 216.79,
    "query": "PDS-H query 3 (TPC-H derived)",
-   "ms": 115.99
+   "stats": {
+    "mad_ms": 9.109252,
+    "max_ms": 229.392691,
+    "median_ms": 216.791644,
+    "min_ms": 200.604903,
+    "p25_ms": 208.607957,
+    "p75_ms": 225.840946,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 200.604903,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 229.392691,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 202.072866,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 209.015192,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 219.588194,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 226.198419,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 213.881151,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 225.780996,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 219.609374,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 226.020796,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 207.386252,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 213.995094,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     200.604903,
+     229.392691,
+     202.072866,
+     209.015192,
+     219.588194,
+     226.198419,
+     213.881151,
+     225.780996,
+     219.609374,
+     226.020796,
+     207.386252,
+     213.995094
+    ]
+   }
   },
   {
    "idx": 4,
+   "ms": 329.32,
    "query": "PDS-H query 4 (TPC-H derived)",
-   "ms": 191.01
+   "stats": {
+    "mad_ms": 21.330205,
+    "max_ms": 356.729126,
+    "median_ms": 329.323852,
+    "min_ms": 299.555752,
+    "p25_ms": 308.25304,
+    "p75_ms": 348.248021,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 299.555752,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 352.668287,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 309.258379,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 356.729126,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 305.019704,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 347.268845,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 308.512433,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 351.185548,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 333.705565,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 342.96645,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 307.474861,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 324.942139,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     299.555752,
+     352.668287,
+     309.258379,
+     356.729126,
+     305.019704,
+     347.268845,
+     308.512433,
+     351.185548,
+     333.705565,
+     342.96645,
+     307.474861,
+     324.942139
+    ]
+   }
   },
   {
    "idx": 5,
+   "ms": 121.23,
    "query": "PDS-H query 5 (TPC-H derived)",
-   "ms": 59.79
+   "stats": {
+    "mad_ms": 1.264106,
+    "max_ms": 127.142233,
+    "median_ms": 121.228407,
+    "min_ms": 117.978328,
+    "p25_ms": 119.46455,
+    "p75_ms": 122.002955,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 122.110595,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 121.923383,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 117.978328,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 120.338126,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 118.722891,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 121.18446,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 119.086773,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 127.142233,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 119.590476,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 121.272354,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 124.363992,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 121.967075,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     122.110595,
+     121.923383,
+     117.978328,
+     120.338126,
+     118.722891,
+     121.18446,
+     119.086773,
+     127.142233,
+     119.590476,
+     121.272354,
+     124.363992,
+     121.967075
+    ]
+   }
   },
   {
    "idx": 6,
+   "ms": 43.44,
    "query": "PDS-H query 6 (TPC-H derived)",
-   "ms": 101.26
+   "stats": {
+    "mad_ms": 0.651349,
+    "max_ms": 44.455372,
+    "median_ms": 43.439719,
+    "min_ms": 42.279639,
+    "p25_ms": 42.910634,
+    "p75_ms": 44.11902,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 43.243941,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 43.508195,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 43.371242,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.076934,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.517615,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.095227,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.279639,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.190396,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.950002,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.455372,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.792529,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.380511,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     43.243941,
+     43.508195,
+     43.371242,
+     44.076934,
+     42.517615,
+     44.095227,
+     42.279639,
+     44.190396,
+     42.950002,
+     44.455372,
+     42.792529,
+     44.380511
+    ]
+   }
   },
   {
    "idx": 7,
+   "ms": 208.3,
    "query": "PDS-H query 7 (TPC-H derived)",
-   "ms": 125.94
+   "stats": {
+    "mad_ms": 4.750313,
+    "max_ms": 218.613369,
+    "median_ms": 208.295104,
+    "min_ms": 202.139691,
+    "p25_ms": 206.171264,
+    "p75_ms": 213.900883,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 211.471665,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 216.243396,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 208.345448,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 203.619421,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 207.021879,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 213.120046,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 207.328965,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 208.24476,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 218.613369,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 217.110395,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 202.139691,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 202.601525,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     211.471665,
+     216.243396,
+     208.345448,
+     203.619421,
+     207.021879,
+     213.120046,
+     207.328965,
+     208.24476,
+     218.613369,
+     217.110395,
+     202.139691,
+     202.601525
+    ]
+   }
   },
   {
    "idx": 8,
+   "ms": 105.49,
    "query": "PDS-H query 8 (TPC-H derived)",
-   "ms": 41.94
+   "stats": {
+    "mad_ms": 2.098373,
+    "max_ms": 121.896955,
+    "median_ms": 105.493612,
+    "min_ms": 101.632979,
+    "p25_ms": 103.627769,
+    "p75_ms": 107.826502,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 121.896955,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 119.563346,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 101.632979,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 104.551383,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 103.492171,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 106.537832,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 107.688917,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 101.90555,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 106.038387,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 104.948837,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 108.239257,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 103.672968,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     121.896955,
+     119.563346,
+     101.632979,
+     104.551383,
+     103.492171,
+     106.537832,
+     107.688917,
+     101.90555,
+     106.038387,
+     104.948837,
+     108.239257,
+     103.672968
+    ]
+   }
   },
   {
    "idx": 9,
+   "ms": 651.7,
    "query": "PDS-H query 9 (TPC-H derived)",
-   "ms": 425.39
+   "stats": {
+    "mad_ms": 6.540445,
+    "max_ms": 719.47267,
+    "median_ms": 651.700089,
+    "min_ms": 636.301992,
+    "p25_ms": 645.581765,
+    "p75_ms": 656.164483,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 652.107672,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 637.125988,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 646.003885,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 653.243818,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 636.301992,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 659.096103,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 646.317201,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 644.315403,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 696.108903,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 719.47267,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 655.187276,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 651.292507,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     652.107672,
+     637.125988,
+     646.003885,
+     653.243818,
+     636.301992,
+     659.096103,
+     646.317201,
+     644.315403,
+     696.108903,
+     719.47267,
+     655.187276,
+     651.292507
+    ]
+   }
   },
   {
    "idx": 10,
+   "ms": 308.55,
    "query": "PDS-H query 10 (TPC-H derived)",
-   "ms": 271.4
+   "stats": {
+    "mad_ms": 3.346398,
+    "max_ms": 345.175757,
+    "median_ms": 308.554425,
+    "min_ms": 304.142222,
+    "p25_ms": 305.5463,
+    "p75_ms": 323.789828,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 307.627383,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 308.207058,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 304.142222,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 305.566899,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 333.197564,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 323.375838,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 304.931548,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 309.44062,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 308.901791,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 345.175757,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 325.031797,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 305.484504,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     307.627383,
+     308.207058,
+     304.142222,
+     305.566899,
+     333.197564,
+     323.375838,
+     304.931548,
+     309.44062,
+     308.901791,
+     345.175757,
+     325.031797,
+     305.484504
+    ]
+   }
   },
   {
    "idx": 11,
+   "ms": 81.22,
    "query": "PDS-H query 11 (TPC-H derived)",
-   "ms": 48.38
+   "stats": {
+    "mad_ms": 3.782248,
+    "max_ms": 89.749143,
+    "median_ms": 81.218918,
+    "min_ms": 76.629627,
+    "p25_ms": 77.455612,
+    "p75_ms": 84.835183,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 77.398787,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 76.629627,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 77.116403,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 88.918106,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 77.557529,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 77.474554,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 82.101756,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 80.336081,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 82.12,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 87.977147,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 83.787862,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 89.749143,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     77.398787,
+     76.629627,
+     77.116403,
+     88.918106,
+     77.557529,
+     77.474554,
+     82.101756,
+     80.336081,
+     82.12,
+     87.977147,
+     83.787862,
+     89.749143
+    ]
+   }
   },
   {
    "idx": 12,
+   "ms": 138.7,
    "query": "PDS-H query 12 (TPC-H derived)",
-   "ms": 559.73
+   "stats": {
+    "mad_ms": 1.485761,
+    "max_ms": 149.461655,
+    "median_ms": 138.70297,
+    "min_ms": 135.934453,
+    "p25_ms": 137.605408,
+    "p75_ms": 140.020595,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 140.525006,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 138.421549,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 139.852458,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 139.480271,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 138.984392,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 136.597284,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 137.94145,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 138.324467,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 136.214778,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 147.35885,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 149.461655,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 135.934453,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     140.525006,
+     138.421549,
+     139.852458,
+     139.480271,
+     138.984392,
+     136.597284,
+     137.94145,
+     138.324467,
+     136.214778,
+     147.35885,
+     149.461655,
+     135.934453
+    ]
+   }
   },
   {
    "idx": 13,
+   "ms": 320.95,
    "query": "PDS-H query 13 (TPC-H derived)",
-   "ms": 713.61
+   "stats": {
+    "mad_ms": 4.719337,
+    "max_ms": 330.294991,
+    "median_ms": 320.9466,
+    "min_ms": 316.003195,
+    "p25_ms": 317.683474,
+    "p75_ms": 327.776985,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 316.45133,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 327.121343,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 330.294991,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 316.003195,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 329.774096,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 316.65213,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 326.767867,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 321.642743,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 318.027255,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 320.250456,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 320.023833,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 329.743908,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     316.45133,
+     327.121343,
+     330.294991,
+     316.003195,
+     329.774096,
+     316.65213,
+     326.767867,
+     321.642743,
+     318.027255,
+     320.250456,
+     320.023833,
+     329.743908
+    ]
+   }
   },
   {
    "idx": 14,
+   "ms": 42.36,
    "query": "PDS-H query 14 (TPC-H derived)",
-   "ms": 43.17
+   "stats": {
+    "mad_ms": 0.316869,
+    "max_ms": 43.455509,
+    "median_ms": 42.364876,
+    "min_ms": 41.289134,
+    "p25_ms": 41.982505,
+    "p75_ms": 42.650748,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.445625,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.061477,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.70901,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.745589,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.289134,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.635925,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.695216,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 43.455509,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.591862,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 43.256427,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.284126,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.215178,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     42.445625,
+     42.061477,
+     41.70901,
+     41.745589,
+     41.289134,
+     42.635925,
+     42.695216,
+     43.455509,
+     42.591862,
+     43.256427,
+     42.284126,
+     42.215178
+    ]
+   }
   },
   {
    "idx": 15,
+   "ms": 41.48,
    "query": "PDS-H query 15 (TPC-H derived)",
-   "ms": 55.75
+   "stats": {
+    "mad_ms": 0.508612,
+    "max_ms": 44.997637,
+    "median_ms": 41.481509,
+    "min_ms": 38.914951,
+    "p25_ms": 40.990883,
+    "p75_ms": 42.596469,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.361897,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 42.192612,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.572454,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.780269,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 40.99317,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.671972,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 44.997637,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 40.984023,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 43.808039,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 40.961771,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 41.390564,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 38.914951,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     41.361897,
+     42.192612,
+     41.572454,
+     44.780269,
+     40.99317,
+     41.671972,
+     44.997637,
+     40.984023,
+     43.808039,
+     40.961771,
+     41.390564,
+     38.914951
+    ]
+   }
   },
   {
    "idx": 16,
+   "ms": 131.33,
    "query": "PDS-H query 16 (TPC-H derived)",
-   "ms": 95.4
+   "stats": {
+    "mad_ms": 1.490666,
+    "max_ms": 133.505305,
+    "median_ms": 131.325786,
+    "min_ms": 127.521424,
+    "p25_ms": 129.823355,
+    "p75_ms": 132.523831,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 131.893077,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 133.505305,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 130.021303,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 130.758494,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 131.901834,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 133.002634,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 132.364229,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 127.521424,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 130.162467,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 133.36397,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 127.993246,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 129.229509,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     131.893077,
+     133.505305,
+     130.021303,
+     130.758494,
+     131.901834,
+     133.002634,
+     132.364229,
+     127.521424,
+     130.162467,
+     133.36397,
+     127.993246,
+     129.229509
+    ]
+   }
   },
   {
    "idx": 17,
+   "ms": 73.54,
    "query": "PDS-H query 17 (TPC-H derived)",
-   "ms": 21.27
+   "stats": {
+    "mad_ms": 2.7186,
+    "max_ms": 79.222149,
+    "median_ms": 73.54332,
+    "min_ms": 68.409429,
+    "p25_ms": 71.629916,
+    "p75_ms": 77.029858,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 68.409429,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 79.222149,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 77.982184,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 73.138488,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 73.948152,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 78.001,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 71.869702,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 76.712416,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 74.011071,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 70.738885,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 73.118469,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 70.910556,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     68.409429,
+     79.222149,
+     77.982184,
+     73.138488,
+     73.948152,
+     78.001,
+     71.869702,
+     76.712416,
+     74.011071,
+     70.738885,
+     73.118469,
+     70.910556
+    ]
+   }
   },
   {
    "idx": 18,
+   "ms": 561.85,
    "query": "PDS-H query 18 (TPC-H derived)",
-   "ms": 533.03
+   "stats": {
+    "mad_ms": 18.53081,
+    "max_ms": 618.089619,
+    "median_ms": 561.849275,
+    "min_ms": 539.189556,
+    "p25_ms": 552.856373,
+    "p75_ms": 586.743077,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 553.141071,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 609.458786,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 618.089619,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 583.007924,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 539.837899,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 577.752246,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 561.868422,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 558.402994,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 539.189556,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 561.830129,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 597.948534,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 552.002281,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     553.141071,
+     609.458786,
+     618.089619,
+     583.007924,
+     539.837899,
+     577.752246,
+     561.868422,
+     558.402994,
+     539.189556,
+     561.830129,
+     597.948534,
+     552.002281
+    ]
+   }
   },
   {
    "idx": 19,
+   "ms": 231.91,
    "query": "PDS-H query 19 (TPC-H derived)",
-   "ms": 610.96
+   "stats": {
+    "mad_ms": 1.636098,
+    "max_ms": 237.121016,
+    "median_ms": 231.908129,
+    "min_ms": 226.855419,
+    "p25_ms": 230.582967,
+    "p75_ms": 233.942269,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 231.575978,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 234.353628,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 228.271099,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 233.805149,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 230.532953,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 235.468783,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 230.599638,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 232.54538,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 226.855419,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 237.121016,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 231.130161,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 232.240279,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     231.575978,
+     234.353628,
+     228.271099,
+     233.805149,
+     230.532953,
+     235.468783,
+     230.599638,
+     232.54538,
+     226.855419,
+     237.121016,
+     231.130161,
+     232.240279
+    ]
+   }
   },
   {
    "idx": 20,
+   "ms": 356.51,
    "query": "PDS-H query 20 (TPC-H derived)",
-   "ms": 289.44
+   "stats": {
+    "mad_ms": 4.52533,
+    "max_ms": 403.009674,
+    "median_ms": 356.508963,
+    "min_ms": 347.923351,
+    "p25_ms": 354.051522,
+    "p75_ms": 366.913205,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 351.879,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 364.59837,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 347.923351,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 354.513367,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 360.92966,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 373.88931,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 352.66599,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 373.857711,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 355.456063,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 357.260119,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 403.009674,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 355.757806,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     351.879,
+     364.59837,
+     347.923351,
+     354.513367,
+     360.92966,
+     373.88931,
+     352.66599,
+     373.857711,
+     355.456063,
+     357.260119,
+     403.009674,
+     355.757806
+    ]
+   }
   },
   {
    "idx": 21,
+   "ms": 1790.06,
    "query": "PDS-H query 21 (TPC-H derived)",
-   "ms": 1359.68
+   "stats": {
+    "mad_ms": 11.698004,
+    "max_ms": 1815.210802,
+    "median_ms": 1790.059214,
+    "min_ms": 1762.327419,
+    "p25_ms": 1783.924063,
+    "p75_ms": 1806.20358,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1769.552552,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1815.210802,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1794.511248,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1785.603412,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1807.5458,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1762.327419,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1782.654081,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1792.555125,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1787.563303,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1806.664048,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1784.347391,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 1806.05009,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     1769.552552,
+     1815.210802,
+     1794.511248,
+     1785.603412,
+     1807.5458,
+     1762.327419,
+     1782.654081,
+     1792.555125,
+     1787.563303,
+     1806.664048,
+     1784.347391,
+     1806.05009
+    ]
+   }
   },
   {
    "idx": 22,
+   "ms": 113.95,
    "query": "PDS-H query 22 (TPC-H derived)",
-   "ms": 105.7
+   "stats": {
+    "mad_ms": 2.042288,
+    "max_ms": 117.498961,
+    "median_ms": 113.950178,
+    "min_ms": 106.100645,
+    "p25_ms": 111.94172,
+    "p75_ms": 115.655204,
+    "samples": [
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 113.397264,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 106.100645,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 113.319678,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 111.602603,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 114.882164,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 116.139335,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 115.493827,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 117.498961,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 108.077615,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 114.503093,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 112.054759,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "streaming-resident",
+      "ms": 116.256314,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     113.397264,
+     106.100645,
+     113.319678,
+     111.602603,
+     114.882164,
+     116.139335,
+     115.493827,
+     117.498961,
+     108.077615,
+     114.503093,
+     112.054759,
+     116.256314
+    ]
+   }
   }
  ],
- "total_ms": 6316.2
+ "suite": "pdsh-sf10",
+ "threads": 32,
+ "total_ms": 6926.6,
+ "version": "1.41.2"
 }
