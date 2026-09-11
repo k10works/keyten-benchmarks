@@ -41,7 +41,7 @@ run_daemon() { # dir, env, out, optional capture dir
   # exec so $! is the server itself; the pid file writes from repo root.
   ( cd "$dir" && exec env $envs "../../$WORK/venv/bin/python" "$(ls server*.py)" ) &
   echo $! > "$WORK/srv.pid"
-  until curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1; do sleep 1; done
+  until curl -sf http://127.0.0.1:${BENCH_PORT:-8000}/health >/dev/null 2>&1; do sleep 1; done
   if [ -n "$capture" ]; then
     ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py --capture-dir "$capture" > "../../$out" )
   else
@@ -49,7 +49,7 @@ run_daemon() { # dir, env, out, optional capture dir
   fi
   kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
   # Drain: the next daemon must not see this one's socket answering.
-  until ! curl -sf http://127.0.0.1:8000/health >/dev/null 2>&1; do sleep 1; done
+  until ! curl -sf http://127.0.0.1:${BENCH_PORT:-8000}/health >/dev/null 2>&1; do sleep 1; done
 }
 
 # keyten: first run converts the parquet into the engine's native store.

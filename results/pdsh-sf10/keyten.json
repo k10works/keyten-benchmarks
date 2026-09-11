@@ -1,126 +1,126 @@
 {
  "suite": "pdsh-sf10",
  "engine": "keyten",
- "version": "0.1.49",
- "threads": 8,
+ "version": "0.1.52",
+ "threads": 28,
  "machine": {
-  "cpu": "Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
-  "cores": 8,
+  "cpu": "Intel(R) Core(TM) i7-14700",
+  "cores": 28,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-08-12"
+  "date": "2026-08-17"
  },
  "queries": [
   {
    "idx": 1,
    "query": "PDS-H query 1 (TPC-H derived)",
-   "ms": 453.36
+   "ms": 98.77
   },
   {
    "idx": 2,
    "query": "PDS-H query 2 (TPC-H derived)",
-   "ms": 51.99
+   "ms": 13.74
   },
   {
    "idx": 3,
    "query": "PDS-H query 3 (TPC-H derived)",
-   "ms": 569.27
+   "ms": 129.32
   },
   {
    "idx": 4,
    "query": "PDS-H query 4 (TPC-H derived)",
-   "ms": 366.93
+   "ms": 67.95
   },
   {
    "idx": 5,
    "query": "PDS-H query 5 (TPC-H derived)",
-   "ms": 379.78
+   "ms": 90.42
   },
   {
    "idx": 6,
    "query": "PDS-H query 6 (TPC-H derived)",
-   "ms": 143.87
+   "ms": 27.96
   },
   {
    "idx": 7,
    "query": "PDS-H query 7 (TPC-H derived)",
-   "ms": 518.6
+   "ms": 125.01
   },
   {
    "idx": 8,
    "query": "PDS-H query 8 (TPC-H derived)",
-   "ms": 532.77
+   "ms": 149.19
   },
   {
    "idx": 9,
    "query": "PDS-H query 9 (TPC-H derived)",
-   "ms": 866.81
+   "ms": 219.96
   },
   {
    "idx": 10,
    "query": "PDS-H query 10 (TPC-H derived)",
-   "ms": 312.38
+   "ms": 80.89
   },
   {
    "idx": 11,
    "query": "PDS-H query 11 (TPC-H derived)",
-   "ms": 95.98
+   "ms": 27.04
   },
   {
    "idx": 12,
    "query": "PDS-H query 12 (TPC-H derived)",
-   "ms": 540.52
+   "ms": 126.69
   },
   {
    "idx": 13,
    "query": "PDS-H query 13 (TPC-H derived)",
-   "ms": 303.03
+   "ms": 85.76
   },
   {
    "idx": 14,
    "query": "PDS-H query 14 (TPC-H derived)",
-   "ms": 229.89
+   "ms": 77.91
   },
   {
    "idx": 15,
    "query": "PDS-H query 15 (TPC-H derived)",
-   "ms": 168.81
+   "ms": 52.96
   },
   {
    "idx": 16,
    "query": "PDS-H query 16 (TPC-H derived)",
-   "ms": 177.99
+   "ms": 69.8
   },
   {
    "idx": 17,
    "query": "PDS-H query 17 (TPC-H derived)",
-   "ms": 197.07
+   "ms": 47.36
   },
   {
    "idx": 18,
    "query": "PDS-H query 18 (TPC-H derived)",
-   "ms": 522.69
+   "ms": 154.42
   },
   {
    "idx": 19,
    "query": "PDS-H query 19 (TPC-H derived)",
-   "ms": 371.38
+   "ms": 110.55
   },
   {
    "idx": 20,
    "query": "PDS-H query 20 (TPC-H derived)",
-   "ms": 354.38
+   "ms": 79.76
   },
   {
    "idx": 21,
    "query": "PDS-H query 21 (TPC-H derived)",
-   "ms": 918.8
+   "ms": 246.5
   },
   {
    "idx": 22,
    "query": "PDS-H query 22 (TPC-H derived)",
-   "ms": 137.81
+   "ms": 47.22
   }
  ],
- "total_ms": 8214.1
+ "total_ms": 2129.2
 }

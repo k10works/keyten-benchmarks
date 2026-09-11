@@ -1,56 +1,56 @@
 {
  "suite": "tickops",
  "engine": "keyten",
- "version": "0.1.49",
- "threads": 8,
+ "version": "0.1.52",
+ "threads": 28,
  "machine": {
-  "cpu": "Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
-  "cores": 8,
+  "cpu": "Intel(R) Core(TM) i7-14700",
+  "cores": 28,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-08-12"
+  "date": "2026-08-17"
  },
  "queries": [
   {
    "idx": 1,
    "query": "trades.group_by(['sym', col('ts').truncate('1m')]).agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).collect()",
-   "ms": 256.32
+   "ms": 95.64
   },
   {
    "idx": 2,
    "query": "trades.with_columns([col('price').log().diff().over('sym').alias('ret')]).select(['sym','ts','ret']).collect()",
-   "ms": 416.42
+   "ms": 174.45
   },
   {
    "idx": 3,
    "query": "ret.rolling_std(20).over('sym')",
-   "ms": 607.8
+   "ms": 229.88
   },
   {
    "idx": 4,
    "query": "ret.rolling_std_by('ts', '5m').over('sym')",
-   "ms": 643.38
+   "ms": 236.04
   },
   {
    "idx": 5,
    "query": "ret.ewm_std(span=20).over('sym')",
-   "ms": 548.93
+   "ms": 215.51
   },
   {
    "idx": 6,
    "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward').collect()",
-   "ms": 1011.72
+   "ms": 478.54
   },
   {
    "idx": 7,
    "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward', tolerance='5s').collect()",
-   "ms": 1044.61
+   "ms": 529.58
   },
   {
    "idx": 8,
    "query": "value.rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_in_minute), summed per minute",
-   "ms": 255.47
+   "ms": 101.31
   }
  ],
- "total_ms": 4784.6
+ "total_ms": 2060.9
 }

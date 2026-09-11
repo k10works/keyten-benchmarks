@@ -125,4 +125,4 @@ def data_size():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="warning")
+    uvicorn.run(app, host="127.0.0.1", port=int(__import__("os").environ.get("BENCH_PORT","8000")), log_level="warning")

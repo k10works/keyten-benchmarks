@@ -5,7 +5,7 @@ from pathlib import Path
 QF="queries.sql"; TRIES=3
 ENGINE="polars"
 def post(path, data=b""):
-    r=urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:8000"+path, data=data, method="POST"), timeout=600)
+    r=urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:"+__import__("os").environ.get("BENCH_PORT","8000")+path, data=data, method="POST"), timeout=600)
     return json.load(r)
 ap=argparse.ArgumentParser()
 ap.add_argument("--capture-dir", type=Path)

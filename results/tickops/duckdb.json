@@ -2,50 +2,50 @@
  "suite": "tickops",
  "engine": "duckdb",
  "version": "1.5.5",
- "threads": 8,
+ "threads": 28,
  "machine": {
-  "cpu": "Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
-  "cores": 8,
+  "cpu": "Intel(R) Core(TM) i7-14700",
+  "cores": 28,
   "ram_gb": 62,
   "os": "Linux x86_64",
-  "date": "2026-08-12"
+  "date": "2026-08-17"
  },
  "queries": [
   {
    "idx": 1,
    "query": "SELECT sym, date_trunc('minute', ts) AS minute,\n               arg_min(price, ts) AS open, max(price) AS high, min(price) AS low,\n               arg_max(price, ",
-   "ms": 691.84
+   "ms": 122.98
   },
   {
    "idx": 2,
    "query": "SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n        FROM trades",
-   "ms": 972.76
+   "ms": 339.33
   },
   {
    "idx": 3,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s",
-   "ms": 2675.52
+   "ms": 663.66
   },
   {
    "idx": 4,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s",
-   "ms": 7352.85
+   "ms": 1354.45
   },
   {
    "idx": 6,
    "query": "SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size, q.bid AS bid, q.ask AS ask\n        FROM trades t ASOF LEFT JOIN quotes q ON t.sym = q.sym AND",
-   "ms": 5073.85
+   "ms": 1356.98
   },
   {
    "idx": 7,
    "query": "WITH matched AS (\n            SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size,\n                   q.ts AS qts, q.bid AS qbid, q.ask AS qask\n  ",
-   "ms": 5270.11
+   "ms": 1384.43
   },
   {
    "idx": 8,
    "query": "WITH per_minute AS (\n            SELECT sym, date_trunc('minute', ts) AS minute, sum(price * size) AS value\n            FROM trades\n            GROUP BY sym, mi",
-   "ms": 403.22
+   "ms": 73.68
   }
  ],
- "total_ms": 22440.2
+ "total_ms": 5295.5
 }
