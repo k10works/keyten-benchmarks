@@ -32,14 +32,17 @@ cp -r harnesses/taq "$WORK/harness"
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
-if [ -n "${KEYTEN_VERSION:-}" ]; then
+if [ -n "${KEYTEN_WHEEL:-}" ]; then
+  "$VENV/pip" install -q --no-cache-dir --force-reinstall "$KEYTEN_WHEEL"
+  "$VENV/pip" install -q --upgrade duckdb polars pyarrow numpy 2>/dev/null || "$VENV/pip" install -q --upgrade duckdb polars pyarrow
+elif [ -n "${KEYTEN_VERSION:-}" ]; then
   "$VENV/pip" install -q --no-cache-dir --force-reinstall "keyten==$KEYTEN_VERSION"
   "$VENV/pip" install -q --upgrade duckdb polars pandas pyarrow numpy psutil pyyaml numexpr
 else
   "$VENV/pip" install -q --upgrade keyten duckdb polars pandas pyarrow numpy psutil pyyaml numexpr
 fi
 KEYTEN_ACTUAL="$("$VENV/python" -c 'import keyten; print(keyten.__version__)')"
-if [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
+if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_taq.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
   exit 1
 fi

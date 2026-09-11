@@ -24,14 +24,17 @@ HITS="$(realpath "$HITS")"
 WORK=".work"; mkdir -p "$WORK" results/clickbench-10m
 rm -f "$WORK/cb_keyten.txt" "$WORK/cb_polars.txt" "$WORK/cb_duckdb.txt"
 python3 -m venv "$WORK/venv" 2>/dev/null || true
-if [ -n "${KEYTEN_VERSION:-}" ]; then
+if [ -n "${KEYTEN_WHEEL:-}" ]; then
+  "$WORK/venv/bin/pip" install -q --no-cache-dir --force-reinstall "$KEYTEN_WHEEL"
+  "$WORK/venv/bin/pip" install -q --upgrade polars duckdb pyarrow fastapi uvicorn
+elif [ -n "${KEYTEN_VERSION:-}" ]; then
   "$WORK/venv/bin/pip" install -q --no-cache-dir --force-reinstall "keyten==$KEYTEN_VERSION"
   "$WORK/venv/bin/pip" install -q --upgrade polars duckdb pyarrow fastapi uvicorn
 else
   "$WORK/venv/bin/pip" install -q --upgrade keyten polars duckdb pyarrow fastapi uvicorn
 fi
 KEYTEN_ACTUAL="$("$WORK/venv/bin/python" -c 'import keyten; print(keyten.__version__)')"
-if [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
+if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_clickbench.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
   exit 1
 fi

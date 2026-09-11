@@ -60,14 +60,17 @@ ln -s "$CACHE_ABS/data" "$RUN_DIR/data"
 ln -s "$CACHE_ABS/.venv" "$RUN_DIR/.venv"
 
 VENV="$CACHE_ABS/.venv/bin"
-if [ -n "${KEYTEN_VERSION:-}" ]; then
+if [ -n "${KEYTEN_WHEEL:-}" ]; then
+  "$VENV/pip" install -q --no-cache-dir --force-reinstall "$KEYTEN_WHEEL"
+  "$VENV/pip" install -q --upgrade duckdb polars pyarrow numpy 2>/dev/null || "$VENV/pip" install -q --upgrade duckdb polars pyarrow
+elif [ -n "${KEYTEN_VERSION:-}" ]; then
   "$VENV/pip" install -q --no-cache-dir --force-reinstall "keyten==$KEYTEN_VERSION"
   "$VENV/pip" install -q -r "$RUN_DIR/requirements.txt" duckdb polars
 else
   "$VENV/pip" install -q -r "$RUN_DIR/requirements.txt" keyten duckdb polars
 fi
 KEYTEN_ACTUAL="$("$VENV/python" -c 'import keyten; print(keyten.__version__)')"
-if [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
+if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_pdsh.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
   exit 1
 fi
