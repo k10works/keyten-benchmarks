@@ -1,5 +1,962 @@
 {
+ "benchmark": {
+  "adapter_track": "standard",
+  "artifacts": {
+   "adapter_sha256": "33725bc5e9ce252097447e0c0c4653106fc8046deb3de9c48a413672e01732e4",
+   "harness_sha256": "04c061b102645a9604ff828e221a8baefc6aed70b9b2716ab5ade30b288dc9a5"
+  },
+  "benchmark_mode": "warm-native-scan",
+  "benchmark_repo": {
+   "dirty": true,
+   "dirty_paths": [
+    "adapters/clickbench-keyten/run_board_native.py",
+    "adapters/clickbench-keyten/server_native.py",
+    "adapters/clickbench-polars/run_board.py",
+    "adapters/pdsh-keyten/utils.py",
+    "harnesses/pdsh/queries/keyten/utils.py",
+    "results/clickbench-10m/duckdb.json",
+    "results/clickbench-10m/keyten.json",
+    "results/clickbench-10m/polars.json",
+    "results/pdsh-sf10/duckdb.json",
+    "results/pdsh-sf10/keyten.json",
+    "results/pdsh-sf10/polars.json",
+    "results/taq-small/duckdb.json",
+    "results/taq-small/keyten.json",
+    "results/taq-small/polars.json",
+    "results/tickops/duckdb.json",
+    "results/tickops/keyten.json",
+    "results/tickops/polars.json",
+    "runner/benchmark_metadata.py",
+    "runner/check_clickbench_results.py",
+    "runner/convert_generic.py",
+    "runner/run_clickbench.sh",
+    "runner/run_pdsh.sh",
+    "runner/run_taq.sh",
+    "runner/run_tickops.sh",
+    "runner/test_benchmark_metadata.py",
+    "runner/test_check_clickbench_results.py",
+    "adapters/pdsh-keyten/__pycache__/utils.cpython-314.pyc",
+    "runner/__pycache__/materialize.cpython-314.pyc",
+    "runner/__pycache__/native_layout.cpython-314.pyc",
+    "runner/__pycache__/test_native_layout.cpython-314.pyc",
+    "runner/__pycache__/test_store_stamp.cpython-314.pyc",
+    "runner/lib/identity.sh",
+    "runner/native_layout.py",
+    "runner/test_native_layout.py",
+    "runner/test_run_scripts.py",
+    "runner/test_store_stamp.py"
+   ],
+   "sha": "cdbd15f3d4eaa741824a930b2c60020b278fb228",
+   "source_dirty": true
+  },
+  "engine_modes": {
+   "duckdb": "in-memory",
+   "keyten": "native-scan",
+   "polars": "parquet-scan"
+  },
+  "engines": {
+   "duckdb": {
+    "build": {
+     "build_state": "unknown",
+     "git_sha": "unknown"
+    },
+    "distributions": {
+     "duckdb": {
+      "native_artifacts": {
+       "_duckdb.cpython-314-x86_64-linux-gnu.so": "01a93fcce3512274b15367251182645b07f2e8caec36bfaba5a1e3db7358b067"
+      },
+      "sha256": "308b8d81a61a396913ba6636248ba4cb5156536da209f1248ae2cb13f9c3e763",
+      "version": "1.5.5"
+     }
+    },
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "version": "1.5.5"
+   },
+   "keyten": {
+    "build": {
+     "build_state": "clean",
+     "git_sha": "c9a1aba62a72e45a9dd09020e2a85deed6da9457"
+    },
+    "distributions": {
+     "keyten": {
+      "native_artifacts": {
+       "keyten/_keyten.abi3.so": "b9b49f7fb5af774705ebe61ec320ed3f7dddadad3312a098c20955e73558f262"
+      },
+      "sha256": "11ff324a0ea2b980da6612f3f795176e2328fd15806fff05f866165d889f3156",
+      "version": "0.1.53"
+     }
+    },
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "version": "0.1.53"
+   },
+   "polars": {
+    "build": {
+     "build_state": "unknown",
+     "git_sha": "unknown"
+    },
+    "distributions": {
+     "polars": {
+      "native_artifacts": {},
+      "sha256": "d40ce89b50b4d0dbda2e7ebbfc23ae0401b848881bbb0396cffc3da17cb22575",
+      "version": "1.44.2"
+     },
+     "polars-runtime-32": {
+      "native_artifacts": {
+       "_polars_runtime_32/_polars_runtime.abi3.so": "bd7cdb9876c63ae705bd918423eb5812e7746a3b9379501cf4f0707e5c151736"
+      },
+      "sha256": "6a79cb2ec3f69fde9b3022f209d1464f0a822576e6ffabfe1a304550df6c08e0",
+      "version": "1.44.2"
+     }
+    },
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
+    "version": "1.44.2"
+   }
+  },
+  "environment": [
+   "annotated-doc==0.0.5",
+   "annotated-types==0.8.0",
+   "anyio==4.15.1",
+   "click==8.5.0",
+   "duckdb==1.5.5",
+   "fastapi==0.141.1",
+   "h11==0.16.0",
+   "idna==3.19",
+   "keyten==0.1.53",
+   "pip==25.1.1",
+   "polars-runtime-32==1.44.2",
+   "polars==1.44.2",
+   "pyarrow==25.0.1",
+   "pydantic==2.13.5",
+   "pydantic_core==2.46.5",
+   "starlette==1.6.0",
+   "typing-inspection==0.4.4",
+   "typing_extensions==4.16.0",
+   "uvicorn==0.52.4"
+  ],
+  "methodology": {
+   "dispersion": [],
+   "engine_order": "keyten, polars, duckdb",
+   "expected_query_count": 43,
+   "io_included": {
+    "duckdb": false,
+    "keyten": true,
+    "polars": true
+   },
+   "load_included": false,
+   "raw_samples_retained": false,
+   "statistic": "min",
+   "timed_samples_per_query": 3,
+   "warmups_per_query": 0
+  },
+  "native_stores": [
+   {
+    "columns": {
+     "AdvEngineID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1023,
+       "4": 770,
+       "7": 3090
+      }
+     },
+     "Age": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4690,
+       "7": 193
+      }
+     },
+     "BrowserCountry": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 134,
+       "6": 4749
+      }
+     },
+     "BrowserLanguage": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 191,
+       "6": 4692
+      }
+     },
+     "CLID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4733,
+       "7": 150
+      }
+     },
+     "ClientEventTime": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4719,
+       "6": 164
+      }
+     },
+     "ClientIP": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1102,
+       "6": 3126,
+       "7": 655
+      }
+     },
+     "ClientTimeZone": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "6": 1464,
+       "7": 3256
+      }
+     },
+     "CodeVersion": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4256,
+       "6": 190,
+       "7": 437
+      }
+     },
+     "ConnectTiming": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3957,
+       "4": 2,
+       "6": 902,
+       "7": 22
+      }
+     },
+     "CookieEnable": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4117,
+       "4": 39,
+       "7": 727
+      }
+     },
+     "CounterClass": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4882,
+       "7": 1
+      }
+     },
+     "CounterID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4812,
+       "7": 71
+      }
+     },
+     "DNSTiming": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3958,
+       "4": 6,
+       "6": 686,
+       "7": 233
+      }
+     },
+     "DontCountHits": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4095,
+       "4": 640,
+       "7": 148
+      }
+     },
+     "EventDate": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4771,
+       "7": 112
+      }
+     },
+     "EventTime": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4883
+      }
+     },
+     "FUniqID": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1025,
+       "6": 3109,
+       "7": 749
+      }
+     },
+     "FetchTiming": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3957,
+       "4": 349,
+       "6": 559,
+       "7": 18
+      }
+     },
+     "FlashMajor": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 164,
+       "4": 1737,
+       "7": 2982
+      }
+     },
+     "FlashMinor": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "4": 4574,
+       "7": 146
+      }
+     },
+     "FlashMinor2": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "6": 4720
+      }
+     },
+     "FromTag": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4409,
+       "6": 289,
+       "9": 185
+      }
+     },
+     "GoodEvent": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "HID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "4": 4718,
+       "7": 2
+      }
+     },
+     "HTTPError": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "HasGCLID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1721,
+       "4": 2182,
+       "7": 980
+      }
+     },
+     "HistoryLength": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4401,
+       "4": 221,
+       "6": 7,
+       "7": 254
+      }
+     },
+     "HitColor": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4124,
+       "6": 759
+      }
+     },
+     "IPNetworkID": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1176,
+       "6": 3309,
+       "7": 398
+      }
+     },
+     "Income": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4881,
+       "7": 2
+      }
+     },
+     "Interests": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 108,
+       "6": 3582,
+       "7": 1193
+      }
+     },
+     "IsArtifical": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4151,
+       "4": 520,
+       "7": 212
+      }
+     },
+     "IsDownload": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4469,
+       "4": 93,
+       "7": 321
+      }
+     },
+     "IsEvent": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "IsLink": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4339,
+       "4": 540,
+       "7": 4
+      }
+     },
+     "IsMobile": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 2,
+       "4": 3809,
+       "7": 1072
+      }
+     },
+     "IsNotBounce": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4547,
+       "4": 245,
+       "7": 91
+      }
+     },
+     "IsOldCounter": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "IsParameter": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "IsRefresh": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4860,
+       "7": 23
+      }
+     },
+     "JavaEnable": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 164,
+       "4": 4716,
+       "7": 3
+      }
+     },
+     "JavascriptEnable": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4487,
+       "4": 4,
+       "7": 392
+      }
+     },
+     "LocalEventTime": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4883
+      }
+     },
+     "MobilePhone": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 11,
+       "4": 640,
+       "7": 4232
+      }
+     },
+     "MobilePhoneModel": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 56,
+       "6": 4171,
+       "9": 656
+      }
+     },
+     "NetMajor": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 23,
+       "4": 1347,
+       "7": 3513
+      }
+     },
+     "NetMinor": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 28,
+       "4": 956,
+       "7": 3899
+      }
+     },
+     "OS": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 46,
+       "6": 1657,
+       "7": 3180
+      }
+     },
+     "OpenerName": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "OpenstatAdID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1061,
+       "6": 233,
+       "9": 3589
+      }
+     },
+     "OpenstatCampaignID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1024,
+       "6": 454,
+       "9": 3405
+      }
+     },
+     "OpenstatServiceName": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 962,
+       "6": 39,
+       "9": 3882
+      }
+     },
+     "OpenstatSourceID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1273,
+       "6": 29,
+       "9": 3581
+      }
+     },
+     "OriginalURL": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 108,
+       "6": 3954,
+       "9": 821
+      }
+     },
+     "PageCharset": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1230,
+       "6": 3652,
+       "9": 1
+      }
+     },
+     "ParamCurrency": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4883
+      }
+     },
+     "ParamCurrencyID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "ParamOrderID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4883
+      }
+     },
+     "ParamPrice": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1
+      }
+     },
+     "Params": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4882,
+       "9": 1
+      }
+     },
+     "Referer": {
+      "dictionary_form": null,
+      "encodings": {
+       "6": 4882,
+       "9": 1
+      }
+     },
+     "RefererCategoryID": {
+      "dictionary_form": null,
+      "encodings": {
+       "6": 4882,
+       "7": 1
+      }
+     },
+     "RefererHash": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 4844,
+       "6": 38,
+       "7": 1
+      }
+     },
+     "RefererRegionID": {
+      "dictionary_form": null,
+      "encodings": {
+       "6": 4882,
+       "7": 1
+      }
+     },
+     "RegionID": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 87,
+       "6": 4114,
+       "7": 682
+      }
+     },
+     "RemoteIP": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1102,
+       "6": 3151,
+       "7": 630
+      }
+     },
+     "ResolutionDepth": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 164,
+       "4": 1589,
+       "7": 3130
+      }
+     },
+     "ResolutionHeight": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "6": 3324,
+       "7": 1396
+      }
+     },
+     "ResolutionWidth": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "6": 3548,
+       "7": 1172
+      }
+     },
+     "ResponseEndTiming": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3957,
+       "4": 592,
+       "6": 324,
+       "7": 10
+      }
+     },
+     "ResponseStartTiming": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3957,
+       "4": 778,
+       "6": 138,
+       "7": 10
+      }
+     },
+     "Robotness": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 28,
+       "6": 3142,
+       "7": 1713
+      }
+     },
+     "SearchEngineID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 51,
+       "4": 3321,
+       "6": 1120,
+       "7": 391
+      }
+     },
+     "SearchPhrase": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 55,
+       "6": 3363,
+       "9": 1465
+      }
+     },
+     "SendTiming": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4548,
+       "4": 53,
+       "6": 181,
+       "7": 101
+      }
+     },
+     "Sex": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4881,
+       "7": 2
+      }
+     },
+     "SilverlightVersion1": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "4": 4678,
+       "7": 42
+      }
+     },
+     "SilverlightVersion2": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "4": 4718,
+       "7": 2
+      }
+     },
+     "SilverlightVersion3": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "6": 1511,
+       "7": 3209
+      }
+     },
+     "SilverlightVersion4": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4680,
+       "7": 203
+      }
+     },
+     "SocialAction": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4883
+      }
+     },
+     "SocialNetwork": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4883
+      }
+     },
+     "SocialSourceNetworkID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 2528,
+       "4": 26,
+       "7": 2329
+      }
+     },
+     "SocialSourcePage": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3588,
+       "6": 191,
+       "9": 1104
+      }
+     },
+     "Title": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "6": 4720
+      }
+     },
+     "TraficSourceID": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4882,
+       "7": 1
+      }
+     },
+     "URL": {
+      "dictionary_form": null,
+      "encodings": {
+       "6": 4883
+      }
+     },
+     "URLCategoryID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 298,
+       "4": 1,
+       "6": 3528,
+       "7": 1056
+      }
+     },
+     "URLHash": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 4881,
+       "7": 2
+      }
+     },
+     "URLRegionID": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 257,
+       "6": 3279,
+       "7": 1347
+      }
+     },
+     "UTMCampaign": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1181,
+       "6": 66,
+       "9": 3636
+      }
+     },
+     "UTMContent": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3331,
+       "6": 1285,
+       "9": 267
+      }
+     },
+     "UTMMedium": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1174,
+       "6": 3642,
+       "9": 67
+      }
+     },
+     "UTMSource": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 1053,
+       "6": 415,
+       "9": 3415
+      }
+     },
+     "UTMTerm": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 3350,
+       "6": 942,
+       "9": 591
+      }
+     },
+     "UserAgent": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 3927,
+       "7": 956
+      }
+     },
+     "UserAgentMajor": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4553,
+       "6": 255,
+       "7": 75
+      }
+     },
+     "UserAgentMinor": {
+      "dictionary_form": null,
+      "encodings": {
+       "6": 4883
+      }
+     },
+     "UserID": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 113,
+       "5": 944,
+       "6": 3036,
+       "7": 790
+      }
+     },
+     "WatchID": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 4883
+      }
+     },
+     "WindowClientHeight": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "4": 1087,
+       "6": 3619,
+       "7": 14
+      }
+     },
+     "WindowClientWidth": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 163,
+       "4": 220,
+       "6": 4488,
+       "7": 12
+      }
+     },
+     "WindowName": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4401,
+       "4": 219,
+       "6": 6,
+       "7": 257
+      }
+     },
+     "WithHash": {
+      "dictionary_form": null,
+      "encodings": {
+       "1": 4727,
+       "4": 156
+      }
+     }
+    },
+    "rows": 10000000,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/hits10m.k10dir"
+   }
+  ],
+  "recorded_at": "2026-09-13T22:12:20.986211+00:00",
+  "workers": 32
+ },
  "engine": "keyten",
+ "execution_mode": "native-scan",
  "machine": {
   "cores": 32,
   "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
@@ -10,222 +967,222 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 1.59,
+   "ms": 1.48,
    "query": "SELECT COUNT(*) FROM hits;"
   },
   {
    "idx": 2,
-   "ms": 2.84,
+   "ms": 2.66,
    "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;"
   },
   {
    "idx": 3,
-   "ms": 2.78,
+   "ms": 2.98,
    "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;"
   },
   {
    "idx": 4,
-   "ms": 2.95,
+   "ms": 2.98,
    "query": "SELECT AVG(UserID) FROM hits;"
   },
   {
    "idx": 5,
-   "ms": 13.33,
+   "ms": 13.16,
    "query": "SELECT COUNT(DISTINCT UserID) FROM hits;"
   },
   {
    "idx": 6,
-   "ms": 34.91,
+   "ms": 34.99,
    "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;"
   },
   {
    "idx": 7,
-   "ms": 1.47,
+   "ms": 1.48,
    "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;"
   },
   {
    "idx": 8,
-   "ms": 3.34,
+   "ms": 3.17,
    "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;"
   },
   {
    "idx": 9,
-   "ms": 30.72,
+   "ms": 31.57,
    "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;"
   },
   {
    "idx": 10,
-   "ms": 36.03,
+   "ms": 36.12,
    "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 11,
-   "ms": 8.94,
+   "ms": 9.18,
    "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;"
   },
   {
    "idx": 12,
-   "ms": 10.89,
+   "ms": 10.69,
    "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC "
   },
   {
    "idx": 13,
-   "ms": 25.49,
+   "ms": 24.77,
    "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 14,
-   "ms": 112.44,
+   "ms": 113.07,
    "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;"
   },
   {
    "idx": 15,
-   "ms": 28.09,
+   "ms": 29.42,
    "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 16,
-   "ms": 47.73,
+   "ms": 48.57,
    "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;"
   },
   {
    "idx": 17,
-   "ms": 100.42,
+   "ms": 101.42,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;"
   },
   {
    "idx": 18,
-   "ms": 181.47,
+   "ms": 176.67,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;"
   },
   {
    "idx": 19,
-   "ms": 154.4,
+   "ms": 154.56,
    "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;"
   },
   {
    "idx": 20,
-   "ms": 1.3,
+   "ms": 1.21,
    "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;"
   },
   {
    "idx": 21,
-   "ms": 18.03,
+   "ms": 18.26,
    "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';"
   },
   {
    "idx": 22,
-   "ms": 23.0,
+   "ms": 23.55,
    "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 23,
-   "ms": 43.52,
+   "ms": 43.8,
    "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP"
   },
   {
    "idx": 24,
-   "ms": 21.74,
+   "ms": 21.85,
    "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;"
   },
   {
    "idx": 25,
-   "ms": 8.11,
+   "ms": 7.84,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;"
   },
   {
    "idx": 26,
-   "ms": 27.12,
+   "ms": 20.2,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;"
   },
   {
    "idx": 27,
-   "ms": 27.1,
+   "ms": 25.73,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;"
   },
   {
    "idx": 28,
-   "ms": 40.63,
+   "ms": 44.45,
    "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;"
   },
   {
    "idx": 29,
-   "ms": 393.11,
+   "ms": 404.24,
    "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> "
   },
   {
    "idx": 30,
-   "ms": 2.69,
+   "ms": 2.42,
    "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S"
   },
   {
    "idx": 31,
-   "ms": 37.05,
+   "ms": 33.55,
    "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER "
   },
   {
    "idx": 32,
-   "ms": 41.26,
+   "ms": 34.32,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI"
   },
   {
    "idx": 33,
-   "ms": 181.99,
+   "ms": 183.21,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 34,
-   "ms": 113.19,
+   "ms": 108.92,
    "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 35,
-   "ms": 111.85,
+   "ms": 110.84,
    "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;"
   },
   {
    "idx": 36,
-   "ms": 53.57,
+   "ms": 54.09,
    "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L"
   },
   {
    "idx": 37,
-   "ms": 25.92,
+   "ms": 25.97,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh"
   },
   {
    "idx": 38,
-   "ms": 11.45,
+   "ms": 11.59,
    "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre"
   },
   {
    "idx": 39,
-   "ms": 6.95,
+   "ms": 6.71,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A"
   },
   {
    "idx": 40,
-   "ms": 100.39,
+   "ms": 100.33,
    "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS "
   },
   {
    "idx": 41,
-   "ms": 7.86,
+   "ms": 8.25,
    "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN"
   },
   {
    "idx": 42,
-   "ms": 5.6,
+   "ms": 5.7,
    "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A"
   },
   {
    "idx": 43,
-   "ms": 7.75,
+   "ms": 7.92,
    "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN"
   }
  ],
  "suite": "clickbench-10m",
  "threads": 32,
- "total_ms": 2111.0,
+ "total_ms": 2103.9,
  "version": "0.1.53"
 }

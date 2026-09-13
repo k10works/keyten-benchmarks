@@ -3,49 +3,49 @@
  "machine": {
   "cores": 32,
   "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
-  "date": "2026-09-11",
+  "date": "2026-09-13",
   "os": "Linux x86_64",
   "ram_gb": 125
  },
  "queries": [
   {
    "idx": 1,
-   "ms": 171.88,
+   "ms": 173.58,
    "query": "SELECT sym, date_trunc('minute', ts) AS minute,\n               arg_min(price, ts) AS open, max(price) AS high, min(price) AS low,\n               arg_max(price, "
   },
   {
    "idx": 2,
-   "ms": 589.93,
+   "ms": 568.37,
    "query": "SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n        FROM trades"
   },
   {
    "idx": 3,
-   "ms": 1205.15,
+   "ms": 1196.47,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s"
   },
   {
    "idx": 4,
-   "ms": 1887.11,
+   "ms": 1886.99,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s"
   },
   {
    "idx": 6,
-   "ms": 3162.54,
+   "ms": 3131.95,
    "query": "SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size, q.bid AS bid, q.ask AS ask\n        FROM trades t ASOF LEFT JOIN quotes q ON t.sym = q.sym AND"
   },
   {
    "idx": 7,
-   "ms": 3212.92,
+   "ms": 3185.21,
    "query": "WITH matched AS (\n            SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size,\n                   q.ts AS qts, q.bid AS qbid, q.ask AS qask\n  "
   },
   {
    "idx": 8,
-   "ms": 106.08,
+   "ms": 104.23,
    "query": "WITH per_minute AS (\n            SELECT sym, date_trunc('minute', ts) AS minute, sum(price * size) AS value\n            FROM trades\n            GROUP BY sym, mi"
   }
  ],
  "suite": "tickops",
  "threads": 32,
- "total_ms": 10335.6,
+ "total_ms": 10246.8,
  "version": "1.5.5"
 }

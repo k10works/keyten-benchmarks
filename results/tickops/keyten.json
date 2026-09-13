@@ -3,54 +3,54 @@
  "machine": {
   "cores": 32,
   "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
-  "date": "2026-09-11",
+  "date": "2026-09-13",
   "os": "Linux x86_64",
   "ram_gb": 125
  },
  "queries": [
   {
    "idx": 1,
-   "ms": 109.85,
+   "ms": 116.25,
    "query": "trades.group_by(['sym', col('ts').truncate('1m')]).agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).collect()"
   },
   {
    "idx": 2,
-   "ms": 241.39,
+   "ms": 284.09,
    "query": "trades.with_columns([col('price').log().diff().over('sym').alias('ret')]).select(['sym','ts','ret']).collect()"
   },
   {
    "idx": 3,
-   "ms": 286.68,
+   "ms": 369.87,
    "query": "ret.rolling_std(20).over('sym')"
   },
   {
    "idx": 4,
-   "ms": 332.13,
+   "ms": 397.87,
    "query": "ret.rolling_std_by('ts', '5m').over('sym')"
   },
   {
    "idx": 5,
-   "ms": 275.47,
+   "ms": 362.61,
    "query": "ret.ewm_std(span=20).over('sym')"
   },
   {
    "idx": 6,
-   "ms": 1092.33,
+   "ms": 873.3,
    "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward').collect()"
   },
   {
    "idx": 7,
-   "ms": 1158.96,
+   "ms": 907.41,
    "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward', tolerance='5s').collect()"
   },
   {
    "idx": 8,
-   "ms": 137.96,
+   "ms": 155.4,
    "query": "value.rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_in_minute), summed per minute"
   }
  ],
  "suite": "tickops",
  "threads": 32,
- "total_ms": 3634.8,
+ "total_ms": 3466.8,
  "version": "0.1.53"
 }
