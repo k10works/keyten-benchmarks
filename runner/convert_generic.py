@@ -7,6 +7,7 @@ import csv
 import json
 import statistics
 import sys
+from pathlib import Path
 
 
 def machine(path):
@@ -148,10 +149,10 @@ def pdsh(timings_csv, engine, out, mach, version, metadata=None):
     dump(engine, version, "pdsh-sf10", queries, out, mach, metadata)
 
 
-def clickbench(transcript, engine, version, out, mach, sqlfile):
-    sql = [l.strip() for l in open(sqlfile) if l.strip()] if sqlfile else []
+def clickbench(transcript, engine, version, out, mach, sqlfile, metadata=None):
+    sql = [l.strip() for l in Path(sqlfile).read_text().splitlines() if l.strip()] if sqlfile else []
     queries = []
-    for line in open(transcript):
+    for line in Path(transcript).read_text().splitlines():
         if not line.startswith("q"):
             continue
         name, ms = line.split()[0], line.split()[1]
@@ -163,7 +164,7 @@ def clickbench(transcript, engine, version, out, mach, sqlfile):
             "query": sql[idx][:160] if idx < len(sql) else "",
             "ms": round(float(ms.replace("ms", "")), 2),
         })
-    dump(engine, version, "clickbench-10m", queries, out, mach)
+    dump(engine, version, "clickbench-10m", queries, out, mach, metadata)
 
 
 def dump(engine, version, suite, queries, out, mach, metadata=None):
@@ -198,5 +199,10 @@ if __name__ == "__main__":
         metadata = json.load(open(rest[0])) if rest else None
         pdsh(timings, engine, out, machine(machine_json), version or None, metadata)
     else:
-        _, _, transcript, engine, version, machine_json, sqlfile, out = sys.argv
-        clickbench(transcript, engine, version, out, machine(machine_json), sqlfile)
+        if len(sys.argv) not in (8, 9):
+            raise SystemExit(
+                "usage: convert_generic.py clickbench TRANSCRIPT ENGINE VERSION MACHINE SQL OUT [METADATA]"
+            )
+        _, _, transcript, engine, version, machine_json, sqlfile, out, *rest = sys.argv
+        metadata = json.load(open(rest[0])) if rest else None
+        clickbench(transcript, engine, version, out, machine(machine_json), sqlfile, metadata)

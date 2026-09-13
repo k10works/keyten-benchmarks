@@ -22,6 +22,7 @@
 # task-1-report.md for the full writeup.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+source runner/lib/identity.sh
 SCALE="${1:-10.0}"
 ROOT="$PWD"
 WORK="$ROOT/.work"
@@ -69,8 +70,7 @@ elif [ -n "${KEYTEN_VERSION:-}" ]; then
 else
   "$VENV/pip" install -q -r "$RUN_DIR/requirements.txt" keyten duckdb polars
 fi
-KEYTEN_SO="$("$VENV/python" -c 'import keyten, os; print(os.path.join(os.path.dirname(keyten.__file__), "_keyten.abi3.so"))')"
-echo "keyten binary sha256=$(sha256sum "$KEYTEN_SO" | cut -c1-64) wheel=${KEYTEN_WHEEL:-pypi}"
+KEYTEN_PYTHON="$VENV/python"
 KEYTEN_ACTUAL="$("$VENV/python" -c 'import keyten; print(keyten.__version__)')"
 if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_pdsh.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
@@ -180,6 +180,7 @@ fi
 
 # One timed sample per fresh process keeps each sample independent. Cyclic
 # rotations put every engine in every thermal/order position.
+print_keyten_identity before
 for ((round = 0; round < SAMPLES; round++)); do
   case $((round % 3)) in
     0) order=(keyten polars duckdb) ;;
@@ -219,6 +220,8 @@ for ((round = 0; round < SAMPLES; round++)); do
       timeout 1800 "$VENV/python" -m "queries.$e"
   done
 done
+
+print_keyten_identity after
 
 # Capture the stores after the query processes have refreshed their encodings.
 record_metadata with-stores

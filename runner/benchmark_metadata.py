@@ -161,6 +161,7 @@ def main() -> None:
     parser.add_argument("--samples", required=True, type=int)
     parser.add_argument("--warmups", required=True, type=int)
     parser.add_argument("--workers", required=True, type=int)
+    parser.add_argument("--suite", choices=("pdsh", "clickbench"), default="pdsh")
     parser.add_argument(
         "--benchmark-mode",
         required=True,
@@ -226,6 +227,27 @@ def main() -> None:
             for distribution in importlib.metadata.distributions()
         ),
     }
+
+    if args.suite == "clickbench":
+        # Describe the existing adapters: three timed attempts, no separate
+        # untimed query warmup, only the minimum retained in the transcript.
+        metadata["methodology"] = {
+            "statistic": "min",
+            "dispersion": [],
+            "timed_samples_per_query": args.samples,
+            "warmups_per_query": args.warmups,
+            "expected_query_count": 43,
+            "engine_order": "keyten, polars, duckdb",
+            "raw_samples_retained": False,
+            "io_included": {"keyten": True, "polars": True, "duckdb": False},
+            "load_included": False,
+        }
+        metadata["benchmark_mode"] = "warm-native-scan"
+        metadata["engine_modes"] = {
+            "keyten": "native-scan",
+            "polars": "parquet-scan",
+            "duckdb": "in-memory",
+        }
 
     args.machine_out.parent.mkdir(parents=True, exist_ok=True)
     args.metadata_out.parent.mkdir(parents=True, exist_ok=True)

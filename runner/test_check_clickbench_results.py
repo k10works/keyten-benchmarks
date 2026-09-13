@@ -23,7 +23,8 @@ class ClickBenchResultTests(TestCase):
     def test_full_result_mismatch_fails(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
-            self._fixture(root, (1.0, 1.0, 9.0))
+            # The engine under test must disagree with both references.
+            self._fixture(root, (9.0, 1.0, 1.0))
             report = compare_results(root, ["keyten", "duckdb", "polars"], 1)
             self.assertEqual(report["status"], "fail")
             self.assertIn("value mismatch", report["queries"][0]["errors"][0])

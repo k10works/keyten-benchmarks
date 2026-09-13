@@ -19,6 +19,7 @@
 # run_pdsh.sh for why.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+source runner/lib/identity.sh
 HITS="${1:?usage: run_clickbench.sh <hits10m.parquet>}"
 HITS="$(realpath "$HITS")"
 WORK=".work"; mkdir -p "$WORK" results/clickbench-10m
@@ -34,6 +35,7 @@ else
   "$WORK/venv/bin/pip" install -q --upgrade keyten polars duckdb pyarrow fastapi uvicorn
 fi
 KEYTEN_SO="$("$WORK/venv/bin/python" -c 'import keyten, os; print(os.path.join(os.path.dirname(keyten.__file__), "_keyten.abi3.so"))')"
+KEYTEN_PYTHON="$PWD/$WORK/venv/bin/python"
 KEYTEN_ACTUAL="$("$WORK/venv/bin/python" -c 'import keyten; print(keyten.__version__)')"
 if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_clickbench.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
@@ -94,9 +96,12 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
   fi
 fi
 
+print_keyten_identity before
 run_daemon adapters/clickbench-keyten "KEYTEN_NATIVE=$PWD/$WORK/hits10m.k10dir" "$WORK/cb_keyten.txt"
 run_daemon adapters/clickbench-polars "POLARS_PARQUET=$HITS" "$WORK/cb_polars.txt"
 "$WORK/venv/bin/python" runner/cb_duckdb.py "$HITS" adapters/clickbench-duckdb-queries.sql > "$WORK/cb_duckdb.txt"
+
+print_keyten_identity after
 
 MACHINE="$WORK/machine.json"
 "$WORK/venv/bin/python" - "$MACHINE" <<'PYEOF'
@@ -111,7 +116,22 @@ json.dump({"cpu": cpu, "cores": os.cpu_count(), "ram_gb": ram,
            "os": f"{platform.system()} {platform.machine()}",
            "date": datetime.date.today().isoformat()}, open(sys.argv[1], "w"))
 PYEOF
+# Probe with the same venv that executed the engines, including the native
+# store passed to KEYTEN_NATIVE above. Keep the existing board machine JSON.
+METADATA="$WORK/clickbench-metadata.json"
+"$KEYTEN_PYTHON" runner/benchmark_metadata.py \
+  --suite clickbench \
+  --repo "$PWD" \
+  --harness "$PWD/runner" \
+  --adapter "$PWD/adapters/clickbench-keyten" \
+  --machine-out "$WORK/clickbench-machine-facts.json" \
+  --metadata-out "$METADATA" \
+  --samples 3 --warmups 0 \
+  --workers "$("$KEYTEN_PYTHON" -c 'import os; print(os.cpu_count())')" \
+  --benchmark-mode resident-native \
+  --native-store "$PWD/$WORK/hits10m.k10dir"
+
 V() { "$WORK/venv/bin/python" -c "import $1;print($1.__version__)"; }
-python3 runner/convert_generic.py clickbench "$WORK/cb_keyten.txt" keyten "$(V keyten)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/keyten.json
-python3 runner/convert_generic.py clickbench "$WORK/cb_polars.txt" polars "$(V polars)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/polars.json
-python3 runner/convert_generic.py clickbench "$WORK/cb_duckdb.txt" duckdb "$(V duckdb)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/duckdb.json
+python3 runner/convert_generic.py clickbench "$WORK/cb_keyten.txt" keyten "$(V keyten)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/keyten.json "$METADATA"
+python3 runner/convert_generic.py clickbench "$WORK/cb_polars.txt" polars "$(V polars)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/polars.json "$METADATA"
+python3 runner/convert_generic.py clickbench "$WORK/cb_duckdb.txt" duckdb "$(V duckdb)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/duckdb.json "$METADATA"
