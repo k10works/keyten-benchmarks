@@ -2,26 +2,48 @@
  "benchmark": {
   "adapter_track": "standard",
   "artifacts": {
-   "adapter_sha256": "b9204fdf9820ee5ec15702d8aa3f2e42492111dc0cac2d583f3a4b887aef31e2",
-   "harness_sha256": "24dccb21f874ea0e796ee31f5bc31bb5bf4c81fcfed8aae3aaf59716dad206f8"
+   "adapter_sha256": "535ef155fdc69278b2b850aa76b992742d848a664274b03d1d7a657c4ab561c3",
+   "harness_sha256": "1f35b55301952b498ad56dd37575dc40fe9eda743f850e76bc6697bddc5bd539"
   },
   "benchmark_mode": "resident-native",
   "benchmark_repo": {
    "dirty": true,
    "dirty_paths": [
+    "adapters/clickbench-keyten/run_board_native.py",
+    "adapters/clickbench-keyten/server_native.py",
+    "adapters/clickbench-polars/run_board.py",
+    "adapters/pdsh-keyten/utils.py",
+    "harnesses/pdsh/queries/keyten/utils.py",
+    "results/clickbench-10m/duckdb.json",
+    "results/clickbench-10m/keyten.json",
+    "results/clickbench-10m/polars.json",
+    "results/pdsh-sf10/duckdb.json",
+    "results/pdsh-sf10/keyten.json",
+    "results/pdsh-sf10/polars.json",
     "results/taq-small/duckdb.json",
     "results/taq-small/keyten.json",
     "results/taq-small/polars.json",
     "results/tickops/duckdb.json",
     "results/tickops/keyten.json",
     "results/tickops/polars.json",
-    "harnesses/tickops/__pycache__/queries_duckdb.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_keyten.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_polars.cpython-314.pyc",
-    "runner/__pycache__/convert_generic.cpython-314.pyc",
-    "runner/__pycache__/materialize.cpython-314.pyc"
+    "runner/benchmark_metadata.py",
+    "runner/check_clickbench_results.py",
+    "runner/run_clickbench.sh",
+    "runner/run_pdsh.sh",
+    "runner/run_taq.sh",
+    "runner/run_tickops.sh",
+    "runner/test_benchmark_metadata.py",
+    "adapters/pdsh-keyten/__pycache__/utils.cpython-314.pyc",
+    "runner/__pycache__/materialize.cpython-314.pyc",
+    "runner/__pycache__/native_layout.cpython-314.pyc",
+    "runner/__pycache__/test_native_layout.cpython-314.pyc",
+    "runner/__pycache__/test_store_stamp.cpython-314.pyc",
+    "runner/native_layout.py",
+    "runner/test_native_layout.py",
+    "runner/test_run_scripts.py",
+    "runner/test_store_stamp.py"
    ],
-   "sha": "3c69ce10bde96a54289927ee3eebadb807d3690c",
+   "sha": "cdbd15f3d4eaa741824a930b2c60020b278fb228",
    "source_dirty": true
   },
   "engine_modes": {
@@ -31,44 +53,56 @@
   },
   "engines": {
    "duckdb": {
+    "build": {
+     "build_state": "unknown",
+     "git_sha": "unknown"
+    },
     "distributions": {
      "duckdb": {
       "native_artifacts": {
-       "_duckdb.cpython-314-x86_64-linux-gnu.so": "53e0982b496aa42b27686a3835329b867cebb8ae822fec25c65c4770839a0976"
+       "_duckdb.cpython-314-x86_64-linux-gnu.so": "01a93fcce3512274b15367251182645b07f2e8caec36bfaba5a1e3db7358b067"
       },
-      "sha256": "dc9774e3ca260c88723fea00ad4269680de064bb6be3758e23737e1fcabed427",
-      "version": "1.5.3"
+      "sha256": "308b8d81a61a396913ba6636248ba4cb5156536da209f1248ae2cb13f9c3e763",
+      "version": "1.5.5"
      }
     },
-    "module": "/home/hetoku/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/duckdb/__init__.py",
-    "version": "1.5.3"
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "version": "1.5.5"
    },
    "keyten": {
+    "build": {
+     "build_state": "clean",
+     "git_sha": "81d7d082b23336e2fa731805f400da75404f8aa1"
+    },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "f7cf9d98c456077a6e020dc0ec7c8a3c260eef7e7e8bf740b3dd06248ed036f9"
+       "keyten/_keyten.abi3.so": "10aa08683d372e517cf6bee2ed2b2f41a4a549e6c8034a71c5e3cdbec20ffb99"
       },
-      "sha256": "895d14a955d3be08e24982efa9eb39706111fa2e6af35b53b342e033b95e6e9f",
+      "sha256": "47fb0d83bb1f06d2d954bbe94c24f436057280b474951b4abb57ba26749c66c0",
       "version": "0.1.53"
      }
     },
-    "module": "/home/hetoku/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/keyten/__init__.py",
     "version": "0.1.53"
    },
    "polars": {
+    "build": {
+     "build_state": "unknown",
+     "git_sha": "unknown"
+    },
     "distributions": {
      "polars": {
       "native_artifacts": {},
-      "sha256": "34b358f2fada7cacf86700aca967fd30cfaf45b480dddee2828319404272a916",
-      "version": "1.41.2"
+      "sha256": "d40ce89b50b4d0dbda2e7ebbfc23ae0401b848881bbb0396cffc3da17cb22575",
+      "version": "1.44.2"
      },
      "polars-runtime-32": {
       "native_artifacts": {
-       "_polars_runtime_32/_polars_runtime.abi3.so": "0a3a70ebd3d3fe8380c2be7ca3af9fb331d874c485c60098e1dcbff3b0311eeb"
+       "_polars_runtime_32/_polars_runtime.abi3.so": "bd7cdb9876c63ae705bd918423eb5812e7746a3b9379501cf4f0707e5c151736"
       },
-      "sha256": "fd278df355f46d80626d768886560c3c008a4f9d1cca26635aa019f3456270ed",
-      "version": "1.41.2"
+      "sha256": "6a79cb2ec3f69fde9b3022f209d1464f0a822576e6ffabfe1a304550df6c08e0",
+      "version": "1.44.2"
      },
      "polars-runtime-64": {
       "native_artifacts": {
@@ -78,8 +112,8 @@
       "version": "1.41.2"
      }
     },
-    "module": "/home/hetoku/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/polars/__init__.py",
-    "version": "1.41.2"
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh/.venv/lib/python3.14/site-packages/polars/__init__.py",
+    "version": "1.44.2"
    }
   },
   "environment": [
@@ -95,7 +129,7 @@
    "cycler==0.12.1",
    "dask-expr==2.0.0",
    "dask==2026.6.0",
-   "duckdb==1.5.3",
+   "duckdb==1.5.5",
    "fastparquet==2026.5.0",
    "filelock==3.29.4",
    "fonttools==4.63.0",
@@ -112,7 +146,7 @@
    "modin==0.37.1",
    "msgpack==1.2.0",
    "narwhals==2.22.1",
-   "numpy==2.4.6",
+   "numpy==2.5.3",
    "packaging==26.2",
    "pandas==2.3.3",
    "partd==1.4.2",
@@ -122,13 +156,13 @@
    "plotly==6.8.0",
    "plotnine==0.15.7",
    "polars-cloud==0.8.0",
-   "polars-runtime-32==1.41.2",
+   "polars-runtime-32==1.44.2",
    "polars-runtime-64==1.41.2",
-   "polars==1.41.2",
+   "polars==1.44.2",
    "protobuf==7.35.1",
    "psutil==7.2.2",
    "py4j==0.10.9.9",
-   "pyarrow==24.0.0",
+   "pyarrow==25.0.1",
    "pydantic-settings==2.14.1",
    "pydantic==2.13.4",
    "pydantic_core==2.46.4",
@@ -166,7 +200,425 @@
    "timed_samples_per_query": 12,
    "warmups_per_timed_sample": 2
   },
-  "recorded_at": "2026-09-11T10:55:35.516552+00:00",
+  "native_stores": [
+   {
+    "columns": {
+     "c_acctbal": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 733
+      }
+     },
+     "c_address": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 733
+      }
+     },
+     "c_comment": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 733
+      }
+     },
+     "c_custkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "2": 733
+      }
+     },
+     "c_mktsegment": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 733
+      }
+     },
+     "c_name": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 733
+      }
+     },
+     "c_nationkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 733
+      }
+     },
+     "c_phone": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 733
+      }
+     }
+    },
+    "rows": 1500000,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/customer.k10dir"
+   },
+   {
+    "columns": {
+     "comments": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 29291
+      }
+     },
+     "l_commitdate": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29291
+      }
+     },
+     "l_discount": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 29291
+      }
+     },
+     "l_extendedprice": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 29291
+      }
+     },
+     "l_linenumber": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29291
+      }
+     },
+     "l_linestatus": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 29291
+      }
+     },
+     "l_orderkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29291
+      }
+     },
+     "l_partkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29290,
+       "6": 1
+      }
+     },
+     "l_quantity": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29291
+      }
+     },
+     "l_receiptdate": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29291
+      }
+     },
+     "l_returnflag": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 29291
+      }
+     },
+     "l_shipdate": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29291
+      }
+     },
+     "l_shipinstruct": {
+      "dictionary_form": null,
+      "encodings": {
+       "6": 29291
+      }
+     },
+     "l_shipmode": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 29291
+      }
+     },
+     "l_suppkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 29290,
+       "6": 1
+      }
+     },
+     "l_tax": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 29291
+      }
+     }
+    },
+    "rows": 59986052,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/lineitem.k10dir"
+   },
+   {
+    "columns": {
+     "n_comment": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 1
+      }
+     },
+     "n_name": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 1
+      }
+     },
+     "n_nationkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1
+      }
+     },
+     "n_regionkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1
+      }
+     }
+    },
+    "rows": 25,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/nation.k10dir"
+   },
+   {
+    "columns": {
+     "o_clerk": {
+      "dictionary_form": 2,
+      "encodings": {
+       "11": 7325
+      }
+     },
+     "o_comment": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 7325
+      }
+     },
+     "o_custkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 7325
+      }
+     },
+     "o_orderdate": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 7325
+      }
+     },
+     "o_orderkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "5": 7325
+      }
+     },
+     "o_orderpriority": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 7325
+      }
+     },
+     "o_orderstatus": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 7325
+      }
+     },
+     "o_shippriority": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 7325
+      }
+     },
+     "o_totalprice": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 7325
+      }
+     }
+    },
+    "rows": 15000000,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/orders.k10dir"
+   },
+   {
+    "columns": {
+     "p_brand": {
+      "dictionary_form": 2,
+      "encodings": {
+       "11": 977
+      }
+     },
+     "p_comment": {
+      "dictionary_form": 2,
+      "encodings": {
+       "11": 977
+      }
+     },
+     "p_container": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 977
+      }
+     },
+     "p_mfgr": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 977
+      }
+     },
+     "p_name": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 977
+      }
+     },
+     "p_partkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "2": 977
+      }
+     },
+     "p_retailprice": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 977
+      }
+     },
+     "p_size": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 977
+      }
+     },
+     "p_type": {
+      "dictionary_form": 3,
+      "encodings": {
+       "11": 977
+      }
+     }
+    },
+    "rows": 2000000,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/part.k10dir"
+   },
+   {
+    "columns": {
+     "ps_availqty": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 3907
+      }
+     },
+     "ps_comment": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 3907
+      }
+     },
+     "ps_partkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 3907
+      }
+     },
+     "ps_suppkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 3907
+      }
+     },
+     "ps_supplycost": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 3907
+      }
+     }
+    },
+    "rows": 8000000,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/partsupp.k10dir"
+   },
+   {
+    "columns": {
+     "r_comment": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 1
+      }
+     },
+     "r_name": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 1
+      }
+     },
+     "r_regionkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 1
+      }
+     }
+    },
+    "rows": 5,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/region.k10dir"
+   },
+   {
+    "columns": {
+     "s_acctbal": {
+      "dictionary_form": null,
+      "encodings": {
+       "0": 49
+      }
+     },
+     "s_address": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 49
+      }
+     },
+     "s_comment": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 49
+      }
+     },
+     "s_name": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 49
+      }
+     },
+     "s_nationkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "4": 49
+      }
+     },
+     "s_phone": {
+      "dictionary_form": null,
+      "encodings": {
+       "9": 49
+      }
+     },
+     "s_suppkey": {
+      "dictionary_form": null,
+      "encodings": {
+       "2": 49
+      }
+     }
+    },
+    "rows": 100000,
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/pdsh-run/data/tables/scale-10.0/supplier.k10dir"
+   }
+  ],
+  "recorded_at": "2026-09-13T21:52:12.332481+00:00",
   "workers": 32
  },
  "engine": "duckdb",
@@ -222,2493 +674,2493 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 126.76,
+   "ms": 126.42,
    "query": "PDS-H query 1 (TPC-H derived)",
    "stats": {
-    "mad_ms": 1.394175,
-    "max_ms": 130.888898,
-    "median_ms": 126.757673,
-    "min_ms": 123.315571,
-    "p25_ms": 125.949733,
-    "p75_ms": 128.645886,
+    "mad_ms": 1.20588,
+    "max_ms": 129.370256,
+    "median_ms": 126.423669,
+    "min_ms": 124.654057,
+    "p25_ms": 125.417138,
+    "p75_ms": 127.679978,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 126.439799,
+      "ms": 127.61929,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 123.315571,
+      "ms": 127.054102,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 128.93544,
+      "ms": 125.487008,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 125.755157,
+      "ms": 127.862044,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 125.411503,
+      "ms": 126.187329,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 128.199853,
+      "ms": 125.207529,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 126.481125,
+      "ms": 126.563992,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 128.561821,
+      "ms": 124.654057,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 130.888898,
+      "ms": 125.135257,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 126.014592,
+      "ms": 126.283346,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 128.89808,
+      "ms": 129.370256,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 127.034221,
+      "ms": 128.167192,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     126.439799,
-     123.315571,
-     128.93544,
-     125.755157,
-     125.411503,
-     128.199853,
-     126.481125,
-     128.561821,
-     130.888898,
-     126.014592,
-     128.89808,
-     127.034221
+     127.61929,
+     127.054102,
+     125.487008,
+     127.862044,
+     126.187329,
+     125.207529,
+     126.563992,
+     124.654057,
+     125.135257,
+     126.283346,
+     129.370256,
+     128.167192
     ]
    }
   },
   {
    "idx": 2,
-   "ms": 30.33,
+   "ms": 30.94,
    "query": "PDS-H query 2 (TPC-H derived)",
    "stats": {
-    "mad_ms": 0.903872,
-    "max_ms": 46.190958,
-    "median_ms": 30.334948,
-    "min_ms": 28.681663,
-    "p25_ms": 29.519094,
-    "p75_ms": 31.32959,
+    "mad_ms": 0.868752,
+    "max_ms": 65.896307,
+    "median_ms": 30.942262,
+    "min_ms": 24.751201,
+    "p25_ms": 29.763258,
+    "p75_ms": 31.635969,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 46.190958,
+      "ms": 31.1544,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 30.793894,
+      "ms": 33.484683,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 29.593979,
+      "ms": 65.896307,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 30.022253,
+      "ms": 31.752099,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 31.102184,
+      "ms": 24.751201,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 28.681663,
+      "ms": 26.163148,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 30.327654,
+      "ms": 30.730125,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 30.342241,
+      "ms": 29.009243,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 36.558278,
+      "ms": 31.171402,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 29.29444,
+      "ms": 31.597259,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 29.264654,
+      "ms": 30.014596,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 32.011807,
+      "ms": 30.172421,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     46.190958,
-     30.793894,
-     29.593979,
-     30.022253,
-     31.102184,
-     28.681663,
-     30.327654,
-     30.342241,
-     36.558278,
-     29.29444,
-     29.264654,
-     32.011807
+     31.1544,
+     33.484683,
+     65.896307,
+     31.752099,
+     24.751201,
+     26.163148,
+     30.730125,
+     29.009243,
+     31.171402,
+     31.597259,
+     30.014596,
+     30.172421
     ]
    }
   },
   {
    "idx": 3,
-   "ms": 79.02,
+   "ms": 79.26,
    "query": "PDS-H query 3 (TPC-H derived)",
    "stats": {
-    "mad_ms": 3.012354,
-    "max_ms": 86.576412,
-    "median_ms": 79.023371,
-    "min_ms": 74.33124,
-    "p25_ms": 75.72475,
-    "p75_ms": 80.762989,
+    "mad_ms": 2.081677,
+    "max_ms": 84.241873,
+    "median_ms": 79.256039,
+    "min_ms": 75.043373,
+    "p25_ms": 77.605036,
+    "p75_ms": 81.13967,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 75.699565,
+      "ms": 79.304582,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 78.421392,
+      "ms": 75.770305,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 79.94864,
+      "ms": 77.906994,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 79.62535,
+      "ms": 76.699163,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 75.733145,
+      "ms": 75.043373,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 86.576412,
+      "ms": 80.157213,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 74.33124,
+      "ms": 84.241873,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 80.531227,
+      "ms": 78.860879,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 81.458272,
+      "ms": 80.862517,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 76.277113,
+      "ms": 81.971132,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 82.301821,
+      "ms": 82.046634,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 74.603189,
+      "ms": 79.207497,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     75.699565,
-     78.421392,
-     79.94864,
-     79.62535,
-     75.733145,
-     86.576412,
-     74.33124,
-     80.531227,
-     81.458272,
-     76.277113,
-     82.301821,
-     74.603189
+     79.304582,
+     75.770305,
+     77.906994,
+     76.699163,
+     75.043373,
+     80.157213,
+     84.241873,
+     78.860879,
+     80.862517,
+     81.971132,
+     82.046634,
+     79.207497
     ]
    }
   },
   {
    "idx": 4,
-   "ms": 158.16,
+   "ms": 154.57,
    "query": "PDS-H query 4 (TPC-H derived)",
    "stats": {
-    "mad_ms": 5.718911,
-    "max_ms": 166.375506,
-    "median_ms": 158.164952,
-    "min_ms": 132.200032,
-    "p25_ms": 151.437836,
-    "p75_ms": 163.445531,
+    "mad_ms": 5.35762,
+    "max_ms": 162.99974,
+    "median_ms": 154.566446,
+    "min_ms": 124.759093,
+    "p25_ms": 147.69609,
+    "p75_ms": 156.718382,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 162.452552,
+      "ms": 162.296456,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 158.753619,
+      "ms": 154.074792,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 166.375506,
+      "ms": 139.051404,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 135.53226,
+      "ms": 147.367063,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 155.459203,
+      "ms": 147.805765,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 152.219119,
+      "ms": 156.4642,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 157.576286,
+      "ms": 162.99974,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 165.111942,
+      "ms": 124.759093,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 163.375062,
+      "ms": 155.249739,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 149.093986,
+      "ms": 155.058101,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 163.65694,
+      "ms": 157.480927,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 132.200032,
+      "ms": 150.611887,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     162.452552,
-     158.753619,
-     166.375506,
-     135.53226,
-     155.459203,
-     152.219119,
-     157.576286,
-     165.111942,
-     163.375062,
-     149.093986,
-     163.65694,
-     132.200032
+     162.296456,
+     154.074792,
+     139.051404,
+     147.367063,
+     147.805765,
+     156.4642,
+     162.99974,
+     124.759093,
+     155.249739,
+     155.058101,
+     157.480927,
+     150.611887
     ]
    }
   },
   {
    "idx": 5,
-   "ms": 122.69,
+   "ms": 118.11,
    "query": "PDS-H query 5 (TPC-H derived)",
    "stats": {
-    "mad_ms": 5.604702,
-    "max_ms": 140.119798,
-    "median_ms": 122.68521,
-    "min_ms": 103.311442,
-    "p25_ms": 115.251787,
-    "p75_ms": 126.154415,
+    "mad_ms": 6.379901,
+    "max_ms": 132.356318,
+    "median_ms": 118.105964,
+    "min_ms": 102.945311,
+    "p25_ms": 110.783194,
+    "p75_ms": 123.408094,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 116.846851,
+      "ms": 125.615738,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 125.520469,
+      "ms": 108.258131,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 122.331148,
+      "ms": 120.638439,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 122.964172,
+      "ms": 124.384684,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 110.466596,
+      "ms": 119.763091,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 128.056254,
+      "ms": 116.448837,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 103.311442,
+      "ms": 111.624882,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 134.280326,
+      "ms": 115.291957,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 123.071483,
+      "ms": 102.945311,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 103.693447,
+      "ms": 123.082564,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 122.406248,
+      "ms": 103.935856,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 140.119798,
+      "ms": 132.356318,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     116.846851,
-     125.520469,
-     122.331148,
-     122.964172,
-     110.466596,
-     128.056254,
-     103.311442,
-     134.280326,
-     123.071483,
-     103.693447,
-     122.406248,
-     140.119798
+     125.615738,
+     108.258131,
+     120.638439,
+     124.384684,
+     119.763091,
+     116.448837,
+     111.624882,
+     115.291957,
+     102.945311,
+     123.082564,
+     103.935856,
+     132.356318
     ]
    }
   },
   {
    "idx": 6,
-   "ms": 40.68,
+   "ms": 40.85,
    "query": "PDS-H query 6 (TPC-H derived)",
    "stats": {
-    "mad_ms": 0.148392,
-    "max_ms": 41.341312,
-    "median_ms": 40.679738,
-    "min_ms": 40.355403,
-    "p25_ms": 40.553705,
-    "p75_ms": 40.844678,
+    "mad_ms": 0.329897,
+    "max_ms": 45.759044,
+    "median_ms": 40.854741,
+    "min_ms": 40.142438,
+    "p25_ms": 40.701416,
+    "p75_ms": 41.569864,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 40.564694,
+      "ms": 42.373315,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.355403,
+      "ms": 40.487936,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.81752,
+      "ms": 40.849111,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.926155,
+      "ms": 41.412868,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.601526,
+      "ms": 42.040853,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.701654,
+      "ms": 45.759044,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.488055,
+      "ms": 40.561751,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.520736,
+      "ms": 40.747971,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.657823,
+      "ms": 40.860371,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 41.341312,
+      "ms": 40.755264,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 41.293733,
+      "ms": 41.116972,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 40.800881,
+      "ms": 40.142438,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     40.564694,
-     40.355403,
-     40.81752,
-     40.926155,
-     40.601526,
-     40.701654,
-     40.488055,
-     40.520736,
-     40.657823,
-     41.341312,
-     41.293733,
-     40.800881
+     42.373315,
+     40.487936,
+     40.849111,
+     41.412868,
+     42.040853,
+     45.759044,
+     40.561751,
+     40.747971,
+     40.860371,
+     40.755264,
+     41.116972,
+     40.142438
     ]
    }
   },
   {
    "idx": 7,
-   "ms": 83.1,
+   "ms": 82.95,
    "query": "PDS-H query 7 (TPC-H derived)",
    "stats": {
-    "mad_ms": 1.028262,
-    "max_ms": 86.215698,
-    "median_ms": 83.103943,
-    "min_ms": 81.358436,
-    "p25_ms": 82.145204,
-    "p75_ms": 84.110237,
+    "mad_ms": 0.53972,
+    "max_ms": 86.798951,
+    "median_ms": 82.949483,
+    "min_ms": 81.529151,
+    "p25_ms": 82.71617,
+    "p75_ms": 84.085932,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 84.184309,
+      "ms": 85.029009,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 81.91448,
+      "ms": 82.381312,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 84.08827,
+      "ms": 82.56725,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 82.986443,
+      "ms": 82.787452,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 83.221443,
+      "ms": 85.663938,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 84.17614,
+      "ms": 81.529151,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 81.358436,
+      "ms": 86.798951,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 83.705048,
+      "ms": 83.771572,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 82.369188,
+      "ms": 83.460751,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 81.535396,
+      "ms": 83.003575,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 86.215698,
+      "ms": 82.765809,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 82.222112,
+      "ms": 82.895392,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     84.184309,
-     81.91448,
-     84.08827,
-     82.986443,
-     83.221443,
-     84.17614,
-     81.358436,
-     83.705048,
-     82.369188,
-     81.535396,
-     86.215698,
-     82.222112
+     85.029009,
+     82.381312,
+     82.56725,
+     82.787452,
+     85.663938,
+     81.529151,
+     86.798951,
+     83.771572,
+     83.460751,
+     83.003575,
+     82.765809,
+     82.895392
     ]
    }
   },
   {
    "idx": 8,
-   "ms": 94.62,
+   "ms": 96.81,
    "query": "PDS-H query 8 (TPC-H derived)",
    "stats": {
-    "mad_ms": 3.635644,
-    "max_ms": 133.161692,
-    "median_ms": 94.619615,
-    "min_ms": 87.27821,
-    "p25_ms": 92.235816,
-    "p75_ms": 108.688924,
+    "mad_ms": 3.808755,
+    "max_ms": 123.13239,
+    "median_ms": 96.808247,
+    "min_ms": 85.518656,
+    "p25_ms": 94.087921,
+    "p75_ms": 102.736736,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 91.526123,
+      "ms": 93.586591,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 87.27821,
+      "ms": 96.770181,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 93.906098,
+      "ms": 123.13239,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 96.957727,
+      "ms": 110.58113,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 112.355202,
+      "ms": 85.518656,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 133.161692,
+      "ms": 98.39117,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 116.144015,
+      "ms": 96.846312,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 90.441819,
+      "ms": 92.412392,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 92.472381,
+      "ms": 94.255031,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 94.777134,
+      "ms": 94.423686,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 107.466832,
+      "ms": 102.692819,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 94.462095,
+      "ms": 102.868487,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     91.526123,
-     87.27821,
-     93.906098,
-     96.957727,
-     112.355202,
-     133.161692,
-     116.144015,
-     90.441819,
-     92.472381,
-     94.777134,
-     107.466832,
-     94.462095
+     93.586591,
+     96.770181,
+     123.13239,
+     110.58113,
+     85.518656,
+     98.39117,
+     96.846312,
+     92.412392,
+     94.255031,
+     94.423686,
+     102.692819,
+     102.868487
     ]
    }
   },
   {
    "idx": 9,
-   "ms": 383.86,
+   "ms": 384.87,
    "query": "PDS-H query 9 (TPC-H derived)",
    "stats": {
-    "mad_ms": 7.334055,
-    "max_ms": 393.239194,
-    "median_ms": 383.855142,
-    "min_ms": 367.679628,
-    "p25_ms": 378.288737,
-    "p75_ms": 391.05499,
+    "mad_ms": 5.691071,
+    "max_ms": 401.649935,
+    "median_ms": 384.867664,
+    "min_ms": 369.788954,
+    "p25_ms": 380.959391,
+    "p75_ms": 391.604543,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 367.679628,
+      "ms": 381.745197,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 391.457609,
+      "ms": 389.146033,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 390.920784,
+      "ms": 383.502818,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 368.364387,
+      "ms": 396.465829,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 370.157353,
+      "ms": 401.649935,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 380.999199,
+      "ms": 375.09834,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 385.062166,
+      "ms": 378.601974,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 382.181504,
+      "ms": 382.705417,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 393.239194,
+      "ms": 399.637358,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 387.763042,
+      "ms": 386.23251,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 382.648117,
+      "ms": 389.984115,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 392.203093,
+      "ms": 369.788954,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     367.679628,
-     391.457609,
-     390.920784,
-     368.364387,
-     370.157353,
-     380.999199,
-     385.062166,
-     382.181504,
-     393.239194,
-     387.763042,
-     382.648117,
-     392.203093
+     381.745197,
+     389.146033,
+     383.502818,
+     396.465829,
+     401.649935,
+     375.09834,
+     378.601974,
+     382.705417,
+     399.637358,
+     386.23251,
+     389.984115,
+     369.788954
     ]
    }
   },
   {
    "idx": 10,
-   "ms": 229.52,
+   "ms": 225.62,
    "query": "PDS-H query 10 (TPC-H derived)",
    "stats": {
-    "mad_ms": 15.440448,
-    "max_ms": 250.490525,
-    "median_ms": 229.516251,
-    "min_ms": 188.761356,
-    "p25_ms": 213.356188,
-    "p75_ms": 242.446,
+    "mad_ms": 17.445484,
+    "max_ms": 244.363945,
+    "median_ms": 225.619394,
+    "min_ms": 187.879901,
+    "p25_ms": 195.374805,
+    "p75_ms": 238.752029,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 232.577072,
+      "ms": 188.790689,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 250.490525,
+      "ms": 241.719129,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 214.021047,
+      "ms": 201.556914,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 188.761356,
+      "ms": 226.270083,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 247.267551,
+      "ms": 225.801025,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 211.361614,
+      "ms": 225.437763,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 226.016789,
+      "ms": 194.338614,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 244.901942,
+      "ms": 241.76581,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 226.455431,
+      "ms": 237.762996,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 234.561304,
+      "ms": 244.363945,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 196.604959,
+      "ms": 195.720201,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 241.627352,
+      "ms": 187.879901,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     232.577072,
-     250.490525,
-     214.021047,
-     188.761356,
-     247.267551,
-     211.361614,
-     226.016789,
-     244.901942,
-     226.455431,
-     234.561304,
-     196.604959,
-     241.627352
+     188.790689,
+     241.719129,
+     201.556914,
+     226.270083,
+     225.801025,
+     225.437763,
+     194.338614,
+     241.76581,
+     237.762996,
+     244.363945,
+     195.720201,
+     187.879901
     ]
    }
   },
   {
    "idx": 11,
-   "ms": 31.1,
+   "ms": 31.0,
    "query": "PDS-H query 11 (TPC-H derived)",
    "stats": {
-    "mad_ms": 1.953352,
-    "max_ms": 36.509347,
-    "median_ms": 31.102159,
-    "min_ms": 17.206101,
-    "p25_ms": 27.751951,
-    "p75_ms": 32.835815,
+    "mad_ms": 2.371315,
+    "max_ms": 36.46929,
+    "median_ms": 31.003483,
+    "min_ms": 24.11513,
+    "p25_ms": 28.503021,
+    "p75_ms": 33.099411,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 20.42827,
+      "ms": 27.355668,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 32.825187,
+      "ms": 30.157022,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 29.13555,
+      "ms": 24.11513,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 31.093939,
+      "ms": 31.556052,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 31.110379,
+      "ms": 30.450913,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 17.206101,
+      "ms": 25.196679,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 36.146498,
+      "ms": 32.923181,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 29.162063,
+      "ms": 36.46929,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 32.867699,
+      "ms": 32.911809,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 31.213642,
+      "ms": 33.628101,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 36.509347,
+      "ms": 34.552031,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 23.601152,
+      "ms": 28.885472,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     20.42827,
-     32.825187,
-     29.13555,
-     31.093939,
-     31.110379,
-     17.206101,
-     36.146498,
-     29.162063,
-     32.867699,
-     31.213642,
-     36.509347,
-     23.601152
+     27.355668,
+     30.157022,
+     24.11513,
+     31.556052,
+     30.450913,
+     25.196679,
+     32.923181,
+     36.46929,
+     32.911809,
+     33.628101,
+     34.552031,
+     28.885472
     ]
    }
   },
   {
    "idx": 12,
-   "ms": 99.94,
+   "ms": 106.16,
    "query": "PDS-H query 12 (TPC-H derived)",
    "stats": {
-    "mad_ms": 3.299848,
-    "max_ms": 104.02002,
-    "median_ms": 99.937145,
-    "min_ms": 86.547979,
-    "p25_ms": 90.697115,
-    "p75_ms": 101.595204,
+    "mad_ms": 3.229881,
+    "max_ms": 118.496248,
+    "median_ms": 106.159486,
+    "min_ms": 89.512201,
+    "p25_ms": 103.667856,
+    "p75_ms": 109.553056,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 91.176057,
+      "ms": 105.935812,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 104.02002,
+      "ms": 110.566894,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 101.120984,
+      "ms": 102.755347,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 89.066545,
+      "ms": 108.941661,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 101.476637,
+      "ms": 106.38316,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 94.490418,
+      "ms": 103.972025,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 101.950905,
+      "ms": 98.557817,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 100.380615,
+      "ms": 109.21511,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 102.453966,
+      "ms": 104.236037,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 89.260287,
+      "ms": 89.512201,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 99.493674,
+      "ms": 114.526635,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 86.547979,
+      "ms": 118.496248,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     91.176057,
-     104.02002,
-     101.120984,
-     89.066545,
-     101.476637,
-     94.490418,
-     101.950905,
-     100.380615,
-     102.453966,
-     89.260287,
-     99.493674,
-     86.547979
+     105.935812,
+     110.566894,
+     102.755347,
+     108.941661,
+     106.38316,
+     103.972025,
+     98.557817,
+     109.21511,
+     104.236037,
+     89.512201,
+     114.526635,
+     118.496248
     ]
    }
   },
   {
    "idx": 13,
-   "ms": 217.27,
+   "ms": 216.76,
    "query": "PDS-H query 13 (TPC-H derived)",
    "stats": {
-    "mad_ms": 2.211228,
-    "max_ms": 226.088353,
-    "median_ms": 217.273764,
-    "min_ms": 210.899278,
-    "p25_ms": 215.916872,
-    "p75_ms": 220.28309,
+    "mad_ms": 2.415102,
+    "max_ms": 234.282554,
+    "median_ms": 216.759059,
+    "min_ms": 213.278485,
+    "p25_ms": 215.005083,
+    "p75_ms": 221.147826,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 217.635033,
+      "ms": 214.968553,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 222.717997,
+      "ms": 234.282554,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 222.879238,
+      "ms": 229.139475,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 219.471455,
+      "ms": 216.258699,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 215.048998,
+      "ms": 219.615905,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 216.912495,
+      "ms": 213.278485,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 210.899278,
+      "ms": 216.07486,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 216.206163,
+      "ms": 225.743592,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 226.088353,
+      "ms": 215.01726,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 213.055796,
+      "ms": 217.259418,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 216.820413,
+      "ms": 218.732416,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 217.749793,
+      "ms": 213.823885,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     217.635033,
-     222.717997,
-     222.879238,
-     219.471455,
-     215.048998,
-     216.912495,
-     210.899278,
-     216.206163,
-     226.088353,
-     213.055796,
-     216.820413,
-     217.749793
+     214.968553,
+     234.282554,
+     229.139475,
+     216.258699,
+     219.615905,
+     213.278485,
+     216.07486,
+     225.743592,
+     215.01726,
+     217.259418,
+     218.732416,
+     213.823885
     ]
    }
   },
   {
    "idx": 14,
-   "ms": 59.36,
+   "ms": 59.51,
    "query": "PDS-H query 14 (TPC-H derived)",
    "stats": {
-    "mad_ms": 0.618654,
-    "max_ms": 65.703179,
-    "median_ms": 59.35542,
-    "min_ms": 57.488901,
-    "p25_ms": 58.741371,
-    "p75_ms": 59.931182,
+    "mad_ms": 0.859164,
+    "max_ms": 62.316594,
+    "median_ms": 59.509012,
+    "min_ms": 58.011985,
+    "p25_ms": 59.005292,
+    "p75_ms": 60.485213,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 58.526128,
+      "ms": 60.575585,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 59.900681,
+      "ms": 58.526638,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 58.609353,
+      "ms": 58.736762,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 65.703179,
+      "ms": 59.436382,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 59.626112,
+      "ms": 60.455089,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 57.488901,
+      "ms": 59.934224,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 58.785377,
+      "ms": 59.581643,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 59.361527,
+      "ms": 62.316594,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 61.30269,
+      "ms": 58.011985,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 58.956167,
+      "ms": 61.900605,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 59.349313,
+      "ms": 59.094802,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 60.022685,
+      "ms": 59.297972,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     58.526128,
-     59.900681,
-     58.609353,
-     65.703179,
-     59.626112,
-     57.488901,
-     58.785377,
-     59.361527,
-     61.30269,
-     58.956167,
-     59.349313,
-     60.022685
+     60.575585,
+     58.526638,
+     58.736762,
+     59.436382,
+     60.455089,
+     59.934224,
+     59.581643,
+     62.316594,
+     58.011985,
+     61.900605,
+     59.094802,
+     59.297972
     ]
    }
   },
   {
    "idx": 15,
-   "ms": 69.16,
+   "ms": 69.27,
    "query": "PDS-H query 15 (TPC-H derived)",
    "stats": {
-    "mad_ms": 4.857353,
-    "max_ms": 84.726544,
-    "median_ms": 69.157384,
-    "min_ms": 53.725085,
-    "p25_ms": 60.65649,
-    "p75_ms": 72.876043,
+    "mad_ms": 4.276857,
+    "max_ms": 80.224874,
+    "median_ms": 69.265008,
+    "min_ms": 54.99493,
+    "p25_ms": 66.390906,
+    "p75_ms": 73.589834,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 72.689811,
+      "ms": 68.358056,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 54.378143,
+      "ms": 80.224874,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 84.726544,
+      "ms": 75.82756,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 71.081727,
+      "ms": 72.996581,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 56.700423,
+      "ms": 69.395838,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 67.233042,
+      "ms": 54.99493,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 74.645938,
+      "ms": 74.772895,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 72.706878,
+      "ms": 66.973953,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 61.975178,
+      "ms": 69.134178,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 73.383536,
+      "ms": 56.183771,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 66.203504,
+      "ms": 64.641766,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 53.725085,
+      "ms": 73.195481,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     72.689811,
-     54.378143,
-     84.726544,
-     71.081727,
-     56.700423,
-     67.233042,
-     74.645938,
-     72.706878,
-     61.975178,
-     73.383536,
-     66.203504,
-     53.725085
+     68.358056,
+     80.224874,
+     75.82756,
+     72.996581,
+     69.395838,
+     54.99493,
+     74.772895,
+     66.973953,
+     69.134178,
+     56.183771,
+     64.641766,
+     73.195481
     ]
    }
   },
   {
    "idx": 16,
-   "ms": 140.27,
+   "ms": 140.87,
    "query": "PDS-H query 16 (TPC-H derived)",
    "stats": {
-    "mad_ms": 8.824494,
-    "max_ms": 158.260778,
-    "median_ms": 140.26865,
-    "min_ms": 113.21436,
-    "p25_ms": 131.459666,
-    "p75_ms": 148.233441,
+    "mad_ms": 5.465868,
+    "max_ms": 156.884412,
+    "median_ms": 140.868927,
+    "min_ms": 124.745076,
+    "p25_ms": 136.682181,
+    "p75_ms": 145.93761,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 131.413138,
+      "ms": 140.523572,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 155.148169,
+      "ms": 141.008869,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 144.836416,
+      "ms": 140.728985,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 151.564442,
+      "ms": 156.884412,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 113.21436,
+      "ms": 145.4907,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 147.123108,
+      "ms": 145.540425,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 135.706976,
+      "ms": 148.855558,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 144.830325,
+      "ms": 147.129165,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 118.042017,
+      "ms": 131.655434,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 131.475175,
+      "ms": 124.745076,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 135.416273,
+      "ms": 127.457584,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 158.260778,
+      "ms": 138.357763,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     131.413138,
-     155.148169,
-     144.836416,
-     151.564442,
-     113.21436,
-     147.123108,
-     135.706976,
-     144.830325,
-     118.042017,
-     131.475175,
-     135.416273,
-     158.260778
+     140.523572,
+     141.008869,
+     140.728985,
+     156.884412,
+     145.4907,
+     145.540425,
+     148.855558,
+     147.129165,
+     131.655434,
+     124.745076,
+     127.457584,
+     138.357763
     ]
    }
   },
   {
    "idx": 17,
-   "ms": 51.35,
+   "ms": 51.47,
    "query": "PDS-H query 17 (TPC-H derived)",
    "stats": {
-    "mad_ms": 0.628626,
-    "max_ms": 53.397391,
-    "median_ms": 51.353663,
-    "min_ms": 50.245531,
-    "p25_ms": 50.948253,
-    "p75_ms": 52.434245,
+    "mad_ms": 0.932677,
+    "max_ms": 54.526759,
+    "median_ms": 51.473647,
+    "min_ms": 50.129707,
+    "p25_ms": 51.121988,
+    "p75_ms": 53.076778,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 51.301524,
+      "ms": 52.221823,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 51.990515,
+      "ms": 50.129707,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 50.809383,
+      "ms": 52.688087,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 52.529465,
+      "ms": 54.456207,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 51.405802,
+      "ms": 54.242848,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 50.733264,
+      "ms": 50.960028,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 50.994542,
+      "ms": 51.270773,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 53.397391,
+      "ms": 54.526759,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 50.245531,
+      "ms": 50.35647,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 52.506522,
+      "ms": 51.175975,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 52.410153,
+      "ms": 51.556728,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 51.18545,
+      "ms": 51.390567,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     51.301524,
-     51.990515,
-     50.809383,
-     52.529465,
-     51.405802,
-     50.733264,
-     50.994542,
-     53.397391,
-     50.245531,
-     52.506522,
-     52.410153,
-     51.18545
+     52.221823,
+     50.129707,
+     52.688087,
+     54.456207,
+     54.242848,
+     50.960028,
+     51.270773,
+     54.526759,
+     50.35647,
+     51.175975,
+     51.556728,
+     51.390567
     ]
    }
   },
   {
    "idx": 18,
-   "ms": 312.1,
+   "ms": 315.07,
    "query": "PDS-H query 18 (TPC-H derived)",
    "stats": {
-    "mad_ms": 3.517175,
-    "max_ms": 334.058105,
-    "median_ms": 312.101942,
-    "min_ms": 298.946583,
-    "p25_ms": 308.526375,
-    "p75_ms": 315.466711,
+    "mad_ms": 3.310089,
+    "max_ms": 349.996486,
+    "median_ms": 315.07453,
+    "min_ms": 304.001187,
+    "p25_ms": 311.984465,
+    "p75_ms": 320.011033,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 308.378549,
+      "ms": 312.475234,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 298.946583,
+      "ms": 326.175685,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 315.418948,
+      "ms": 311.890589,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 311.079647,
+      "ms": 349.996486,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 310.796298,
+      "ms": 304.001187,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 334.058105,
+      "ms": 315.950747,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 315.61,
+      "ms": 307.939705,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 307.334368,
+      "ms": 314.198313,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 308.575651,
+      "ms": 316.809221,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 313.577725,
+      "ms": 312.015757,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 313.124236,
+      "ms": 324.511833,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 331.284584,
+      "ms": 318.510767,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     308.378549,
-     298.946583,
-     315.418948,
-     311.079647,
-     310.796298,
-     334.058105,
-     315.61,
-     307.334368,
-     308.575651,
-     313.577725,
-     313.124236,
-     331.284584
+     312.475234,
+     326.175685,
+     311.890589,
+     349.996486,
+     304.001187,
+     315.950747,
+     307.939705,
+     314.198313,
+     316.809221,
+     312.015757,
+     324.511833,
+     318.510767
     ]
    }
   },
   {
    "idx": 19,
-   "ms": 117.61,
+   "ms": 117.56,
    "query": "PDS-H query 19 (TPC-H derived)",
    "stats": {
-    "mad_ms": 1.652393,
-    "max_ms": 121.375778,
-    "median_ms": 117.610556,
-    "min_ms": 112.254512,
-    "p25_ms": 116.215591,
-    "p75_ms": 118.805625,
+    "mad_ms": 1.272697,
+    "max_ms": 123.395719,
+    "median_ms": 117.563961,
+    "min_ms": 116.021122,
+    "p25_ms": 116.442363,
+    "p75_ms": 119.802631,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 119.913251,
+      "ms": 122.019515,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 114.011253,
+      "ms": 116.477269,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 118.164989,
+      "ms": 121.97356,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 118.354783,
+      "ms": 118.419516,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 118.436417,
+      "ms": 116.244884,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 120.270809,
+      "ms": 123.395719,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 115.036972,
+      "ms": 116.021122,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 116.617321,
+      "ms": 117.250204,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 121.375778,
+      "ms": 116.337645,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 116.608464,
+      "ms": 117.260003,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 112.254512,
+      "ms": 117.86792,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 117.056122,
+      "ms": 119.078988,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     119.913251,
-     114.011253,
-     118.164989,
-     118.354783,
-     118.436417,
-     120.270809,
-     115.036972,
-     116.617321,
-     121.375778,
-     116.608464,
-     112.254512,
-     117.056122
+     122.019515,
+     116.477269,
+     121.97356,
+     118.419516,
+     116.244884,
+     123.395719,
+     116.021122,
+     117.250204,
+     116.337645,
+     117.260003,
+     117.86792,
+     119.078988
     ]
    }
   },
   {
    "idx": 20,
-   "ms": 68.34,
+   "ms": 69.38,
    "query": "PDS-H query 20 (TPC-H derived)",
    "stats": {
-    "mad_ms": 1.113462,
-    "max_ms": 125.918192,
-    "median_ms": 68.342789,
-    "min_ms": 66.59121,
-    "p25_ms": 67.260739,
-    "p75_ms": 70.023996,
+    "mad_ms": 1.230187,
+    "max_ms": 102.475233,
+    "median_ms": 69.378422,
+    "min_ms": 66.60346,
+    "p25_ms": 68.253192,
+    "p75_ms": 70.498909,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 72.420347,
+      "ms": 69.594992,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 67.166502,
+      "ms": 102.475233,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 66.618647,
+      "ms": 69.161851,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 67.292152,
+      "ms": 69.858796,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 69.173946,
+      "ms": 67.088689,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 67.814331,
+      "ms": 68.64136,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 66.59121,
+      "ms": 67.051769,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 125.918192,
+      "ms": 70.828009,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 67.603104,
+      "ms": 69.141801,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 103.257991,
+      "ms": 77.60112,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 69.225212,
+      "ms": 70.389208,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 68.871248,
+      "ms": 66.60346,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     72.420347,
-     67.166502,
-     66.618647,
-     67.292152,
-     69.173946,
-     67.814331,
-     66.59121,
-     125.918192,
-     67.603104,
-     103.257991,
-     69.225212,
-     68.871248
+     69.594992,
+     102.475233,
+     69.161851,
+     69.858796,
+     67.088689,
+     68.64136,
+     67.051769,
+     70.828009,
+     69.141801,
+     77.60112,
+     70.389208,
+     66.60346
     ]
    }
   },
   {
    "idx": 21,
-   "ms": 381.98,
+   "ms": 373.08,
    "query": "PDS-H query 21 (TPC-H derived)",
    "stats": {
-    "mad_ms": 13.144556,
-    "max_ms": 399.395798,
-    "median_ms": 381.981774,
-    "min_ms": 351.320494,
-    "p25_ms": 366.652874,
-    "p75_ms": 385.39804,
+    "mad_ms": 15.092768,
+    "max_ms": 393.6456,
+    "median_ms": 373.081888,
+    "min_ms": 345.696565,
+    "p25_ms": 358.152936,
+    "p75_ms": 384.442327,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 386.68278,
+      "ms": 390.860302,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 351.320494,
+      "ms": 345.696565,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 361.98075,
+      "ms": 358.316752,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 380.520172,
+      "ms": 381.209544,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 396.012274,
+      "ms": 382.303002,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 383.717557,
+      "ms": 368.633599,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 399.395798,
+      "ms": 393.6456,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 384.969793,
+      "ms": 357.661488,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 359.433839,
+      "ms": 377.530177,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 368.210249,
+      "ms": 356.162671,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 383.443375,
+      "ms": 390.897433,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 369.464186,
+      "ms": 366.271258,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     386.68278,
-     351.320494,
-     361.98075,
-     380.520172,
-     396.012274,
-     383.717557,
-     399.395798,
-     384.969793,
-     359.433839,
-     368.210249,
-     383.443375,
-     369.464186
+     390.860302,
+     345.696565,
+     358.316752,
+     381.209544,
+     382.303002,
+     368.633599,
+     393.6456,
+     357.661488,
+     377.530177,
+     356.162671,
+     390.897433,
+     366.271258
     ]
    }
   },
   {
    "idx": 22,
-   "ms": 81.93,
+   "ms": 71.09,
    "query": "PDS-H query 22 (TPC-H derived)",
    "stats": {
-    "mad_ms": 11.312094,
-    "max_ms": 99.922165,
-    "median_ms": 81.927337,
-    "min_ms": 65.997244,
-    "p25_ms": 71.167442,
-    "p75_ms": 89.05312,
+    "mad_ms": 10.883604,
+    "max_ms": 95.574572,
+    "median_ms": 71.089488,
+    "min_ms": 54.954053,
+    "p25_ms": 62.874604,
+    "p75_ms": 82.706561,
     "samples": [
      {
       "execution_mode": "in-memory",
-      "ms": 67.502371,
+      "ms": 84.77275,
       "order_position": 3,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 83.358353,
+      "ms": 82.017832,
       "order_position": 2,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 65.997244,
+      "ms": 59.576703,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 96.053184,
+      "ms": 66.173946,
       "order_position": 3,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 84.042779,
+      "ms": 81.928353,
       "order_position": 2,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 95.130435,
+      "ms": 54.954053,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 99.922165,
+      "ms": 63.365448,
       "order_position": 3,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 87.027348,
+      "ms": 61.40207,
       "order_position": 2,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 71.719641,
+      "ms": 73.042525,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 80.496321,
+      "ms": 95.574572,
       "order_position": 3,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 69.510846,
+      "ms": 86.651786,
       "order_position": 2,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "in-memory",
-      "ms": 75.237867,
+      "ms": 69.136452,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     67.502371,
-     83.358353,
-     65.997244,
-     96.053184,
-     84.042779,
-     95.130435,
-     99.922165,
-     87.027348,
-     71.719641,
-     80.496321,
-     69.510846,
-     75.237867
+     84.77275,
+     82.017832,
+     59.576703,
+     66.173946,
+     81.928353,
+     54.954053,
+     63.365448,
+     61.40207,
+     73.042525,
+     95.574572,
+     86.651786,
+     69.136452
     ]
    }
   }
  ],
  "suite": "pdsh-sf10",
  "threads": 32,
- "total_ms": 2979.2,
- "version": "1.5.3"
+ "total_ms": 2961.6,
+ "version": "1.5.5"
 }
