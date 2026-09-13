@@ -69,6 +69,8 @@ elif [ -n "${KEYTEN_VERSION:-}" ]; then
 else
   "$VENV/pip" install -q -r "$RUN_DIR/requirements.txt" keyten duckdb polars
 fi
+KEYTEN_SO="$("$VENV/python" -c 'import keyten, os; print(os.path.join(os.path.dirname(keyten.__file__), "_keyten.abi3.so"))')"
+echo "keyten binary sha256=$(sha256sum "$KEYTEN_SO" | cut -c1-64) wheel=${KEYTEN_WHEEL:-pypi}"
 KEYTEN_ACTUAL="$("$VENV/python" -c 'import keyten; print(keyten.__version__)')"
 if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_pdsh.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
@@ -99,17 +101,30 @@ CLEAN_ARGS=()
 if [ "${BENCH_REQUIRE_CLEAN:-false}" = true ]; then
   CLEAN_ARGS+=(--require-clean)
 fi
-"$VENV/python" "$ROOT/runner/benchmark_metadata.py" \
-  --repo "$ROOT" \
-  --harness "$ROOT/harnesses/pdsh" \
-  --adapter "$ROOT/adapters/pdsh-keyten" \
-  --machine-out "$MACHINE" \
-  --metadata-out "$METADATA" \
-  --samples "$SAMPLES" \
-  --warmups "$WARMUPS" \
-  --workers "$THREADS" \
-  --benchmark-mode "$BENCHMARK_MODE" \
-  "${CLEAN_ARGS[@]}"
+record_metadata() {
+  local NATIVE_STORE_ARGS=()
+  local s
+  if [ "${1:-}" = with-stores ] && [ "$BENCHMARK_MODE" = resident-native ]; then
+    for s in "$RUN_DIR"/data/tables/scale-"$SCALE"/*.k10dir; do
+      [ -d "$s" ] || continue
+      NATIVE_STORE_ARGS+=(--native-store "$s")
+    done
+  fi
+  "$VENV/python" "$ROOT/runner/benchmark_metadata.py" \
+    --repo "$ROOT" \
+    --harness "$ROOT/harnesses/pdsh" \
+    --adapter "$ROOT/adapters/pdsh-keyten" \
+    --machine-out "$MACHINE" \
+    --metadata-out "$METADATA" \
+    --samples "$SAMPLES" \
+    --warmups "$WARMUPS" \
+    --workers "$THREADS" \
+    --benchmark-mode "$BENCHMARK_MODE" \
+    "${CLEAN_ARGS[@]}" \
+    "${NATIVE_STORE_ARGS[@]}"
+}
+# Check provenance before running; cached stores may still need reconversion.
+record_metadata
 
 if [ "${BENCH_PREPARE_ONLY:-false}" = true ]; then
   echo "prepared verified PDS-H snapshot and metadata at $RUN_DIR"
@@ -157,6 +172,7 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
   "$VENV/python" "$ROOT/runner/check_pdsh_results.py" "$CORRECTNESS" \
     --report "$WORK/pdsh-correctness-report.json"
   if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
+    record_metadata with-stores
     echo "PDS-H correctness gate passed; timing skipped by request"
     exit 0
   fi
@@ -203,6 +219,9 @@ for ((round = 0; round < SAMPLES; round++)); do
       timeout 1800 "$VENV/python" -m "queries.$e"
   done
 done
+
+# Capture the stores after the query processes have refreshed their encodings.
+record_metadata with-stores
 
 cd "$ROOT"
 VER() { "$VENV/python" -c "import $1; print($1.__version__)"; }
