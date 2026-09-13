@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from materialize import tree_digest
+from native_layout import store_layout
 
 
 def _read(path: Path) -> str | None:
@@ -141,6 +142,10 @@ def _engine_artifact(name: str) -> dict:
             related[distribution.metadata["Name"]] = _distribution_artifact(distribution)
     return {
         "version": getattr(module, "__version__", "unknown"),
+        "build": {
+            "git_sha": getattr(module, "__git_sha__", "unknown"),
+            "build_state": getattr(module, "__build_state__", "unknown"),
+        },
         "module": str(Path(module.__file__).resolve()),
         "distributions": related,
     }
@@ -162,6 +167,10 @@ def main() -> None:
         choices=("resident-native", "end-to-end"),
     )
     parser.add_argument("--require-clean", action="store_true")
+    parser.add_argument(
+        "--native-store", action="append", default=[],
+        help="native store directory whose elected encodings are recorded",
+    )
     args = parser.parse_args()
 
     if args.samples < 1 or args.warmups < 0 or args.workers < 1:
@@ -192,6 +201,7 @@ def main() -> None:
     metadata = {
         "recorded_at": datetime.now(timezone.utc).isoformat(),
         "benchmark_repo": git_state,
+        "native_stores": [store_layout(path) for path in args.native_store],
         "artifacts": {
             "harness_sha256": tree_digest(args.harness.resolve()),
             "adapter_sha256": tree_digest(args.adapter.resolve()),
