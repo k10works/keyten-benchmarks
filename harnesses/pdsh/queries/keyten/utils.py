@@ -1,3 +1,6 @@
+import hashlib
+import pathlib
+
 from datetime import date as _pydate
 from typing import Any, Callable
 
@@ -19,18 +22,30 @@ def date(y: int, m: int, d: int) -> kt.Expr:
     return kt.lit((_pydate(y, m, d) - _EPOCH).days).cast("date")
 
 
+def engine_stamp() -> str:
+    """sha256 of the keyten binary answering this process: the only identity that survives version-string collisions."""
+    so = pathlib.Path(kt.__file__).parent / "_keyten.abi3.so"
+    return hashlib.sha256(so.read_bytes()).hexdigest()
+
+
+def write_stamp(native: pathlib.Path) -> None:
+    (native / ".engine").write_text(engine_stamp())
+
+
+def store_is_current(native: pathlib.Path) -> bool:
+    stamp = native / ".engine"
+    return native.exists() and stamp.exists() and stamp.read_text().strip() == engine_stamp()
+
+
 def _scan(table_name: str) -> kt.LazyFrame:
     path = get_table_path(table_name)
     if settings.run.io_type == "skip":
-        # The in-memory variant: load lands in the engine's own resident
-        # representation (the blocked native store -- dictionaries, zone
-        # maps, sketches), exactly as the other engines pre-load into
-        # theirs. Conversion is cached beside the tables and untimed.
-        import pathlib
-
         native = pathlib.Path(str(path)).with_suffix(".k10dir")
-        if not native.exists():
+        if not store_is_current(native):
+            import shutil
+            shutil.rmtree(native, ignore_errors=True)
             kt.scan_parquet(str(path)).collect().write_native(str(native))
+            write_stamp(native)
         return kt.scan_native(str(native))
     return kt.scan_parquet(str(path))
 

@@ -33,6 +33,7 @@ elif [ -n "${KEYTEN_VERSION:-}" ]; then
 else
   "$WORK/venv/bin/pip" install -q --upgrade keyten polars duckdb pyarrow fastapi uvicorn
 fi
+KEYTEN_SO="$("$WORK/venv/bin/python" -c 'import keyten, os; print(os.path.join(os.path.dirname(keyten.__file__), "_keyten.abi3.so"))')"
 KEYTEN_ACTUAL="$("$WORK/venv/bin/python" -c 'import keyten; print(keyten.__version__)')"
 if [ -z "${KEYTEN_WHEEL:-}" ] && [ -n "${KEYTEN_VERSION:-}" ] && [ "$KEYTEN_ACTUAL" != "$KEYTEN_VERSION" ]; then
   echo "run_clickbench.sh: requested keyten==$KEYTEN_VERSION but venv has $KEYTEN_ACTUAL after install" >&2
@@ -59,13 +60,17 @@ run_daemon() { # dir, env, out, optional capture dir
 # The EAGER path (read then write) is deliberate: the whole-column write
 # applies the at-rest encoding verdicts (dictionaries, statistics) that
 # the streaming sink does not yet decide as well.
-"$WORK/venv/bin/python" - "$HITS" "$WORK/hits10m.k10dir" <<'PYEOF'
-import sys, os
+KEYTEN_STAMP="$(sha256sum "$KEYTEN_SO" | cut -c1-64)"
+if [ ! -f "$WORK/hits10m.k10dir/.engine" ] || [ "$(cat "$WORK/hits10m.k10dir/.engine")" != "$KEYTEN_STAMP" ]; then
+  rm -rf "$WORK/hits10m.k10dir"
+  "$WORK/venv/bin/python" - "$HITS" "$WORK/hits10m.k10dir" <<'PYEOF'
+import sys
 import keyten as kt
 src, dst = sys.argv[1], sys.argv[2]
-if not os.path.exists(dst):
-    kt.DataFrame.read_parquet(src).write_native(dst)
+kt.DataFrame.read_parquet(src).write_native(dst)
 PYEOF
+  echo "$KEYTEN_STAMP" > "$WORK/hits10m.k10dir/.engine"
+fi
 
 if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
   ROOT="$PWD"
