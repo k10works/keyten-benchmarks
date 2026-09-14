@@ -2,8 +2,8 @@
  "benchmark": {
   "adapter_track": "standard",
   "artifacts": {
-   "adapter_sha256": "33725bc5e9ce252097447e0c0c4653106fc8046deb3de9c48a413672e01732e4",
-   "harness_sha256": "04c061b102645a9604ff828e221a8baefc6aed70b9b2716ab5ade30b288dc9a5"
+   "adapter_sha256": "5f5ca4e2d4f7d9d04c8dc96b157f36158d34e7994366d18b31dd077586f683c9",
+   "harness_sha256": "c7ee2716e8225e864a6dde8ede9cdf4ae7fa776b56b8cbea05e20cb0acf11129"
   },
   "benchmark_mode": "warm-native-scan",
   "benchmark_repo": {
@@ -12,6 +12,7 @@
     "adapters/clickbench-keyten/run_board_native.py",
     "adapters/clickbench-keyten/server_native.py",
     "adapters/clickbench-polars/run_board.py",
+    "adapters/clickbench-polars/server_10m.py",
     "adapters/pdsh-keyten/utils.py",
     "harnesses/pdsh/queries/keyten/utils.py",
     "results/clickbench-10m/duckdb.json",
@@ -27,21 +28,30 @@
     "results/tickops/keyten.json",
     "results/tickops/polars.json",
     "runner/benchmark_metadata.py",
+    "runner/cb_duckdb.py",
     "runner/check_clickbench_results.py",
     "runner/convert_generic.py",
+    "runner/convert_taq.py",
+    "runner/convert_tickops.py",
     "runner/run_clickbench.sh",
     "runner/run_pdsh.sh",
     "runner/run_taq.sh",
     "runner/run_tickops.sh",
     "runner/test_benchmark_metadata.py",
     "runner/test_check_clickbench_results.py",
+    "runner/test_convert_generic.py",
     "adapters/pdsh-keyten/__pycache__/utils.cpython-314.pyc",
+    "harnesses/tickops/__pycache__/queries_duckdb.cpython-314.pyc",
+    "harnesses/tickops/__pycache__/queries_keyten.cpython-314.pyc",
+    "harnesses/tickops/__pycache__/queries_polars.cpython-314.pyc",
+    "runner/__pycache__/convert_generic.cpython-314.pyc",
     "runner/__pycache__/materialize.cpython-314.pyc",
     "runner/__pycache__/native_layout.cpython-314.pyc",
     "runner/__pycache__/test_native_layout.cpython-314.pyc",
     "runner/__pycache__/test_store_stamp.cpython-314.pyc",
     "runner/lib/identity.sh",
     "runner/native_layout.py",
+    "runner/test_clickbench_adapters.py",
     "runner/test_native_layout.py",
     "runner/test_run_scripts.py",
     "runner/test_store_stamp.py"
@@ -75,14 +85,14 @@
    "keyten": {
     "build": {
      "build_state": "clean",
-     "git_sha": "c9a1aba62a72e45a9dd09020e2a85deed6da9457"
+     "git_sha": "91481bc39ca00ada6b1506fe75e2dbd11a5fa940"
     },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "b9b49f7fb5af774705ebe61ec320ed3f7dddadad3312a098c20955e73558f262"
+       "keyten/_keyten.abi3.so": "9a53ee8fc25b1c089113aac606954ad6c77fd8b89c64c80e83c1f599622b1bdc"
       },
-      "sha256": "11ff324a0ea2b980da6612f3f795176e2328fd15806fff05f866165d889f3156",
+      "sha256": "06e60300872fb507beb9e97d546d1eec66701914f3a41fdf19f33273c27aec15",
       "version": "0.1.53"
      }
     },
@@ -122,6 +132,7 @@
    "h11==0.16.0",
    "idna==3.19",
    "keyten==0.1.53",
+   "numpy==2.5.3",
    "pip==25.1.1",
    "polars-runtime-32==1.44.2",
    "polars==1.44.2",
@@ -134,8 +145,14 @@
    "uvicorn==0.52.4"
   ],
   "methodology": {
-   "dispersion": [],
-   "engine_order": "keyten, polars, duckdb",
+   "all_engine_positions_covered": true,
+   "dispersion": [
+    "mad",
+    "p25",
+    "p75"
+   ],
+   "engine_order": "cyclic rotations; each engine occupies every position",
+   "engine_position_counts_balanced": true,
    "expected_query_count": 43,
    "io_included": {
     "duckdb": false,
@@ -143,10 +160,12 @@
     "polars": true
    },
    "load_included": false,
-   "raw_samples_retained": false,
-   "statistic": "min",
-   "timed_samples_per_query": 3,
-   "warmups_per_query": 0
+   "query_order": "queryfile order within each engine round",
+   "raw_samples_retained": true,
+   "sample_process": "fresh engine process per round; full pass of 43 queries",
+   "statistic": "median",
+   "timed_samples_per_query": 12,
+   "warmups_per_timed_sample": 2
   },
   "native_stores": [
    {
@@ -952,7 +971,7 @@
     "store": "/home/hetoku/data/work/keyten-benchmarks/.work/hits10m.k10dir"
    }
   ],
-  "recorded_at": "2026-09-13T22:12:20.986211+00:00",
+  "recorded_at": "2026-09-14T03:44:14.096400+00:00",
   "workers": 32
  },
  "engine": "polars",
@@ -960,229 +979,4873 @@
  "machine": {
   "cores": 32,
   "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
-  "date": "2026-09-13",
+  "date": "2026-09-14",
   "os": "Linux x86_64",
   "ram_gb": 125
  },
  "queries": [
   {
    "idx": 1,
-   "ms": 1.0,
-   "query": "SELECT COUNT(*) FROM hits;"
+   "ms": 0.52,
+   "query": "SELECT COUNT(*) FROM hits;",
+   "stats": {
+    "mad_ms": 0.0345,
+    "max_ms": 0.702,
+    "median_ms": 0.521,
+    "min_ms": 0.465,
+    "p25_ms": 0.50825,
+    "p75_ms": 0.55875,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.573,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.52,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.517,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.485,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.465,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.554,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.537,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.606,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.516,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.468,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.702,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 0.522,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     0.573,
+     0.52,
+     0.517,
+     0.485,
+     0.465,
+     0.554,
+     0.537,
+     0.606,
+     0.516,
+     0.468,
+     0.702,
+     0.522
+    ]
+   }
   },
   {
    "idx": 2,
-   "ms": 2.0,
-   "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;"
+   "ms": 1.73,
+   "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;",
+   "stats": {
+    "mad_ms": 0.128,
+    "max_ms": 1.976,
+    "median_ms": 1.7255,
+    "min_ms": 1.441,
+    "p25_ms": 1.60825,
+    "p75_ms": 1.86475,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.441,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.555,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.976,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.609,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.672,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.862,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.779,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.801,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.606,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.873,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.913,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.637,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     1.441,
+     1.555,
+     1.976,
+     1.609,
+     1.672,
+     1.862,
+     1.779,
+     1.801,
+     1.606,
+     1.873,
+     1.913,
+     1.637
+    ]
+   }
   },
   {
    "idx": 3,
-   "ms": 3.0,
-   "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;"
+   "ms": 3.5,
+   "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;",
+   "stats": {
+    "mad_ms": 0.156,
+    "max_ms": 4.124,
+    "median_ms": 3.497,
+    "min_ms": 3.33,
+    "p25_ms": 3.395,
+    "p75_ms": 3.767,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 4.124,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.761,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.488,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.352,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.479,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.403,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.506,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.757,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.33,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.888,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.371,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.785,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     4.124,
+     3.761,
+     3.488,
+     3.352,
+     3.479,
+     3.403,
+     3.506,
+     3.757,
+     3.33,
+     3.888,
+     3.371,
+     3.785
+    ]
+   }
   },
   {
    "idx": 4,
-   "ms": 9.0,
-   "query": "SELECT AVG(UserID) FROM hits;"
+   "ms": 8.93,
+   "query": "SELECT AVG(UserID) FROM hits;",
+   "stats": {
+    "mad_ms": 0.2535,
+    "max_ms": 9.76,
+    "median_ms": 8.928,
+    "min_ms": 8.006,
+    "p25_ms": 8.75125,
+    "p75_ms": 9.17625,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.786,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.451,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.76,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.006,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.944,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.192,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.799,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.096,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.171,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.647,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 8.912,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.495,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     8.786,
+     8.451,
+     9.76,
+     8.006,
+     8.944,
+     9.192,
+     8.799,
+     9.096,
+     9.171,
+     8.647,
+     8.912,
+     9.495
+    ]
+   }
   },
   {
    "idx": 5,
-   "ms": 28.0,
-   "query": "SELECT COUNT(DISTINCT UserID) FROM hits;"
+   "ms": 29.1,
+   "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
+   "stats": {
+    "mad_ms": 0.69,
+    "max_ms": 30.956,
+    "median_ms": 29.1045,
+    "min_ms": 27.433,
+    "p25_ms": 27.98425,
+    "p75_ms": 29.47825,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 29.885,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 29.073,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.789,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 29.704,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.943,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 28.642,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.433,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.998,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 29.371,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 29.136,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 30.956,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 29.403,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     29.885,
+     29.073,
+     27.789,
+     29.704,
+     27.943,
+     28.642,
+     27.433,
+     27.998,
+     29.371,
+     29.136,
+     30.956,
+     29.403
+    ]
+   }
   },
   {
    "idx": 6,
-   "ms": 88.0,
-   "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;"
+   "ms": 87.91,
+   "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
+   "stats": {
+    "mad_ms": 1.3895,
+    "max_ms": 92.457,
+    "median_ms": 87.9075,
+    "min_ms": 82.658,
+    "p25_ms": 86.55,
+    "p75_ms": 89.2995,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 87.908,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 82.658,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 86.947,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 86.582,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 89.775,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 86.454,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 92.237,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 86.094,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 89.141,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 92.457,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 88.269,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 87.907,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     87.908,
+     82.658,
+     86.947,
+     86.582,
+     89.775,
+     86.454,
+     92.237,
+     86.094,
+     89.141,
+     92.457,
+     88.269,
+     87.907
+    ]
+   }
   },
   {
    "idx": 7,
-   "ms": 3.0,
-   "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;"
+   "ms": 2.61,
+   "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;",
+   "stats": {
+    "mad_ms": 0.147,
+    "max_ms": 2.933,
+    "median_ms": 2.6115,
+    "min_ms": 2.435,
+    "p25_ms": 2.515,
+    "p75_ms": 2.804,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.933,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.665,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.45,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.435,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.527,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.878,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.792,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.613,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.61,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.479,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.539,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.84,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     2.933,
+     2.665,
+     2.45,
+     2.435,
+     2.527,
+     2.878,
+     2.792,
+     2.613,
+     2.61,
+     2.479,
+     2.539,
+     2.84
+    ]
+   }
   },
   {
    "idx": 8,
-   "ms": 4.0,
-   "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;"
+   "ms": 6.0,
+   "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;",
+   "stats": {
+    "mad_ms": 0.6965,
+    "max_ms": 7.187,
+    "median_ms": 6.001,
+    "min_ms": 3.53,
+    "p25_ms": 5.02825,
+    "p75_ms": 6.4995,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.499,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 4.789,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.829,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 7.142,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.501,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.108,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 4.427,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.915,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 7.187,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 3.53,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.087,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.196,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     6.499,
+     4.789,
+     5.829,
+     7.142,
+     6.501,
+     5.108,
+     4.427,
+     5.915,
+     7.187,
+     3.53,
+     6.087,
+     6.196
+    ]
+   }
   },
   {
    "idx": 9,
-   "ms": 103.0,
-   "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;"
+   "ms": 104.45,
+   "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.9445,
+    "max_ms": 110.576,
+    "median_ms": 104.4475,
+    "min_ms": 97.844,
+    "p25_ms": 103.476,
+    "p75_ms": 105.359,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 104.823,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 101.15,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 105.06,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 104.06,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 102.687,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 104.072,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 105.458,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 97.844,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 110.576,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 103.739,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 105.587,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 105.326,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     104.823,
+     101.15,
+     105.06,
+     104.06,
+     102.687,
+     104.072,
+     105.458,
+     97.844,
+     110.576,
+     103.739,
+     105.587,
+     105.326
+    ]
+   }
   },
   {
    "idx": 10,
-   "ms": 117.0,
-   "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;"
+   "ms": 119.94,
+   "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 2.124,
+    "max_ms": 124.418,
+    "median_ms": 119.944,
+    "min_ms": 116.496,
+    "p25_ms": 117.8245,
+    "p75_ms": 122.06475,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 116.496,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 121.46,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 123.986,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 117.598,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 119.98,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 122.027,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 119.908,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 118.976,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 124.418,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 117.811,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 117.829,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 122.178,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     116.496,
+     121.46,
+     123.986,
+     117.598,
+     119.98,
+     122.027,
+     119.908,
+     118.976,
+     124.418,
+     117.811,
+     117.829,
+     122.178
+    ]
+   }
   },
   {
    "idx": 11,
-   "ms": 10.0,
-   "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;"
+   "ms": 9.97,
+   "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.211,
+    "max_ms": 10.243,
+    "median_ms": 9.97,
+    "min_ms": 9.517,
+    "p25_ms": 9.709,
+    "p75_ms": 10.12475,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.145,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.517,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.217,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.567,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.118,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.012,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.847,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.024,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.243,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.712,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.928,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 9.7,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     10.145,
+     9.517,
+     10.217,
+     9.567,
+     10.118,
+     10.012,
+     9.847,
+     10.024,
+     10.243,
+     9.712,
+     9.928,
+     9.7
+    ]
+   }
   },
   {
    "idx": 12,
-   "ms": 11.0,
-   "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC "
+   "ms": 11.46,
+   "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
+   "stats": {
+    "mad_ms": 0.363,
+    "max_ms": 13.723,
+    "median_ms": 11.4605,
+    "min_ms": 10.55,
+    "p25_ms": 11.28975,
+    "p75_ms": 11.86625,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.87,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.865,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.55,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.139,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.395,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 10.698,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 12.406,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.34,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.436,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.485,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.663,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 13.723,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     11.87,
+     11.865,
+     10.55,
+     11.139,
+     11.395,
+     10.698,
+     12.406,
+     11.34,
+     11.436,
+     11.485,
+     11.663,
+     13.723
+    ]
+   }
   },
   {
    "idx": 13,
-   "ms": 63.0,
-   "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;"
+   "ms": 63.62,
+   "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.457,
+    "max_ms": 65.099,
+    "median_ms": 63.6215,
+    "min_ms": 61.088,
+    "p25_ms": 63.029,
+    "p75_ms": 63.887,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 65.099,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 62.813,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.593,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 64.505,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 61.19,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 61.088,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.729,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.101,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.855,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.65,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.228,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 63.983,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     65.099,
+     62.813,
+     63.593,
+     64.505,
+     61.19,
+     61.088,
+     63.729,
+     63.101,
+     63.855,
+     63.65,
+     63.228,
+     63.983
+    ]
+   }
   },
   {
    "idx": 14,
-   "ms": 119.0,
-   "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;"
+   "ms": 121.96,
+   "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.18,
+    "max_ms": 129.751,
+    "median_ms": 121.96,
+    "min_ms": 118.139,
+    "p25_ms": 120.877,
+    "p75_ms": 124.357,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 121.636,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 122.714,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 120.877,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 120.683,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 118.139,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 122.284,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 121.296,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 124.164,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 125.765,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 120.877,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 129.751,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 124.936,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     121.636,
+     122.714,
+     120.877,
+     120.683,
+     118.139,
+     122.284,
+     121.296,
+     124.164,
+     125.765,
+     120.877,
+     129.751,
+     124.936
+    ]
+   }
   },
   {
    "idx": 15,
-   "ms": 79.0,
-   "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;"
+   "ms": 81.81,
+   "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.5555,
+    "max_ms": 85.824,
+    "median_ms": 81.811,
+    "min_ms": 76.613,
+    "p25_ms": 80.26175,
+    "p75_ms": 83.35925,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 81.47,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 82.152,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 82.533,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 80.982,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 83.381,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 85.824,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 83.352,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 83.509,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 80.363,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 79.958,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 78.387,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 76.613,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     81.47,
+     82.152,
+     82.533,
+     80.982,
+     83.381,
+     85.824,
+     83.352,
+     83.509,
+     80.363,
+     79.958,
+     78.387,
+     76.613
+    ]
+   }
   },
   {
    "idx": 16,
-   "ms": 37.0,
-   "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;"
+   "ms": 36.93,
+   "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.672,
+    "max_ms": 39.465,
+    "median_ms": 36.929,
+    "min_ms": 33.619,
+    "p25_ms": 36.37325,
+    "p75_ms": 37.538,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 36.02,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 35.602,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 37.475,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 36.491,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 36.596,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 33.619,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 36.507,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 37.727,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 39.465,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 37.812,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 37.439,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 37.262,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     36.02,
+     35.602,
+     37.475,
+     36.491,
+     36.596,
+     33.619,
+     36.507,
+     37.727,
+     39.465,
+     37.812,
+     37.439,
+     37.262
+    ]
+   }
   },
   {
    "idx": 17,
-   "ms": 205.0,
-   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;"
+   "ms": 206.54,
+   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.645,
+    "max_ms": 208.513,
+    "median_ms": 206.5405,
+    "min_ms": 201.736,
+    "p25_ms": 205.105,
+    "p75_ms": 208.04325,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 206.778,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 201.736,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 205.401,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 206.303,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 204.217,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 205.624,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 208.493,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 203.006,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 207.121,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 208.47,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 207.901,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 208.513,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     206.778,
+     201.736,
+     205.401,
+     206.303,
+     204.217,
+     205.624,
+     208.493,
+     203.006,
+     207.121,
+     208.47,
+     207.901,
+     208.513
+    ]
+   }
   },
   {
    "idx": 18,
-   "ms": 195.0,
-   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;"
+   "ms": 202.54,
+   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.714,
+    "max_ms": 210.362,
+    "median_ms": 202.544,
+    "min_ms": 193.287,
+    "p25_ms": 201.26125,
+    "p75_ms": 204.6355,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 202.838,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 202.25,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 204.045,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 201.549,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 207.821,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 210.362,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 200.617,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 201.476,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 193.287,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 199.476,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 202.97,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 206.407,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     202.838,
+     202.25,
+     204.045,
+     201.549,
+     207.821,
+     210.362,
+     200.617,
+     201.476,
+     193.287,
+     199.476,
+     202.97,
+     206.407
+    ]
+   }
   },
   {
    "idx": 19,
-   "ms": 326.0,
-   "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;"
+   "ms": 335.44,
+   "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 4.021,
+    "max_ms": 343.048,
+    "median_ms": 335.442,
+    "min_ms": 318.488,
+    "p25_ms": 332.02325,
+    "p75_ms": 338.97775,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 338.374,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 342.965,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 340.789,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 328.437,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 343.048,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 337.625,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 330.332,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 336.012,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 334.872,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 333.386,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 332.587,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 318.488,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     338.374,
+     342.965,
+     340.789,
+     328.437,
+     343.048,
+     337.625,
+     330.332,
+     336.012,
+     334.872,
+     333.386,
+     332.587,
+     318.488
+    ]
+   }
   },
   {
    "idx": 20,
-   "ms": 2.0,
-   "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;"
+   "ms": 1.9,
+   "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;",
+   "stats": {
+    "mad_ms": 0.1315,
+    "max_ms": 2.045,
+    "median_ms": 1.8955,
+    "min_ms": 1.521,
+    "p25_ms": 1.76075,
+    "p75_ms": 1.99925,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.036,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.521,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.9,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.987,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.891,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.724,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.91,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.045,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.883,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 2.042,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.704,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.773,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     2.036,
+     1.521,
+     1.9,
+     1.987,
+     1.891,
+     1.724,
+     1.91,
+     2.045,
+     1.883,
+     2.042,
+     1.704,
+     1.773
+    ]
+   }
   },
   {
    "idx": 21,
-   "ms": 156.0,
-   "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';"
+   "ms": 155.88,
+   "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
+   "stats": {
+    "mad_ms": 0.634,
+    "max_ms": 158.674,
+    "median_ms": 155.881,
+    "min_ms": 153.921,
+    "p25_ms": 155.294,
+    "p75_ms": 156.46025,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 158.674,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 156.674,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 155.469,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 156.389,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 155.341,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 156.838,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 156.301,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 155.153,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 154.006,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 156.293,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 153.921,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 155.394,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     158.674,
+     156.674,
+     155.469,
+     156.389,
+     155.341,
+     156.838,
+     156.301,
+     155.153,
+     154.006,
+     156.293,
+     153.921,
+     155.394
+    ]
+   }
   },
   {
    "idx": 22,
-   "ms": 184.0,
-   "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;"
+   "ms": 185.15,
+   "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 2.5875,
+    "max_ms": 191.01,
+    "median_ms": 185.15,
+    "min_ms": 181.589,
+    "p25_ms": 182.57325,
+    "p75_ms": 187.5525,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 181.589,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 184.854,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 184.615,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 181.714,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 187.334,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 182.584,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 182.541,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 191.01,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 188.208,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 185.446,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 189.994,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 186.606,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     181.589,
+     184.854,
+     184.615,
+     181.714,
+     187.334,
+     182.584,
+     182.541,
+     191.01,
+     188.208,
+     185.446,
+     189.994,
+     186.606
+    ]
+   }
   },
   {
    "idx": 23,
-   "ms": 486.0,
-   "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP"
+   "ms": 495.16,
+   "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP",
+   "stats": {
+    "mad_ms": 6.738,
+    "max_ms": 509.402,
+    "median_ms": 495.1605,
+    "min_ms": 482.171,
+    "p25_ms": 489.07875,
+    "p75_ms": 502.78675,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 490.231,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 506.041,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 488.226,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 490.478,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 509.339,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 482.325,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 501.702,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 482.171,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 489.363,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 509.402,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 499.843,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 501.591,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     490.231,
+     506.041,
+     488.226,
+     490.478,
+     509.339,
+     482.325,
+     501.702,
+     482.171,
+     489.363,
+     509.402,
+     499.843,
+     501.591
+    ]
+   }
   },
   {
    "idx": 24,
-   "ms": 530.0,
-   "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;"
+   "ms": 542.23,
+   "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;",
+   "stats": {
+    "mad_ms": 3.4315,
+    "max_ms": 554.339,
+    "median_ms": 542.23,
+    "min_ms": 534.194,
+    "p25_ms": 539.268,
+    "p75_ms": 545.51725,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 535.383,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 545.966,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 545.373,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 541.628,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 545.95,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 539.526,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 545.262,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 538.494,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 534.194,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 541.781,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 554.339,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 542.679,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     535.383,
+     545.966,
+     545.373,
+     541.628,
+     545.95,
+     539.526,
+     545.262,
+     538.494,
+     534.194,
+     541.781,
+     554.339,
+     542.679
+    ]
+   }
   },
   {
    "idx": 25,
-   "ms": 36.0,
-   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;"
+   "ms": 34.87,
+   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.5515,
+    "max_ms": 38.223,
+    "median_ms": 34.868,
+    "min_ms": 33.769,
+    "p25_ms": 34.649,
+    "p75_ms": 35.89075,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 36.424,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 36.427,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 33.769,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.559,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 38.223,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.872,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.919,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.679,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 35.713,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.69,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.074,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 34.864,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     36.424,
+     36.427,
+     33.769,
+     34.559,
+     38.223,
+     34.872,
+     34.919,
+     34.679,
+     35.713,
+     34.69,
+     34.074,
+     34.864
+    ]
+   }
   },
   {
    "idx": 26,
-   "ms": 26.0,
-   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;"
+   "ms": 27.42,
+   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.3225,
+    "max_ms": 28.837,
+    "median_ms": 27.42,
+    "min_ms": 26.464,
+    "p25_ms": 27.1015,
+    "p75_ms": 27.73275,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.762,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 28.719,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 28.837,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.117,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.532,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 26.81,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.055,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.308,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.723,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.298,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 27.702,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 26.464,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     27.762,
+     28.719,
+     28.837,
+     27.117,
+     27.532,
+     26.81,
+     27.055,
+     27.308,
+     27.723,
+     27.298,
+     27.702,
+     26.464
+    ]
+   }
   },
   {
    "idx": 27,
-   "ms": 47.0,
-   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;"
+   "ms": 47.72,
+   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.2415,
+    "max_ms": 50.195,
+    "median_ms": 47.721,
+    "min_ms": 45.337,
+    "p25_ms": 47.2175,
+    "p75_ms": 49.0395,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 47.914,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 46.511,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 50.195,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 48.994,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 47.453,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 45.337,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 47.469,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 48.112,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 49.502,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 49.176,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 47.528,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 45.857,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     47.914,
+     46.511,
+     50.195,
+     48.994,
+     47.453,
+     45.337,
+     47.469,
+     48.112,
+     49.502,
+     49.176,
+     47.528,
+     45.857
+    ]
+   }
   },
   {
    "idx": 28,
-   "ms": 294.0,
-   "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;"
+   "ms": 294.42,
+   "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
+   "stats": {
+    "mad_ms": 1.204,
+    "max_ms": 296.407,
+    "median_ms": 294.416,
+    "min_ms": 290.377,
+    "p25_ms": 293.42125,
+    "p75_ms": 295.86975,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 296.115,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 293.38,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 296.407,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 294.591,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 295.057,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 293.435,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 295.788,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 296.126,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 294.035,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 290.377,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 294.241,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 292.12,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     296.115,
+     293.38,
+     296.407,
+     294.591,
+     295.057,
+     293.435,
+     295.788,
+     296.126,
+     294.035,
+     290.377,
+     294.241,
+     292.12
+    ]
+   }
   },
   {
    "idx": 29,
-   "ms": 589.0,
-   "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> "
+   "ms": 607.26,
+   "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
+   "stats": {
+    "mad_ms": 4.4645,
+    "max_ms": 625.847,
+    "median_ms": 607.26,
+    "min_ms": 592.214,
+    "p25_ms": 602.93775,
+    "p75_ms": 611.48625,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 596.431,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 592.214,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 625.847,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 606.52,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 608.381,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 599.295,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 611.248,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 607.492,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 612.201,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 613.598,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 604.152,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 607.028,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     596.431,
+     592.214,
+     625.847,
+     606.52,
+     608.381,
+     599.295,
+     611.248,
+     607.492,
+     612.201,
+     613.598,
+     604.152,
+     607.028
+    ]
+   }
   },
   {
    "idx": 30,
-   "ms": 17.0,
-   "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S"
+   "ms": 18.05,
+   "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S",
+   "stats": {
+    "mad_ms": 2.279,
+    "max_ms": 25.638,
+    "median_ms": 18.0485,
+    "min_ms": 14.54,
+    "p25_ms": 16.35075,
+    "p75_ms": 22.5145,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 18.038,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 16.242,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 22.295,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 23.173,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.638,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 16.387,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 14.54,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 17.512,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 19.713,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.297,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 18.059,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 24.857,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     18.038,
+     16.242,
+     22.295,
+     23.173,
+     25.638,
+     16.387,
+     14.54,
+     17.512,
+     19.713,
+     15.297,
+     18.059,
+     24.857
+    ]
+   }
   },
   {
    "idx": 31,
-   "ms": 54.0,
-   "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER "
+   "ms": 54.8,
+   "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
+   "stats": {
+    "mad_ms": 0.4925,
+    "max_ms": 57.033,
+    "median_ms": 54.7975,
+    "min_ms": 50.112,
+    "p25_ms": 54.01825,
+    "p75_ms": 55.25825,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 55.094,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 54.403,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 55.301,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 50.112,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 55.686,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 54.316,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 55.244,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 53.125,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 54.68,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 52.047,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 54.915,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 57.033,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     55.094,
+     54.403,
+     55.301,
+     50.112,
+     55.686,
+     54.316,
+     55.244,
+     53.125,
+     54.68,
+     52.047,
+     54.915,
+     57.033
+    ]
+   }
   },
   {
    "idx": 32,
-   "ms": 66.0,
-   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI"
+   "ms": 68.74,
+   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
+   "stats": {
+    "mad_ms": 0.7175,
+    "max_ms": 72.152,
+    "median_ms": 68.7385,
+    "min_ms": 66.482,
+    "p25_ms": 68.22525,
+    "p75_ms": 70.9645,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 68.282,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 70.963,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 68.8,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 66.482,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 69.006,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 68.312,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 68.677,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 72.152,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 71.089,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 67.987,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 68.055,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 70.969,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     68.282,
+     70.963,
+     68.8,
+     66.482,
+     69.006,
+     68.312,
+     68.677,
+     72.152,
+     71.089,
+     67.987,
+     68.055,
+     70.969
+    ]
+   }
   },
   {
    "idx": 33,
-   "ms": 349.0,
-   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;"
+   "ms": 343.63,
+   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 5.928,
+    "max_ms": 354.157,
+    "median_ms": 343.6285,
+    "min_ms": 334.193,
+    "p25_ms": 337.27475,
+    "p75_ms": 349.09275,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 334.193,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 340.241,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 349.437,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 337.332,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 343.441,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 349.676,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 348.978,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 337.103,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 343.816,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 348.965,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 354.157,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 335.002,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     334.193,
+     340.241,
+     349.437,
+     337.332,
+     343.441,
+     349.676,
+     348.978,
+     337.103,
+     343.816,
+     348.965,
+     354.157,
+     335.002
+    ]
+   }
   },
   {
    "idx": 34,
-   "ms": 487.0,
-   "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;"
+   "ms": 495.68,
+   "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 2.5215,
+    "max_ms": 500.79,
+    "median_ms": 495.684,
+    "min_ms": 486.908,
+    "p25_ms": 492.0765,
+    "p75_ms": 497.0375,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 497.285,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 489.1,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 496.955,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 499.6,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 494.569,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 495.891,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 486.908,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 496.5,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 500.79,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 495.477,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 492.242,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 491.58,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     497.285,
+     489.1,
+     496.955,
+     499.6,
+     494.569,
+     495.891,
+     486.908,
+     496.5,
+     500.79,
+     495.477,
+     492.242,
+     491.58
+    ]
+   }
   },
   {
    "idx": 35,
-   "ms": 488.0,
-   "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;"
+   "ms": 491.93,
+   "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 2.3325,
+    "max_ms": 496.498,
+    "median_ms": 491.9325,
+    "min_ms": 487.597,
+    "p25_ms": 490.0715,
+    "p75_ms": 494.2295,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 490.363,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 487.668,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 489.197,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 496.498,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 492.251,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 495.332,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 487.597,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 491.766,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 495.55,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 493.862,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 492.099,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 491.244,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     490.363,
+     487.668,
+     489.197,
+     496.498,
+     492.251,
+     495.332,
+     487.597,
+     491.766,
+     495.55,
+     493.862,
+     492.099,
+     491.244
+    ]
+   }
   },
   {
    "idx": 36,
-   "ms": 24.0,
-   "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L"
+   "ms": 25.36,
+   "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
+   "stats": {
+    "mad_ms": 0.439,
+    "max_ms": 28.922,
+    "median_ms": 25.3605,
+    "min_ms": 23.869,
+    "p25_ms": 24.94125,
+    "p75_ms": 25.77925,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.84,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 23.869,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.315,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.759,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.037,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.562,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.406,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 24.654,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 28.922,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.092,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 25.849,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 24.315,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     25.84,
+     23.869,
+     25.315,
+     25.759,
+     25.037,
+     25.562,
+     25.406,
+     24.654,
+     28.922,
+     25.092,
+     25.849,
+     24.315
+    ]
+   }
   },
   {
    "idx": 37,
-   "ms": 42.0,
-   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh"
+   "ms": 42.62,
+   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
+   "stats": {
+    "mad_ms": 0.5485,
+    "max_ms": 43.275,
+    "median_ms": 42.625,
+    "min_ms": 41.326,
+    "p25_ms": 41.807,
+    "p75_ms": 43.1,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 41.642,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 43.275,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 42.708,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 41.326,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 43.011,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 43.094,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 41.53,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 42.446,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 41.862,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 43.118,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 43.229,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 42.542,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     41.642,
+     43.275,
+     42.708,
+     41.326,
+     43.011,
+     43.094,
+     41.53,
+     42.446,
+     41.862,
+     43.118,
+     43.229,
+     42.542
+    ]
+   }
   },
   {
    "idx": 38,
-   "ms": 11.0,
-   "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre"
+   "ms": 12.09,
+   "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
+   "stats": {
+    "mad_ms": 0.544,
+    "max_ms": 13.435,
+    "median_ms": 12.088,
+    "min_ms": 11.424,
+    "p25_ms": 11.7905,
+    "p75_ms": 12.91175,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 12.923,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.967,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.979,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 12.197,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.555,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.424,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 13.106,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 13.435,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.869,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 12.908,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 11.533,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 12.219,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     12.923,
+     11.967,
+     11.979,
+     12.197,
+     11.555,
+     11.424,
+     13.106,
+     13.435,
+     11.869,
+     12.908,
+     11.533,
+     12.219
+    ]
+   }
   },
   {
    "idx": 39,
-   "ms": 14.0,
-   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A"
+   "ms": 15.8,
+   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
+   "stats": {
+    "mad_ms": 0.3515,
+    "max_ms": 17.36,
+    "median_ms": 15.8045,
+    "min_ms": 14.807,
+    "p25_ms": 15.527,
+    "p75_ms": 16.1115,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.875,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 17.36,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.606,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 16.067,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 14.807,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.616,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 16.245,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.29,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.793,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.816,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 16.969,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 15.192,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     15.875,
+     17.36,
+     15.606,
+     16.067,
+     14.807,
+     15.616,
+     16.245,
+     15.29,
+     15.793,
+     15.816,
+     16.969,
+     15.192
+    ]
+   }
   },
   {
    "idx": 40,
-   "ms": 109.0,
-   "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS "
+   "ms": 109.55,
+   "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
+   "stats": {
+    "mad_ms": 2.5035,
+    "max_ms": 114.996,
+    "median_ms": 109.546,
+    "min_ms": 104.629,
+    "p25_ms": 106.96675,
+    "p75_ms": 111.4775,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 112.292,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 104.629,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 108.98,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 107.285,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 110.112,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 114.996,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 105.134,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 113.427,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 106.012,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 111.206,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 110.589,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 107.925,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     112.292,
+     104.629,
+     108.98,
+     107.285,
+     110.112,
+     114.996,
+     105.134,
+     113.427,
+     106.012,
+     111.206,
+     110.589,
+     107.925
+    ]
+   }
   },
   {
    "idx": 41,
-   "ms": 6.0,
-   "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN"
+   "ms": 6.41,
+   "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
+   "stats": {
+    "mad_ms": 0.2145,
+    "max_ms": 6.849,
+    "median_ms": 6.4115,
+    "min_ms": 5.594,
+    "p25_ms": 6.27425,
+    "p75_ms": 6.63,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.59,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.778,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.687,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.611,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.483,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.313,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.952,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.849,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.594,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.182,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.305,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.34,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     6.59,
+     6.778,
+     6.687,
+     6.611,
+     6.483,
+     6.313,
+     5.952,
+     6.849,
+     5.594,
+     6.182,
+     6.305,
+     6.34
+    ]
+   }
   },
   {
    "idx": 42,
-   "ms": 5.0,
-   "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A"
+   "ms": 5.08,
+   "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A",
+   "stats": {
+    "mad_ms": 0.2,
+    "max_ms": 5.579,
+    "median_ms": 5.084,
+    "min_ms": 4.843,
+    "p25_ms": 5.0105,
+    "p75_ms": 5.32375,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.057,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.286,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 4.964,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.546,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 4.843,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.072,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.579,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.319,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.338,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.096,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 4.886,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 5.026,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     5.057,
+     5.286,
+     4.964,
+     5.546,
+     4.843,
+     5.072,
+     5.579,
+     5.319,
+     5.338,
+     5.096,
+     4.886,
+     5.026
+    ]
+   }
   },
   {
    "idx": 43,
-   "ms": 6.0,
-   "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN"
+   "ms": 6.38,
+   "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN",
+   "stats": {
+    "mad_ms": 0.1165,
+    "max_ms": 6.795,
+    "median_ms": 6.377,
+    "min_ms": 6.002,
+    "p25_ms": 6.3045,
+    "p75_ms": 6.4875,
+    "samples": [
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.361,
+      "order_position": 2,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.795,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.328,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.703,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.345,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.234,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.467,
+      "order_position": 2,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.424,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.549,
+      "order_position": 3,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.393,
+      "order_position": 2,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.008,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 6.002,
+      "order_position": 3,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     6.361,
+     6.795,
+     6.328,
+     6.703,
+     6.345,
+     6.234,
+     6.467,
+     6.424,
+     6.549,
+     6.393,
+     6.008,
+     6.002
+    ]
+   }
   }
  ],
  "suite": "clickbench-10m",
  "threads": 32,
- "total_ms": 5431.0,
+ "total_ms": 5523.1,
  "version": "1.44.2"
 }
