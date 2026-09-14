@@ -22,7 +22,7 @@ class WheelInstallContractTests(TestCase):
     def test_both_runners_bracket_timing_with_identity_checks(self) -> None:
         for name, first, last in (
             ("run_pdsh.sh", "for ((round = 0;", "# Capture the stores"),
-            ("run_clickbench.sh", 'run_daemon adapters/clickbench-keyten "KEYTEN_NATIVE=', 'MACHINE="$WORK/machine.json"'),
+            ("run_clickbench.sh", "for ((round = 0;", 'MACHINE="$WORK/machine.json"'),
         ):
             with self.subTest(runner=name):
                 script = (RUNNER / name).read_text()
@@ -59,6 +59,21 @@ class WheelInstallContractTests(TestCase):
                 self.assertLess(after, script.index('runner/benchmark_metadata.py'))
                 self.assertLess(after, script.index(f'runner/convert_{suite}.py'))
                 subprocess.run(["bash", "-n", str(RUNNER / f"run_{suite}.sh")], check=True)
+
+    def test_clickbench_rotates_fresh_rounds_with_samples_and_warmups(self):
+        script = (RUNNER / "run_clickbench.sh").read_text()
+        self.assertIn('SAMPLES="${BENCH_SAMPLES:-12}"', script)
+        self.assertIn('WARMUPS="${BENCH_WARMUPS:-2}"', script)
+        self.assertIn('for ((round = 0; round < SAMPLES; round++))', script)
+        for order in ('keyten polars duckdb', 'polars duckdb keyten', 'duckdb keyten polars'):
+            self.assertIn(f'order=({order})', script)
+        for field, value in (("RUN_WARMUP_ITERATIONS", "WARMUPS"), ("RUN_BENCHMARK_RUN_ID", "round"), ("RUN_ORDER_POSITION", "position")):
+            self.assertIn(f'export {field}="${value}"', script)
+        self.assertIn('--samples "$SAMPLES" --warmups "$WARMUPS"', script)
+        self.assertIn('run_board*.py >> "../../$out"', script)
+        self.assertIn('>> "$WORK/cb_duckdb.txt"', script)
+        self.assertIn('wait "$(cat "$WORK/srv.pid")"', script)
+        subprocess.run(["bash", "-n", str(RUNNER / "run_clickbench.sh")], check=True)
 
     def _identity_run(self, change=False, wheel=None):
         with tempfile.TemporaryDirectory() as tmp:

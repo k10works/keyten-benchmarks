@@ -5,6 +5,7 @@ board's result schema."""
 
 import csv
 import json
+import math
 import statistics
 import sys
 from pathlib import Path
@@ -150,19 +151,55 @@ def pdsh(timings_csv, engine, out, mach, version, metadata=None):
 
 
 def clickbench(transcript, engine, version, out, mach, sqlfile, metadata=None):
-    sql = [l.strip() for l in Path(sqlfile).read_text().splitlines() if l.strip()] if sqlfile else []
-    queries = []
+    sql = [line.strip() for line in Path(sqlfile).read_text().splitlines() if line.strip()] if sqlfile else []
+    samples = {}
     for line in Path(transcript).read_text().splitlines():
         if not line.startswith("q"):
             continue
-        name, ms = line.split()[0], line.split()[1]
-        idx = int(name[1:])
-        if ms in ("nanms", "ERROR"):
-            continue
+        fields = line.split()
+        try:
+            idx = int(fields[0][1:]) + 1
+            ms = float(fields[1].removesuffix("ms"))
+            attrs = dict(field.split("=", 1) for field in fields[2:])
+            sample = {
+                "ms": ms,
+                "run_id": attrs.get("run_id", ""),
+                "order_position": int(attrs.get("order_position", "-1")),
+                "warmup_iterations": int(attrs.get("warmup_iterations", "0")),
+                "execution_mode": (metadata or {}).get("engine_modes", {}).get(engine, ""),
+            }
+        except (ValueError, IndexError) as error:
+            raise SystemExit(f"convert_generic clickbench: invalid sample: {line}") from error
+        if idx < 1 or not math.isfinite(ms) or ms < 0:
+            raise SystemExit(f"convert_generic clickbench: invalid timing: {line}")
+        samples.setdefault(idx, []).append(sample)
+    if not samples:
+        raise SystemExit("convert_generic clickbench: no timed samples")
+
+    methodology = (metadata or {}).get("methodology", {})
+    expected_samples = methodology.get("timed_samples_per_query")
+    expected_warmups = methodology.get("warmups_per_timed_sample")
+    expected_queries = methodology.get("expected_query_count")
+    if expected_queries is not None and set(samples) != set(range(1, expected_queries + 1)):
+        raise SystemExit(f"convert_generic clickbench: expected queries 1..{expected_queries}, got {sorted(samples)}")
+    queries = []
+    for idx, raw in sorted(samples.items()):
+        if expected_samples is not None:
+            if len(raw) != expected_samples:
+                raise SystemExit(f"convert_generic clickbench: query {idx} expected {expected_samples} samples, got {len(raw)}")
+            if {sample["run_id"] for sample in raw} != {str(run) for run in range(expected_samples)}:
+                raise SystemExit(f"convert_generic clickbench: query {idx} missing or duplicate rounds")
+            if expected_samples >= 3 and {sample["order_position"] for sample in raw} != {1, 2, 3}:
+                raise SystemExit(f"convert_generic clickbench: query {idx} did not run in all engine-order positions")
+        if expected_warmups is not None and any(sample["warmup_iterations"] != expected_warmups for sample in raw):
+            raise SystemExit(f"convert_generic clickbench: query {idx} does not have {expected_warmups} warmups per sample")
+        summary = summarize_samples([sample["ms"] for sample in raw])
+        summary["samples"] = [{**sample, "ms": round(sample["ms"], 6)} for sample in raw]
         queries.append({
-            "idx": idx + 1,
-            "query": sql[idx][:160] if idx < len(sql) else "",
-            "ms": round(float(ms.replace("ms", "")), 2),
+            "idx": idx,
+            "query": sql[idx - 1][:160] if idx <= len(sql) else "",
+            "ms": round(summary["median_ms"], 2),
+            "stats": summary,
         })
     dump(engine, version, "clickbench-10m", queries, out, mach, metadata)
 

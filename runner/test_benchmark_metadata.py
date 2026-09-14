@@ -71,7 +71,7 @@ class ClickBenchMetadataTests(TestCase):
                 "--repo", str(root), "--harness", str(root), "--adapter", str(root),
                 "--machine-out", str(root / "machine.json"),
                 "--metadata-out", str(metadata_out),
-                "--samples", "3", "--warmups", "0", "--workers", "8",
+                "--samples", "3", "--warmups", "2", "--workers", "8",
                 "--benchmark-mode", "resident-native", "--native-store", str(store),
             ]
             with patch.object(sys, "argv", argv), \
@@ -82,7 +82,10 @@ class ClickBenchMetadataTests(TestCase):
                 benchmark_metadata.main()
             metadata = json.loads(metadata_out.read_text())
             transcript = root / "timings.txt"
-            transcript.write_text("q00 1.25ms\nq01 2.50ms\n")
+            transcript.write_text("".join(
+                f"q{q:02d} {1.25 if q == 0 else 2.5 if q == 1 else 0}ms run_id={run} order_position={run + 1} warmup_iterations=2\n"
+                for run in range(3) for q in range(43)
+            ))
             for name in ("keyten", "polars", "duckdb"):
                 with self.subTest(engine=name):
                     out = root / f"{name}.json"
@@ -97,10 +100,14 @@ class ClickBenchMetadataTests(TestCase):
                     )
                     self.assertEqual(identity["native_stores"][0]["store"], str(store))
                     self.assertEqual(identity["native_stores"][0]["columns"]["WatchID"]["encodings"], {"7": 1})
-                    self.assertEqual(identity["methodology"]["statistic"], "min")
+                    self.assertEqual(identity["methodology"]["statistic"], "median")
                     self.assertEqual(identity["methodology"]["timed_samples_per_query"], 3)
                     self.assertEqual(identity["methodology"]["expected_query_count"], 43)
-                    self.assertFalse(identity["methodology"]["raw_samples_retained"])
+                    self.assertTrue(identity["methodology"]["raw_samples_retained"])
+                    self.assertEqual(identity["methodology"]["warmups_per_timed_sample"], 2)
+                    self.assertEqual(identity["methodology"]["dispersion"], ["mad", "p25", "p75"])
+                    self.assertEqual(identity["methodology"]["engine_order"], "cyclic rotations; each engine occupies every position")
+                    self.assertIn("fresh engine process per round", identity["methodology"]["sample_process"])
                     self.assertEqual(result["total_ms"], 3.8)
 
     def test_clickbench_runner_passes_metadata_to_every_result(self):

@@ -9,7 +9,7 @@
 # keyten and polars run their expression variants of the 43 queries
 # (adapters/clickbench-*/queries.sql, one expression per line) through a
 # small local daemon; duckdb runs the upstream SQL in-process over an
-# in-memory table. Best of 3 per query, warm.
+# in-memory table. Rotated fresh-process rounds; warmups then one sample per query.
 #
 #   ./runner/run_clickbench.sh <hits10m.parquet>
 #
@@ -20,6 +20,12 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source runner/lib/identity.sh
+SAMPLES="${BENCH_SAMPLES:-12}"
+WARMUPS="${BENCH_WARMUPS:-2}"
+if ! [[ "$SAMPLES" =~ ^[1-9][0-9]*$ && "$WARMUPS" =~ ^(0|[1-9][0-9]*)$ ]]; then
+  echo "run_clickbench.sh: invalid sample/warmup counts" >&2
+  exit 1
+fi
 HITS="${1:?usage: run_clickbench.sh <hits10m.parquet>}"
 HITS="$(realpath "$HITS")"
 WORK=".work"; mkdir -p "$WORK" results/clickbench-10m
@@ -51,9 +57,14 @@ run_daemon() { # dir, env, out, optional capture dir
   if [ -n "$capture" ]; then
     ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py --capture-dir "$capture" > "../../$out" )
   else
-    ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py > "../../$out" )
+    if ! ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py >> "../../$out" ); then
+      kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
+      wait "$(cat "$WORK/srv.pid")" 2>/dev/null || true
+      return 1
+    fi
   fi
   kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
+  wait "$(cat "$WORK/srv.pid")" 2>/dev/null || true
   # Drain: the next daemon must not see this one's socket answering.
   until ! curl -sf http://127.0.0.1:${BENCH_PORT:-8000}/health >/dev/null 2>&1; do sleep 1; done
 }
@@ -96,10 +107,34 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
   fi
 fi
 
+# Like PDS-H, each engine process executes the full query pass once per round.
+# Each query sample has its own warmups; no engine process survives a round.
 print_keyten_identity before
-run_daemon adapters/clickbench-keyten "KEYTEN_NATIVE=$PWD/$WORK/hits10m.k10dir" "$WORK/cb_keyten.txt"
-run_daemon adapters/clickbench-polars "POLARS_PARQUET=$HITS" "$WORK/cb_polars.txt"
-"$WORK/venv/bin/python" runner/cb_duckdb.py "$HITS" adapters/clickbench-duckdb-queries.sql > "$WORK/cb_duckdb.txt"
+for ((round = 0; round < SAMPLES; round++)); do
+  case $((round % 3)) in
+    0) order=(keyten polars duckdb) ;;
+    1) order=(polars duckdb keyten) ;;
+    2) order=(duckdb keyten polars) ;;
+  esac
+  position=0
+  for e in "${order[@]}"; do
+    position=$((position + 1))
+    export RUN_WARMUP_ITERATIONS="$WARMUPS"
+    export RUN_BENCHMARK_RUN_ID="$round"
+    export RUN_ORDER_POSITION="$position"
+    case "$e" in
+      keyten)
+        run_daemon adapters/clickbench-keyten "KEYTEN_NATIVE=$PWD/$WORK/hits10m.k10dir" "$WORK/cb_keyten.txt"
+        ;;
+      polars)
+        run_daemon adapters/clickbench-polars "POLARS_PARQUET=$HITS" "$WORK/cb_polars.txt"
+        ;;
+      duckdb)
+        "$WORK/venv/bin/python" runner/cb_duckdb.py "$HITS" adapters/clickbench-duckdb-queries.sql >> "$WORK/cb_duckdb.txt"
+        ;;
+    esac
+  done
+done
 
 print_keyten_identity after
 
@@ -123,10 +158,10 @@ METADATA="$WORK/clickbench-metadata.json"
   --suite clickbench \
   --repo "$PWD" \
   --harness "$PWD/runner" \
-  --adapter "$PWD/adapters/clickbench-keyten" \
+  --adapter "$PWD/adapters" \
   --machine-out "$WORK/clickbench-machine-facts.json" \
   --metadata-out "$METADATA" \
-  --samples 3 --warmups 0 \
+  --samples "$SAMPLES" --warmups "$WARMUPS" \
   --workers "$("$KEYTEN_PYTHON" -c 'import os; print(os.cpu_count())')" \
   --benchmark-mode resident-native \
   --native-store "$PWD/$WORK/hits10m.k10dir"

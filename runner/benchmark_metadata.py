@@ -229,16 +229,20 @@ def main() -> None:
     }
 
     if args.suite == "clickbench":
-        # Describe the existing adapters: three timed attempts, no separate
-        # untimed query warmup, only the minimum retained in the transcript.
+        # One sample per query in each fresh full-pass engine process.
+        # The runner rotates engines and adapters discard per-query warmups.
         metadata["methodology"] = {
-            "statistic": "min",
-            "dispersion": [],
+            "statistic": "median",
+            "dispersion": ["mad", "p25", "p75"],
             "timed_samples_per_query": args.samples,
-            "warmups_per_query": args.warmups,
+            "warmups_per_timed_sample": args.warmups,
             "expected_query_count": 43,
-            "engine_order": "keyten, polars, duckdb",
-            "raw_samples_retained": False,
+            "engine_order": "cyclic rotations; each engine occupies every position",
+            "raw_samples_retained": True,
+            "all_engine_positions_covered": args.samples >= 3,
+            "engine_position_counts_balanced": args.samples % 3 == 0,
+            "sample_process": "fresh engine process per round; full pass of 43 queries",
+            "query_order": "queryfile order within each engine round",
             "io_included": {"keyten": True, "polars": True, "duckdb": False},
             "load_included": False,
         }

@@ -82,7 +82,7 @@ async def query(request: Request):
         raise HTTPException(status_code=400, detail=f"syntax error: {e}")
     start = timeit.default_timer()
     value = eval(compiled, {"hits": hits, "pl": pl, "date": date})
-    elapsed = round(timeit.default_timer() - start, 3)
+    elapsed = round(timeit.default_timer() - start, 6)
     # Render the eval result so the playground UI shows something
     # instead of just a timing line. polars DataFrames / Series /
     # LazyFrames have a useful __str__; everything else (scalar,

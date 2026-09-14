@@ -3,6 +3,7 @@
 """ClickBench queries in-process through DuckDB over an in-memory table."""
 import argparse
 import json
+import os
 from pathlib import Path
 import time
 
@@ -56,20 +57,18 @@ if args.capture_dir is not None:
     )
     raise SystemExit(0)
 
+warmups = int(os.environ.get("RUN_WARMUP_ITERATIONS", "2"))
+if warmups < 0:
+    raise SystemExit("warmups must be non-negative")
+run_id = os.environ.get("RUN_BENCHMARK_RUN_ID", "0")
+position = int(os.environ.get("RUN_ORDER_POSITION", "1"))
 total = 0.0
 for i, query in enumerate(queries):
-    best = None
-    for _ in range(3):
-        t0 = time.time()
-        try:
-            # Materialize the complete result. DuckDB no longer executes and
-            # silently discards rows on the correctness-capable adapter path.
-            con.execute(query).to_arrow_table()
-        except Exception as e:
-            print(f"q{i:02d} ERROR {e}")
-            best = float("nan"); break
-        el = time.time() - t0
-        best = el if best is None else min(best, el)
-    total += best if best == best else 0.0
-    print(f"q{i:02d} {best*1000:8.2f}ms")
-print(f"TOTAL {total*1000:8.2f}ms  (sum of best-of-3 over {len(queries)} queries)")
+    for _ in range(warmups):
+        con.execute(query).to_arrow_table()
+    t0 = time.perf_counter()
+    con.execute(query).to_arrow_table()
+    elapsed = time.perf_counter() - t0
+    total += elapsed
+    print(f"q{i:02d} {elapsed * 1000:.6f}ms run_id={run_id} order_position={position} warmup_iterations={warmups}")
+print(f"TOTAL {total * 1000:.6f}ms (one timed sample per query)")
