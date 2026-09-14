@@ -19,7 +19,7 @@ sys.path.insert(0, __file__.rsplit("/", 1)[0])
 from convert_generic import dump  # noqa: E402
 
 
-def tickops(results_csv, engine, version, out, mach):
+def tickops(results_csv, engine, version, out, mach, metadata=None):
     queries = []
     with open(results_csv) as f:
         for row in csv.DictReader(f):
@@ -29,9 +29,12 @@ def tickops(results_csv, engine, version, out, mach):
                 "ms": round(float(row["ms"]), 2),
             })
     queries.sort(key=lambda q: q["idx"])
-    dump(engine, version, "tickops", queries, out, mach)
+    dump(engine, version, "tickops", queries, out, mach, metadata)
 
 
 if __name__ == "__main__":
-    _, results_csv, engine, version, machine_json, out = sys.argv
-    tickops(results_csv, engine, version, out, json.load(open(machine_json)))
+    if len(sys.argv) not in (6, 7):
+        raise SystemExit("usage: convert_tickops.py CSV ENGINE VERSION MACHINE OUT [METADATA]")
+    _, results_csv, engine, version, machine_json, out, *rest = sys.argv
+    metadata = json.load(open(rest[0])) if rest else None
+    tickops(results_csv, engine, version, out, json.load(open(machine_json)), metadata)

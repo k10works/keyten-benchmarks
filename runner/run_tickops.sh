@@ -28,6 +28,7 @@
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+source runner/lib/identity.sh
 
 DATA="${1:?usage: run_tickops.sh <data-dir> [threads] [-- gen_data.py args...]}"
 shift
@@ -45,6 +46,7 @@ rm -f "$OUT/keyten.csv" "$OUT/duckdb.csv" "$OUT/polars.csv"
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
+KEYTEN_PYTHON="$PWD/$VENV/python"
 if [ -n "${KEYTEN_WHEEL:-}" ]; then
   "$VENV/pip" install -q --no-cache-dir --force-reinstall "$KEYTEN_WHEEL"
   "$VENV/pip" install -q --upgrade duckdb polars pyarrow numpy 2>/dev/null || "$VENV/pip" install -q --upgrade duckdb polars pyarrow
@@ -95,13 +97,26 @@ if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
   exit 0
 fi
 
+print_keyten_identity before
 "$VENV/python" "$HARNESS/harness.py" time --engine keyten --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
 "$VENV/python" "$HARNESS/harness.py" time --engine duckdb --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
 env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" time \
   --engine polars --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"
 
+print_keyten_identity after
+
+METADATA="$WORK/tickops-metadata.json"
+"$KEYTEN_PYTHON" runner/benchmark_metadata.py \
+  --suite tickops --repo "$PWD" \
+  --harness "$PWD/harnesses/tickops" \
+  --adapter "$PWD/harnesses/tickops" \
+  --machine-out "$WORK/tickops-machine-facts.json" \
+  --metadata-out "$METADATA" \
+  --samples 3 --warmups 0 --workers "$THREADS" \
+  --benchmark-mode resident-memory
+
 ver() { "$VENV/python" -c "import $1; print($1.__version__)"; }
-python3 runner/convert_tickops.py "$OUT/keyten.csv" keyten "$(ver keyten)" "$MACHINE" results/tickops/keyten.json
-python3 runner/convert_tickops.py "$OUT/duckdb.csv" duckdb "$(ver duckdb)" "$MACHINE" results/tickops/duckdb.json
-python3 runner/convert_tickops.py "$OUT/polars.csv" polars "$(ver polars)" "$MACHINE" results/tickops/polars.json
+python3 runner/convert_tickops.py "$OUT/keyten.csv" keyten "$(ver keyten)" "$MACHINE" results/tickops/keyten.json "$METADATA"
+python3 runner/convert_tickops.py "$OUT/duckdb.csv" duckdb "$(ver duckdb)" "$MACHINE" results/tickops/duckdb.json "$METADATA"
+python3 runner/convert_tickops.py "$OUT/polars.csv" polars "$(ver polars)" "$MACHINE" results/tickops/polars.json "$METADATA"
 echo "results written to results/tickops/ — open board/index.html to view"

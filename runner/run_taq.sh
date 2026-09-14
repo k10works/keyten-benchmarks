@@ -18,6 +18,7 @@
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+source runner/lib/identity.sh
 
 DATA="${1:?usage: run_taq.sh <data-dir> [threads]}"
 THREADS="${2:-$(nproc)}"
@@ -32,6 +33,7 @@ cp -r harnesses/taq "$WORK/harness"
 
 python3 -m venv "$WORK/venv" 2>/dev/null || true
 VENV="$WORK/venv/bin"
+KEYTEN_PYTHON="$PWD/$VENV/python"
 if [ -n "${KEYTEN_WHEEL:-}" ]; then
   "$VENV/pip" install -q --no-cache-dir --force-reinstall "$KEYTEN_WHEEL"
   "$VENV/pip" install -q --upgrade duckdb polars pyarrow numpy 2>/dev/null || "$VENV/pip" install -q --upgrade duckdb polars pyarrow
@@ -84,22 +86,35 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
   ../venv/bin/python ../../runner/check_taq_results.py "$CORRECTNESS" \
     ./artifacts/queries/inmemory/querymeta.psv \
     --report ../taq-correctness-report.json
-  if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
-    echo "TAQ correctness gate passed; timing skipped by request"
-    exit 0
-  fi
+fi
+if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
+  echo "TAQ timing skipped by request"
+  exit 0
 fi
 
+print_keyten_identity before
 FLUSH=./flush/noflush.sh KEYTEN_WORKERS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
   $COMMON -engine keyten -queryfile ./artifacts/queries/inmemory/keyten.psv -result ../keyten.psv
 FLUSH=./flush/noflush.sh DUCKDB_THREADS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
   $COMMON -engine duckdb_con -queryfile ./artifacts/queries/inmemory/duckdb.psv -result ../duckdb.psv
 FLUSH=./flush/noflush.sh POLARS_MAX_THREADS=$THREADS ../venv/bin/python pysrc/queryrunner/main.py \
   $COMMON -engine polars -queryfile ./artifacts/queries/inmemory/polars.psv -result ../polars.psv
+print_keyten_identity after
+
 cd ../..
 
+METADATA="$WORK/taq-metadata.json"
+"$KEYTEN_PYTHON" runner/benchmark_metadata.py \
+  --suite taq --repo "$PWD" \
+  --harness "$PWD/$WORK/harness" \
+  --adapter "$PWD/$WORK/harness/pysrc/queryrunner/executors/inmemory" \
+  --machine-out "$WORK/taq-machine-facts.json" \
+  --metadata-out "$METADATA" \
+  --samples 3 --warmups 0 --workers "$THREADS" \
+  --benchmark-mode resident-memory
+
 ver() { "$VENV/python" -c "import $1; print($1.__version__)"; }
-python3 runner/convert_taq.py "$WORK/keyten.psv" keyten "$(ver keyten)" "$MACHINE" results/taq-small/keyten.json
-python3 runner/convert_taq.py "$WORK/duckdb.psv" duckdb "$(ver duckdb)" "$MACHINE" results/taq-small/duckdb.json
-python3 runner/convert_taq.py "$WORK/polars.psv" polars "$(ver polars)" "$MACHINE" results/taq-small/polars.json
+python3 runner/convert_taq.py "$WORK/keyten.psv" keyten "$(ver keyten)" "$MACHINE" results/taq-small/keyten.json "$METADATA"
+python3 runner/convert_taq.py "$WORK/duckdb.psv" duckdb "$(ver duckdb)" "$MACHINE" results/taq-small/duckdb.json "$METADATA"
+python3 runner/convert_taq.py "$WORK/polars.psv" polars "$(ver polars)" "$MACHINE" results/taq-small/polars.json "$METADATA"
 echo "results written to results/taq-small/ — open board/index.html to view"

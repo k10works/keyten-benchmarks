@@ -39,6 +39,27 @@ class WheelInstallContractTests(TestCase):
         self.assertIn('exit 1', helper)
         subprocess.run(["bash", "-n", str(RUNNER / "lib/identity.sh")], check=True)
 
+    def test_tickops_and_taq_bracket_all_timed_engines_after_correctness(self):
+        for suite, first, last in (
+            ("tickops", '"$VENV/python" "$HARNESS/harness.py" time --engine keyten', '--engine polars --data-dir "$DATA" --out-dir "$OUT" --threads "$THREADS"'),
+            ("taq", 'FLUSH=./flush/noflush.sh KEYTEN_WORKERS=', '-result ../polars.psv'),
+        ):
+            with self.subTest(suite=suite):
+                script = (RUNNER / f"run_{suite}.sh").read_text()
+                self.assertIn('source runner/lib/identity.sh', script)
+                # Absolute interpreter survives TAQ's cd into the copied harness.
+                self.assertIn('KEYTEN_PYTHON="$PWD/$VENV/python"', script)
+                before = script.index('print_keyten_identity before')
+                after = script.index('print_keyten_identity after')
+                self.assertEqual(script.count('print_keyten_identity before'), 1)
+                self.assertEqual(script.count('print_keyten_identity after'), 1)
+                self.assertLess(script.index('exit 0', script.index('BENCH_CORRECTNESS_ONLY')), before)
+                self.assertLess(before, script.index(first))
+                self.assertLess(script.rindex(last), after)
+                self.assertLess(after, script.index('runner/benchmark_metadata.py'))
+                self.assertLess(after, script.index(f'runner/convert_{suite}.py'))
+                subprocess.run(["bash", "-n", str(RUNNER / f"run_{suite}.sh")], check=True)
+
     def _identity_run(self, change=False, wheel=None):
         with tempfile.TemporaryDirectory() as tmp:
             binary = Path(tmp) / "keyten binary.so"

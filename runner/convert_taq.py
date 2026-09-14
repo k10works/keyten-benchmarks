@@ -6,8 +6,10 @@ import csv
 import json
 import sys
 
+from convert_generic import dump
 
-def convert(psv, engine, version, machine, out):
+
+def convert(psv, engine, version, machine, out, metadata=None):
     queries = []
     with open(psv) as f:
         for r in csv.DictReader(f, delimiter="|"):
@@ -26,19 +28,12 @@ def convert(psv, engine, version, machine, out):
                 "query": r.get("query", "")[:160],
                 "ms": round(min(times) / 1e6, 2),
             })
-    doc = {
-        "suite": "taq-small",
-        "engine": engine,
-        "version": version,
-        "threads": 8,
-        "machine": machine,
-        "queries": queries,
-        "total_ms": round(sum(q["ms"] for q in queries), 1),
-    }
-    json.dump(doc, open(out, "w"), indent=1)
-    print(out, doc["total_ms"], "ms over", len(queries), "queries")
+    dump(engine, version, "taq-small", queries, out, machine, metadata)
 
 
 if __name__ == "__main__":
-    psv, engine, version, machine_json, out = sys.argv[1:6]
-    convert(psv, engine, version, json.load(open(machine_json)), out)
+    if len(sys.argv) not in (6, 7):
+        raise SystemExit("usage: convert_taq.py PSV ENGINE VERSION MACHINE OUT [METADATA]")
+    psv, engine, version, machine_json, out, *rest = sys.argv[1:]
+    metadata = json.load(open(rest[0])) if rest else None
+    convert(psv, engine, version, json.load(open(machine_json)), out, metadata)

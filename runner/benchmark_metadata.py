@@ -161,11 +161,11 @@ def main() -> None:
     parser.add_argument("--samples", required=True, type=int)
     parser.add_argument("--warmups", required=True, type=int)
     parser.add_argument("--workers", required=True, type=int)
-    parser.add_argument("--suite", choices=("pdsh", "clickbench"), default="pdsh")
+    parser.add_argument("--suite", choices=("pdsh", "clickbench", "tickops", "taq"), default="pdsh")
     parser.add_argument(
         "--benchmark-mode",
         required=True,
-        choices=("resident-native", "end-to-end"),
+        choices=("resident-native", "end-to-end", "resident-memory"),
     )
     parser.add_argument("--require-clean", action="store_true")
     parser.add_argument(
@@ -248,6 +248,43 @@ def main() -> None:
             "polars": "parquet-scan",
             "duckdb": "in-memory",
         }
+
+    if args.suite in {"tickops", "taq"}:
+        # Both vendored runners load Parquet eagerly, then time three query
+        # executions. Correctness capture is a separate process, not a warmup.
+        metadata["methodology"] = {
+            "statistic": "min",
+            "dispersion": [],
+            "timed_samples_per_query": args.samples,
+            "warmups_per_query": args.warmups,
+            "expected_query_count": 8 if args.suite == "tickops" else 53,
+            "engine_order": "keyten, duckdb, polars",
+            "query_order": "adapter QUERIES order" if args.suite == "tickops" else "queryfile order",
+            "raw_samples_retained": args.suite == "taq",
+            "raw_samples_in_result_json": False,
+            "io_included": False,
+            "load_included": False,
+            "correctness_capture": "separate untimed process",
+            "correctness_checked": args.suite == "tickops" or os.environ.get("BENCH_SKIP_CORRECTNESS", "false") != "true",
+        }
+        metadata["benchmark_mode"] = "resident-memory"
+        metadata["engine_modes"] = {name: "in-memory" for name in ("keyten", "polars", "duckdb")}
+        if args.suite == "tickops":
+            metadata["methodology"].update({
+                "expected_queries_by_engine": {"keyten": 8, "polars": 8, "duckdb": 7},
+                "known_gaps": {"duckdb": [5]},
+                "quiet_wait": "before each query, outside timing",
+            })
+        else:
+            metadata["methodology"].update({
+                "raw_samples_location": "harness PSV (run1timeNS, run2timeNS, run3timeNS)",
+                "cache_flush": "disabled (FLUSH=./flush/noflush.sh); first attempt is not guaranteed cold",
+                "prepare_run_included": False,
+                "gc_included": False,
+                "load_transform_sort_included": False,
+                "query_catalog_count": 53,
+                "query_status_filter": "only successful positive query ids with timings enter result JSON",
+            })
 
     args.machine_out.parent.mkdir(parents=True, exist_ok=True)
     args.metadata_out.parent.mkdir(parents=True, exist_ok=True)
