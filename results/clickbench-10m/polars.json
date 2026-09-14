@@ -85,14 +85,14 @@
    "keyten": {
     "build": {
      "build_state": "clean",
-     "git_sha": "91481bc39ca00ada6b1506fe75e2dbd11a5fa940"
+     "git_sha": "135900b5ab8fa49c405975629a8885a33462fe9f"
     },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "9a53ee8fc25b1c089113aac606954ad6c77fd8b89c64c80e83c1f599622b1bdc"
+       "keyten/_keyten.abi3.so": "0c1922feb2c4b238b98864c1c69d6186585f834e29639dc5d14f3ec834bbde8e"
       },
-      "sha256": "06e60300872fb507beb9e97d546d1eec66701914f3a41fdf19f33273c27aec15",
+      "sha256": "688fbaecc84bd3f4bc5fda823aa2ef7117e80486745b200c0b6a0099258d91c2",
       "version": "0.1.53"
      }
     },
@@ -142,7 +142,7 @@
    "starlette==1.6.0",
    "typing-inspection==0.4.4",
    "typing_extensions==4.16.0",
-   "uvicorn==0.52.4"
+   "uvicorn==0.53.0"
   ],
   "methodology": {
    "all_engine_positions_covered": true,
@@ -971,7 +971,7 @@
     "store": "/home/hetoku/data/work/keyten-benchmarks/.work/hits10m.k10dir"
    }
   ],
-  "recorded_at": "2026-09-14T03:44:14.096400+00:00",
+  "recorded_at": "2026-09-14T10:01:31.222623+00:00",
   "workers": 32
  },
  "engine": "polars",
@@ -986,2148 +986,2148 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 0.52,
+   "ms": 0.54,
    "query": "SELECT COUNT(*) FROM hits;",
    "stats": {
-    "mad_ms": 0.0345,
-    "max_ms": 0.702,
-    "median_ms": 0.521,
-    "min_ms": 0.465,
-    "p25_ms": 0.50825,
-    "p75_ms": 0.55875,
+    "mad_ms": 0.023,
+    "max_ms": 0.679,
+    "median_ms": 0.54,
+    "min_ms": 0.463,
+    "p25_ms": 0.5205,
+    "p75_ms": 0.5605,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.573,
+      "ms": 0.463,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.52,
+      "ms": 0.539,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.517,
+      "ms": 0.557,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.485,
+      "ms": 0.539,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.465,
+      "ms": 0.51,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.554,
+      "ms": 0.558,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.537,
+      "ms": 0.49,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.606,
+      "ms": 0.524,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.516,
+      "ms": 0.58,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.468,
+      "ms": 0.679,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.702,
+      "ms": 0.541,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 0.522,
+      "ms": 0.568,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     0.573,
-     0.52,
-     0.517,
-     0.485,
-     0.465,
-     0.554,
-     0.537,
-     0.606,
-     0.516,
-     0.468,
-     0.702,
-     0.522
+     0.463,
+     0.539,
+     0.557,
+     0.539,
+     0.51,
+     0.558,
+     0.49,
+     0.524,
+     0.58,
+     0.679,
+     0.541,
+     0.568
     ]
    }
   },
   {
    "idx": 2,
-   "ms": 1.73,
+   "ms": 1.67,
    "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;",
    "stats": {
-    "mad_ms": 0.128,
-    "max_ms": 1.976,
-    "median_ms": 1.7255,
-    "min_ms": 1.441,
-    "p25_ms": 1.60825,
-    "p75_ms": 1.86475,
+    "mad_ms": 0.113,
+    "max_ms": 1.848,
+    "median_ms": 1.665,
+    "min_ms": 1.417,
+    "p25_ms": 1.546,
+    "p75_ms": 1.7775,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.441,
+      "ms": 1.504,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.555,
+      "ms": 1.651,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.976,
+      "ms": 1.679,
       "order_position": 3,
       "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 1.609,
-      "order_position": 2,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 1.672,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 1.862,
-      "order_position": 3,
-      "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
       "ms": 1.779,
       "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.841,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.777,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 1.56,
+      "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.801,
+      "ms": 1.417,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.606,
+      "ms": 1.848,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.873,
+      "ms": 1.483,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.913,
+      "ms": 1.724,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.637,
+      "ms": 1.61,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     1.441,
-     1.555,
-     1.976,
-     1.609,
-     1.672,
-     1.862,
+     1.504,
+     1.651,
+     1.679,
      1.779,
-     1.801,
-     1.606,
-     1.873,
-     1.913,
-     1.637
+     1.841,
+     1.777,
+     1.56,
+     1.417,
+     1.848,
+     1.483,
+     1.724,
+     1.61
     ]
    }
   },
   {
    "idx": 3,
-   "ms": 3.5,
+   "ms": 3.59,
    "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;",
    "stats": {
-    "mad_ms": 0.156,
-    "max_ms": 4.124,
-    "median_ms": 3.497,
-    "min_ms": 3.33,
-    "p25_ms": 3.395,
-    "p75_ms": 3.767,
+    "mad_ms": 0.1635,
+    "max_ms": 4.09,
+    "median_ms": 3.5865,
+    "min_ms": 3.258,
+    "p25_ms": 3.38625,
+    "p75_ms": 3.6835,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 4.124,
+      "ms": 3.847,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.761,
+      "ms": 3.673,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.488,
+      "ms": 3.535,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.352,
+      "ms": 3.494,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.479,
+      "ms": 3.638,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.403,
+      "ms": 3.655,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.506,
+      "ms": 3.318,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.757,
+      "ms": 3.715,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.33,
+      "ms": 3.381,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.888,
+      "ms": 4.09,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.371,
+      "ms": 3.388,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.785,
+      "ms": 3.258,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     4.124,
-     3.761,
-     3.488,
-     3.352,
-     3.479,
-     3.403,
-     3.506,
-     3.757,
-     3.33,
-     3.888,
-     3.371,
-     3.785
+     3.847,
+     3.673,
+     3.535,
+     3.494,
+     3.638,
+     3.655,
+     3.318,
+     3.715,
+     3.381,
+     4.09,
+     3.388,
+     3.258
     ]
    }
   },
   {
    "idx": 4,
-   "ms": 8.93,
+   "ms": 9.0,
    "query": "SELECT AVG(UserID) FROM hits;",
    "stats": {
-    "mad_ms": 0.2535,
-    "max_ms": 9.76,
-    "median_ms": 8.928,
-    "min_ms": 8.006,
-    "p25_ms": 8.75125,
-    "p75_ms": 9.17625,
+    "mad_ms": 0.387,
+    "max_ms": 10.258,
+    "median_ms": 9.0045,
+    "min_ms": 8.341,
+    "p25_ms": 8.6365,
+    "p75_ms": 9.236,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.786,
+      "ms": 8.539,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.451,
+      "ms": 9.022,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.76,
+      "ms": 9.443,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.006,
+      "ms": 10.258,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.944,
+      "ms": 8.92,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.192,
+      "ms": 9.035,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.799,
+      "ms": 8.669,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.096,
+      "ms": 8.987,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.171,
+      "ms": 8.341,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.647,
+      "ms": 9.719,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 8.912,
+      "ms": 9.167,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.495,
+      "ms": 8.382,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     8.786,
-     8.451,
-     9.76,
-     8.006,
-     8.944,
-     9.192,
-     8.799,
-     9.096,
-     9.171,
-     8.647,
-     8.912,
-     9.495
+     8.539,
+     9.022,
+     9.443,
+     10.258,
+     8.92,
+     9.035,
+     8.669,
+     8.987,
+     8.341,
+     9.719,
+     9.167,
+     8.382
     ]
    }
   },
   {
    "idx": 5,
-   "ms": 29.1,
+   "ms": 28.95,
    "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
    "stats": {
-    "mad_ms": 0.69,
-    "max_ms": 30.956,
-    "median_ms": 29.1045,
-    "min_ms": 27.433,
-    "p25_ms": 27.98425,
-    "p75_ms": 29.47825,
+    "mad_ms": 0.6965,
+    "max_ms": 32.624,
+    "median_ms": 28.9515,
+    "min_ms": 26.622,
+    "p25_ms": 28.319,
+    "p75_ms": 29.6215,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 29.885,
+      "ms": 28.827,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 29.073,
+      "ms": 29.076,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.789,
+      "ms": 28.459,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 29.704,
+      "ms": 27.663,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.943,
+      "ms": 29.595,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 28.642,
+      "ms": 29.122,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.433,
+      "ms": 32.624,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.998,
+      "ms": 29.701,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 29.371,
+      "ms": 28.513,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 29.136,
+      "ms": 30.233,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 30.956,
+      "ms": 26.622,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 29.403,
+      "ms": 27.899,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     29.885,
-     29.073,
-     27.789,
-     29.704,
-     27.943,
-     28.642,
-     27.433,
-     27.998,
-     29.371,
-     29.136,
-     30.956,
-     29.403
+     28.827,
+     29.076,
+     28.459,
+     27.663,
+     29.595,
+     29.122,
+     32.624,
+     29.701,
+     28.513,
+     30.233,
+     26.622,
+     27.899
     ]
    }
   },
   {
    "idx": 6,
-   "ms": 87.91,
+   "ms": 88.75,
    "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
    "stats": {
-    "mad_ms": 1.3895,
-    "max_ms": 92.457,
-    "median_ms": 87.9075,
-    "min_ms": 82.658,
-    "p25_ms": 86.55,
-    "p75_ms": 89.2995,
+    "mad_ms": 1.8245,
+    "max_ms": 92.001,
+    "median_ms": 88.748,
+    "min_ms": 85.787,
+    "p25_ms": 86.95975,
+    "p75_ms": 90.2305,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 87.908,
+      "ms": 85.787,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 82.658,
+      "ms": 89.078,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 86.947,
+      "ms": 86.851,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 86.582,
+      "ms": 92.001,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 89.775,
+      "ms": 88.418,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 86.454,
+      "ms": 86.131,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 92.237,
+      "ms": 89.981,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 86.094,
+      "ms": 88.041,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 89.141,
+      "ms": 90.979,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 92.457,
+      "ms": 91.094,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 88.269,
+      "ms": 89.392,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 87.907,
+      "ms": 86.996,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     87.908,
-     82.658,
-     86.947,
-     86.582,
-     89.775,
-     86.454,
-     92.237,
-     86.094,
-     89.141,
-     92.457,
-     88.269,
-     87.907
+     85.787,
+     89.078,
+     86.851,
+     92.001,
+     88.418,
+     86.131,
+     89.981,
+     88.041,
+     90.979,
+     91.094,
+     89.392,
+     86.996
     ]
    }
   },
   {
    "idx": 7,
-   "ms": 2.61,
+   "ms": 2.58,
    "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;",
    "stats": {
-    "mad_ms": 0.147,
-    "max_ms": 2.933,
-    "median_ms": 2.6115,
-    "min_ms": 2.435,
-    "p25_ms": 2.515,
-    "p75_ms": 2.804,
+    "mad_ms": 0.03,
+    "max_ms": 2.729,
+    "median_ms": 2.584,
+    "min_ms": 2.486,
+    "p25_ms": 2.576,
+    "p75_ms": 2.657,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.933,
+      "ms": 2.58,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.665,
+      "ms": 2.729,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.45,
+      "ms": 2.538,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.435,
+      "ms": 2.646,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.527,
+      "ms": 2.722,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.878,
+      "ms": 2.591,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.792,
+      "ms": 2.578,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.613,
+      "ms": 2.586,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.61,
+      "ms": 2.57,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.479,
+      "ms": 2.582,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.539,
+      "ms": 2.69,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.84,
+      "ms": 2.486,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     2.933,
-     2.665,
-     2.45,
-     2.435,
-     2.527,
-     2.878,
-     2.792,
-     2.613,
-     2.61,
-     2.479,
-     2.539,
-     2.84
+     2.58,
+     2.729,
+     2.538,
+     2.646,
+     2.722,
+     2.591,
+     2.578,
+     2.586,
+     2.57,
+     2.582,
+     2.69,
+     2.486
     ]
    }
   },
   {
    "idx": 8,
-   "ms": 6.0,
+   "ms": 5.71,
    "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;",
    "stats": {
-    "mad_ms": 0.6965,
-    "max_ms": 7.187,
-    "median_ms": 6.001,
-    "min_ms": 3.53,
-    "p25_ms": 5.02825,
-    "p75_ms": 6.4995,
+    "mad_ms": 0.8585,
+    "max_ms": 8.96,
+    "median_ms": 5.7125,
+    "min_ms": 3.829,
+    "p25_ms": 4.92625,
+    "p75_ms": 6.095,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.499,
+      "ms": 4.456,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 4.789,
+      "ms": 6.8,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.829,
+      "ms": 5.806,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 7.142,
+      "ms": 6.931,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.501,
+      "ms": 5.856,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.108,
+      "ms": 3.829,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 4.427,
+      "ms": 5.438,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.915,
+      "ms": 5.86,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 7.187,
+      "ms": 8.96,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 3.53,
+      "ms": 4.396,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.087,
+      "ms": 5.083,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.196,
+      "ms": 5.619,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     6.499,
-     4.789,
-     5.829,
-     7.142,
-     6.501,
-     5.108,
-     4.427,
-     5.915,
-     7.187,
-     3.53,
-     6.087,
-     6.196
+     4.456,
+     6.8,
+     5.806,
+     6.931,
+     5.856,
+     3.829,
+     5.438,
+     5.86,
+     8.96,
+     4.396,
+     5.083,
+     5.619
     ]
    }
   },
   {
    "idx": 9,
-   "ms": 104.45,
+   "ms": 104.69,
    "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.9445,
-    "max_ms": 110.576,
-    "median_ms": 104.4475,
-    "min_ms": 97.844,
-    "p25_ms": 103.476,
-    "p75_ms": 105.359,
+    "mad_ms": 1.1405,
+    "max_ms": 106.665,
+    "median_ms": 104.6885,
+    "min_ms": 100.232,
+    "p25_ms": 102.82275,
+    "p75_ms": 105.69475,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 104.823,
+      "ms": 101.247,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 101.15,
+      "ms": 104.077,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 105.06,
+      "ms": 105.937,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 104.06,
+      "ms": 103.348,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 102.687,
+      "ms": 105.622,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 104.072,
+      "ms": 100.713,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 105.458,
+      "ms": 105.044,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 97.844,
+      "ms": 104.333,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 110.576,
+      "ms": 106.665,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 103.739,
+      "ms": 105.686,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 105.587,
+      "ms": 105.721,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 105.326,
+      "ms": 100.232,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     104.823,
-     101.15,
-     105.06,
-     104.06,
-     102.687,
-     104.072,
-     105.458,
-     97.844,
-     110.576,
-     103.739,
-     105.587,
-     105.326
+     101.247,
+     104.077,
+     105.937,
+     103.348,
+     105.622,
+     100.713,
+     105.044,
+     104.333,
+     106.665,
+     105.686,
+     105.721,
+     100.232
     ]
    }
   },
   {
    "idx": 10,
-   "ms": 119.94,
+   "ms": 119.41,
    "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 2.124,
-    "max_ms": 124.418,
-    "median_ms": 119.944,
-    "min_ms": 116.496,
-    "p25_ms": 117.8245,
-    "p75_ms": 122.06475,
+    "mad_ms": 1.4495,
+    "max_ms": 127.899,
+    "median_ms": 119.406,
+    "min_ms": 117.069,
+    "p25_ms": 118.725,
+    "p75_ms": 121.0895,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 116.496,
+      "ms": 118.978,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 121.46,
+      "ms": 117.602,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 123.986,
+      "ms": 119.624,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 117.598,
+      "ms": 127.899,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 119.98,
+      "ms": 121.03,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 122.027,
+      "ms": 119.188,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 119.908,
+      "ms": 118.131,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 118.976,
+      "ms": 118.923,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 124.418,
+      "ms": 121.268,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 117.811,
+      "ms": 121.537,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 117.829,
+      "ms": 120.645,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 122.178,
+      "ms": 117.069,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     116.496,
-     121.46,
-     123.986,
-     117.598,
-     119.98,
-     122.027,
-     119.908,
-     118.976,
-     124.418,
-     117.811,
-     117.829,
-     122.178
+     118.978,
+     117.602,
+     119.624,
+     127.899,
+     121.03,
+     119.188,
+     118.131,
+     118.923,
+     121.268,
+     121.537,
+     120.645,
+     117.069
     ]
    }
   },
   {
    "idx": 11,
-   "ms": 9.97,
+   "ms": 9.81,
    "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.211,
-    "max_ms": 10.243,
-    "median_ms": 9.97,
-    "min_ms": 9.517,
-    "p25_ms": 9.709,
-    "p75_ms": 10.12475,
+    "mad_ms": 0.174,
+    "max_ms": 10.916,
+    "median_ms": 9.813,
+    "min_ms": 9.504,
+    "p25_ms": 9.74575,
+    "p75_ms": 10.166,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.145,
+      "ms": 9.652,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.517,
+      "ms": 9.795,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.217,
+      "ms": 9.648,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.567,
+      "ms": 9.996,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.118,
+      "ms": 10.156,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.012,
+      "ms": 10.916,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.847,
+      "ms": 9.813,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.024,
+      "ms": 9.504,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.243,
+      "ms": 9.813,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.712,
+      "ms": 10.456,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.928,
+      "ms": 10.196,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 9.7,
+      "ms": 9.777,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     10.145,
-     9.517,
-     10.217,
-     9.567,
-     10.118,
-     10.012,
-     9.847,
-     10.024,
-     10.243,
-     9.712,
-     9.928,
-     9.7
+     9.652,
+     9.795,
+     9.648,
+     9.996,
+     10.156,
+     10.916,
+     9.813,
+     9.504,
+     9.813,
+     10.456,
+     10.196,
+     9.777
     ]
    }
   },
   {
    "idx": 12,
-   "ms": 11.46,
+   "ms": 11.37,
    "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
    "stats": {
-    "mad_ms": 0.363,
-    "max_ms": 13.723,
-    "median_ms": 11.4605,
-    "min_ms": 10.55,
-    "p25_ms": 11.28975,
-    "p75_ms": 11.86625,
+    "mad_ms": 0.318,
+    "max_ms": 11.985,
+    "median_ms": 11.37,
+    "min_ms": 10.604,
+    "p25_ms": 11.10175,
+    "p75_ms": 11.792,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.87,
+      "ms": 11.105,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.865,
+      "ms": 11.012,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.55,
+      "ms": 11.353,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.139,
+      "ms": 11.783,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.395,
+      "ms": 11.268,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 10.698,
+      "ms": 11.819,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 12.406,
+      "ms": 11.387,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.34,
+      "ms": 11.985,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.436,
+      "ms": 11.627,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.485,
+      "ms": 10.604,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.663,
+      "ms": 11.819,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 13.723,
+      "ms": 11.092,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     11.87,
-     11.865,
-     10.55,
-     11.139,
-     11.395,
-     10.698,
-     12.406,
-     11.34,
-     11.436,
-     11.485,
-     11.663,
-     13.723
+     11.105,
+     11.012,
+     11.353,
+     11.783,
+     11.268,
+     11.819,
+     11.387,
+     11.985,
+     11.627,
+     10.604,
+     11.819,
+     11.092
     ]
    }
   },
   {
    "idx": 13,
-   "ms": 63.62,
+   "ms": 64.63,
    "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.457,
-    "max_ms": 65.099,
-    "median_ms": 63.6215,
-    "min_ms": 61.088,
-    "p25_ms": 63.029,
-    "p75_ms": 63.887,
+    "mad_ms": 0.401,
+    "max_ms": 66.636,
+    "median_ms": 64.6295,
+    "min_ms": 62.694,
+    "p25_ms": 64.3965,
+    "p75_ms": 65.04325,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 65.099,
+      "ms": 65.032,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 62.813,
+      "ms": 62.694,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.593,
+      "ms": 64.398,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 64.505,
+      "ms": 65.029,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 61.19,
+      "ms": 64.392,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 61.088,
+      "ms": 64.64,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.729,
+      "ms": 66.016,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.101,
+      "ms": 65.077,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.855,
+      "ms": 64.451,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.65,
+      "ms": 66.636,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.228,
+      "ms": 63.336,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 63.983,
+      "ms": 64.619,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     65.099,
-     62.813,
-     63.593,
-     64.505,
-     61.19,
-     61.088,
-     63.729,
-     63.101,
-     63.855,
-     63.65,
-     63.228,
-     63.983
+     65.032,
+     62.694,
+     64.398,
+     65.029,
+     64.392,
+     64.64,
+     66.016,
+     65.077,
+     64.451,
+     66.636,
+     63.336,
+     64.619
     ]
    }
   },
   {
    "idx": 14,
-   "ms": 121.96,
+   "ms": 122.72,
    "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.18,
-    "max_ms": 129.751,
-    "median_ms": 121.96,
-    "min_ms": 118.139,
-    "p25_ms": 120.877,
-    "p75_ms": 124.357,
+    "mad_ms": 1.2665,
+    "max_ms": 127.123,
+    "median_ms": 122.7155,
+    "min_ms": 118.995,
+    "p25_ms": 121.57025,
+    "p75_ms": 124.23925,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 121.636,
+      "ms": 121.448,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 122.714,
+      "ms": 122.262,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 120.877,
+      "ms": 125.707,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 120.683,
+      "ms": 118.995,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 118.139,
+      "ms": 125.014,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 122.284,
+      "ms": 122.995,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 121.296,
+      "ms": 123.981,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 124.164,
+      "ms": 123.756,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 125.765,
+      "ms": 122.436,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 120.877,
+      "ms": 119.682,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 129.751,
+      "ms": 127.123,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 124.936,
+      "ms": 121.611,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     121.636,
-     122.714,
-     120.877,
-     120.683,
-     118.139,
-     122.284,
-     121.296,
-     124.164,
-     125.765,
-     120.877,
-     129.751,
-     124.936
+     121.448,
+     122.262,
+     125.707,
+     118.995,
+     125.014,
+     122.995,
+     123.981,
+     123.756,
+     122.436,
+     119.682,
+     127.123,
+     121.611
     ]
    }
   },
   {
    "idx": 15,
-   "ms": 81.81,
+   "ms": 80.77,
    "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.5555,
-    "max_ms": 85.824,
-    "median_ms": 81.811,
-    "min_ms": 76.613,
-    "p25_ms": 80.26175,
-    "p75_ms": 83.35925,
+    "mad_ms": 0.87,
+    "max_ms": 83.192,
+    "median_ms": 80.7655,
+    "min_ms": 78.116,
+    "p25_ms": 79.981,
+    "p75_ms": 81.61625,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 81.47,
+      "ms": 81.68,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 82.152,
+      "ms": 81.125,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 82.533,
+      "ms": 79.61,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 80.982,
+      "ms": 80.023,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 83.381,
+      "ms": 78.116,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 85.824,
+      "ms": 81.595,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 83.352,
+      "ms": 83.192,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 83.509,
+      "ms": 81.237,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 80.363,
+      "ms": 80.406,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 79.958,
+      "ms": 79.855,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 78.387,
+      "ms": 82.085,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 76.613,
+      "ms": 80.398,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     81.47,
-     82.152,
-     82.533,
-     80.982,
-     83.381,
-     85.824,
-     83.352,
-     83.509,
-     80.363,
-     79.958,
-     78.387,
-     76.613
+     81.68,
+     81.125,
+     79.61,
+     80.023,
+     78.116,
+     81.595,
+     83.192,
+     81.237,
+     80.406,
+     79.855,
+     82.085,
+     80.398
     ]
    }
   },
   {
    "idx": 16,
-   "ms": 36.93,
+   "ms": 36.73,
    "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.672,
-    "max_ms": 39.465,
-    "median_ms": 36.929,
-    "min_ms": 33.619,
-    "p25_ms": 36.37325,
-    "p75_ms": 37.538,
+    "mad_ms": 1.158,
+    "max_ms": 42.306,
+    "median_ms": 36.735,
+    "min_ms": 33.445,
+    "p25_ms": 35.75975,
+    "p75_ms": 37.841,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 36.02,
+      "ms": 36.635,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 35.602,
+      "ms": 36.348,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 37.475,
+      "ms": 37.997,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 36.491,
+      "ms": 42.306,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 36.596,
+      "ms": 38.195,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 33.619,
+      "ms": 36.835,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 36.507,
+      "ms": 33.445,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 37.727,
+      "ms": 35.06,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 39.465,
+      "ms": 37.607,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 37.812,
+      "ms": 33.894,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 37.439,
+      "ms": 37.789,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 37.262,
+      "ms": 35.993,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     36.02,
-     35.602,
-     37.475,
-     36.491,
-     36.596,
-     33.619,
-     36.507,
-     37.727,
-     39.465,
-     37.812,
-     37.439,
-     37.262
+     36.635,
+     36.348,
+     37.997,
+     42.306,
+     38.195,
+     36.835,
+     33.445,
+     35.06,
+     37.607,
+     33.894,
+     37.789,
+     35.993
     ]
    }
   },
   {
    "idx": 17,
-   "ms": 206.54,
+   "ms": 208.85,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.645,
-    "max_ms": 208.513,
-    "median_ms": 206.5405,
-    "min_ms": 201.736,
-    "p25_ms": 205.105,
-    "p75_ms": 208.04325,
+    "mad_ms": 2.2325,
+    "max_ms": 213.88,
+    "median_ms": 208.8525,
+    "min_ms": 204.711,
+    "p25_ms": 206.863,
+    "p75_ms": 211.0375,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 206.778,
+      "ms": 205.067,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 201.736,
+      "ms": 207.083,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 205.401,
+      "ms": 206.203,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 206.303,
+      "ms": 209.203,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 204.217,
+      "ms": 211.68,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 205.624,
+      "ms": 207.337,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 208.493,
+      "ms": 211.18,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 203.006,
+      "ms": 209.835,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 207.121,
+      "ms": 213.88,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 208.47,
+      "ms": 204.711,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 207.901,
+      "ms": 208.502,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 208.513,
+      "ms": 210.99,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     206.778,
-     201.736,
-     205.401,
-     206.303,
-     204.217,
-     205.624,
-     208.493,
-     203.006,
-     207.121,
-     208.47,
-     207.901,
-     208.513
+     205.067,
+     207.083,
+     206.203,
+     209.203,
+     211.68,
+     207.337,
+     211.18,
+     209.835,
+     213.88,
+     204.711,
+     208.502,
+     210.99
     ]
    }
   },
   {
    "idx": 18,
-   "ms": 202.54,
+   "ms": 203.77,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
    "stats": {
-    "mad_ms": 1.714,
-    "max_ms": 210.362,
-    "median_ms": 202.544,
-    "min_ms": 193.287,
-    "p25_ms": 201.26125,
-    "p75_ms": 204.6355,
+    "mad_ms": 1.688,
+    "max_ms": 211.255,
+    "median_ms": 203.771,
+    "min_ms": 194.668,
+    "p25_ms": 201.947,
+    "p75_ms": 205.07375,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 202.838,
+      "ms": 201.239,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 202.25,
+      "ms": 204.503,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 204.045,
+      "ms": 194.668,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 201.549,
+      "ms": 203.039,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 207.821,
+      "ms": 202.413,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 210.362,
+      "ms": 202.183,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 200.617,
+      "ms": 211.255,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 201.476,
+      "ms": 205.874,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 193.287,
+      "ms": 204.711,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 199.476,
+      "ms": 204.912,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 202.97,
+      "ms": 205.559,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 206.407,
+      "ms": 200.434,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     202.838,
-     202.25,
-     204.045,
-     201.549,
-     207.821,
-     210.362,
-     200.617,
-     201.476,
-     193.287,
-     199.476,
-     202.97,
-     206.407
+     201.239,
+     204.503,
+     194.668,
+     203.039,
+     202.413,
+     202.183,
+     211.255,
+     205.874,
+     204.711,
+     204.912,
+     205.559,
+     200.434
     ]
    }
   },
   {
    "idx": 19,
-   "ms": 335.44,
+   "ms": 333.69,
    "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 4.021,
-    "max_ms": 343.048,
-    "median_ms": 335.442,
-    "min_ms": 318.488,
-    "p25_ms": 332.02325,
-    "p75_ms": 338.97775,
+    "mad_ms": 3.62,
+    "max_ms": 347.079,
+    "median_ms": 333.687,
+    "min_ms": 326.131,
+    "p25_ms": 330.3805,
+    "p75_ms": 336.853,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 338.374,
+      "ms": 330.694,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 342.965,
+      "ms": 333.221,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 340.789,
+      "ms": 341.077,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 328.437,
+      "ms": 335.445,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 343.048,
+      "ms": 329.44,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 337.625,
+      "ms": 347.079,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 330.332,
+      "ms": 341.873,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 336.012,
+      "ms": 331.435,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 334.872,
+      "ms": 326.131,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 333.386,
+      "ms": 334.318,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 332.587,
+      "ms": 334.153,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 318.488,
+      "ms": 328.357,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     338.374,
-     342.965,
-     340.789,
-     328.437,
-     343.048,
-     337.625,
-     330.332,
-     336.012,
-     334.872,
-     333.386,
-     332.587,
-     318.488
+     330.694,
+     333.221,
+     341.077,
+     335.445,
+     329.44,
+     347.079,
+     341.873,
+     331.435,
+     326.131,
+     334.318,
+     334.153,
+     328.357
     ]
    }
   },
@@ -3136,2716 +3136,2716 @@
    "ms": 1.9,
    "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;",
    "stats": {
-    "mad_ms": 0.1315,
-    "max_ms": 2.045,
-    "median_ms": 1.8955,
-    "min_ms": 1.521,
-    "p25_ms": 1.76075,
-    "p75_ms": 1.99925,
+    "mad_ms": 0.106,
+    "max_ms": 2.147,
+    "median_ms": 1.9035,
+    "min_ms": 1.581,
+    "p25_ms": 1.7785,
+    "p75_ms": 1.99125,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.036,
+      "ms": 1.987,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.521,
+      "ms": 1.801,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.9,
+      "ms": 2.108,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.987,
+      "ms": 1.902,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.891,
+      "ms": 1.581,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.724,
+      "ms": 1.985,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.91,
+      "ms": 2.004,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.045,
+      "ms": 1.732,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.883,
+      "ms": 2.147,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 2.042,
+      "ms": 1.714,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.704,
+      "ms": 1.794,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 1.773,
+      "ms": 1.905,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     2.036,
-     1.521,
-     1.9,
      1.987,
-     1.891,
-     1.724,
-     1.91,
-     2.045,
-     1.883,
-     2.042,
-     1.704,
-     1.773
+     1.801,
+     2.108,
+     1.902,
+     1.581,
+     1.985,
+     2.004,
+     1.732,
+     2.147,
+     1.714,
+     1.794,
+     1.905
     ]
    }
   },
   {
    "idx": 21,
-   "ms": 155.88,
+   "ms": 156.94,
    "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
    "stats": {
-    "mad_ms": 0.634,
-    "max_ms": 158.674,
-    "median_ms": 155.881,
-    "min_ms": 153.921,
-    "p25_ms": 155.294,
-    "p75_ms": 156.46025,
+    "mad_ms": 1.5305,
+    "max_ms": 161.631,
+    "median_ms": 156.9425,
+    "min_ms": 153.828,
+    "p25_ms": 155.712,
+    "p75_ms": 158.17575,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 158.674,
+      "ms": 161.631,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 156.674,
+      "ms": 154.812,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 155.469,
+      "ms": 157.778,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 156.389,
+      "ms": 153.828,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 155.341,
+      "ms": 156.189,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 156.838,
+      "ms": 159.369,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 156.301,
+      "ms": 160.477,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 155.153,
+      "ms": 154.251,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 154.006,
+      "ms": 157.45,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 156.293,
+      "ms": 156.012,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 153.921,
+      "ms": 157.081,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 155.394,
+      "ms": 156.804,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     158.674,
-     156.674,
-     155.469,
-     156.389,
-     155.341,
-     156.838,
-     156.301,
-     155.153,
-     154.006,
-     156.293,
-     153.921,
-     155.394
+     161.631,
+     154.812,
+     157.778,
+     153.828,
+     156.189,
+     159.369,
+     160.477,
+     154.251,
+     157.45,
+     156.012,
+     157.081,
+     156.804
     ]
    }
   },
   {
    "idx": 22,
-   "ms": 185.15,
+   "ms": 185.76,
    "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 2.5875,
-    "max_ms": 191.01,
-    "median_ms": 185.15,
-    "min_ms": 181.589,
-    "p25_ms": 182.57325,
-    "p75_ms": 187.5525,
+    "mad_ms": 2.055,
+    "max_ms": 189.123,
+    "median_ms": 185.7605,
+    "min_ms": 180.634,
+    "p25_ms": 183.74275,
+    "p75_ms": 188.1005,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 181.589,
+      "ms": 182.37,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 184.854,
+      "ms": 189.123,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 184.615,
+      "ms": 185.962,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 181.714,
+      "ms": 186.489,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 187.334,
+      "ms": 183.749,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 182.584,
+      "ms": 188.9,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 182.541,
+      "ms": 185.559,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 191.01,
+      "ms": 187.834,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 188.208,
+      "ms": 183.893,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 185.446,
+      "ms": 183.724,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 189.994,
+      "ms": 180.634,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 186.606,
+      "ms": 188.94,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     181.589,
-     184.854,
-     184.615,
-     181.714,
-     187.334,
-     182.584,
-     182.541,
-     191.01,
-     188.208,
-     185.446,
-     189.994,
-     186.606
+     182.37,
+     189.123,
+     185.962,
+     186.489,
+     183.749,
+     188.9,
+     185.559,
+     187.834,
+     183.893,
+     183.724,
+     180.634,
+     188.94
     ]
    }
   },
   {
    "idx": 23,
-   "ms": 495.16,
+   "ms": 491.15,
    "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP",
    "stats": {
-    "mad_ms": 6.738,
-    "max_ms": 509.402,
-    "median_ms": 495.1605,
-    "min_ms": 482.171,
-    "p25_ms": 489.07875,
-    "p75_ms": 502.78675,
+    "mad_ms": 9.637,
+    "max_ms": 510.62,
+    "median_ms": 491.1515,
+    "min_ms": 476.083,
+    "p25_ms": 485.325,
+    "p75_ms": 505.96275,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 490.231,
+      "ms": 494.568,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 506.041,
+      "ms": 487.118,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 488.226,
+      "ms": 510.62,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 490.478,
+      "ms": 483.144,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 509.339,
+      "ms": 486.052,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 482.325,
+      "ms": 505.178,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 501.702,
+      "ms": 487.735,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 482.171,
+      "ms": 509.6,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 489.363,
+      "ms": 476.083,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 509.402,
+      "ms": 508.317,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 499.843,
+      "ms": 479.885,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 501.591,
+      "ms": 495.928,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     490.231,
-     506.041,
-     488.226,
-     490.478,
-     509.339,
-     482.325,
-     501.702,
-     482.171,
-     489.363,
-     509.402,
-     499.843,
-     501.591
+     494.568,
+     487.118,
+     510.62,
+     483.144,
+     486.052,
+     505.178,
+     487.735,
+     509.6,
+     476.083,
+     508.317,
+     479.885,
+     495.928
     ]
    }
   },
   {
    "idx": 24,
-   "ms": 542.23,
+   "ms": 537.58,
    "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;",
    "stats": {
-    "mad_ms": 3.4315,
-    "max_ms": 554.339,
-    "median_ms": 542.23,
-    "min_ms": 534.194,
-    "p25_ms": 539.268,
-    "p75_ms": 545.51725,
+    "mad_ms": 2.2335,
+    "max_ms": 548.581,
+    "median_ms": 537.58,
+    "min_ms": 532.376,
+    "p25_ms": 535.1,
+    "p75_ms": 538.96875,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 535.383,
+      "ms": 537.778,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 545.966,
+      "ms": 534.701,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 545.373,
+      "ms": 537.382,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 541.628,
+      "ms": 540.066,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 545.95,
+      "ms": 532.376,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 539.526,
+      "ms": 539.115,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 545.262,
+      "ms": 535.46,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 538.494,
+      "ms": 532.909,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 534.194,
+      "ms": 538.08,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 541.781,
+      "ms": 535.233,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 554.339,
+      "ms": 538.92,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 542.679,
+      "ms": 548.581,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     535.383,
-     545.966,
-     545.373,
-     541.628,
-     545.95,
-     539.526,
-     545.262,
-     538.494,
-     534.194,
-     541.781,
-     554.339,
-     542.679
+     537.778,
+     534.701,
+     537.382,
+     540.066,
+     532.376,
+     539.115,
+     535.46,
+     532.909,
+     538.08,
+     535.233,
+     538.92,
+     548.581
     ]
    }
   },
   {
    "idx": 25,
-   "ms": 34.87,
+   "ms": 36.24,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
    "stats": {
-    "mad_ms": 0.5515,
-    "max_ms": 38.223,
-    "median_ms": 34.868,
-    "min_ms": 33.769,
-    "p25_ms": 34.649,
-    "p75_ms": 35.89075,
+    "mad_ms": 0.6275,
+    "max_ms": 37.157,
+    "median_ms": 36.236,
+    "min_ms": 33.402,
+    "p25_ms": 35.23725,
+    "p75_ms": 36.52775,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 36.424,
+      "ms": 36.836,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 36.427,
+      "ms": 37.157,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 33.769,
+      "ms": 37.149,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.559,
+      "ms": 34.206,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 38.223,
+      "ms": 35.581,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.872,
+      "ms": 36.409,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.919,
+      "ms": 35.812,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.679,
+      "ms": 36.154,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 35.713,
+      "ms": 33.402,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.69,
+      "ms": 34.132,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.074,
+      "ms": 36.425,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 34.864,
+      "ms": 36.318,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     36.424,
-     36.427,
-     33.769,
-     34.559,
-     38.223,
-     34.872,
-     34.919,
-     34.679,
-     35.713,
-     34.69,
-     34.074,
-     34.864
+     36.836,
+     37.157,
+     37.149,
+     34.206,
+     35.581,
+     36.409,
+     35.812,
+     36.154,
+     33.402,
+     34.132,
+     36.425,
+     36.318
     ]
    }
   },
   {
    "idx": 26,
-   "ms": 27.42,
+   "ms": 27.26,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
    "stats": {
-    "mad_ms": 0.3225,
-    "max_ms": 28.837,
-    "median_ms": 27.42,
-    "min_ms": 26.464,
-    "p25_ms": 27.1015,
-    "p75_ms": 27.73275,
+    "mad_ms": 0.838,
+    "max_ms": 30.383,
+    "median_ms": 27.258,
+    "min_ms": 26.374,
+    "p25_ms": 26.62225,
+    "p75_ms": 29.4215,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.762,
+      "ms": 26.374,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 28.719,
+      "ms": 27.569,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 28.837,
+      "ms": 26.67,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.117,
+      "ms": 26.947,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.532,
+      "ms": 26.479,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 26.81,
+      "ms": 26.466,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.055,
+      "ms": 29.337,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.308,
+      "ms": 29.704,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.723,
+      "ms": 26.888,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.298,
+      "ms": 28.3,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 27.702,
+      "ms": 29.675,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 26.464,
+      "ms": 30.383,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     27.762,
-     28.719,
-     28.837,
-     27.117,
-     27.532,
-     26.81,
-     27.055,
-     27.308,
-     27.723,
-     27.298,
-     27.702,
-     26.464
+     26.374,
+     27.569,
+     26.67,
+     26.947,
+     26.479,
+     26.466,
+     29.337,
+     29.704,
+     26.888,
+     28.3,
+     29.675,
+     30.383
     ]
    }
   },
   {
    "idx": 27,
-   "ms": 47.72,
+   "ms": 47.46,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
    "stats": {
-    "mad_ms": 1.2415,
-    "max_ms": 50.195,
-    "median_ms": 47.721,
-    "min_ms": 45.337,
-    "p25_ms": 47.2175,
-    "p75_ms": 49.0395,
+    "mad_ms": 1.0835,
+    "max_ms": 51.768,
+    "median_ms": 47.4575,
+    "min_ms": 45.995,
+    "p25_ms": 47.1715,
+    "p75_ms": 49.01125,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 47.914,
+      "ms": 47.394,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 46.511,
+      "ms": 47.355,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 50.195,
+      "ms": 45.995,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 48.994,
+      "ms": 50.654,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 47.453,
+      "ms": 51.768,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 45.337,
+      "ms": 49.681,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 47.469,
+      "ms": 47.607,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 48.112,
+      "ms": 47.496,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 49.502,
+      "ms": 48.788,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 49.176,
+      "ms": 46.621,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 47.528,
+      "ms": 47.419,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 45.857,
+      "ms": 46.01,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     47.914,
-     46.511,
-     50.195,
-     48.994,
-     47.453,
-     45.337,
-     47.469,
-     48.112,
-     49.502,
-     49.176,
-     47.528,
-     45.857
+     47.394,
+     47.355,
+     45.995,
+     50.654,
+     51.768,
+     49.681,
+     47.607,
+     47.496,
+     48.788,
+     46.621,
+     47.419,
+     46.01
     ]
    }
   },
   {
    "idx": 28,
-   "ms": 294.42,
+   "ms": 295.74,
    "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
    "stats": {
-    "mad_ms": 1.204,
-    "max_ms": 296.407,
-    "median_ms": 294.416,
-    "min_ms": 290.377,
-    "p25_ms": 293.42125,
-    "p75_ms": 295.86975,
+    "mad_ms": 0.8365,
+    "max_ms": 298.195,
+    "median_ms": 295.7425,
+    "min_ms": 291.186,
+    "p25_ms": 294.809,
+    "p75_ms": 296.3875,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 296.115,
+      "ms": 292.39,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 293.38,
+      "ms": 296.353,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 296.407,
+      "ms": 295.437,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 294.591,
+      "ms": 297.469,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 295.057,
+      "ms": 295.063,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 293.435,
+      "ms": 296.132,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 295.788,
+      "ms": 296.491,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 296.126,
+      "ms": 298.195,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 294.035,
+      "ms": 291.186,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 290.377,
+      "ms": 294.818,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 294.241,
+      "ms": 296.048,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 292.12,
+      "ms": 294.782,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     296.115,
-     293.38,
-     296.407,
-     294.591,
-     295.057,
-     293.435,
-     295.788,
-     296.126,
-     294.035,
-     290.377,
-     294.241,
-     292.12
+     292.39,
+     296.353,
+     295.437,
+     297.469,
+     295.063,
+     296.132,
+     296.491,
+     298.195,
+     291.186,
+     294.818,
+     296.048,
+     294.782
     ]
    }
   },
   {
    "idx": 29,
-   "ms": 607.26,
+   "ms": 609.89,
    "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
    "stats": {
-    "mad_ms": 4.4645,
-    "max_ms": 625.847,
-    "median_ms": 607.26,
-    "min_ms": 592.214,
-    "p25_ms": 602.93775,
-    "p75_ms": 611.48625,
+    "mad_ms": 7.174,
+    "max_ms": 617.893,
+    "median_ms": 609.8855,
+    "min_ms": 589.767,
+    "p25_ms": 597.64425,
+    "p75_ms": 612.493,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 596.431,
+      "ms": 589.767,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 592.214,
+      "ms": 597.807,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 625.847,
+      "ms": 610.743,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 606.52,
+      "ms": 617.429,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 608.381,
+      "ms": 610.279,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 599.295,
+      "ms": 614.287,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 611.248,
+      "ms": 597.156,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 607.492,
+      "ms": 611.895,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 612.201,
+      "ms": 596.631,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 613.598,
+      "ms": 609.492,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 604.152,
+      "ms": 603.081,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 607.028,
+      "ms": 617.893,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     596.431,
-     592.214,
-     625.847,
-     606.52,
-     608.381,
-     599.295,
-     611.248,
-     607.492,
-     612.201,
-     613.598,
-     604.152,
-     607.028
+     589.767,
+     597.807,
+     610.743,
+     617.429,
+     610.279,
+     614.287,
+     597.156,
+     611.895,
+     596.631,
+     609.492,
+     603.081,
+     617.893
     ]
    }
   },
   {
    "idx": 30,
-   "ms": 18.05,
+   "ms": 20.54,
    "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S",
    "stats": {
-    "mad_ms": 2.279,
-    "max_ms": 25.638,
-    "median_ms": 18.0485,
-    "min_ms": 14.54,
-    "p25_ms": 16.35075,
-    "p75_ms": 22.5145,
+    "mad_ms": 2.013,
+    "max_ms": 25.912,
+    "median_ms": 20.539,
+    "min_ms": 15.915,
+    "p25_ms": 18.8325,
+    "p75_ms": 22.53675,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 18.038,
+      "ms": 15.915,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 16.242,
+      "ms": 17.291,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 22.295,
+      "ms": 19.894,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 23.173,
+      "ms": 19.841,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.638,
+      "ms": 21.312,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 16.387,
+      "ms": 21.184,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 14.54,
+      "ms": 25.912,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 17.512,
+      "ms": 22.293,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 19.713,
+      "ms": 23.268,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.297,
+      "ms": 19.021,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 18.059,
+      "ms": 24.522,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 24.857,
+      "ms": 18.267,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     18.038,
-     16.242,
-     22.295,
-     23.173,
-     25.638,
-     16.387,
-     14.54,
-     17.512,
-     19.713,
-     15.297,
-     18.059,
-     24.857
+     15.915,
+     17.291,
+     19.894,
+     19.841,
+     21.312,
+     21.184,
+     25.912,
+     22.293,
+     23.268,
+     19.021,
+     24.522,
+     18.267
     ]
    }
   },
   {
    "idx": 31,
-   "ms": 54.8,
+   "ms": 56.5,
    "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
    "stats": {
-    "mad_ms": 0.4925,
-    "max_ms": 57.033,
-    "median_ms": 54.7975,
-    "min_ms": 50.112,
-    "p25_ms": 54.01825,
-    "p75_ms": 55.25825,
+    "mad_ms": 0.8875,
+    "max_ms": 61.202,
+    "median_ms": 56.501,
+    "min_ms": 53.437,
+    "p25_ms": 55.8215,
+    "p75_ms": 57.3315,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 55.094,
+      "ms": 54.419,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 54.403,
+      "ms": 56.63,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 55.301,
+      "ms": 57.028,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 50.112,
+      "ms": 56.372,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 55.686,
+      "ms": 53.437,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 54.316,
+      "ms": 57.837,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 55.244,
+      "ms": 57.163,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 53.125,
+      "ms": 55.966,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 54.68,
+      "ms": 61.202,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 52.047,
+      "ms": 56.152,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 54.915,
+      "ms": 57.873,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 57.033,
+      "ms": 55.388,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     55.094,
-     54.403,
-     55.301,
-     50.112,
-     55.686,
-     54.316,
-     55.244,
-     53.125,
-     54.68,
-     52.047,
-     54.915,
-     57.033
+     54.419,
+     56.63,
+     57.028,
+     56.372,
+     53.437,
+     57.837,
+     57.163,
+     55.966,
+     61.202,
+     56.152,
+     57.873,
+     55.388
     ]
    }
   },
   {
    "idx": 32,
-   "ms": 68.74,
+   "ms": 69.44,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
    "stats": {
-    "mad_ms": 0.7175,
-    "max_ms": 72.152,
-    "median_ms": 68.7385,
-    "min_ms": 66.482,
-    "p25_ms": 68.22525,
-    "p75_ms": 70.9645,
+    "mad_ms": 1.2065,
+    "max_ms": 72.719,
+    "median_ms": 69.445,
+    "min_ms": 66.951,
+    "p25_ms": 68.22325,
+    "p75_ms": 70.30775,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 68.282,
+      "ms": 71.327,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 70.963,
+      "ms": 66.951,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 68.8,
+      "ms": 68.308,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 66.482,
+      "ms": 69.492,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 69.006,
+      "ms": 70.17,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 68.312,
+      "ms": 69.586,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 68.677,
+      "ms": 69.398,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 72.152,
+      "ms": 70.721,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 71.089,
+      "ms": 69.392,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 67.987,
+      "ms": 67.969,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 68.055,
+      "ms": 72.719,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 70.969,
+      "ms": 67.165,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     68.282,
-     70.963,
-     68.8,
-     66.482,
-     69.006,
-     68.312,
-     68.677,
-     72.152,
-     71.089,
-     67.987,
-     68.055,
-     70.969
+     71.327,
+     66.951,
+     68.308,
+     69.492,
+     70.17,
+     69.586,
+     69.398,
+     70.721,
+     69.392,
+     67.969,
+     72.719,
+     67.165
     ]
    }
   },
   {
    "idx": 33,
-   "ms": 343.63,
+   "ms": 348.54,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 5.928,
-    "max_ms": 354.157,
-    "median_ms": 343.6285,
-    "min_ms": 334.193,
-    "p25_ms": 337.27475,
-    "p75_ms": 349.09275,
+    "mad_ms": 4.682,
+    "max_ms": 357.156,
+    "median_ms": 348.5445,
+    "min_ms": 330.255,
+    "p25_ms": 342.702,
+    "p75_ms": 352.93075,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 334.193,
+      "ms": 338.166,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 340.241,
+      "ms": 353.578,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 349.437,
+      "ms": 348.661,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 337.332,
+      "ms": 344.214,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 343.441,
+      "ms": 357.156,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 349.676,
+      "ms": 353.713,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 348.978,
+      "ms": 347.636,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 337.103,
+      "ms": 350.711,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 343.816,
+      "ms": 330.255,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 348.965,
+      "ms": 348.428,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 354.157,
+      "ms": 333.697,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 335.002,
+      "ms": 352.715,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     334.193,
-     340.241,
-     349.437,
-     337.332,
-     343.441,
-     349.676,
-     348.978,
-     337.103,
-     343.816,
-     348.965,
-     354.157,
-     335.002
+     338.166,
+     353.578,
+     348.661,
+     344.214,
+     357.156,
+     353.713,
+     347.636,
+     350.711,
+     330.255,
+     348.428,
+     333.697,
+     352.715
     ]
    }
   },
   {
    "idx": 34,
-   "ms": 495.68,
+   "ms": 489.59,
    "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 2.5215,
-    "max_ms": 500.79,
-    "median_ms": 495.684,
-    "min_ms": 486.908,
-    "p25_ms": 492.0765,
-    "p75_ms": 497.0375,
+    "mad_ms": 1.5945,
+    "max_ms": 509.269,
+    "median_ms": 489.593,
+    "min_ms": 487.582,
+    "p25_ms": 488.2805,
+    "p75_ms": 494.069,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 497.285,
+      "ms": 497.947,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 489.1,
+      "ms": 489.569,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 496.955,
+      "ms": 489.617,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 499.6,
+      "ms": 490.317,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 494.569,
+      "ms": 492.89,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 495.891,
+      "ms": 509.269,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 486.908,
+      "ms": 489.232,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 496.5,
+      "ms": 487.582,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 500.79,
+      "ms": 497.606,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 495.477,
+      "ms": 488.358,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 492.242,
+      "ms": 487.949,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 491.58,
+      "ms": 488.048,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     497.285,
-     489.1,
-     496.955,
-     499.6,
-     494.569,
-     495.891,
-     486.908,
-     496.5,
-     500.79,
-     495.477,
-     492.242,
-     491.58
+     497.947,
+     489.569,
+     489.617,
+     490.317,
+     492.89,
+     509.269,
+     489.232,
+     487.582,
+     497.606,
+     488.358,
+     487.949,
+     488.048
     ]
    }
   },
   {
    "idx": 35,
-   "ms": 491.93,
+   "ms": 491.81,
    "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 2.3325,
-    "max_ms": 496.498,
-    "median_ms": 491.9325,
-    "min_ms": 487.597,
-    "p25_ms": 490.0715,
-    "p75_ms": 494.2295,
+    "mad_ms": 2.6385,
+    "max_ms": 498.214,
+    "median_ms": 491.8085,
+    "min_ms": 486.716,
+    "p25_ms": 488.811,
+    "p75_ms": 493.40275,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 490.363,
+      "ms": 487.261,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 487.668,
+      "ms": 498.214,
       "order_position": 1,
       "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 493.187,
+      "order_position": 3,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 494.05,
+      "order_position": 2,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 496.017,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 491.905,
+      "order_position": 3,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "parquet-scan",
+      "ms": 489.143,
+      "order_position": 2,
+      "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
       "ms": 489.197,
-      "order_position": 3,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 496.498,
-      "order_position": 2,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 492.251,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 495.332,
-      "order_position": 3,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 487.597,
-      "order_position": 2,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "parquet-scan",
-      "ms": 491.766,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 495.55,
+      "ms": 486.716,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 493.862,
+      "ms": 491.712,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 492.099,
+      "ms": 487.815,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 491.244,
+      "ms": 492.985,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     490.363,
-     487.668,
+     487.261,
+     498.214,
+     493.187,
+     494.05,
+     496.017,
+     491.905,
+     489.143,
      489.197,
-     496.498,
-     492.251,
-     495.332,
-     487.597,
-     491.766,
-     495.55,
-     493.862,
-     492.099,
-     491.244
+     486.716,
+     491.712,
+     487.815,
+     492.985
     ]
    }
   },
   {
    "idx": 36,
-   "ms": 25.36,
+   "ms": 25.8,
    "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
    "stats": {
-    "mad_ms": 0.439,
-    "max_ms": 28.922,
-    "median_ms": 25.3605,
-    "min_ms": 23.869,
-    "p25_ms": 24.94125,
-    "p75_ms": 25.77925,
+    "mad_ms": 1.168,
+    "max_ms": 27.226,
+    "median_ms": 25.7995,
+    "min_ms": 22.61,
+    "p25_ms": 24.59,
+    "p75_ms": 26.49475,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.84,
+      "ms": 24.446,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 23.869,
+      "ms": 24.638,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.315,
+      "ms": 25.995,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.759,
+      "ms": 25.957,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.037,
+      "ms": 22.61,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.562,
+      "ms": 25.226,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.406,
+      "ms": 27.09,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 24.654,
+      "ms": 25.642,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 28.922,
+      "ms": 27.226,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.092,
+      "ms": 26.974,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 25.849,
+      "ms": 23.631,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 24.315,
+      "ms": 26.335,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     25.84,
-     23.869,
-     25.315,
-     25.759,
-     25.037,
-     25.562,
-     25.406,
-     24.654,
-     28.922,
-     25.092,
-     25.849,
-     24.315
+     24.446,
+     24.638,
+     25.995,
+     25.957,
+     22.61,
+     25.226,
+     27.09,
+     25.642,
+     27.226,
+     26.974,
+     23.631,
+     26.335
     ]
    }
   },
   {
    "idx": 37,
-   "ms": 42.62,
+   "ms": 43.35,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
    "stats": {
-    "mad_ms": 0.5485,
-    "max_ms": 43.275,
-    "median_ms": 42.625,
-    "min_ms": 41.326,
-    "p25_ms": 41.807,
-    "p75_ms": 43.1,
+    "mad_ms": 0.8865,
+    "max_ms": 45.353,
+    "median_ms": 43.3455,
+    "min_ms": 41.246,
+    "p25_ms": 42.66575,
+    "p75_ms": 44.23025,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 41.642,
+      "ms": 43.004,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 43.275,
+      "ms": 42.407,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 42.708,
+      "ms": 44.009,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 41.326,
+      "ms": 42.048,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 43.011,
+      "ms": 44.18,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 43.094,
+      "ms": 44.381,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 41.53,
+      "ms": 42.752,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 42.446,
+      "ms": 43.504,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 41.862,
+      "ms": 45.353,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 43.118,
+      "ms": 45.042,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 43.229,
+      "ms": 43.187,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 42.542,
+      "ms": 41.246,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     41.642,
-     43.275,
-     42.708,
-     41.326,
-     43.011,
-     43.094,
-     41.53,
-     42.446,
-     41.862,
-     43.118,
-     43.229,
-     42.542
+     43.004,
+     42.407,
+     44.009,
+     42.048,
+     44.18,
+     44.381,
+     42.752,
+     43.504,
+     45.353,
+     45.042,
+     43.187,
+     41.246
     ]
    }
   },
   {
    "idx": 38,
-   "ms": 12.09,
+   "ms": 11.95,
    "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
    "stats": {
-    "mad_ms": 0.544,
-    "max_ms": 13.435,
-    "median_ms": 12.088,
-    "min_ms": 11.424,
-    "p25_ms": 11.7905,
-    "p75_ms": 12.91175,
+    "mad_ms": 0.496,
+    "max_ms": 12.764,
+    "median_ms": 11.948,
+    "min_ms": 10.877,
+    "p25_ms": 11.67425,
+    "p75_ms": 12.43975,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 12.923,
+      "ms": 11.769,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.967,
+      "ms": 11.39,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.979,
+      "ms": 11.801,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 12.197,
+      "ms": 12.382,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.555,
+      "ms": 12.709,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.424,
+      "ms": 12.107,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 13.106,
+      "ms": 10.877,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 13.435,
+      "ms": 12.613,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.869,
+      "ms": 12.095,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 12.908,
+      "ms": 12.764,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 11.533,
+      "ms": 11.778,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 12.219,
+      "ms": 11.071,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     12.923,
-     11.967,
-     11.979,
-     12.197,
-     11.555,
-     11.424,
-     13.106,
-     13.435,
-     11.869,
-     12.908,
-     11.533,
-     12.219
+     11.769,
+     11.39,
+     11.801,
+     12.382,
+     12.709,
+     12.107,
+     10.877,
+     12.613,
+     12.095,
+     12.764,
+     11.778,
+     11.071
     ]
    }
   },
   {
    "idx": 39,
-   "ms": 15.8,
+   "ms": 15.67,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
    "stats": {
-    "mad_ms": 0.3515,
-    "max_ms": 17.36,
-    "median_ms": 15.8045,
-    "min_ms": 14.807,
-    "p25_ms": 15.527,
-    "p75_ms": 16.1115,
+    "mad_ms": 0.4835,
+    "max_ms": 18.415,
+    "median_ms": 15.6725,
+    "min_ms": 14.248,
+    "p25_ms": 15.39,
+    "p75_ms": 16.70875,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.875,
+      "ms": 16.695,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 17.36,
+      "ms": 15.387,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.606,
+      "ms": 15.197,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 16.067,
+      "ms": 16.164,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 14.807,
+      "ms": 18.415,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.616,
+      "ms": 14.248,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 16.245,
+      "ms": 16.75,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.29,
+      "ms": 15.391,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.793,
+      "ms": 15.777,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.816,
+      "ms": 15.568,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 16.969,
+      "ms": 15.457,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 15.192,
+      "ms": 16.827,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     15.875,
-     17.36,
-     15.606,
-     16.067,
-     14.807,
-     15.616,
-     16.245,
-     15.29,
-     15.793,
-     15.816,
-     16.969,
-     15.192
+     16.695,
+     15.387,
+     15.197,
+     16.164,
+     18.415,
+     14.248,
+     16.75,
+     15.391,
+     15.777,
+     15.568,
+     15.457,
+     16.827
     ]
    }
   },
   {
    "idx": 40,
-   "ms": 109.55,
+   "ms": 111.67,
    "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
    "stats": {
-    "mad_ms": 2.5035,
-    "max_ms": 114.996,
-    "median_ms": 109.546,
-    "min_ms": 104.629,
-    "p25_ms": 106.96675,
-    "p75_ms": 111.4775,
+    "mad_ms": 2.1985,
+    "max_ms": 117.246,
+    "median_ms": 111.6655,
+    "min_ms": 105.556,
+    "p25_ms": 108.88425,
+    "p75_ms": 112.7375,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 112.292,
+      "ms": 106.901,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 104.629,
+      "ms": 111.713,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 108.98,
+      "ms": 105.556,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 107.285,
+      "ms": 111.618,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 110.112,
+      "ms": 111.006,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 114.996,
+      "ms": 117.246,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 105.134,
+      "ms": 112.521,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 113.427,
+      "ms": 112.397,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 106.012,
+      "ms": 115.469,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 111.206,
+      "ms": 108.99,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 110.589,
+      "ms": 108.567,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 107.925,
+      "ms": 113.387,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     112.292,
-     104.629,
-     108.98,
-     107.285,
-     110.112,
-     114.996,
-     105.134,
-     113.427,
-     106.012,
-     111.206,
-     110.589,
-     107.925
+     106.901,
+     111.713,
+     105.556,
+     111.618,
+     111.006,
+     117.246,
+     112.521,
+     112.397,
+     115.469,
+     108.99,
+     108.567,
+     113.387
     ]
    }
   },
   {
    "idx": 41,
-   "ms": 6.41,
+   "ms": 6.42,
    "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
    "stats": {
-    "mad_ms": 0.2145,
-    "max_ms": 6.849,
-    "median_ms": 6.4115,
-    "min_ms": 5.594,
-    "p25_ms": 6.27425,
-    "p75_ms": 6.63,
+    "mad_ms": 0.2225,
+    "max_ms": 7.433,
+    "median_ms": 6.421,
+    "min_ms": 6.056,
+    "p25_ms": 6.20075,
+    "p75_ms": 6.62425,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.59,
+      "ms": 6.194,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.778,
+      "ms": 6.351,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.687,
+      "ms": 6.988,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.611,
+      "ms": 6.203,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.483,
+      "ms": 6.083,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.313,
+      "ms": 6.453,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.952,
+      "ms": 7.019,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.849,
+      "ms": 6.473,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.594,
+      "ms": 6.389,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.182,
+      "ms": 7.433,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.305,
+      "ms": 6.503,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.34,
+      "ms": 6.056,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     6.59,
-     6.778,
-     6.687,
-     6.611,
-     6.483,
-     6.313,
-     5.952,
-     6.849,
-     5.594,
-     6.182,
-     6.305,
-     6.34
+     6.194,
+     6.351,
+     6.988,
+     6.203,
+     6.083,
+     6.453,
+     7.019,
+     6.473,
+     6.389,
+     7.433,
+     6.503,
+     6.056
     ]
    }
   },
   {
    "idx": 42,
-   "ms": 5.08,
+   "ms": 5.09,
    "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A",
    "stats": {
-    "mad_ms": 0.2,
-    "max_ms": 5.579,
-    "median_ms": 5.084,
-    "min_ms": 4.843,
-    "p25_ms": 5.0105,
-    "p75_ms": 5.32375,
+    "mad_ms": 0.4035,
+    "max_ms": 6.76,
+    "median_ms": 5.0865,
+    "min_ms": 4.517,
+    "p25_ms": 4.799,
+    "p75_ms": 5.676,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.057,
+      "ms": 4.517,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.286,
+      "ms": 5.16,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 4.964,
+      "ms": 6.76,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.546,
+      "ms": 5.013,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 4.843,
+      "ms": 5.722,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.072,
+      "ms": 5.288,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.579,
+      "ms": 4.954,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.319,
+      "ms": 5.667,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.338,
+      "ms": 5.703,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.096,
+      "ms": 4.663,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 4.886,
+      "ms": 4.831,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 5.026,
+      "ms": 4.703,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     5.057,
-     5.286,
-     4.964,
-     5.546,
-     4.843,
-     5.072,
-     5.579,
-     5.319,
-     5.338,
-     5.096,
-     4.886,
-     5.026
+     4.517,
+     5.16,
+     6.76,
+     5.013,
+     5.722,
+     5.288,
+     4.954,
+     5.667,
+     5.703,
+     4.663,
+     4.831,
+     4.703
     ]
    }
   },
   {
    "idx": 43,
-   "ms": 6.38,
+   "ms": 6.4,
    "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN",
    "stats": {
-    "mad_ms": 0.1165,
-    "max_ms": 6.795,
-    "median_ms": 6.377,
-    "min_ms": 6.002,
-    "p25_ms": 6.3045,
-    "p75_ms": 6.4875,
+    "mad_ms": 0.3325,
+    "max_ms": 6.774,
+    "median_ms": 6.396,
+    "min_ms": 5.679,
+    "p25_ms": 5.92875,
+    "p75_ms": 6.6665,
     "samples": [
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.361,
+      "ms": 5.684,
       "order_position": 2,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.795,
+      "ms": 6.71,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.328,
+      "ms": 6.235,
       "order_position": 3,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.703,
+      "ms": 5.904,
       "order_position": 2,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.345,
+      "ms": 6.652,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.234,
+      "ms": 6.774,
       "order_position": 3,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.467,
+      "ms": 6.747,
       "order_position": 2,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.424,
+      "ms": 6.52,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.549,
+      "ms": 6.318,
       "order_position": 3,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.393,
+      "ms": 6.474,
       "order_position": 2,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.008,
+      "ms": 5.937,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "parquet-scan",
-      "ms": 6.002,
+      "ms": 5.679,
       "order_position": 3,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     6.361,
-     6.795,
-     6.328,
-     6.703,
-     6.345,
-     6.234,
-     6.467,
-     6.424,
-     6.549,
-     6.393,
-     6.008,
-     6.002
+     5.684,
+     6.71,
+     6.235,
+     5.904,
+     6.652,
+     6.774,
+     6.747,
+     6.52,
+     6.318,
+     6.474,
+     5.937,
+     5.679
     ]
    }
   }
  ],
  "suite": "clickbench-10m",
  "threads": 32,
- "total_ms": 5523.1,
+ "total_ms": 5529.9,
  "version": "1.44.2"
 }

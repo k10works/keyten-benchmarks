@@ -85,14 +85,14 @@
    "keyten": {
     "build": {
      "build_state": "clean",
-     "git_sha": "91481bc39ca00ada6b1506fe75e2dbd11a5fa940"
+     "git_sha": "135900b5ab8fa49c405975629a8885a33462fe9f"
     },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "9a53ee8fc25b1c089113aac606954ad6c77fd8b89c64c80e83c1f599622b1bdc"
+       "keyten/_keyten.abi3.so": "0c1922feb2c4b238b98864c1c69d6186585f834e29639dc5d14f3ec834bbde8e"
       },
-      "sha256": "06e60300872fb507beb9e97d546d1eec66701914f3a41fdf19f33273c27aec15",
+      "sha256": "688fbaecc84bd3f4bc5fda823aa2ef7117e80486745b200c0b6a0099258d91c2",
       "version": "0.1.53"
      }
     },
@@ -142,7 +142,7 @@
    "starlette==1.6.0",
    "typing-inspection==0.4.4",
    "typing_extensions==4.16.0",
-   "uvicorn==0.52.4"
+   "uvicorn==0.53.0"
   ],
   "methodology": {
    "all_engine_positions_covered": true,
@@ -971,7 +971,7 @@
     "store": "/home/hetoku/data/work/keyten-benchmarks/.work/hits10m.k10dir"
    }
   ],
-  "recorded_at": "2026-09-14T03:44:14.096400+00:00",
+  "recorded_at": "2026-09-14T10:01:31.222623+00:00",
   "workers": 32
  },
  "engine": "keyten",
@@ -989,676 +989,676 @@
    "ms": 1.46,
    "query": "SELECT COUNT(*) FROM hits;",
    "stats": {
-    "mad_ms": 0.0455,
-    "max_ms": 1.63,
-    "median_ms": 1.461,
-    "min_ms": 1.376,
-    "p25_ms": 1.41575,
-    "p75_ms": 1.5065,
+    "mad_ms": 0.0215,
+    "max_ms": 1.639,
+    "median_ms": 1.4595,
+    "min_ms": 1.4,
+    "p25_ms": 1.44,
+    "p75_ms": 1.48125,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 1.409,
+      "ms": 1.402,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.504,
+      "ms": 1.639,
       "order_position": 3,
       "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.63,
-      "order_position": 2,
-      "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
       "ms": 1.48,
+      "order_position": 2,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.462,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.496,
+      "ms": 1.571,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.425,
+      "ms": 1.441,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.376,
+      "ms": 1.457,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.541,
+      "ms": 1.4,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.514,
+      "ms": 1.462,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.442,
+      "ms": 1.437,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.415,
+      "ms": 1.443,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.416,
+      "ms": 1.485,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     1.409,
-     1.504,
-     1.63,
+     1.402,
+     1.639,
      1.48,
-     1.496,
-     1.425,
-     1.376,
-     1.541,
-     1.514,
-     1.442,
-     1.415,
-     1.416
+     1.462,
+     1.571,
+     1.441,
+     1.457,
+     1.4,
+     1.462,
+     1.437,
+     1.443,
+     1.485
     ]
    }
   },
   {
    "idx": 2,
-   "ms": 3.28,
+   "ms": 3.31,
    "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;",
    "stats": {
-    "mad_ms": 0.1695,
-    "max_ms": 4.056,
-    "median_ms": 3.283,
-    "min_ms": 2.949,
-    "p25_ms": 3.1725,
-    "p75_ms": 3.48575,
+    "mad_ms": 0.1635,
+    "max_ms": 3.594,
+    "median_ms": 3.309,
+    "min_ms": 3.012,
+    "p25_ms": 3.16825,
+    "p75_ms": 3.46375,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 3.129,
+      "ms": 3.594,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 4.056,
+      "ms": 3.234,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.468,
+      "ms": 3.254,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.273,
+      "ms": 3.38,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.293,
+      "ms": 3.012,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.629,
+      "ms": 3.455,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.971,
+      "ms": 3.069,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.267,
+      "ms": 3.079,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.346,
+      "ms": 3.364,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.539,
+      "ms": 3.575,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.187,
+      "ms": 3.198,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.949,
+      "ms": 3.49,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     3.129,
-     4.056,
-     3.468,
-     3.273,
-     3.293,
-     3.629,
-     2.971,
-     3.267,
-     3.346,
-     3.539,
-     3.187,
-     2.949
+     3.594,
+     3.234,
+     3.254,
+     3.38,
+     3.012,
+     3.455,
+     3.069,
+     3.079,
+     3.364,
+     3.575,
+     3.198,
+     3.49
     ]
    }
   },
   {
    "idx": 3,
-   "ms": 2.86,
+   "ms": 3.11,
    "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;",
    "stats": {
-    "mad_ms": 0.2095,
-    "max_ms": 3.668,
-    "median_ms": 2.8595,
-    "min_ms": 2.552,
-    "p25_ms": 2.681,
-    "p75_ms": 3.107,
+    "mad_ms": 0.207,
+    "max_ms": 3.545,
+    "median_ms": 3.11,
+    "min_ms": 2.767,
+    "p25_ms": 2.9785,
+    "p75_ms": 3.35675,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 2.552,
+      "ms": 3.128,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.599,
+      "ms": 3.34,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.668,
+      "ms": 3.131,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.912,
+      "ms": 3.545,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.689,
+      "ms": 3.407,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.395,
+      "ms": 2.767,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.753,
+      "ms": 3.092,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.807,
+      "ms": 2.996,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.657,
+      "ms": 3.478,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.076,
+      "ms": 2.926,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.035,
+      "ms": 3.041,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.2,
+      "ms": 2.826,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     2.552,
-     2.599,
-     3.668,
-     2.912,
-     2.689,
-     3.395,
-     2.753,
-     2.807,
-     2.657,
-     3.076,
-     3.035,
-     3.2
+     3.128,
+     3.34,
+     3.131,
+     3.545,
+     3.407,
+     2.767,
+     3.092,
+     2.996,
+     3.478,
+     2.926,
+     3.041,
+     2.826
     ]
    }
   },
   {
    "idx": 4,
-   "ms": 3.07,
+   "ms": 3.08,
    "query": "SELECT AVG(UserID) FROM hits;",
    "stats": {
-    "mad_ms": 0.118,
-    "max_ms": 3.446,
-    "median_ms": 3.067,
-    "min_ms": 2.819,
-    "p25_ms": 2.98575,
-    "p75_ms": 3.187,
+    "mad_ms": 0.1095,
+    "max_ms": 3.703,
+    "median_ms": 3.0795,
+    "min_ms": 2.813,
+    "p25_ms": 2.9305,
+    "p75_ms": 3.11575,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 3.006,
+      "ms": 2.884,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.925,
+      "ms": 3.005,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.358,
+      "ms": 2.813,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.044,
+      "ms": 3.703,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.161,
+      "ms": 3.203,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.265,
+      "ms": 2.946,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.125,
+      "ms": 3.175,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.446,
+      "ms": 3.088,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.888,
+      "ms": 3.09,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.06,
+      "ms": 3.071,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.819,
+      "ms": 2.823,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.074,
+      "ms": 3.096,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     3.006,
-     2.925,
-     3.358,
-     3.044,
-     3.161,
-     3.265,
-     3.125,
-     3.446,
-     2.888,
-     3.06,
-     2.819,
-     3.074
+     2.884,
+     3.005,
+     2.813,
+     3.703,
+     3.203,
+     2.946,
+     3.175,
+     3.088,
+     3.09,
+     3.071,
+     2.823,
+     3.096
     ]
    }
   },
   {
    "idx": 5,
-   "ms": 13.26,
+   "ms": 12.99,
    "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
    "stats": {
-    "mad_ms": 0.3285,
-    "max_ms": 15.23,
-    "median_ms": 13.261,
-    "min_ms": 12.576,
-    "p25_ms": 13.08325,
-    "p75_ms": 13.6495,
+    "mad_ms": 0.1185,
+    "max_ms": 13.731,
+    "median_ms": 12.986,
+    "min_ms": 12.763,
+    "p25_ms": 12.90475,
+    "p75_ms": 13.201,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 13.179,
+      "ms": 13.731,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.835,
+      "ms": 12.966,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.343,
+      "ms": 12.763,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.088,
+      "ms": 12.858,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.552,
+      "ms": 13.558,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.717,
+      "ms": 12.945,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.605,
+      "ms": 12.914,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.627,
+      "ms": 12.877,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.576,
+      "ms": 13.246,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 15.23,
+      "ms": 13.006,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.069,
+      "ms": 13.006,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 13.148,
+      "ms": 13.186,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     13.179,
-     13.835,
-     13.343,
-     13.088,
-     13.552,
-     13.717,
-     12.605,
-     13.627,
-     12.576,
-     15.23,
-     13.069,
-     13.148
+     13.731,
+     12.966,
+     12.763,
+     12.858,
+     13.558,
+     12.945,
+     12.914,
+     12.877,
+     13.246,
+     13.006,
+     13.006,
+     13.186
     ]
    }
   },
   {
    "idx": 6,
-   "ms": 35.59,
+   "ms": 35.39,
    "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
    "stats": {
-    "mad_ms": 0.2445,
-    "max_ms": 36.1,
-    "median_ms": 35.585,
-    "min_ms": 34.736,
-    "p25_ms": 35.35175,
-    "p75_ms": 35.76025,
+    "mad_ms": 0.414,
+    "max_ms": 36.83,
+    "median_ms": 35.3855,
+    "min_ms": 34.696,
+    "p25_ms": 34.96075,
+    "p75_ms": 35.7765,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 34.818,
+      "ms": 35.755,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 36.041,
+      "ms": 35.371,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 36.1,
+      "ms": 34.791,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.318,
+      "ms": 36.83,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.363,
+      "ms": 35.441,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.592,
+      "ms": 34.804,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.578,
+      "ms": 36.005,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.602,
+      "ms": 35.144,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 34.736,
+      "ms": 35.4,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.509,
+      "ms": 35.013,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.941,
+      "ms": 35.841,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.7,
+      "ms": 34.696,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     34.818,
-     36.041,
-     36.1,
-     35.318,
-     35.363,
-     35.592,
-     35.578,
-     35.602,
-     34.736,
-     35.509,
-     35.941,
-     35.7
+     35.755,
+     35.371,
+     34.791,
+     36.83,
+     35.441,
+     34.804,
+     36.005,
+     35.144,
+     35.4,
+     35.013,
+     35.841,
+     34.696
     ]
    }
   },
@@ -1667,1965 +1667,1965 @@
    "ms": 1.49,
    "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;",
    "stats": {
-    "mad_ms": 0.017,
-    "max_ms": 1.611,
-    "median_ms": 1.491,
-    "min_ms": 1.441,
-    "p25_ms": 1.47175,
-    "p75_ms": 1.505,
+    "mad_ms": 0.059,
+    "max_ms": 1.659,
+    "median_ms": 1.4915,
+    "min_ms": 1.428,
+    "p25_ms": 1.45125,
+    "p75_ms": 1.571,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 1.504,
+      "ms": 1.431,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.515,
+      "ms": 1.538,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.486,
+      "ms": 1.459,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.611,
+      "ms": 1.462,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.447,
+      "ms": 1.521,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.465,
+      "ms": 1.428,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.441,
+      "ms": 1.457,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.477,
+      "ms": 1.434,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.496,
+      "ms": 1.574,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.508,
+      "ms": 1.659,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.474,
+      "ms": 1.57,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.502,
+      "ms": 1.609,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     1.504,
-     1.515,
-     1.486,
-     1.611,
-     1.447,
-     1.465,
-     1.441,
-     1.477,
-     1.496,
-     1.508,
-     1.474,
-     1.502
+     1.431,
+     1.538,
+     1.459,
+     1.462,
+     1.521,
+     1.428,
+     1.457,
+     1.434,
+     1.574,
+     1.659,
+     1.57,
+     1.609
     ]
    }
   },
   {
    "idx": 8,
-   "ms": 3.34,
+   "ms": 3.35,
    "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;",
    "stats": {
-    "mad_ms": 0.067,
-    "max_ms": 3.524,
-    "median_ms": 3.344,
-    "min_ms": 3.055,
-    "p25_ms": 3.301,
-    "p75_ms": 3.405,
+    "mad_ms": 0.0545,
+    "max_ms": 3.89,
+    "median_ms": 3.348,
+    "min_ms": 3.162,
+    "p25_ms": 3.29525,
+    "p75_ms": 3.41075,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 3.096,
+      "ms": 3.22,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.399,
+      "ms": 3.29,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.347,
+      "ms": 3.372,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.423,
+      "ms": 3.162,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.47,
+      "ms": 3.332,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.055,
+      "ms": 3.577,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.324,
+      "ms": 3.527,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.232,
+      "ms": 3.297,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.327,
+      "ms": 3.364,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.524,
+      "ms": 3.89,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.355,
+      "ms": 3.371,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.341,
+      "ms": 3.304,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     3.096,
-     3.399,
-     3.347,
-     3.423,
-     3.47,
-     3.055,
-     3.324,
-     3.232,
-     3.327,
-     3.524,
-     3.355,
-     3.341
+     3.22,
+     3.29,
+     3.372,
+     3.162,
+     3.332,
+     3.577,
+     3.527,
+     3.297,
+     3.364,
+     3.89,
+     3.371,
+     3.304
     ]
    }
   },
   {
    "idx": 9,
-   "ms": 33.01,
+   "ms": 34.06,
    "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.6465,
-    "max_ms": 34.976,
-    "median_ms": 33.008,
-    "min_ms": 29.56,
-    "p25_ms": 32.436,
-    "p75_ms": 33.72525,
+    "mad_ms": 0.566,
+    "max_ms": 37.283,
+    "median_ms": 34.062,
+    "min_ms": 33.021,
+    "p25_ms": 33.43225,
+    "p75_ms": 34.44925,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 34.976,
+      "ms": 34.176,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.77,
+      "ms": 33.778,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 33.367,
+      "ms": 33.45,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.826,
+      "ms": 37.283,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.488,
+      "ms": 33.948,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 34.182,
+      "ms": 33.021,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 33.573,
+      "ms": 34.313,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 33.246,
+      "ms": 34.405,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.28,
+      "ms": 34.7,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.521,
+      "ms": 34.582,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.56,
+      "ms": 33.166,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 34.199,
+      "ms": 33.379,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     34.976,
-     32.77,
-     33.367,
-     30.826,
-     32.488,
-     34.182,
-     33.573,
-     33.246,
-     32.28,
-     32.521,
-     29.56,
-     34.199
+     34.176,
+     33.778,
+     33.45,
+     37.283,
+     33.948,
+     33.021,
+     34.313,
+     34.405,
+     34.7,
+     34.582,
+     33.166,
+     33.379
     ]
    }
   },
   {
    "idx": 10,
-   "ms": 38.86,
+   "ms": 37.26,
    "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.2415,
-    "max_ms": 40.467,
-    "median_ms": 38.86,
-    "min_ms": 36.261,
-    "p25_ms": 38.0545,
-    "p75_ms": 39.98875,
+    "mad_ms": 0.8685,
+    "max_ms": 40.547,
+    "median_ms": 37.2625,
+    "min_ms": 34.184,
+    "p25_ms": 36.4465,
+    "p75_ms": 38.369,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 36.996,
+      "ms": 34.807,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 38.362,
+      "ms": 40.105,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 36.261,
+      "ms": 37.623,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 39.112,
+      "ms": 34.184,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 39.048,
+      "ms": 36.289,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 38.672,
+      "ms": 37.516,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 38.438,
+      "ms": 39.707,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 40.327,
+      "ms": 40.547,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 39.876,
+      "ms": 36.499,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 40.467,
+      "ms": 36.737,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 37.132,
+      "ms": 37.009,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 40.36,
+      "ms": 37.923,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     36.996,
-     38.362,
-     36.261,
-     39.112,
-     39.048,
-     38.672,
-     38.438,
-     40.327,
-     39.876,
-     40.467,
-     37.132,
-     40.36
+     34.807,
+     40.105,
+     37.623,
+     34.184,
+     36.289,
+     37.516,
+     39.707,
+     40.547,
+     36.499,
+     36.737,
+     37.009,
+     37.923
     ]
    }
   },
   {
    "idx": 11,
-   "ms": 9.88,
+   "ms": 10.04,
    "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.444,
-    "max_ms": 11.946,
-    "median_ms": 9.876,
-    "min_ms": 9.28,
-    "p25_ms": 9.4325,
-    "p75_ms": 10.41,
+    "mad_ms": 0.192,
+    "max_ms": 10.903,
+    "median_ms": 10.045,
+    "min_ms": 9.311,
+    "p25_ms": 9.7675,
+    "p75_ms": 10.17,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 9.35,
+      "ms": 10.903,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.768,
+      "ms": 10.147,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.431,
+      "ms": 9.855,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.946,
+      "ms": 9.505,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.929,
+      "ms": 10.079,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.991,
+      "ms": 9.311,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.433,
+      "ms": 9.859,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.28,
+      "ms": 10.239,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.761,
+      "ms": 9.318,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.647,
+      "ms": 10.068,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.994,
+      "ms": 10.022,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.237,
+      "ms": 10.243,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     9.35,
-     11.768,
-     9.431,
-     11.946,
-     10.929,
-     9.991,
-     9.433,
-     9.28,
-     9.761,
-     9.647,
-     9.994,
-     10.237
+     10.903,
+     10.147,
+     9.855,
+     9.505,
+     10.079,
+     9.311,
+     9.859,
+     10.239,
+     9.318,
+     10.068,
+     10.022,
+     10.243
     ]
    }
   },
   {
    "idx": 12,
-   "ms": 10.79,
+   "ms": 10.31,
    "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
    "stats": {
-    "mad_ms": 0.393,
-    "max_ms": 12.394,
-    "median_ms": 10.785,
-    "min_ms": 10.179,
-    "p25_ms": 10.41875,
-    "p75_ms": 11.1555,
+    "mad_ms": 0.1975,
+    "max_ms": 11.277,
+    "median_ms": 10.3105,
+    "min_ms": 10.069,
+    "p25_ms": 10.13375,
+    "p75_ms": 10.65275,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 11.083,
+      "ms": 10.281,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.526,
+      "ms": 10.118,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.316,
+      "ms": 10.952,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.179,
+      "ms": 10.069,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.696,
+      "ms": 10.108,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.394,
+      "ms": 10.139,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.511,
+      "ms": 10.96,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.453,
+      "ms": 10.409,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.268,
+      "ms": 10.553,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 10.874,
+      "ms": 10.321,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.223,
+      "ms": 10.3,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.133,
+      "ms": 11.277,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     11.083,
-     10.526,
-     10.316,
-     10.179,
-     10.696,
-     12.394,
-     11.511,
-     10.453,
-     10.268,
-     10.874,
-     11.223,
-     11.133
+     10.281,
+     10.118,
+     10.952,
+     10.069,
+     10.108,
+     10.139,
+     10.96,
+     10.409,
+     10.553,
+     10.321,
+     10.3,
+     11.277
     ]
    }
   },
   {
    "idx": 13,
-   "ms": 25.97,
+   "ms": 25.16,
    "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.8405,
-    "max_ms": 28.04,
-    "median_ms": 25.9705,
-    "min_ms": 24.276,
-    "p25_ms": 25.1005,
-    "p75_ms": 26.8005,
+    "mad_ms": 1.324,
+    "max_ms": 27.588,
+    "median_ms": 25.16,
+    "min_ms": 23.102,
+    "p25_ms": 23.943,
+    "p75_ms": 26.6805,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 26.869,
+      "ms": 27.537,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.04,
+      "ms": 23.102,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.832,
+      "ms": 25.627,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 25.221,
+      "ms": 23.925,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 24.276,
+      "ms": 26.627,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.79,
+      "ms": 25.16,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.061,
+      "ms": 26.841,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 24.811,
+      "ms": 27.588,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 25.88,
+      "ms": 23.747,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.366,
+      "ms": 25.07,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 25.197,
+      "ms": 25.16,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 24.451,
+      "ms": 23.949,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     26.869,
-     28.04,
-     26.832,
-     25.221,
-     24.276,
-     26.79,
-     26.061,
-     24.811,
-     25.88,
-     26.366,
-     25.197,
-     24.451
+     27.537,
+     23.102,
+     25.627,
+     23.925,
+     26.627,
+     25.16,
+     26.841,
+     27.588,
+     23.747,
+     25.07,
+     25.16,
+     23.949
     ]
    }
   },
   {
    "idx": 14,
-   "ms": 112.2,
+   "ms": 111.5,
    "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.785,
-    "max_ms": 116.345,
-    "median_ms": 112.196,
-    "min_ms": 106.813,
-    "p25_ms": 109.62725,
-    "p75_ms": 112.85375,
+    "mad_ms": 1.6235,
+    "max_ms": 115.695,
+    "median_ms": 111.5035,
+    "min_ms": 108.081,
+    "p25_ms": 110.28075,
+    "p75_ms": 113.3635,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 108.293,
+      "ms": 113.264,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 108.716,
+      "ms": 110.028,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.916,
+      "ms": 111.927,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.638,
+      "ms": 113.662,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 113.501,
+      "ms": 110.544,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.26,
+      "ms": 113.04,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 116.345,
+      "ms": 114.091,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 109.931,
+      "ms": 110.365,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 106.813,
+      "ms": 111.08,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.576,
+      "ms": 115.695,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.132,
+      "ms": 109.793,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 115.492,
+      "ms": 108.081,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     108.293,
-     108.716,
-     111.916,
-     112.638,
-     113.501,
-     112.26,
-     116.345,
-     109.931,
-     106.813,
-     112.576,
-     112.132,
-     115.492
+     113.264,
+     110.028,
+     111.927,
+     113.662,
+     110.544,
+     113.04,
+     114.091,
+     110.365,
+     111.08,
+     115.695,
+     109.793,
+     108.081
     ]
    }
   },
   {
    "idx": 15,
-   "ms": 29.52,
+   "ms": 29.51,
    "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.7825,
-    "max_ms": 37.088,
-    "median_ms": 29.524,
-    "min_ms": 28.492,
-    "p25_ms": 28.75375,
-    "p75_ms": 30.463,
+    "mad_ms": 1.2645,
+    "max_ms": 31.994,
+    "median_ms": 29.5145,
+    "min_ms": 27.56,
+    "p25_ms": 28.78575,
+    "p75_ms": 30.743,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 29.663,
+      "ms": 30.464,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 33.444,
+      "ms": 29.668,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.717,
+      "ms": 29.361,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.05,
+      "ms": 27.56,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.049,
+      "ms": 29.047,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 37.088,
+      "ms": 28.997,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 31.702,
+      "ms": 30.929,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.385,
+      "ms": 28.152,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.677,
+      "ms": 27.628,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.492,
+      "ms": 31.994,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.766,
+      "ms": 31.089,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.972,
+      "ms": 30.681,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     29.663,
-     33.444,
-     28.717,
-     30.05,
-     29.049,
-     37.088,
-     31.702,
-     29.385,
-     28.677,
-     28.492,
-     28.766,
-     29.972
+     30.464,
+     29.668,
+     29.361,
+     27.56,
+     29.047,
+     28.997,
+     30.929,
+     28.152,
+     27.628,
+     31.994,
+     31.089,
+     30.681
     ]
    }
   },
   {
    "idx": 16,
-   "ms": 47.88,
+   "ms": 47.67,
    "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.4515,
-    "max_ms": 49.239,
-    "median_ms": 47.881,
-    "min_ms": 46.382,
-    "p25_ms": 47.38125,
-    "p75_ms": 48.1725,
+    "mad_ms": 0.534,
+    "max_ms": 50.047,
+    "median_ms": 47.6735,
+    "min_ms": 46.216,
+    "p25_ms": 47.3695,
+    "p75_ms": 48.37025,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 47.367,
+      "ms": 48.9,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 48.163,
+      "ms": 46.998,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 49.023,
+      "ms": 47.654,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 47.927,
+      "ms": 48.893,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 47.835,
+      "ms": 48.196,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 49.239,
+      "ms": 47.128,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 47.473,
+      "ms": 47.529,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 47.386,
+      "ms": 46.216,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 46.382,
+      "ms": 47.45,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 46.831,
+      "ms": 50.047,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 48.201,
+      "ms": 47.695,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 48.029,
+      "ms": 47.693,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     47.367,
-     48.163,
-     49.023,
-     47.927,
-     47.835,
-     49.239,
-     47.473,
-     47.386,
-     46.382,
-     46.831,
-     48.201,
-     48.029
+     48.9,
+     46.998,
+     47.654,
+     48.893,
+     48.196,
+     47.128,
+     47.529,
+     46.216,
+     47.45,
+     50.047,
+     47.695,
+     47.693
     ]
    }
   },
   {
    "idx": 17,
-   "ms": 101.5,
+   "ms": 101.94,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.8115,
-    "max_ms": 105.995,
-    "median_ms": 101.496,
-    "min_ms": 99.408,
-    "p25_ms": 100.90475,
-    "p75_ms": 102.243,
+    "mad_ms": 1.217,
+    "max_ms": 104.716,
+    "median_ms": 101.942,
+    "min_ms": 100.275,
+    "p25_ms": 101.14725,
+    "p75_ms": 103.22175,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 100.375,
+      "ms": 103.845,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 105.995,
+      "ms": 103.329,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.569,
+      "ms": 101.755,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.423,
+      "ms": 100.752,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.038,
+      "ms": 104.716,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 102.588,
+      "ms": 103.186,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 102.944,
+      "ms": 101.279,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 102.128,
+      "ms": 102.59,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.357,
+      "ms": 101.925,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 99.408,
+      "ms": 100.534,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.893,
+      "ms": 100.275,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 100.505,
+      "ms": 101.959,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     100.375,
-     105.995,
-     101.569,
-     101.423,
-     101.038,
-     102.588,
-     102.944,
-     102.128,
-     101.357,
-     99.408,
-     101.893,
-     100.505
+     103.845,
+     103.329,
+     101.755,
+     100.752,
+     104.716,
+     103.186,
+     101.279,
+     102.59,
+     101.925,
+     100.534,
+     100.275,
+     101.959
     ]
    }
   },
   {
    "idx": 18,
-   "ms": 177.96,
+   "ms": 177.17,
    "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
    "stats": {
-    "mad_ms": 1.314,
-    "max_ms": 179.607,
-    "median_ms": 177.9605,
-    "min_ms": 175.0,
-    "p25_ms": 176.66775,
-    "p75_ms": 179.26475,
+    "mad_ms": 1.123,
+    "max_ms": 181.426,
+    "median_ms": 177.1735,
+    "min_ms": 175.697,
+    "p25_ms": 176.2915,
+    "p75_ms": 178.29325,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 176.846,
+      "ms": 176.379,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 179.073,
+      "ms": 175.697,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 176.307,
+      "ms": 176.029,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 179.255,
+      "ms": 181.426,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 178.7,
+      "ms": 176.531,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 179.432,
+      "ms": 176.828,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 176.788,
+      "ms": 178.275,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 175.0,
+      "ms": 178.348,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 177.221,
+      "ms": 178.14,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 175.629,
+      "ms": 177.519,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 179.607,
+      "ms": 178.809,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 179.294,
+      "ms": 175.801,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     176.846,
-     179.073,
-     176.307,
-     179.255,
-     178.7,
-     179.432,
-     176.788,
-     175.0,
-     177.221,
-     175.629,
-     179.607,
-     179.294
+     176.379,
+     175.697,
+     176.029,
+     181.426,
+     176.531,
+     176.828,
+     178.275,
+     178.348,
+     178.14,
+     177.519,
+     178.809,
+     175.801
     ]
    }
   },
   {
    "idx": 19,
-   "ms": 155.4,
+   "ms": 156.14,
    "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.7525,
-    "max_ms": 158.59,
-    "median_ms": 155.4035,
-    "min_ms": 153.038,
-    "p25_ms": 154.26975,
-    "p75_ms": 157.678,
+    "mad_ms": 1.454,
+    "max_ms": 160.527,
+    "median_ms": 156.138,
+    "min_ms": 153.373,
+    "p25_ms": 154.58525,
+    "p75_ms": 157.0065,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 158.59,
+      "ms": 157.521,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 153.038,
+      "ms": 160.091,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 156.675,
+      "ms": 156.694,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 157.81,
+      "ms": 153.712,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 154.276,
+      "ms": 154.502,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 154.251,
+      "ms": 154.902,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 153.121,
+      "ms": 156.34,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 157.801,
+      "ms": 160.527,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 154.703,
+      "ms": 154.613,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 154.766,
+      "ms": 155.936,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 156.041,
+      "ms": 156.835,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 157.637,
+      "ms": 153.373,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     158.59,
-     153.038,
-     156.675,
-     157.81,
-     154.276,
-     154.251,
-     153.121,
-     157.801,
-     154.703,
-     154.766,
-     156.041,
-     157.637
+     157.521,
+     160.091,
+     156.694,
+     153.712,
+     154.502,
+     154.902,
+     156.34,
+     160.527,
+     154.613,
+     155.936,
+     156.835,
+     153.373
     ]
    }
   },
   {
    "idx": 20,
-   "ms": 1.29,
+   "ms": 1.3,
    "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;",
    "stats": {
-    "mad_ms": 0.046,
-    "max_ms": 1.623,
-    "median_ms": 1.2945,
-    "min_ms": 1.208,
-    "p25_ms": 1.27,
-    "p75_ms": 1.3555,
+    "mad_ms": 0.0615,
+    "max_ms": 1.611,
+    "median_ms": 1.305,
+    "min_ms": 1.226,
+    "p25_ms": 1.2545,
+    "p75_ms": 1.44625,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 1.344,
+      "ms": 1.226,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.29,
+      "ms": 1.247,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.274,
+      "ms": 1.302,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.273,
+      "ms": 1.438,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.355,
+      "ms": 1.257,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.623,
+      "ms": 1.611,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.357,
+      "ms": 1.308,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.492,
+      "ms": 1.263,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.208,
+      "ms": 1.471,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.299,
+      "ms": 1.24,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.261,
+      "ms": 1.315,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.252,
+      "ms": 1.491,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     1.344,
-     1.29,
-     1.274,
-     1.273,
-     1.355,
-     1.623,
-     1.357,
-     1.492,
-     1.208,
-     1.299,
-     1.261,
-     1.252
+     1.226,
+     1.247,
+     1.302,
+     1.438,
+     1.257,
+     1.611,
+     1.308,
+     1.263,
+     1.471,
+     1.24,
+     1.315,
+     1.491
     ]
    }
   },
   {
    "idx": 21,
-   "ms": 18.46,
+   "ms": 18.47,
    "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
    "stats": {
-    "mad_ms": 0.4055,
-    "max_ms": 19.466,
-    "median_ms": 18.46,
-    "min_ms": 17.482,
-    "p25_ms": 18.1455,
-    "p75_ms": 18.888,
+    "mad_ms": 0.2815,
+    "max_ms": 19.207,
+    "median_ms": 18.468,
+    "min_ms": 18.004,
+    "p25_ms": 18.32725,
+    "p75_ms": 18.81575,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 18.921,
+      "ms": 18.004,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.254,
+      "ms": 18.362,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 19.466,
+      "ms": 18.536,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.066,
+      "ms": 18.223,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 17.707,
+      "ms": 19.131,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.234,
+      "ms": 19.207,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 19.104,
+      "ms": 18.379,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.666,
+      "ms": 18.46,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.877,
+      "ms": 18.476,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.854,
+      "ms": 18.786,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 18.172,
+      "ms": 18.905,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 17.482,
+      "ms": 18.035,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     18.921,
-     18.254,
-     19.466,
-     18.066,
-     17.707,
-     18.234,
-     19.104,
-     18.666,
-     18.877,
-     18.854,
-     18.172,
-     17.482
+     18.004,
+     18.362,
+     18.536,
+     18.223,
+     19.131,
+     19.207,
+     18.379,
+     18.46,
+     18.476,
+     18.786,
+     18.905,
+     18.035
     ]
    }
   },
   {
    "idx": 22,
-   "ms": 23.53,
+   "ms": 23.56,
    "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.2555,
-    "max_ms": 24.843,
-    "median_ms": 23.5265,
-    "min_ms": 22.765,
-    "p25_ms": 23.28375,
-    "p75_ms": 23.776,
+    "mad_ms": 0.175,
+    "max_ms": 24.66,
+    "median_ms": 23.5645,
+    "min_ms": 22.372,
+    "p25_ms": 23.40575,
+    "p75_ms": 23.89525,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 23.123,
+      "ms": 22.372,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.77,
+      "ms": 23.438,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.608,
+      "ms": 24.436,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.295,
+      "ms": 23.671,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.368,
+      "ms": 23.734,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.25,
+      "ms": 23.413,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.794,
+      "ms": 22.504,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 24.843,
+      "ms": 23.384,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 22.765,
+      "ms": 24.66,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.445,
+      "ms": 23.458,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.968,
+      "ms": 24.379,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 23.715,
+      "ms": 23.718,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     23.123,
-     23.77,
-     23.608,
-     23.295,
-     23.368,
-     23.25,
-     23.794,
-     24.843,
-     22.765,
-     23.445,
-     23.968,
-     23.715
+     22.372,
+     23.438,
+     24.436,
+     23.671,
+     23.734,
+     23.413,
+     22.504,
+     23.384,
+     24.66,
+     23.458,
+     24.379,
+     23.718
     ]
    }
   },
   {
    "idx": 23,
-   "ms": 44.37,
+   "ms": 45.27,
    "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP",
    "stats": {
-    "mad_ms": 0.583,
-    "max_ms": 46.698,
-    "median_ms": 44.366,
-    "min_ms": 43.24,
-    "p25_ms": 43.8135,
-    "p75_ms": 45.00925,
+    "mad_ms": 0.614,
+    "max_ms": 47.703,
+    "median_ms": 45.2675,
+    "min_ms": 44.225,
+    "p25_ms": 44.70325,
+    "p75_ms": 46.53325,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 45.418,
+      "ms": 45.653,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.873,
+      "ms": 45.039,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 46.698,
+      "ms": 44.606,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.27,
+      "ms": 47.056,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 43.844,
+      "ms": 45.496,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 45.61,
+      "ms": 44.225,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.42,
+      "ms": 46.359,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 43.376,
+      "ms": 47.597,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.378,
+      "ms": 44.701,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 43.24,
+      "ms": 47.703,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.354,
+      "ms": 44.975,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 43.722,
+      "ms": 44.704,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     45.418,
-     44.873,
-     46.698,
-     44.27,
-     43.844,
-     45.61,
-     44.42,
-     43.376,
-     44.378,
-     43.24,
-     44.354,
-     43.722
+     45.653,
+     45.039,
+     44.606,
+     47.056,
+     45.496,
+     44.225,
+     46.359,
+     47.597,
+     44.701,
+     47.703,
+     44.975,
+     44.704
     ]
    }
   },
   {
    "idx": 24,
-   "ms": 21.99,
+   "ms": 22.0,
    "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;",
    "stats": {
-    "mad_ms": 0.145,
-    "max_ms": 22.911,
-    "median_ms": 21.9905,
-    "min_ms": 21.72,
-    "p25_ms": 21.85425,
-    "p75_ms": 22.2245,
+    "mad_ms": 0.081,
+    "max_ms": 22.279,
+    "median_ms": 22.0015,
+    "min_ms": 21.863,
+    "p25_ms": 21.961,
+    "p75_ms": 22.18175,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 22.858,
+      "ms": 22.279,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 22.091,
+      "ms": 21.961,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 21.908,
+      "ms": 21.985,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 21.72,
+      "ms": 22.09,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 22.911,
+      "ms": 21.999,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
@@ -3639,2094 +3639,2094 @@
      },
      {
       "execution_mode": "native-scan",
-      "ms": 21.815,
+      "ms": 22.268,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 21.988,
+      "ms": 21.961,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 21.828,
+      "ms": 22.211,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 22.625,
+      "ms": 21.928,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 21.993,
+      "ms": 22.172,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 22.061,
+      "ms": 22.004,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     22.858,
-     22.091,
-     21.908,
-     21.72,
-     22.911,
+     22.279,
+     21.961,
+     21.985,
+     22.09,
+     21.999,
      21.863,
-     21.815,
-     21.988,
-     21.828,
-     22.625,
-     21.993,
-     22.061
+     22.268,
+     21.961,
+     22.211,
+     21.928,
+     22.172,
+     22.004
     ]
    }
   },
   {
    "idx": 25,
-   "ms": 8.38,
+   "ms": 8.41,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
    "stats": {
-    "mad_ms": 0.2175,
-    "max_ms": 28.853,
-    "median_ms": 8.3835,
-    "min_ms": 7.978,
-    "p25_ms": 8.2635,
-    "p75_ms": 9.31975,
+    "mad_ms": 0.5245,
+    "max_ms": 13.575,
+    "median_ms": 8.415,
+    "min_ms": 7.565,
+    "p25_ms": 8.16125,
+    "p75_ms": 9.238,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 8.332,
+      "ms": 7.565,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.249,
+      "ms": 13.575,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.853,
+      "ms": 9.175,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.329,
+      "ms": 7.946,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.273,
+      "ms": 8.485,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.978,
+      "ms": 8.495,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.513,
+      "ms": 7.835,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.235,
+      "ms": 8.345,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.532,
+      "ms": 9.427,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.097,
+      "ms": 8.233,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.435,
+      "ms": 8.233,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.648,
+      "ms": 10.209,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     8.332,
-     9.249,
-     28.853,
-     8.329,
-     8.273,
-     7.978,
-     8.513,
-     8.235,
-     9.532,
-     8.097,
-     8.435,
-     11.648
+     7.565,
+     13.575,
+     9.175,
+     7.946,
+     8.485,
+     8.495,
+     7.835,
+     8.345,
+     9.427,
+     8.233,
+     8.233,
+     10.209
     ]
    }
   },
   {
    "idx": 26,
-   "ms": 27.31,
+   "ms": 26.34,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
    "stats": {
-    "mad_ms": 0.9165,
-    "max_ms": 30.25,
-    "median_ms": 27.3125,
-    "min_ms": 16.326,
-    "p25_ms": 26.779,
-    "p75_ms": 28.25,
+    "mad_ms": 0.5875,
+    "max_ms": 28.144,
+    "median_ms": 26.339,
+    "min_ms": 13.909,
+    "p25_ms": 25.546,
+    "p75_ms": 26.61675,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 28.243,
+      "ms": 24.979,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.244,
+      "ms": 13.909,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.827,
+      "ms": 26.374,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.25,
+      "ms": 28.144,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.795,
+      "ms": 26.519,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.215,
+      "ms": 18.624,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.271,
+      "ms": 26.488,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.381,
+      "ms": 26.304,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 16.326,
+      "ms": 26.91,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.759,
+      "ms": 25.735,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 22.472,
+      "ms": 27.473,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.731,
+      "ms": 26.294,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     28.243,
-     27.244,
-     26.827,
-     30.25,
-     26.795,
-     28.215,
-     28.271,
-     27.381,
-     16.326,
-     28.759,
-     22.472,
-     26.731
+     24.979,
+     13.909,
+     26.374,
+     28.144,
+     26.519,
+     18.624,
+     26.488,
+     26.304,
+     26.91,
+     25.735,
+     27.473,
+     26.294
     ]
    }
   },
   {
    "idx": 27,
-   "ms": 27.33,
+   "ms": 26.43,
    "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
    "stats": {
-    "mad_ms": 0.2625,
-    "max_ms": 27.932,
-    "median_ms": 27.327,
-    "min_ms": 19.936,
-    "p25_ms": 27.07975,
-    "p75_ms": 27.514,
+    "mad_ms": 1.163,
+    "max_ms": 27.749,
+    "median_ms": 26.429,
+    "min_ms": 14.16,
+    "p25_ms": 23.9955,
+    "p75_ms": 27.14925,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 27.343,
+      "ms": 25.233,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.444,
+      "ms": 18.273,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.034,
+      "ms": 26.205,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.095,
+      "ms": 26.653,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.311,
+      "ms": 27.145,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.724,
+      "ms": 27.749,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.426,
+      "ms": 24.338,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.923,
+      "ms": 14.16,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.52,
+      "ms": 27.559,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.304,
+      "ms": 22.968,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.932,
+      "ms": 27.083,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 19.936,
+      "ms": 27.162,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     27.343,
-     27.444,
-     27.034,
-     27.095,
-     27.311,
-     27.724,
-     27.426,
-     27.923,
-     26.52,
-     27.304,
-     27.932,
-     19.936
+     25.233,
+     18.273,
+     26.205,
+     26.653,
+     27.145,
+     27.749,
+     24.338,
+     14.16,
+     27.559,
+     22.968,
+     27.083,
+     27.162
     ]
    }
   },
   {
    "idx": 28,
-   "ms": 44.99,
+   "ms": 44.45,
    "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
    "stats": {
-    "mad_ms": 1.2735,
-    "max_ms": 53.979,
-    "median_ms": 44.986,
-    "min_ms": 39.999,
-    "p25_ms": 43.27025,
-    "p75_ms": 46.117,
+    "mad_ms": 4.2535,
+    "max_ms": 74.381,
+    "median_ms": 44.445,
+    "min_ms": 36.659,
+    "p25_ms": 39.7525,
+    "p75_ms": 47.43875,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 44.974,
+      "ms": 43.758,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.552,
+      "ms": 47.299,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 40.626,
+      "ms": 47.783,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 39.999,
+      "ms": 48.647,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 46.03,
+      "ms": 37.289,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 53.979,
+      "ms": 39.761,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.998,
+      "ms": 40.14,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 41.588,
+      "ms": 45.132,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 43.831,
+      "ms": 74.381,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 49.171,
+      "ms": 36.659,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 45.596,
+      "ms": 39.727,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 46.378,
+      "ms": 47.324,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     44.974,
-     44.552,
-     40.626,
-     39.999,
-     46.03,
-     53.979,
-     44.998,
-     41.588,
-     43.831,
-     49.171,
-     45.596,
-     46.378
+     43.758,
+     47.299,
+     47.783,
+     48.647,
+     37.289,
+     39.761,
+     40.14,
+     45.132,
+     74.381,
+     36.659,
+     39.727,
+     47.324
     ]
    }
   },
   {
    "idx": 29,
-   "ms": 406.25,
+   "ms": 404.73,
    "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
    "stats": {
-    "mad_ms": 7.2335,
-    "max_ms": 437.993,
-    "median_ms": 406.2465,
-    "min_ms": 393.43,
-    "p25_ms": 400.8145,
-    "p75_ms": 413.0655,
+    "mad_ms": 3.6185,
+    "max_ms": 421.041,
+    "median_ms": 404.728,
+    "min_ms": 397.922,
+    "p25_ms": 403.06375,
+    "p75_ms": 410.032,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 394.489,
+      "ms": 402.628,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 414.309,
+      "ms": 405.674,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 412.651,
+      "ms": 397.922,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 406.975,
+      "ms": 409.302,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 393.43,
+      "ms": 403.782,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 437.993,
+      "ms": 421.041,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 405.518,
+      "ms": 409.483,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 410.394,
+      "ms": 403.262,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 404.497,
+      "ms": 403.209,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 414.703,
+      "ms": 411.679,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 402.806,
+      "ms": 412.102,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 394.84,
+      "ms": 402.065,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     394.489,
-     414.309,
-     412.651,
-     406.975,
-     393.43,
-     437.993,
-     405.518,
-     410.394,
-     404.497,
-     414.703,
-     402.806,
-     394.84
+     402.628,
+     405.674,
+     397.922,
+     409.302,
+     403.782,
+     421.041,
+     409.483,
+     403.262,
+     403.209,
+     411.679,
+     412.102,
+     402.065
     ]
    }
   },
   {
    "idx": 30,
-   "ms": 2.77,
+   "ms": 2.74,
    "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S",
    "stats": {
-    "mad_ms": 0.132,
-    "max_ms": 3.013,
-    "median_ms": 2.769,
-    "min_ms": 2.481,
-    "p25_ms": 2.628,
-    "p75_ms": 2.84975,
+    "mad_ms": 0.0855,
+    "max_ms": 3.165,
+    "median_ms": 2.7435,
+    "min_ms": 2.386,
+    "p25_ms": 2.6435,
+    "p75_ms": 2.823,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 2.894,
+      "ms": 2.386,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.788,
+      "ms": 2.609,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.929,
+      "ms": 2.822,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.63,
+      "ms": 2.794,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.835,
+      "ms": 2.693,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.696,
+      "ms": 3.165,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.509,
+      "ms": 2.497,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.013,
+      "ms": 2.94,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.481,
+      "ms": 2.655,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.622,
+      "ms": 2.674,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.75,
+      "ms": 2.826,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.791,
+      "ms": 2.803,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     2.894,
-     2.788,
-     2.929,
-     2.63,
-     2.835,
-     2.696,
-     2.509,
-     3.013,
-     2.481,
-     2.622,
-     2.75,
-     2.791
+     2.386,
+     2.609,
+     2.822,
+     2.794,
+     2.693,
+     3.165,
+     2.497,
+     2.94,
+     2.655,
+     2.674,
+     2.826,
+     2.803
     ]
    }
   },
   {
    "idx": 31,
-   "ms": 33.36,
+   "ms": 34.07,
    "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
    "stats": {
-    "mad_ms": 1.052,
-    "max_ms": 58.975,
-    "median_ms": 33.356,
-    "min_ms": 32.257,
-    "p25_ms": 32.676,
-    "p75_ms": 36.809,
+    "mad_ms": 1.0285,
+    "max_ms": 62.152,
+    "median_ms": 34.0725,
+    "min_ms": 31.885,
+    "p25_ms": 33.25125,
+    "p75_ms": 34.972,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 32.748,
+      "ms": 34.843,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.552,
+      "ms": 36.125,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 36.318,
+      "ms": 33.7,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.257,
+      "ms": 34.517,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 33.562,
+      "ms": 33.532,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 58.975,
+      "ms": 34.079,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 38.282,
+      "ms": 31.885,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.799,
+      "ms": 62.152,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 33.15,
+      "ms": 32.106,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.46,
+      "ms": 34.066,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 32.351,
+      "ms": 32.409,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 41.201,
+      "ms": 35.359,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     32.748,
-     35.552,
-     36.318,
-     32.257,
-     33.562,
-     58.975,
-     38.282,
-     32.799,
-     33.15,
-     32.46,
-     32.351,
-     41.201
+     34.843,
+     36.125,
+     33.7,
+     34.517,
+     33.532,
+     34.079,
+     31.885,
+     62.152,
+     32.106,
+     34.066,
+     32.409,
+     35.359
     ]
    }
   },
   {
    "idx": 32,
-   "ms": 48.08,
+   "ms": 36.28,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
    "stats": {
-    "mad_ms": 6.569,
-    "max_ms": 58.384,
-    "median_ms": 48.08,
-    "min_ms": 34.036,
-    "p25_ms": 40.56025,
-    "p75_ms": 54.5375,
+    "mad_ms": 1.418,
+    "max_ms": 54.386,
+    "median_ms": 36.2765,
+    "min_ms": 33.828,
+    "p25_ms": 35.46675,
+    "p75_ms": 39.8345,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 51.694,
+      "ms": 36.166,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 44.466,
+      "ms": 38.327,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 43.398,
+      "ms": 37.214,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 41.938,
+      "ms": 35.927,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 34.036,
+      "ms": 33.828,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 58.384,
+      "ms": 47.61,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 54.426,
+      "ms": 34.893,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 36.427,
+      "ms": 36.387,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 35.685,
+      "ms": 54.386,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 53.76,
+      "ms": 35.658,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 55.96,
+      "ms": 44.357,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 54.872,
+      "ms": 34.824,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     51.694,
-     44.466,
-     43.398,
-     41.938,
-     34.036,
-     58.384,
-     54.426,
-     36.427,
-     35.685,
-     53.76,
-     55.96,
-     54.872
+     36.166,
+     38.327,
+     37.214,
+     35.927,
+     33.828,
+     47.61,
+     34.893,
+     36.387,
+     54.386,
+     35.658,
+     44.357,
+     34.824
     ]
    }
   },
   {
    "idx": 33,
-   "ms": 183.75,
+   "ms": 183.58,
    "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 1.8285,
-    "max_ms": 189.265,
-    "median_ms": 183.754,
-    "min_ms": 181.143,
-    "p25_ms": 182.31075,
-    "p75_ms": 186.051,
+    "mad_ms": 1.318,
+    "max_ms": 186.657,
+    "median_ms": 183.5825,
+    "min_ms": 181.421,
+    "p25_ms": 182.61175,
+    "p75_ms": 185.48675,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 183.769,
+      "ms": 186.657,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 184.986,
+      "ms": 182.648,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 189.265,
+      "ms": 181.421,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 187.188,
+      "ms": 182.026,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 182.963,
+      "ms": 185.43,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 185.672,
+      "ms": 182.503,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 181.904,
+      "ms": 182.708,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 188.193,
+      "ms": 184.479,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 181.143,
+      "ms": 182.882,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 183.739,
+      "ms": 185.657,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 181.947,
+      "ms": 184.283,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 182.432,
+      "ms": 185.92,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     183.769,
-     184.986,
-     189.265,
-     187.188,
-     182.963,
-     185.672,
-     181.904,
-     188.193,
-     181.143,
-     183.739,
-     181.947,
-     182.432
+     186.657,
+     182.648,
+     181.421,
+     182.026,
+     185.43,
+     182.503,
+     182.708,
+     184.479,
+     182.882,
+     185.657,
+     184.283,
+     185.92
     ]
    }
   },
   {
    "idx": 34,
-   "ms": 111.9,
+   "ms": 112.34,
    "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.6185,
-    "max_ms": 114.453,
-    "median_ms": 111.9025,
-    "min_ms": 109.689,
-    "p25_ms": 111.1705,
-    "p75_ms": 112.26075,
+    "mad_ms": 0.8165,
+    "max_ms": 118.407,
+    "median_ms": 112.338,
+    "min_ms": 110.34,
+    "p25_ms": 111.2405,
+    "p75_ms": 112.65025,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 112.185,
+      "ms": 113.047,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.001,
+      "ms": 110.72,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 113.908,
+      "ms": 110.34,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 109.689,
+      "ms": 112.354,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 114.453,
+      "ms": 111.933,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.488,
+      "ms": 112.518,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.894,
+      "ms": 111.414,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 110.893,
+      "ms": 114.617,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.672,
+      "ms": 112.327,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.251,
+      "ms": 118.407,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.911,
+      "ms": 112.349,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 110.929,
+      "ms": 110.695,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     112.185,
-     112.001,
-     113.908,
-     109.689,
-     114.453,
-     112.488,
-     111.894,
-     110.893,
-     111.672,
-     111.251,
-     111.911,
-     110.929
+     113.047,
+     110.72,
+     110.34,
+     112.354,
+     111.933,
+     112.518,
+     111.414,
+     114.617,
+     112.327,
+     118.407,
+     112.349,
+     110.695
     ]
    }
   },
   {
    "idx": 35,
-   "ms": 111.89,
+   "ms": 112.3,
    "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.831,
-    "max_ms": 114.51,
-    "median_ms": 111.892,
-    "min_ms": 109.65,
-    "p25_ms": 111.01875,
-    "p75_ms": 112.62775,
+    "mad_ms": 1.2885,
+    "max_ms": 116.636,
+    "median_ms": 112.3035,
+    "min_ms": 110.531,
+    "p25_ms": 111.317,
+    "p75_ms": 114.0445,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 112.978,
+      "ms": 115.048,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.523,
+      "ms": 111.409,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 109.65,
+      "ms": 111.42,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.693,
+      "ms": 111.441,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.803,
+      "ms": 110.531,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.031,
+      "ms": 113.956,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.366,
+      "ms": 113.528,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 114.51,
+      "ms": 113.166,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 110.982,
+      "ms": 116.636,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 111.981,
+      "ms": 111.041,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 112.606,
+      "ms": 114.31,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 110.876,
+      "ms": 110.989,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     112.978,
-     112.523,
-     109.65,
-     112.693,
-     111.803,
-     111.031,
-     111.366,
-     114.51,
-     110.982,
-     111.981,
-     112.606,
-     110.876
+     115.048,
+     111.409,
+     111.42,
+     111.441,
+     110.531,
+     113.956,
+     113.528,
+     113.166,
+     116.636,
+     111.041,
+     114.31,
+     110.989
     ]
    }
   },
   {
    "idx": 36,
-   "ms": 54.69,
+   "ms": 54.15,
    "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
    "stats": {
-    "mad_ms": 1.187,
-    "max_ms": 57.075,
-    "median_ms": 54.689,
-    "min_ms": 53.166,
-    "p25_ms": 53.58925,
-    "p75_ms": 55.8135,
+    "mad_ms": 1.559,
+    "max_ms": 56.042,
+    "median_ms": 54.146,
+    "min_ms": 51.949,
+    "p25_ms": 53.19825,
+    "p75_ms": 55.775,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 53.251,
+      "ms": 54.744,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 53.776,
+      "ms": 53.685,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 55.016,
+      "ms": 54.607,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 53.702,
+      "ms": 53.393,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 53.23,
+      "ms": 55.732,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 56.001,
+      "ms": 56.042,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 57.075,
+      "ms": 55.904,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 56.152,
+      "ms": 53.569,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 53.166,
+      "ms": 51.949,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 55.751,
+      "ms": 52.479,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 54.376,
+      "ms": 52.614,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 55.002,
+      "ms": 56.002,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     53.251,
-     53.776,
-     55.016,
-     53.702,
-     53.23,
-     56.001,
-     57.075,
-     56.152,
-     53.166,
-     55.751,
-     54.376,
-     55.002
+     54.744,
+     53.685,
+     54.607,
+     53.393,
+     55.732,
+     56.042,
+     55.904,
+     53.569,
+     51.949,
+     52.479,
+     52.614,
+     56.002
     ]
    }
   },
   {
    "idx": 37,
-   "ms": 26.64,
+   "ms": 26.87,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
    "stats": {
-    "mad_ms": 0.1825,
-    "max_ms": 28.529,
-    "median_ms": 26.637,
-    "min_ms": 26.332,
-    "p25_ms": 26.559,
-    "p75_ms": 27.53175,
+    "mad_ms": 0.3395,
+    "max_ms": 28.216,
+    "median_ms": 26.8735,
+    "min_ms": 26.085,
+    "p25_ms": 26.38425,
+    "p75_ms": 27.07325,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 26.428,
+      "ms": 28.216,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.772,
+      "ms": 26.085,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.596,
+      "ms": 26.462,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.585,
+      "ms": 26.606,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.988,
+      "ms": 27.884,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.429,
+      "ms": 26.85,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.481,
+      "ms": 26.101,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.332,
+      "ms": 26.897,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.678,
+      "ms": 26.942,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 26.596,
+      "ms": 27.125,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 27.84,
+      "ms": 26.151,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.529,
+      "ms": 27.056,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     26.428,
-     26.772,
-     26.596,
-     26.585,
-     27.988,
-     27.429,
-     26.481,
-     26.332,
-     26.678,
-     26.596,
-     27.84,
-     28.529
+     28.216,
+     26.085,
+     26.462,
+     26.606,
+     27.884,
+     26.85,
+     26.101,
+     26.897,
+     26.942,
+     27.125,
+     26.151,
+     27.056
     ]
    }
   },
   {
    "idx": 38,
-   "ms": 12.11,
+   "ms": 12.05,
    "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
    "stats": {
-    "mad_ms": 0.1315,
-    "max_ms": 12.621,
-    "median_ms": 12.112,
-    "min_ms": 11.607,
-    "p25_ms": 12.01775,
-    "p75_ms": 12.3105,
+    "mad_ms": 0.24,
+    "max_ms": 13.182,
+    "median_ms": 12.051,
+    "min_ms": 11.609,
+    "p25_ms": 11.824,
+    "p75_ms": 12.2025,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 11.981,
+      "ms": 13.182,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.273,
+      "ms": 11.837,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.607,
+      "ms": 12.327,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.099,
+      "ms": 11.609,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.244,
+      "ms": 12.161,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.621,
+      "ms": 11.634,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.076,
+      "ms": 12.047,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.423,
+      "ms": 11.785,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.996,
+      "ms": 12.069,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.025,
+      "ms": 12.676,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.558,
+      "ms": 11.903,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 12.125,
+      "ms": 12.055,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     11.981,
-     12.273,
-     11.607,
-     12.099,
-     12.244,
-     12.621,
-     12.076,
-     12.423,
-     11.996,
-     12.025,
-     12.558,
-     12.125
+     13.182,
+     11.837,
+     12.327,
+     11.609,
+     12.161,
+     11.634,
+     12.047,
+     11.785,
+     12.069,
+     12.676,
+     11.903,
+     12.055
     ]
    }
   },
   {
    "idx": 39,
-   "ms": 6.98,
+   "ms": 6.86,
    "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
    "stats": {
-    "mad_ms": 0.1225,
-    "max_ms": 7.57,
-    "median_ms": 6.9785,
-    "min_ms": 6.842,
-    "p25_ms": 6.9165,
-    "p75_ms": 7.27975,
+    "mad_ms": 0.1955,
+    "max_ms": 7.573,
+    "median_ms": 6.8565,
+    "min_ms": 6.516,
+    "p25_ms": 6.72075,
+    "p75_ms": 7.1865,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 6.94,
+      "ms": 7.573,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.928,
+      "ms": 7.49,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.57,
+      "ms": 6.884,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.277,
+      "ms": 7.139,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.842,
+      "ms": 7.329,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.134,
+      "ms": 7.034,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.939,
+      "ms": 6.516,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.882,
+      "ms": 6.812,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.87,
+      "ms": 6.829,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.288,
+      "ms": 6.643,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.017,
+      "ms": 6.724,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.422,
+      "ms": 6.711,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     6.94,
-     6.928,
-     7.57,
-     7.277,
-     6.842,
-     7.134,
-     6.939,
-     6.882,
-     6.87,
-     7.288,
-     7.017,
-     7.422
+     7.573,
+     7.49,
+     6.884,
+     7.139,
+     7.329,
+     7.034,
+     6.516,
+     6.812,
+     6.829,
+     6.643,
+     6.724,
+     6.711
     ]
    }
   },
   {
    "idx": 40,
-   "ms": 100.68,
+   "ms": 101.49,
    "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
    "stats": {
-    "mad_ms": 0.568,
-    "max_ms": 102.144,
-    "median_ms": 100.682,
-    "min_ms": 99.647,
-    "p25_ms": 100.29975,
-    "p75_ms": 101.264,
+    "mad_ms": 0.4115,
+    "max_ms": 102.639,
+    "median_ms": 101.493,
+    "min_ms": 100.613,
+    "p25_ms": 101.156,
+    "p75_ms": 101.99225,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 100.392,
+      "ms": 101.411,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 100.403,
+      "ms": 101.907,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.703,
+      "ms": 100.613,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 100.92,
+      "ms": 102.255,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 100.676,
+      "ms": 101.18,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 99.87,
+      "ms": 102.248,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 100.688,
+      "ms": 102.639,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 102.144,
+      "ms": 101.838,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 99.647,
+      "ms": 101.575,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.159,
+      "ms": 101.384,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 101.579,
+      "ms": 100.979,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 100.023,
+      "ms": 101.084,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     100.392,
-     100.403,
-     101.703,
-     100.92,
-     100.676,
-     99.87,
-     100.688,
-     102.144,
-     99.647,
-     101.159,
-     101.579,
-     100.023
+     101.411,
+     101.907,
+     100.613,
+     102.255,
+     101.18,
+     102.248,
+     102.639,
+     101.838,
+     101.575,
+     101.384,
+     100.979,
+     101.084
     ]
    }
   },
   {
    "idx": 41,
-   "ms": 8.35,
+   "ms": 8.14,
    "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
    "stats": {
-    "mad_ms": 0.1245,
-    "max_ms": 11.117,
-    "median_ms": 8.354,
-    "min_ms": 8.109,
-    "p25_ms": 8.24775,
-    "p75_ms": 8.636,
+    "mad_ms": 0.2835,
+    "max_ms": 8.672,
+    "median_ms": 8.141,
+    "min_ms": 7.758,
+    "p25_ms": 7.9245,
+    "p75_ms": 8.468,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 8.617,
+      "ms": 8.537,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 11.117,
+      "ms": 8.367,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.452,
+      "ms": 8.672,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.693,
+      "ms": 8.651,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.212,
+      "ms": 8.035,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.248,
+      "ms": 7.769,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.71,
+      "ms": 7.758,
       "order_position": 1,
       "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 7.969,
+      "order_position": 3,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 7.878,
+      "order_position": 2,
+      "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
       "ms": 8.247,
-      "order_position": 3,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.289,
-      "order_position": 2,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.361,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.109,
+      "ms": 7.94,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.347,
+      "ms": 8.445,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     8.617,
-     11.117,
-     8.452,
-     8.693,
-     8.212,
-     8.248,
-     8.71,
+     8.537,
+     8.367,
+     8.672,
+     8.651,
+     8.035,
+     7.769,
+     7.758,
+     7.969,
+     7.878,
      8.247,
-     8.289,
-     8.361,
-     8.109,
-     8.347
+     7.94,
+     8.445
     ]
    }
   },
   {
    "idx": 42,
-   "ms": 5.67,
+   "ms": 5.58,
    "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A",
    "stats": {
-    "mad_ms": 0.211,
-    "max_ms": 7.241,
-    "median_ms": 5.673,
-    "min_ms": 5.176,
-    "p25_ms": 5.499,
-    "p75_ms": 5.8625,
+    "mad_ms": 0.128,
+    "max_ms": 6.047,
+    "median_ms": 5.5785,
+    "min_ms": 5.279,
+    "p25_ms": 5.505,
+    "p75_ms": 5.83825,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 5.54,
+      "ms": 5.802,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.528,
+      "ms": 6.047,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.948,
+      "ms": 5.279,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.777,
+      "ms": 5.966,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.412,
+      "ms": 5.502,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.834,
+      "ms": 5.506,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.654,
+      "ms": 5.441,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.692,
+      "ms": 5.947,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.241,
+      "ms": 5.581,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.176,
+      "ms": 5.576,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.241,
+      "ms": 5.697,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.097,
+      "ms": 5.571,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     5.54,
-     5.528,
-     5.948,
-     5.777,
-     5.412,
-     5.834,
-     5.654,
-     5.692,
-     7.241,
-     5.176,
-     5.241,
-     6.097
+     5.802,
+     6.047,
+     5.279,
+     5.966,
+     5.502,
+     5.506,
+     5.441,
+     5.947,
+     5.581,
+     5.576,
+     5.697,
+     5.571
     ]
    }
   },
@@ -5735,117 +5735,117 @@
    "ms": 7.94,
    "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN",
    "stats": {
-    "mad_ms": 0.397,
-    "max_ms": 9.29,
-    "median_ms": 7.9355,
-    "min_ms": 7.395,
-    "p25_ms": 7.64225,
-    "p75_ms": 8.46675,
+    "mad_ms": 0.31,
+    "max_ms": 8.298,
+    "median_ms": 7.9445,
+    "min_ms": 7.249,
+    "p25_ms": 7.30775,
+    "p75_ms": 8.22325,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 7.835,
+      "ms": 7.277,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.29,
+      "ms": 7.705,
       "order_position": 3,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.395,
+      "ms": 8.298,
       "order_position": 2,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.734,
+      "ms": 8.23,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.134,
+      "ms": 7.887,
       "order_position": 3,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.036,
+      "ms": 8.032,
       "order_position": 2,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.544,
+      "ms": 7.249,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.349,
+      "ms": 8.279,
       "order_position": 3,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.675,
+      "ms": 7.312,
       "order_position": 2,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.82,
+      "ms": 8.002,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.533,
+      "ms": 7.295,
       "order_position": 3,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.206,
+      "ms": 8.221,
       "order_position": 2,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     7.835,
-     9.29,
-     7.395,
-     7.734,
-     8.134,
-     8.036,
-     7.544,
-     8.349,
-     7.675,
-     8.82,
-     7.533,
-     9.206
+     7.277,
+     7.705,
+     8.298,
+     8.23,
+     7.887,
+     8.032,
+     7.249,
+     8.279,
+     7.312,
+     8.002,
+     7.295,
+     8.221
     ]
    }
   }
  ],
  "suite": "clickbench-10m",
  "threads": 32,
- "total_ms": 2146.0,
+ "total_ms": 2130.3,
  "version": "0.1.53"
 }
