@@ -29,6 +29,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source runner/lib/identity.sh
+source runner/lib/external.sh
 
 DATA="${1:?usage: run_tickops.sh <data-dir> [threads] [-- gen_data.py args...]}"
 shift
@@ -94,6 +95,7 @@ env POLARS_MAX_THREADS="$THREADS" "$VENV/python" "$HARNESS/harness.py" capture \
 "$VENV/python" "$HARNESS/harness.py" check --out-dir "$OUT" --engines keyten,duckdb,polars
 if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
   echo "TickOps correctness gate passed; timing skipped by request"
+  run_external_suite tickops "$DATA" "$THREADS"
   exit 0
 fi
 
@@ -120,3 +122,5 @@ python3 runner/convert_tickops.py "$OUT/keyten.csv" keyten "$(ver keyten)" "$MAC
 python3 runner/convert_tickops.py "$OUT/duckdb.csv" duckdb "$(ver duckdb)" "$MACHINE" results/tickops/duckdb.json "$METADATA"
 python3 runner/convert_tickops.py "$OUT/polars.csv" polars "$(ver polars)" "$MACHINE" results/tickops/polars.json "$METADATA"
 echo "results written to results/tickops/ — open board/index.html to view"
+
+run_external_suite tickops "$DATA" "$THREADS"

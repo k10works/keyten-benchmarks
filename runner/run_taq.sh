@@ -19,8 +19,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source runner/lib/identity.sh
+source runner/lib/external.sh
 
 DATA="${1:?usage: run_taq.sh <data-dir> [threads]}"
+DATA="$(realpath "$DATA")"
 THREADS="${2:-$(nproc)}"
 WORK=".work"
 
@@ -89,6 +91,7 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
 fi
 if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
   echo "TAQ timing skipped by request"
+  run_external_suite taq "$DATA" "$THREADS"
   exit 0
 fi
 
@@ -118,3 +121,5 @@ python3 runner/convert_taq.py "$WORK/keyten.psv" keyten "$(ver keyten)" "$MACHIN
 python3 runner/convert_taq.py "$WORK/duckdb.psv" duckdb "$(ver duckdb)" "$MACHINE" results/taq-small/duckdb.json "$METADATA"
 python3 runner/convert_taq.py "$WORK/polars.psv" polars "$(ver polars)" "$MACHINE" results/taq-small/polars.json "$METADATA"
 echo "results written to results/taq-small/ — open board/index.html to view"
+
+run_external_suite taq "$DATA" "$THREADS"

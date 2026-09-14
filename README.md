@@ -1,7 +1,8 @@
 # Keyten benchmarks
 
 Reproducible, same-machine benchmark results for [Keyten](https://k10.works/)
-against DuckDB and Polars — and the board that publishes them:
+against DuckDB and Polars, with opt-in QuestDB and [l](https://lv1.sh/)
+adapters for all four suites — and the board that publishes them:
 **[bench.k10.works](https://bench.k10.works/)**.
 
 The rules, applied to every published number:
@@ -67,6 +68,22 @@ run; a full day or a quick smoke test:
 ./runner/run_tickops.sh .work/tickops
 ./runner/run_tickops.sh .work/tickops-tiny 4 -- --scale 0.005
 ```
+
+## QuestDB and l
+
+Both engines use their official Python SDKs and local server binaries. Run
+one suite directly, including a fresh DuckDB correctness reference:
+
+```bash
+./runner/run_external.sh tickops .work/tickops-tiny --threads 4
+```
+
+The same command accepts `taq`, `clickbench`, and `pdsh`. To append the new
+engines to an existing suite runner, set `BENCH_EXTRA_ENGINES=questdb,l`.
+New runs have separate results and a board URL; published results are not
+replaced. See [setup, commands, timing boundaries, and coverage](adapters/external/README.md).
+The PyPI/default-settings rules above describe the existing embedded-engine
+results; external runs record their server binaries and worker configuration.
 
 ## Suites
 

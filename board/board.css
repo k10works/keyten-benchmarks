@@ -12,6 +12,8 @@
   --c-keyten: #7fa112;
   --c-duckdb: #4a8ed0;
   --c-polars: #c65c8d;
+  --c-questdb: #e09b45;
+  --c-l: #9b83d4;
 }
 
 * { box-sizing: border-box; margin: 0; }

@@ -1,0 +1,5 @@
+{
+  "4": "\n        WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT sym, ts,\n               CASE WHEN COUNT(ret) OVER w < 2 THEN NULL ELSE STDDEV_SAMP(ret) OVER w END AS roll_std_5m\n        FROM r\n        WINDOW w AS (PARTITION BY sym ORDER BY ts RANGE BETWEEN '5' MINUTE PRECEDING AND CURRENT ROW)\n    ",
+  "6": "SELECT t.sym, t.ts, t.price, t.size, q.bid, q.ask FROM trades t ASOF JOIN quotes q ON (sym)",
+  "7": "SELECT t.sym, t.ts, t.price, t.size, q.bid, q.ask FROM trades t ASOF JOIN quotes q ON (sym) TOLERANCE 5s"
+}

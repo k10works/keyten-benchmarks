@@ -2,8 +2,8 @@
 // The board: loads results/index.json plus one JSON per engine and renders a
 // summary (common-subset totals) and a per-query table with relative bars.
 
-const COLORS = { keyten: "var(--c-keyten)", duckdb: "var(--c-duckdb)", polars: "var(--c-polars)" };
-const RESULTS = "../results";
+const COLORS = { keyten: "var(--c-keyten)", duckdb: "var(--c-duckdb)", polars: "var(--c-polars)", questdb: "var(--c-questdb)", l: "var(--c-l)" };
+const RESULTS = new URLSearchParams(location.search).get("results") || "../results";
 
 const $ = (sel) => document.querySelector(sel);
 

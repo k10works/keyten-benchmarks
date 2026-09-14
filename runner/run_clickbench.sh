@@ -20,6 +20,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source runner/lib/identity.sh
+source runner/lib/external.sh
 SAMPLES="${BENCH_SAMPLES:-12}"
 WARMUPS="${BENCH_WARMUPS:-2}"
 if ! [[ "$SAMPLES" =~ ^[1-9][0-9]*$ && "$WARMUPS" =~ ^(0|[1-9][0-9]*)$ ]]; then
@@ -103,6 +104,7 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
     --report "$WORK/clickbench-correctness-report.json"
   if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
     echo "ClickBench correctness gate passed; timing skipped by request"
+    run_external_suite clickbench "$HITS" "${BENCH_THREADS:-$(nproc)}"
     exit 0
   fi
 fi
@@ -170,3 +172,5 @@ V() { "$WORK/venv/bin/python" -c "import $1;print($1.__version__)"; }
 python3 runner/convert_generic.py clickbench "$WORK/cb_keyten.txt" keyten "$(V keyten)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/keyten.json "$METADATA"
 python3 runner/convert_generic.py clickbench "$WORK/cb_polars.txt" polars "$(V polars)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/polars.json "$METADATA"
 python3 runner/convert_generic.py clickbench "$WORK/cb_duckdb.txt" duckdb "$(V duckdb)" "$MACHINE" adapters/clickbench-duckdb-queries.sql results/clickbench-10m/duckdb.json "$METADATA"
+
+run_external_suite clickbench "$HITS" "${BENCH_THREADS:-$(nproc)}"

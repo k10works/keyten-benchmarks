@@ -1,0 +1,10 @@
+{
+  "1": "0!select open:first price,high:max price,low:min price,close:last price,volume:sum size,vwap:size wavg price by sym,minute:0D00:01 xbar ts from trades",
+  "2": "select sym,ts,ret from update ret:log[price]-prev log price by sym from trades",
+  "3": "{r:update ret:log[price]-prev log price by sym from trades;r:update roll_std:?[20=20 msum not null ret;(20 mdev ret)*sqrt 20%19;0n] by sym from r;select sym,ts,roll_std from r}[]",
+  "4": null,
+  "5": null,
+  "6": "select sym,ts,price,size,bid,ask from aj[`sym`ts;trades;quotes]",
+  "7": "{r:aj[`sym`ts;trades;update qts:ts from quotes];select sym,ts,price,size,bid:?[(ts-qts)<=0D00:00:05;bid;0n],ask:?[(ts-qts)<=0D00:00:05;ask;0n] from r}[]",
+  "8": "{r:0!select val:sum price*size by sym,minute:0D00:01 xbar ts from trades;r:update rnk:1+rank neg val,n_syms:count i by minute from r;0!select top_decile_count:sum rnk<=ceiling .1*n_syms by minute from r}[]"
+}

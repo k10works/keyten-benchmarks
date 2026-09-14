@@ -23,6 +23,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source runner/lib/identity.sh
+source runner/lib/external.sh
 SCALE="${1:-10.0}"
 ROOT="$PWD"
 WORK="$ROOT/.work"
@@ -174,6 +175,7 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
   if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
     record_metadata with-stores
     echo "PDS-H correctness gate passed; timing skipped by request"
+    run_external_suite pdsh "$RUN_DIR/data/tables/scale-$SCALE" "$THREADS" --scale-factor "$SCALE"
     exit 0
   fi
 fi
@@ -232,3 +234,5 @@ for e in keyten polars duckdb; do
   python3 runner/convert_generic.py pdsh "$RUN_DIR/output/run/timings.csv" "$e" "$(VER "$e")" "$MACHINE" \
     "$RESULT_DIR/$e.json" "$METADATA"
 done
+
+run_external_suite pdsh "$RUN_DIR/data/tables/scale-$SCALE" "$THREADS" --scale-factor "$SCALE"
