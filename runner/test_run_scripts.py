@@ -72,7 +72,8 @@ class WheelInstallContractTests(TestCase):
         self.assertIn('--samples "$SAMPLES" --warmups "$WARMUPS"', script)
         self.assertIn('run_board*.py >> "../../$out"', script)
         self.assertIn('>> "$WORK/cb_duckdb.txt"', script)
-        self.assertIn('wait "$(cat "$WORK/srv.pid")"', script)
+        self.assertIn('bench_wait_daemon "$BENCH_DAEMON_PID"', script)
+        self.assertIn('trap bench_stop_daemon EXIT', script)
         subprocess.run(["bash", "-n", str(RUNNER / "run_clickbench.sh")], check=True)
 
     def _identity_run(self, change=False, wheel=None):

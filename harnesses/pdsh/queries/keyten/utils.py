@@ -1,5 +1,6 @@
 import hashlib
 import pathlib
+from functools import lru_cache
 
 from datetime import date as _pydate
 from typing import Any, Callable
@@ -22,6 +23,7 @@ def date(y: int, m: int, d: int) -> kt.Expr:
     return kt.lit((_pydate(y, m, d) - _EPOCH).days).cast("date")
 
 
+@lru_cache(maxsize=1)
 def engine_stamp() -> str:
     """sha256 of the keyten binary answering this process: the only identity that survives version-string collisions."""
     so = pathlib.Path(kt.__file__).parent / "_keyten.abi3.so"
@@ -109,6 +111,9 @@ def round2(expr: kt.Expr) -> kt.Expr:
 
 
 def run_query(query_number: int, query: Callable[[], Any]) -> None:
+    # Hash the process-constant engine once, outside all query timers.
+    # The outer runner also verifies the installed binary before/after the suite.
+    engine_stamp()
     run_query_generic(
         query,
         query_number,

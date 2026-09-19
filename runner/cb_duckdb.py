@@ -18,6 +18,9 @@ parser.add_argument("--capture-dir", type=Path)
 args = parser.parse_args()
 
 con = duckdb.connect()
+# Raw EventTime values are UTC epoch seconds, matching the other adapters.
+# Casting TIMESTAMPTZ to TIMESTAMP otherwise applies the host's local zone.
+con.execute("SET TimeZone = 'UTC'")
 t0 = time.time()
 # The canonical queries expect typed Date/DateTime columns; the shared
 # parquet stores them as raw ints, so load through the typed casts.

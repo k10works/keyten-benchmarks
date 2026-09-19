@@ -9,15 +9,15 @@
   "benchmark_repo": {
    "dirty": true,
    "dirty_paths": [
-    "adapters/clickbench-keyten/run_board_native.py",
-    "adapters/clickbench-keyten/server_native.py",
-    "adapters/clickbench-polars/run_board.py",
+    "adapters/clickbench-keyten/queries.sql",
+    "adapters/clickbench-polars/queries.sql",
     "adapters/clickbench-polars/server_10m.py",
     "adapters/pdsh-keyten/utils.py",
     "harnesses/pdsh/queries/keyten/utils.py",
     "results/clickbench-10m/duckdb.json",
     "results/clickbench-10m/keyten.json",
     "results/clickbench-10m/polars.json",
+    "results/index.json",
     "results/pdsh-sf10/duckdb.json",
     "results/pdsh-sf10/keyten.json",
     "results/pdsh-sf10/polars.json",
@@ -27,36 +27,20 @@
     "results/tickops/duckdb.json",
     "results/tickops/keyten.json",
     "results/tickops/polars.json",
-    "runner/benchmark_metadata.py",
     "runner/cb_duckdb.py",
     "runner/check_clickbench_results.py",
-    "runner/convert_generic.py",
-    "runner/convert_taq.py",
-    "runner/convert_tickops.py",
+    "runner/check_taq_results.py",
     "runner/run_clickbench.sh",
-    "runner/run_pdsh.sh",
-    "runner/run_taq.sh",
-    "runner/run_tickops.sh",
-    "runner/test_benchmark_metadata.py",
     "runner/test_check_clickbench_results.py",
-    "runner/test_convert_generic.py",
-    "adapters/pdsh-keyten/__pycache__/utils.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_duckdb.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_keyten.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_polars.cpython-314.pyc",
-    "runner/__pycache__/convert_generic.cpython-314.pyc",
-    "runner/__pycache__/materialize.cpython-314.pyc",
-    "runner/__pycache__/native_layout.cpython-314.pyc",
-    "runner/__pycache__/test_native_layout.cpython-314.pyc",
-    "runner/__pycache__/test_store_stamp.cpython-314.pyc",
-    "runner/lib/identity.sh",
-    "runner/native_layout.py",
-    "runner/test_clickbench_adapters.py",
-    "runner/test_native_layout.py",
+    "runner/test_check_taq_results.py",
     "runner/test_run_scripts.py",
-    "runner/test_store_stamp.py"
+    "runner/lib/daemon.sh",
+    "runner/test_clickbench_semantics.py",
+    "runner/test_clickbench_ties.py",
+    "runner/test_daemon.py",
+    "runner/test_pdsh_identity.py"
    ],
-   "sha": "cdbd15f3d4eaa741824a930b2c60020b278fb228",
+   "sha": "8851975c1100b273b29550fa289b8cb516f4a83e",
    "source_dirty": true
   },
   "engine_modes": {
@@ -79,24 +63,24 @@
       "version": "1.5.5"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
     "version": "1.5.5"
    },
    "keyten": {
     "build": {
-     "build_state": "clean",
-     "git_sha": "135900b5ab8fa49c405975629a8885a33462fe9f"
+     "build_state": "dirty",
+     "git_sha": "13ea245776e733c104de8b3bff751f08775a3d07"
     },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "0c1922feb2c4b238b98864c1c69d6186585f834e29639dc5d14f3ec834bbde8e"
+       "keyten/_keyten.abi3.so": "7bf9fd648c159701f92f96b3ed33287dde9b38a7eed5250b0c2551d2d5f343be"
       },
-      "sha256": "688fbaecc84bd3f4bc5fda823aa2ef7117e80486745b200c0b6a0099258d91c2",
+      "sha256": "a586e1728833c37ab22cac3ae16569e52702297dd47fe1461d277c1c6d52829d",
       "version": "0.1.53"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
     "version": "0.1.53"
    },
    "polars": {
@@ -118,11 +102,12 @@
       "version": "1.44.2"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
     "version": "1.44.2"
    }
   },
   "environment": [
+   "PyYAML==6.0.3",
    "annotated-doc==0.0.5",
    "annotated-types==0.8.0",
    "anyio==4.15.1",
@@ -130,15 +115,23 @@
    "duckdb==1.5.5",
    "fastapi==0.141.1",
    "h11==0.16.0",
-   "idna==3.19",
+   "idna==3.20",
    "keyten==0.1.53",
+   "linetimer==0.1.5",
+   "numexpr==2.14.2",
    "numpy==2.5.3",
+   "pandas==3.0.6",
    "pip==25.1.1",
    "polars-runtime-32==1.44.2",
    "polars==1.44.2",
-   "pyarrow==25.0.1",
+   "psutil==7.2.2",
+   "pyarrow==24.0.0",
+   "pydantic-settings==2.15.0",
    "pydantic==2.13.5",
    "pydantic_core==2.46.5",
+   "python-dateutil==2.9.0.post0",
+   "python-dotenv==1.2.3",
+   "six==1.17.0",
    "starlette==1.6.0",
    "typing-inspection==0.4.4",
    "typing_extensions==4.16.0",
@@ -171,7 +164,7 @@
    "warmups_per_query": 0
   },
   "native_stores": [],
-  "recorded_at": "2026-09-14T10:23:52.792037+00:00",
+  "recorded_at": "2026-09-19T09:11:15.094033+00:00",
   "workers": 32
  },
  "engine": "duckdb",
@@ -179,49 +172,49 @@
  "machine": {
   "cores": 32,
   "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
-  "date": "2026-09-14",
+  "date": "2026-09-19",
   "os": "Linux x86_64",
   "ram_gb": 125
  },
  "queries": [
   {
    "idx": 1,
-   "ms": 171.94,
+   "ms": 174.25,
    "query": "SELECT sym, date_trunc('minute', ts) AS minute,\n               arg_min(price, ts) AS open, max(price) AS high, min(price) AS low,\n               arg_max(price, "
   },
   {
    "idx": 2,
-   "ms": 564.17,
+   "ms": 562.55,
    "query": "SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n        FROM trades"
   },
   {
    "idx": 3,
-   "ms": 1211.46,
+   "ms": 1220.9,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s"
   },
   {
    "idx": 4,
-   "ms": 1898.3,
+   "ms": 1890.48,
    "query": "WITH r AS (\n            SELECT sym, ts, ln(price) - lag(ln(price)) OVER (PARTITION BY sym ORDER BY ts) AS ret\n            FROM trades\n        )\n        SELECT s"
   },
   {
    "idx": 6,
-   "ms": 3144.42,
+   "ms": 3147.32,
    "query": "SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size, q.bid AS bid, q.ask AS ask\n        FROM trades t ASOF LEFT JOIN quotes q ON t.sym = q.sym AND"
   },
   {
    "idx": 7,
-   "ms": 3211.22,
+   "ms": 3205.53,
    "query": "WITH matched AS (\n            SELECT t.sym AS sym, t.ts AS ts, t.price AS price, t.size AS size,\n                   q.ts AS qts, q.bid AS qbid, q.ask AS qask\n  "
   },
   {
    "idx": 8,
-   "ms": 111.64,
+   "ms": 103.0,
    "query": "WITH per_minute AS (\n            SELECT sym, date_trunc('minute', ts) AS minute, sum(price * size) AS value\n            FROM trades\n            GROUP BY sym, mi"
   }
  ],
  "suite": "tickops",
  "threads": 32,
- "total_ms": 10313.1,
+ "total_ms": 10304.0,
  "version": "1.5.5"
 }

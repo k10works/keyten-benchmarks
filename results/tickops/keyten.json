@@ -9,15 +9,15 @@
   "benchmark_repo": {
    "dirty": true,
    "dirty_paths": [
-    "adapters/clickbench-keyten/run_board_native.py",
-    "adapters/clickbench-keyten/server_native.py",
-    "adapters/clickbench-polars/run_board.py",
+    "adapters/clickbench-keyten/queries.sql",
+    "adapters/clickbench-polars/queries.sql",
     "adapters/clickbench-polars/server_10m.py",
     "adapters/pdsh-keyten/utils.py",
     "harnesses/pdsh/queries/keyten/utils.py",
     "results/clickbench-10m/duckdb.json",
     "results/clickbench-10m/keyten.json",
     "results/clickbench-10m/polars.json",
+    "results/index.json",
     "results/pdsh-sf10/duckdb.json",
     "results/pdsh-sf10/keyten.json",
     "results/pdsh-sf10/polars.json",
@@ -27,36 +27,24 @@
     "results/tickops/duckdb.json",
     "results/tickops/keyten.json",
     "results/tickops/polars.json",
-    "runner/benchmark_metadata.py",
     "runner/cb_duckdb.py",
     "runner/check_clickbench_results.py",
+    "runner/check_taq_results.py",
     "runner/convert_generic.py",
-    "runner/convert_taq.py",
-    "runner/convert_tickops.py",
     "runner/run_clickbench.sh",
     "runner/run_pdsh.sh",
     "runner/run_taq.sh",
     "runner/run_tickops.sh",
-    "runner/test_benchmark_metadata.py",
     "runner/test_check_clickbench_results.py",
-    "runner/test_convert_generic.py",
-    "adapters/pdsh-keyten/__pycache__/utils.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_duckdb.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_keyten.cpython-314.pyc",
-    "harnesses/tickops/__pycache__/queries_polars.cpython-314.pyc",
-    "runner/__pycache__/convert_generic.cpython-314.pyc",
-    "runner/__pycache__/materialize.cpython-314.pyc",
-    "runner/__pycache__/native_layout.cpython-314.pyc",
-    "runner/__pycache__/test_native_layout.cpython-314.pyc",
-    "runner/__pycache__/test_store_stamp.cpython-314.pyc",
-    "runner/lib/identity.sh",
-    "runner/native_layout.py",
-    "runner/test_clickbench_adapters.py",
-    "runner/test_native_layout.py",
+    "runner/test_check_taq_results.py",
     "runner/test_run_scripts.py",
-    "runner/test_store_stamp.py"
+    "runner/lib/daemon.sh",
+    "runner/test_clickbench_semantics.py",
+    "runner/test_clickbench_ties.py",
+    "runner/test_daemon.py",
+    "runner/test_pdsh_identity.py"
    ],
-   "sha": "cdbd15f3d4eaa741824a930b2c60020b278fb228",
+   "sha": "8851975c1100b273b29550fa289b8cb516f4a83e",
    "source_dirty": true
   },
   "engine_modes": {
@@ -79,24 +67,24 @@
       "version": "1.5.5"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
     "version": "1.5.5"
    },
    "keyten": {
     "build": {
-     "build_state": "clean",
-     "git_sha": "135900b5ab8fa49c405975629a8885a33462fe9f"
+     "build_state": "dirty",
+     "git_sha": "13ea245776e733c104de8b3bff751f08775a3d07"
     },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "0c1922feb2c4b238b98864c1c69d6186585f834e29639dc5d14f3ec834bbde8e"
+       "keyten/_keyten.abi3.so": "26ea6597c34c3a7c1469bf026960c0d3e44e0c20451943601057a42cf72d6d47"
       },
-      "sha256": "688fbaecc84bd3f4bc5fda823aa2ef7117e80486745b200c0b6a0099258d91c2",
+      "sha256": "7c21009eebc960cfcf99eb1d8719cc1d78a37a1d19ab5a3c2c42d1b5a55a03bb",
       "version": "0.1.53"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
     "version": "0.1.53"
    },
    "polars": {
@@ -114,15 +102,16 @@
       "native_artifacts": {
        "_polars_runtime_32/_polars_runtime.abi3.so": "bd7cdb9876c63ae705bd918423eb5812e7746a3b9379501cf4f0707e5c151736"
       },
-      "sha256": "6a79cb2ec3f69fde9b3022f209d1464f0a822576e6ffabfe1a304550df6c08e0",
+      "sha256": "1321c3c4f78b3df7088925fb4d679073f87007b9a6d690697bc3539db91b70f2",
       "version": "1.44.2"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
     "version": "1.44.2"
    }
   },
   "environment": [
+   "PyYAML==6.0.3",
    "annotated-doc==0.0.5",
    "annotated-types==0.8.0",
    "anyio==4.15.1",
@@ -130,15 +119,23 @@
    "duckdb==1.5.5",
    "fastapi==0.141.1",
    "h11==0.16.0",
-   "idna==3.19",
+   "idna==3.20",
    "keyten==0.1.53",
+   "linetimer==0.1.5",
+   "numexpr==2.14.2",
    "numpy==2.5.3",
+   "pandas==3.0.6",
    "pip==25.1.1",
    "polars-runtime-32==1.44.2",
    "polars==1.44.2",
-   "pyarrow==25.0.1",
+   "psutil==7.2.2",
+   "pyarrow==24.0.0",
+   "pydantic-settings==2.15.0",
    "pydantic==2.13.5",
    "pydantic_core==2.46.5",
+   "python-dateutil==2.9.0.post0",
+   "python-dotenv==1.2.3",
+   "six==1.17.0",
    "starlette==1.6.0",
    "typing-inspection==0.4.4",
    "typing_extensions==4.16.0",
@@ -171,7 +168,7 @@
    "warmups_per_query": 0
   },
   "native_stores": [],
-  "recorded_at": "2026-09-14T10:23:52.792037+00:00",
+  "recorded_at": "2026-09-19T12:38:08.141499+00:00",
   "workers": 32
  },
  "engine": "keyten",
@@ -179,54 +176,54 @@
  "machine": {
   "cores": 32,
   "cpu": "AMD Ryzen 9 5950X 16-Core Processor",
-  "date": "2026-09-14",
+  "date": "2026-09-19",
   "os": "Linux x86_64",
   "ram_gb": 125
  },
  "queries": [
   {
    "idx": 1,
-   "ms": 114.74,
+   "ms": 126.34,
    "query": "trades.group_by(['sym', col('ts').truncate('1m')]).agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).collect()"
   },
   {
    "idx": 2,
-   "ms": 283.91,
+   "ms": 283.88,
    "query": "trades.with_columns([col('price').log().diff().over('sym').alias('ret')]).select(['sym','ts','ret']).collect()"
   },
   {
    "idx": 3,
-   "ms": 378.07,
+   "ms": 362.94,
    "query": "ret.rolling_std(20).over('sym')"
   },
   {
    "idx": 4,
-   "ms": 389.33,
+   "ms": 392.43,
    "query": "ret.rolling_std_by('ts', '5m').over('sym')"
   },
   {
    "idx": 5,
-   "ms": 353.81,
+   "ms": 364.99,
    "query": "ret.ewm_std(span=20).over('sym')"
   },
   {
    "idx": 6,
-   "ms": 866.11,
+   "ms": 862.65,
    "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward').collect()"
   },
   {
    "idx": 7,
-   "ms": 904.73,
+   "ms": 891.72,
    "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward', tolerance='5s').collect()"
   },
   {
    "idx": 8,
-   "ms": 143.75,
+   "ms": 158.78,
    "query": "value.rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_in_minute), summed per minute"
   }
  ],
  "suite": "tickops",
  "threads": 32,
- "total_ms": 3434.4,
+ "total_ms": 3443.7,
  "version": "0.1.53"
 }

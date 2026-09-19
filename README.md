@@ -46,6 +46,12 @@ README.md`), then point the runner at the rowgroup directory:
 ./runner/run_taq.sh <data>/small/parquet/rowgroup
 ```
 
+TAQ correctness checks complete result rows before timing. Q32 permits only
+output reordering within identical `(sym, time)` keys, matching its SQL
+`ORDER BY`; a one-to-one comparison still checks every value and duplicate
+count, including the moving VWAP attached to each row. Numeric tolerances
+are unchanged. Reordered groups larger than 512 rows fail closed.
+
 **PDS-H (SF10)** — table generation is driven by the vendored harness's
 Makefile (TPC-H derived; see `harnesses/pdsh/README.md`):
 
@@ -60,6 +66,14 @@ file with a retained hash/schema manifest, then run:
 python3 runner/derive_clickbench_10m.py hits.parquet hits10m.parquet
 ./runner/run_clickbench.sh hits10m.parquet
 ```
+
+Set `BENCH_PORT` to use a different local daemon port (default `8000`).
+The runner also accepts the legacy `BENCH_POLARS_PORT` setting and gives both
+adapters the same port; conflicting values fail before setup. Daemon startup
+has a 180-second deadline, configurable with `BENCH_STARTUP_TIMEOUT` (1–3600
+seconds). A child that exits before readiness fails immediately. The runner
+cleans up its own daemon on success or failure and refuses to use an existing
+service answering `/health` on that port.
 
 **Tick ops** — synthetic market data is generated deterministically on first
 run; a full day or a quick smoke test:

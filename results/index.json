@@ -2,31 +2,47 @@
   "suites": [
     {
       "id": "taq-small",
-      "title": "TAQ · market data",
+      "title": "TAQ \u00b7 market data",
       "dataset": "One simulated market day: 9.4M quotes, 0.6M trades, sorted by symbol and time",
-      "note": "53 queries over the NYSETAQBenchmarks in-memory suite: filters, aggregations, per-symbol windows, asof joins, OHLC bars. Best of three runs per query, 8 threads, all engines over the same Parquet input.",
-      "engines": ["keyten", "duckdb", "polars"]
+      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "engines": [
+        "keyten",
+        "duckdb",
+        "polars"
+      ]
     },
     {
       "id": "clickbench-10m",
-      "title": "ClickBench · web analytics",
+      "title": "ClickBench \u00b7 web analytics",
       "dataset": "10M-row subset of the public ClickBench hits dataset",
-      "note": "The standard 43 ClickBench queries; each engine queries its own in-memory representation of the same rows (keyten its native store, polars a scanned Parquet, duckdb an in-memory table). Warm, best of three per query.",
-      "engines": ["keyten", "duckdb", "polars"]
+      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "engines": [
+        "keyten",
+        "duckdb",
+        "polars"
+      ]
     },
     {
       "id": "pdsh-sf10",
-      "title": "PDS-H SF10 · decision support",
-      "dataset": "PDS-H (TPC-H derived) at scale factor 10 — 60M-row lineitem",
-      "note": "22 decision-support queries via the polars-benchmark harness, in-memory (\"skip\") IO for every engine. Best of three per query after a warm-up pass. Derived from TPC-H; results are not comparable to official TPC results.",
-      "engines": ["keyten", "duckdb", "polars"]
+      "title": "PDS-H SF10 \u00b7 decision support",
+      "dataset": "PDS-H (TPC-H derived) at scale factor 10 \u2014 60M-row lineitem",
+      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "engines": [
+        "keyten",
+        "duckdb",
+        "polars"
+      ]
     },
     {
       "id": "tickops",
-      "title": "Tick ops · quant workloads",
+      "title": "Tick ops \u00b7 quant workloads",
       "dataset": "One synthetic market day: 20M trades, 60M quotes, 2,000 symbols, sorted by symbol and time",
-      "note": "Eight queries over tick data: 1m OHLCV bars with in-agg VWAP, log returns, rolling volatility by row count and by 5-minute window, exponential moving volatility, asof joins (backward, and with 5s tolerance), cross-sectional ranks. Best of three runs per query, thread count same as other suites, all engines over the same in-memory data. DuckDB has an honest gap on query 5 (no EWM-stddev function).",
-      "engines": ["keyten", "duckdb", "polars"]
+      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "engines": [
+        "keyten",
+        "duckdb",
+        "polars"
+      ]
     }
   ]
 }

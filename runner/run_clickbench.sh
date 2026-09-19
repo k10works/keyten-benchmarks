@@ -21,6 +21,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 source runner/lib/identity.sh
 source runner/lib/external.sh
+source runner/lib/daemon.sh
+bench_daemon_configure
+trap bench_stop_daemon EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 SAMPLES="${BENCH_SAMPLES:-12}"
 WARMUPS="${BENCH_WARMUPS:-2}"
 if ! [[ "$SAMPLES" =~ ^[1-9][0-9]*$ && "$WARMUPS" =~ ^(0|[1-9][0-9]*)$ ]]; then
@@ -51,23 +56,29 @@ fi
 
 run_daemon() { # dir, env, out, optional capture dir
   local dir="$1" envs="$2" out="$3" capture="${4:-}"
+  bench_daemon_available || return 1
   # exec so $! is the server itself; the pid file writes from repo root.
-  ( cd "$dir" && exec env $envs "../../$WORK/venv/bin/python" "$(ls server*.py)" ) &
-  echo $! > "$WORK/srv.pid"
-  until curl -sf http://127.0.0.1:${BENCH_PORT:-8000}/health >/dev/null 2>&1; do sleep 1; done
+  ( cd "$dir" && exec env $envs "$KEYTEN_PYTHON" "$(ls server*.py)" ) &
+  BENCH_DAEMON_PID=$!
+  echo "$BENCH_DAEMON_PID" > "$WORK/srv.pid"
+  if ! bench_wait_daemon "$BENCH_DAEMON_PID"; then
+    bench_stop_daemon
+    return 1
+  fi
   if [ -n "$capture" ]; then
-    ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py --capture-dir "$capture" > "../../$out" )
+    if ! ( cd "$dir" && "$KEYTEN_PYTHON" run_board*.py --capture-dir "$capture" > "../../$out" ); then
+      bench_stop_daemon
+      return 1
+    fi
   else
-    if ! ( cd "$dir" && "../../$WORK/venv/bin/python" run_board*.py >> "../../$out" ); then
-      kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
-      wait "$(cat "$WORK/srv.pid")" 2>/dev/null || true
+    if ! ( cd "$dir" && "$KEYTEN_PYTHON" run_board*.py >> "../../$out" ); then
+      bench_stop_daemon
       return 1
     fi
   fi
-  kill "$(cat "$WORK/srv.pid")" 2>/dev/null || true
-  wait "$(cat "$WORK/srv.pid")" 2>/dev/null || true
-  # Drain: the next daemon must not see this one's socket answering.
-  until ! curl -sf http://127.0.0.1:${BENCH_PORT:-8000}/health >/dev/null 2>&1; do sleep 1; done
+  # Reap our own server before starting another; never wait on an unrelated
+  # service which might subsequently bind the same port.
+  bench_stop_daemon
 }
 
 # keyten: first run converts the parquet into the engine's native store.
@@ -101,7 +112,7 @@ if [ "${BENCH_SKIP_CORRECTNESS:-false}" != true ]; then
     adapters/clickbench-duckdb-queries.sql --capture-dir "$CORRECTNESS/duckdb" \
     > "$WORK/cb_duckdb_capture.txt"
   "$WORK/venv/bin/python" runner/check_clickbench_results.py "$CORRECTNESS" \
-    --report "$WORK/clickbench-correctness-report.json"
+    --hits "$HITS" --report "$WORK/clickbench-correctness-report.json"
   if [ "${BENCH_CORRECTNESS_ONLY:-false}" = true ]; then
     echo "ClickBench correctness gate passed; timing skipped by request"
     run_external_suite clickbench "$HITS" "${BENCH_THREADS:-$(nproc)}"

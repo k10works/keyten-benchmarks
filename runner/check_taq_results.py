@@ -53,11 +53,45 @@ def _equal(left: str, right: str) -> bool:
     )
 
 
+# Q32's outer SQL ORDER BY is (sym, time), not a total order. The window
+# values remain part of each full row: only output order within equal keys is
+# unspecified. This does NOT admit alternative cumulative/window values.
+OUTPUT_TIE_KEYS = {32: ("sym", "time")}
+
+
+def _compare_tie_rows(left: list[list[str]], right: list[list[str]]) -> None:
+    if len(left) != len(right):
+        raise AssertionError(f"tie row-count mismatch: {len(left)} != {len(right)}")
+    same = lambda a, b: all(_equal(x, y) for x, y in zip(a, b))
+    if all(same(a, b) for a, b in zip(left, right)):
+        return
+    # Fail closed on an unexpectedly large ambiguous group. Ordinary ordered
+    # groups stream through the fast path; the observed SQL tie has two rows.
+    if len(left) > 512:
+        raise AssertionError("reordered tie exceeds the 512-row matching bound")
+    edges = [[j for j, b in enumerate(right) if same(a, b)] for a in left]
+    matched: dict[int, int] = {}
+
+    def augment(i: int, seen: set[int]) -> bool:
+        for j in edges[i]:
+            if j in seen:
+                continue
+            seen.add(j)
+            if j not in matched or augment(matched[j], seen):
+                matched[j] = i
+                return True
+        return False
+
+    if not all(augment(i, set()) for i in range(len(left))):
+        raise AssertionError("full-row value/multiplicity mismatch within output tie")
+
+
 def _compare_files(
     reference_name: str,
     reference_path: Path,
     candidate_name: str,
     candidate_path: Path,
+    tie_keys: tuple[str, ...] = (),
 ) -> None:
     sentinel = object()
     with reference_path.open(newline="", encoding="utf-8") as left_handle, \
@@ -80,6 +114,33 @@ def _compare_files(
                 f"{candidate_name}={candidate_columns}"
             )
         positions = [candidate_columns.index(column) for column in reference_columns]
+        if tie_keys:
+            if any(k not in reference_columns for k in tie_keys):
+                raise AssertionError(f"missing output tie keys: {tie_keys}")
+            key_positions = [reference_columns.index(k) for k in tie_keys]
+
+            def validated_rows(reader, columns, name, reorder):
+                for i, row in enumerate(reader):
+                    if len(row) != len(columns):
+                        raise AssertionError(f"malformed {name} row {i}")
+                    yield [row[j] for j in reorder]
+
+            key = lambda row: tuple(row[j] for j in key_positions)
+            left_groups = itertools.groupby(validated_rows(
+                left_reader, reference_columns, reference_name,
+                range(len(reference_columns))), key)
+            right_groups = itertools.groupby(validated_rows(
+                right_reader, candidate_columns, candidate_name, positions), key)
+            for a, b in itertools.zip_longest(left_groups, right_groups, fillvalue=sentinel):
+                if a is sentinel or b is sentinel:
+                    raise AssertionError("row-count/output-key mismatch")
+                if a[0] != b[0]:
+                    raise AssertionError(f"output-key/order mismatch: {a[0]} != {b[0]}")
+                try:
+                    _compare_tie_rows(list(a[1]), list(b[1]))
+                except AssertionError as error:
+                    raise AssertionError(f"output tie {a[0]}: {error}") from error
+            return
         for row_index, pair in enumerate(
             itertools.zip_longest(left_reader, right_reader, fillvalue=sentinel)
         ):
@@ -133,6 +194,8 @@ def compare_results(
 
     for query in _query_indices(querymeta):
         entry: dict = {"query": query, "status": "pass", "sha256": {}}
+        if query in OUTPUT_TIE_KEYS:
+            entry["comparison"] = {"ordered_keys": OUTPUT_TIE_KEYS[query], "within_tie": "full-row bijection", "matching_bound": 512}
         outputs: dict[str, Path] = {}
         for engine in engines:
             status = statuses.get(engine, {}).get(str(query), {})
@@ -156,7 +219,8 @@ def compare_results(
             for engine in engines[1:]:
                 try:
                     _compare_files(
-                        reference_name, outputs[reference_name], engine, outputs[engine]
+                        reference_name, outputs[reference_name], engine, outputs[engine],
+                        OUTPUT_TIE_KEYS.get(query, ()),
                     )
                 except (OSError, csv.Error, AssertionError) as error:
                     entry.setdefault("errors", []).append(str(error))
