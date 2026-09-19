@@ -4,7 +4,7 @@
       "id": "taq-small",
       "title": "TAQ \u00b7 market data",
       "dataset": "One simulated market day: 9.4M quotes, 0.6M trades, sorted by symbol and time",
-      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "note": "Keyten JIT refresh 2026-09-19, binary e2fe8f105170; full correctness passed. Competitor timings retained with original identities and dates. Separate five-sequence paired gate passed. Host condition for all engines: polling idle; C1/C2 disabled for all arms; restored by supervisor. Optional jit-dynasm development wheel; original-condition rejections remain documented. TAQ full-sequence paired follow-up passed; the original Q35 board flag is retained in the audit. Raw timing differences are not significance claims.",
       "engines": [
         "keyten",
         "duckdb",
@@ -15,7 +15,7 @@
       "id": "clickbench-10m",
       "title": "ClickBench \u00b7 web analytics",
       "dataset": "10M-row subset of the public ClickBench hits dataset",
-      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "note": "Keyten JIT refresh 2026-09-19, binary e2fe8f105170; full correctness passed. Competitor timings retained with original identities and dates. Separate five-sequence paired gate passed. Host condition for all engines: polling idle; C1/C2 disabled for all arms; restored by supervisor. Optional jit-dynasm development wheel; original-condition rejections remain documented. TAQ full-sequence paired follow-up passed; the original Q35 board flag is retained in the audit. Raw timing differences are not significance claims.",
       "engines": [
         "keyten",
         "duckdb",
@@ -26,7 +26,7 @@
       "id": "pdsh-sf10",
       "title": "PDS-H SF10 \u00b7 decision support",
       "dataset": "PDS-H (TPC-H derived) at scale factor 10 \u2014 60M-row lineitem",
-      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "note": "Keyten JIT refresh 2026-09-19, binary e2fe8f105170; full correctness passed. Competitor timings retained with original identities and dates. Separate five-sequence paired gate passed. Host condition for all engines: polling idle; C1/C2 disabled for all arms; restored by supervisor. Optional jit-dynasm development wheel; original-condition rejections remain documented. TAQ full-sequence paired follow-up passed; the original Q35 board flag is retained in the audit. Raw timing differences are not significance claims.",
       "engines": [
         "keyten",
         "duckdb",
@@ -37,7 +37,7 @@
       "id": "tickops",
       "title": "Tick ops \u00b7 quant workloads",
       "dataset": "One synthetic market day: 20M trades, 60M quotes, 2,000 symbols, sorted by symbol and time",
-      "note": "Keyten refresh 2026-09-19, binary 26ea6597c34c; full correctness passed. Competitor timings retained with original dates. Paired timing gate: reject. Isolated controls pass; Q1/Q8/Q17/Q20 sequence flags and earlier baseline Q11 tradeoff remain documented.",
+      "note": "Keyten JIT refresh 2026-09-19, binary e2fe8f105170; full correctness passed. Competitor timings retained with original identities and dates. Separate five-sequence paired gate passed. Host condition for all engines: polling idle; C1/C2 disabled for all arms; restored by supervisor. Optional jit-dynasm development wheel; original-condition rejections remain documented. TAQ full-sequence paired follow-up passed; the original Q35 board flag is retained in the audit. Raw timing differences are not significance claims.",
       "engines": [
         "keyten",
         "duckdb",

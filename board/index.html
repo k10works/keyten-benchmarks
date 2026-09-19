@@ -24,8 +24,9 @@
     <h1>Same machine, same data, same queries.</h1>
     <p>Every number on this page comes from the public harness in
     <a href="https://github.com/k10works/keyten-benchmarks">keyten-benchmarks</a>:
-    clone it, run one script, and it installs each engine from PyPI, prepares the
-    dataset, and produces this exact result format on your hardware.
+    the runners prepare the data, check query results, and record engine versions,
+    binaries, and measurement settings. Suite notes identify development builds,
+    host conditions, and reused competitor measurements where applicable.
     Lower is better throughout; per-query bars are scaled to the slowest engine
     on that query.</p>
   </section>
@@ -36,10 +37,10 @@
   <section id="detail"></section>
 
   <footer class="ft">
-    <p>Engines run through their current PyPI releases with default settings and an
-    equal thread count. Query results are checked for matching statuses and result
-    sizes before timings are compared; a query an engine does not complete is shown
-    as a gap and excluded from the common-subset total.</p>
+    <p>Engine versions and measurement protocols are recorded with each result.
+    Current runners validate complete query outputs before timing. A query an
+    engine does not complete is shown as a gap and excluded from the common-subset
+    total. Raw timing differences alone do not establish statistical significance.</p>
     <p>© 2026 Rayforce Technologies Inc. · MIT License · <a href="https://k10.works/">k10.works</a></p>
   </footer>
 </main>

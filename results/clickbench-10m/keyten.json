@@ -9,11 +9,6 @@
   "benchmark_repo": {
    "dirty": true,
    "dirty_paths": [
-    "adapters/clickbench-keyten/queries.sql",
-    "adapters/clickbench-polars/queries.sql",
-    "adapters/clickbench-polars/server_10m.py",
-    "adapters/pdsh-keyten/utils.py",
-    "harnesses/pdsh/queries/keyten/utils.py",
     "results/clickbench-10m/duckdb.json",
     "results/clickbench-10m/keyten.json",
     "results/clickbench-10m/polars.json",
@@ -27,24 +22,13 @@
     "results/tickops/duckdb.json",
     "results/tickops/keyten.json",
     "results/tickops/polars.json",
-    "runner/cb_duckdb.py",
-    "runner/check_clickbench_results.py",
-    "runner/check_taq_results.py",
     "runner/convert_generic.py",
     "runner/run_clickbench.sh",
     "runner/run_pdsh.sh",
     "runner/run_taq.sh",
-    "runner/run_tickops.sh",
-    "runner/test_check_clickbench_results.py",
-    "runner/test_check_taq_results.py",
-    "runner/test_run_scripts.py",
-    "runner/lib/daemon.sh",
-    "runner/test_clickbench_semantics.py",
-    "runner/test_clickbench_ties.py",
-    "runner/test_daemon.py",
-    "runner/test_pdsh_identity.py"
+    "runner/run_tickops.sh"
    ],
-   "sha": "8851975c1100b273b29550fa289b8cb516f4a83e",
+   "sha": "f089e8cf4e9b9103c7aca844d0a829bed7268793",
    "source_dirty": true
   },
   "engine_modes": {
@@ -67,24 +51,24 @@
       "version": "1.5.5"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-candidate-board-20260919/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
     "version": "1.5.5"
    },
    "keyten": {
     "build": {
      "build_state": "dirty",
-     "git_sha": "13ea245776e733c104de8b3bff751f08775a3d07"
+     "git_sha": "0c627a24b562d57d93ca4022ba7b250345405e80"
     },
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "26ea6597c34c3a7c1469bf026960c0d3e44e0c20451943601057a42cf72d6d47"
+       "keyten/_keyten.abi3.so": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06"
       },
-      "sha256": "7c21009eebc960cfcf99eb1d8719cc1d78a37a1d19ab5a3c2c42d1b5a55a03bb",
+      "sha256": "ec3a010d982cf8644f42553db9fd77ac5171159d005b8f4170fad3d066d40a57",
       "version": "0.1.53"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-candidate-board-20260919/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
     "version": "0.1.53"
    },
    "polars": {
@@ -106,7 +90,7 @@
       "version": "1.44.2"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-candidate-board-20260919/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
     "version": "1.44.2"
    }
   },
@@ -936,10 +920,10 @@
      }
     },
     "rows": 10000000,
-    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/payload-adaptive-v3-full-board-20260919/repo/.work/hits10m.k10dir"
+    "store": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-candidate-board-20260919/repo/.work/hits10m.k10dir"
    }
   ],
-  "recorded_at": "2026-09-19T12:33:18.295253+00:00",
+  "recorded_at": "2026-09-19T21:16:45.200955+00:00",
   "timing_refresh": {
    "competitor_timings": "retained with original identities and dates",
    "engines_rerun": [
@@ -963,128 +947,128 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 1.5,
+   "ms": 1.74,
    "query": "SELECT COUNT(*) FROM hits;",
    "stats": {
-    "mad_ms": 0.044,
-    "max_ms": 1.712,
-    "median_ms": 1.503,
-    "min_ms": 1.393,
-    "p25_ms": 1.44875,
-    "p75_ms": 1.52675,
+    "mad_ms": 0.031,
+    "max_ms": 1.837,
+    "median_ms": 1.735,
+    "min_ms": 1.672,
+    "p25_ms": 1.70525,
+    "p75_ms": 1.74825,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 1.451,
+      "ms": 1.732,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.405,
+      "ms": 1.735,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.507,
+      "ms": 1.735,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.393,
+      "ms": 1.683,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.499,
+      "ms": 1.672,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.442,
+      "ms": 1.77,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.514,
+      "ms": 1.819,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.467,
+      "ms": 1.837,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.609,
+      "ms": 1.697,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.532,
+      "ms": 1.741,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.525,
+      "ms": 1.708,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 1.712,
+      "ms": 1.739,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     1.451,
-     1.405,
-     1.507,
-     1.393,
-     1.499,
-     1.442,
-     1.514,
-     1.467,
-     1.609,
-     1.532,
-     1.525,
-     1.712
+     1.732,
+     1.735,
+     1.735,
+     1.683,
+     1.672,
+     1.77,
+     1.819,
+     1.837,
+     1.697,
+     1.741,
+     1.708,
+     1.739
     ]
    }
   },
   {
    "idx": 2,
-   "ms": 3.81,
+   "ms": 3.7,
    "query": "SELECT COUNT(*) FROM hits WHERE AdvEngineID <> 0;",
    "stats": {
-    "mad_ms": 0.1405,
-    "max_ms": 4.224,
-    "median_ms": 3.81,
-    "min_ms": 3.593,
-    "p25_ms": 3.65425,
-    "p75_ms": 3.91425,
+    "mad_ms": 0.063,
+    "max_ms": 3.865,
+    "median_ms": 3.704,
+    "min_ms": 3.553,
+    "p25_ms": 3.6445,
+    "p75_ms": 3.77525,
     "samples": [
      {
       "execution_mode": "native-scan",
@@ -1095,77 +1079,77 @@
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.596,
+      "ms": 3.794,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.7,
+      "ms": 3.553,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.867,
+      "ms": 3.865,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.905,
+      "ms": 3.715,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 4.224,
+      "ms": 3.837,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.851,
+      "ms": 3.665,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 4.114,
+      "ms": 3.621,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.593,
+      "ms": 3.645,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.942,
+      "ms": 3.74,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.634,
+      "ms": 3.643,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.661,
+      "ms": 3.693,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
@@ -1173,204 +1157,2125 @@
     ],
     "samples_ms": [
      3.769,
-     3.596,
-     3.7,
-     3.867,
-     3.905,
-     4.224,
-     3.851,
-     4.114,
-     3.593,
-     3.942,
-     3.634,
-     3.661
+     3.794,
+     3.553,
+     3.865,
+     3.715,
+     3.837,
+     3.665,
+     3.621,
+     3.645,
+     3.74,
+     3.643,
+     3.693
     ]
    }
   },
   {
    "idx": 3,
-   "ms": 3.13,
+   "ms": 3.11,
    "query": "SELECT SUM(AdvEngineID), COUNT(*), AVG(ResolutionWidth) FROM hits;",
    "stats": {
-    "mad_ms": 0.2205,
-    "max_ms": 3.516,
-    "median_ms": 3.1275,
-    "min_ms": 2.68,
-    "p25_ms": 2.87625,
-    "p75_ms": 3.23275,
+    "mad_ms": 0.0625,
+    "max_ms": 3.449,
+    "median_ms": 3.1055,
+    "min_ms": 3.037,
+    "p25_ms": 3.0595,
+    "p75_ms": 3.21925,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 2.806,
+      "ms": 3.061,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.126,
+      "ms": 3.068,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.129,
+      "ms": 3.037,
       "order_position": 1,
       "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.844,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.168,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.68,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.976,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.328,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.516,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.887,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.43,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.201,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     2.806,
-     3.126,
-     3.129,
-     2.844,
-     3.168,
-     2.68,
-     2.976,
-     3.328,
-     3.516,
-     2.887,
-     3.43,
-     3.201
-    ]
-   }
-  },
-  {
-   "idx": 4,
-   "ms": 3.14,
-   "query": "SELECT AVG(UserID) FROM hits;",
-   "stats": {
-    "mad_ms": 0.0595,
-    "max_ms": 4.355,
-    "median_ms": 3.1435,
-    "min_ms": 2.964,
-    "p25_ms": 3.08825,
-    "p75_ms": 3.22025,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.091,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.057,
-      "order_position": 1,
-      "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
       "ms": 3.136,
       "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.414,
-      "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.094,
+      "ms": 3.232,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.164,
+      "ms": 3.049,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 2.964,
+      "ms": 3.215,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.08,
+      "ms": 3.365,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 4.355,
+      "ms": 3.449,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.055,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.194,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.075,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     3.061,
+     3.068,
+     3.037,
+     3.136,
+     3.232,
+     3.049,
+     3.215,
+     3.365,
+     3.449,
+     3.055,
+     3.194,
+     3.075
+    ]
+   }
+  },
+  {
+   "idx": 4,
+   "ms": 3.29,
+   "query": "SELECT AVG(UserID) FROM hits;",
+   "stats": {
+    "mad_ms": 0.055,
+    "max_ms": 3.497,
+    "median_ms": 3.295,
+    "min_ms": 3.183,
+    "p25_ms": 3.237,
+    "p75_ms": 3.32825,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.311,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.232,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.237,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.237,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.497,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.286,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.347,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.183,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.322,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.264,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.422,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.304,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     3.311,
+     3.232,
+     3.237,
+     3.237,
+     3.497,
+     3.286,
+     3.347,
+     3.183,
+     3.322,
+     3.264,
+     3.422,
+     3.304
+    ]
+   }
+  },
+  {
+   "idx": 5,
+   "ms": 14.28,
+   "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
+   "stats": {
+    "mad_ms": 0.1435,
+    "max_ms": 14.473,
+    "median_ms": 14.275,
+    "min_ms": 13.837,
+    "p25_ms": 14.16,
+    "p75_ms": 14.40775,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.271,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.473,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.464,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.452,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 13.955,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.324,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.189,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.393,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 13.837,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.279,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.178,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 14.106,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     14.271,
+     14.473,
+     14.464,
+     14.452,
+     13.955,
+     14.324,
+     14.189,
+     14.393,
+     13.837,
+     14.279,
+     14.178,
+     14.106
+    ]
+   }
+  },
+  {
+   "idx": 6,
+   "ms": 37.29,
+   "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
+   "stats": {
+    "mad_ms": 0.1645,
+    "max_ms": 38.516,
+    "median_ms": 37.2905,
+    "min_ms": 35.86,
+    "p25_ms": 37.126,
+    "p75_ms": 37.421,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 35.86,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.285,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.159,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.406,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.485,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 36.482,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.296,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.126,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 38.516,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.466,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.126,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.325,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     35.86,
+     37.285,
+     37.159,
+     37.406,
+     37.485,
+     36.482,
+     37.296,
+     37.126,
+     38.516,
+     37.466,
+     37.126,
+     37.325
+    ]
+   }
+  },
+  {
+   "idx": 7,
+   "ms": 1.75,
+   "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;",
+   "stats": {
+    "mad_ms": 0.0395,
+    "max_ms": 1.819,
+    "median_ms": 1.75,
+    "min_ms": 1.698,
+    "p25_ms": 1.7325,
+    "p75_ms": 1.79925,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.746,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.713,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.739,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.708,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.806,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.797,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.771,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.754,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.812,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.745,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.819,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.698,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     1.746,
+     1.713,
+     1.739,
+     1.708,
+     1.806,
+     1.797,
+     1.771,
+     1.754,
+     1.812,
+     1.745,
+     1.819,
+     1.698
+    ]
+   }
+  },
+  {
+   "idx": 8,
+   "ms": 4.13,
+   "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;",
+   "stats": {
+    "mad_ms": 0.093,
+    "max_ms": 4.344,
+    "median_ms": 4.1285,
+    "min_ms": 3.965,
+    "p25_ms": 4.06125,
+    "p75_ms": 4.22825,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.344,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.041,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.146,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.111,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.344,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.068,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.232,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.202,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.227,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.022,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.965,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.074,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     4.344,
+     4.041,
+     4.146,
+     4.111,
+     4.344,
+     4.068,
+     4.232,
+     4.202,
+     4.227,
+     4.022,
+     3.965,
+     4.074
+    ]
+   }
+  },
+  {
+   "idx": 9,
+   "ms": 37.17,
+   "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.038,
+    "max_ms": 39.573,
+    "median_ms": 37.175,
+    "min_ms": 33.472,
+    "p25_ms": 35.93875,
+    "p75_ms": 37.9905,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 36.132,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 38.208,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 39.573,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 39.315,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 34.803,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 36.258,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 36.553,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.906,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.918,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 37.797,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 35.359,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 33.472,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     36.132,
+     38.208,
+     39.573,
+     39.315,
+     34.803,
+     36.258,
+     36.553,
+     37.906,
+     37.918,
+     37.797,
+     35.359,
+     33.472
+    ]
+   }
+  },
+  {
+   "idx": 10,
+   "ms": 42.85,
+   "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 2.1425,
+    "max_ms": 45.484,
+    "median_ms": 42.8525,
+    "min_ms": 35.54,
+    "p25_ms": 41.84025,
+    "p75_ms": 44.98575,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 44.941,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 45.325,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 42.235,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 42.738,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 45.484,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 42.615,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 43.471,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 42.967,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 39.748,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 45.12,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 40.656,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 35.54,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     44.941,
+     45.325,
+     42.235,
+     42.738,
+     45.484,
+     42.615,
+     43.471,
+     42.967,
+     39.748,
+     45.12,
+     40.656,
+     35.54
+    ]
+   }
+  },
+  {
+   "idx": 11,
+   "ms": 9.29,
+   "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.2575,
+    "max_ms": 11.108,
+    "median_ms": 9.2905,
+    "min_ms": 8.763,
+    "p25_ms": 8.98325,
+    "p75_ms": 9.40875,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.803,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.328,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 11.108,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.763,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.453,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.268,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.036,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.313,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.03,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.843,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.626,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.394,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     8.803,
+     9.328,
+     11.108,
+     8.763,
+     9.453,
+     9.268,
+     9.036,
+     9.313,
+     9.03,
+     8.843,
+     10.626,
+     9.394
+    ]
+   }
+  },
+  {
+   "idx": 12,
+   "ms": 10.37,
+   "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
+   "stats": {
+    "mad_ms": 0.328,
+    "max_ms": 11.159,
+    "median_ms": 10.371,
+    "min_ms": 9.753,
+    "p25_ms": 10.0675,
+    "p75_ms": 10.6575,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.526,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.237,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.758,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.092,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.404,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 11.159,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.994,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.624,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.837,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.908,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.338,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 9.753,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     10.526,
+     10.237,
+     10.758,
+     10.092,
+     10.404,
+     11.159,
+     9.994,
+     10.624,
+     9.837,
+     10.908,
+     10.338,
+     9.753
+    ]
+   }
+  },
+  {
+   "idx": 13,
+   "ms": 19.09,
+   "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.4285,
+    "max_ms": 22.367,
+    "median_ms": 19.093,
+    "min_ms": 17.626,
+    "p25_ms": 18.70375,
+    "p75_ms": 19.50525,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 19.489,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 19.354,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 17.626,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 18.583,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 19.554,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 18.825,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 18.537,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 18.744,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 18.832,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 19.404,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 22.367,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 19.657,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     19.489,
+     19.354,
+     17.626,
+     18.583,
+     19.554,
+     18.825,
+     18.537,
+     18.744,
+     18.832,
+     19.404,
+     22.367,
+     19.657
+    ]
+   }
+  },
+  {
+   "idx": 14,
+   "ms": 118.01,
+   "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.7435,
+    "max_ms": 120.717,
+    "median_ms": 118.008,
+    "min_ms": 116.07,
+    "p25_ms": 117.5225,
+    "p75_ms": 119.19,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 118.592,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 119.359,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 119.172,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 117.576,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 117.362,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 117.167,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 118.289,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 120.717,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 117.687,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 117.727,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 116.07,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 119.244,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     118.592,
+     119.359,
+     119.172,
+     117.576,
+     117.362,
+     117.167,
+     118.289,
+     120.717,
+     117.687,
+     117.727,
+     116.07,
+     119.244
+    ]
+   }
+  },
+  {
+   "idx": 15,
+   "ms": 23.41,
+   "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.8665,
+    "max_ms": 26.557,
+    "median_ms": 23.41,
+    "min_ms": 21.794,
+    "p25_ms": 22.826,
+    "p75_ms": 24.34875,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 23.403,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 24.337,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 24.384,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 22.339,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 22.9,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 23.417,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 23.379,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 24.089,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 26.557,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 21.794,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 24.504,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 22.604,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     23.403,
+     24.337,
+     24.384,
+     22.339,
+     22.9,
+     23.417,
+     23.379,
+     24.089,
+     26.557,
+     21.794,
+     24.504,
+     22.604
+    ]
+   }
+  },
+  {
+   "idx": 16,
+   "ms": 50.01,
+   "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.5195,
+    "max_ms": 50.787,
+    "median_ms": 50.0125,
+    "min_ms": 48.037,
+    "p25_ms": 49.40525,
+    "p75_ms": 50.242,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 48.037,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 50.593,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 49.937,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 48.959,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 50.125,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 49.554,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 50.115,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 50.787,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 48.269,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 50.659,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 50.088,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 49.675,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     48.037,
+     50.593,
+     49.937,
+     48.959,
+     50.125,
+     49.554,
+     50.115,
+     50.787,
+     48.269,
+     50.659,
+     50.088,
+     49.675
+    ]
+   }
+  },
+  {
+   "idx": 17,
+   "ms": 68.43,
+   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.741,
+    "max_ms": 69.976,
+    "median_ms": 68.433,
+    "min_ms": 66.342,
+    "p25_ms": 67.92925,
+    "p75_ms": 69.41575,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 68.868,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 69.901,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 69.976,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 69.76,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 67.819,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 68.212,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 69.301,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 67.162,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 68.654,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 68.022,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 67.966,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 66.342,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     68.868,
+     69.901,
+     69.976,
+     69.76,
+     67.819,
+     68.212,
+     69.301,
+     67.162,
+     68.654,
+     68.022,
+     67.966,
+     66.342
+    ]
+   }
+  },
+  {
+   "idx": 18,
+   "ms": 98.42,
+   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.603,
+    "max_ms": 101.345,
+    "median_ms": 98.419,
+    "min_ms": 95.594,
+    "p25_ms": 97.84,
+    "p75_ms": 98.88075,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 96.158,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 100.604,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 97.905,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 99.54,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 98.312,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 98.653,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 95.594,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 98.661,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 98.526,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 97.768,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 101.345,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 97.864,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     96.158,
+     100.604,
+     97.905,
+     99.54,
+     98.312,
+     98.653,
+     95.594,
+     98.661,
+     98.526,
+     97.768,
+     101.345,
+     97.864
+    ]
+   }
+  },
+  {
+   "idx": 19,
+   "ms": 119.6,
+   "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.274,
+    "max_ms": 124.31,
+    "median_ms": 119.6,
+    "min_ms": 115.533,
+    "p25_ms": 118.42,
+    "p75_ms": 120.8235,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 120.493,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 119.477,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 124.31,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 115.533,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 120.008,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 119.723,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 121.815,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 122.546,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 118.066,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 118.138,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 118.611,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 118.514,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     120.493,
+     119.477,
+     124.31,
+     115.533,
+     120.008,
+     119.723,
+     121.815,
+     122.546,
+     118.066,
+     118.138,
+     118.611,
+     118.514
+    ]
+   }
+  },
+  {
+   "idx": 20,
+   "ms": 1.56,
+   "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;",
+   "stats": {
+    "mad_ms": 0.0315,
+    "max_ms": 1.862,
+    "median_ms": 1.561,
+    "min_ms": 1.502,
+    "p25_ms": 1.53725,
+    "p75_ms": 1.61275,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.56,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.541,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.502,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.575,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.684,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.759,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.526,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.559,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.562,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.508,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.589,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 1.862,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     1.56,
+     1.541,
+     1.502,
+     1.575,
+     1.684,
+     1.759,
+     1.526,
+     1.559,
+     1.562,
+     1.508,
+     1.589,
+     1.862
+    ]
+   }
+  },
+  {
+   "idx": 21,
+   "ms": 3.18,
+   "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
+   "stats": {
+    "mad_ms": 0.095,
+    "max_ms": 3.337,
+    "median_ms": 3.1815,
+    "min_ms": 2.973,
+    "p25_ms": 3.0845,
+    "p75_ms": 3.25225,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.05,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.233,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.973,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.241,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.982,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.337,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.286,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.096,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.126,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
@@ -1384,4445 +3289,2524 @@
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.284,
+      "ms": 3.299,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 3.199,
+      "ms": 3.212,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     3.091,
-     3.057,
-     3.136,
-     3.414,
-     3.094,
-     3.164,
-     2.964,
-     3.08,
-     4.355,
+     3.05,
+     3.233,
+     2.973,
+     3.241,
+     2.982,
+     3.337,
+     3.286,
+     3.096,
+     3.126,
      3.151,
-     3.284,
-     3.199
-    ]
-   }
-  },
-  {
-   "idx": 5,
-   "ms": 13.14,
-   "query": "SELECT COUNT(DISTINCT UserID) FROM hits;",
-   "stats": {
-    "mad_ms": 0.199,
-    "max_ms": 13.73,
-    "median_ms": 13.1445,
-    "min_ms": 12.877,
-    "p25_ms": 12.956,
-    "p75_ms": 13.36275,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 12.956,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 12.877,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 12.902,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 12.973,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.354,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.389,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.322,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.217,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 12.956,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.609,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.072,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 13.73,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     12.956,
-     12.877,
-     12.902,
-     12.973,
-     13.354,
-     13.389,
-     13.322,
-     13.217,
-     12.956,
-     13.609,
-     13.072,
-     13.73
-    ]
-   }
-  },
-  {
-   "idx": 6,
-   "ms": 36.25,
-   "query": "SELECT COUNT(DISTINCT SearchPhrase) FROM hits;",
-   "stats": {
-    "mad_ms": 0.44,
-    "max_ms": 37.162,
-    "median_ms": 36.2475,
-    "min_ms": 35.168,
-    "p25_ms": 35.777,
-    "p75_ms": 36.43325,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.186,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.409,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.506,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.448,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.309,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.777,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.168,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.407,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.821,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.794,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.726,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 37.162,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     36.186,
-     36.409,
-     36.506,
-     35.448,
-     36.309,
-     36.777,
-     35.168,
-     36.407,
-     35.821,
-     35.794,
-     35.726,
-     37.162
-    ]
-   }
-  },
-  {
-   "idx": 7,
-   "ms": 1.52,
-   "query": "SELECT MIN(EventDate), MAX(EventDate) FROM hits;",
-   "stats": {
-    "mad_ms": 0.0505,
-    "max_ms": 1.736,
-    "median_ms": 1.521,
-    "min_ms": 1.454,
-    "p25_ms": 1.4685,
-    "p75_ms": 1.546,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.521,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.454,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.469,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.467,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.736,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.498,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.525,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.521,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.538,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.57,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.667,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.461,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     1.521,
-     1.454,
-     1.469,
-     1.467,
-     1.736,
-     1.498,
-     1.525,
-     1.521,
-     1.538,
-     1.57,
-     1.667,
-     1.461
-    ]
-   }
-  },
-  {
-   "idx": 8,
-   "ms": 4.15,
-   "query": "SELECT AdvEngineID, COUNT(*) FROM hits WHERE AdvEngineID <> 0 GROUP BY AdvEngineID ORDER BY COUNT(*) DESC;",
-   "stats": {
-    "mad_ms": 0.153,
-    "max_ms": 4.681,
-    "median_ms": 4.1535,
-    "min_ms": 3.93,
-    "p25_ms": 4.05,
-    "p75_ms": 4.3335,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.938,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.681,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.333,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.157,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.044,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.15,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.621,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.052,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.28,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.335,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.93,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.086,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     3.938,
-     4.681,
-     4.333,
-     4.157,
-     4.044,
-     4.15,
-     4.621,
-     4.052,
-     4.28,
-     4.335,
-     3.93,
-     4.086
-    ]
-   }
-  },
-  {
-   "idx": 9,
-   "ms": 34.47,
-   "query": "SELECT RegionID, COUNT(DISTINCT UserID) AS u FROM hits GROUP BY RegionID ORDER BY u DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.8685,
-    "max_ms": 35.909,
-    "median_ms": 34.47,
-    "min_ms": 31.507,
-    "p25_ms": 33.89125,
-    "p75_ms": 35.3505,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.615,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 31.935,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.18,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 31.507,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 34.303,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.55,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.284,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 33.547,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 34.006,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 35.909,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 34.291,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 34.637,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     35.615,
-     31.935,
-     35.18,
-     31.507,
-     34.303,
-     35.55,
-     35.284,
-     33.547,
-     34.006,
-     35.909,
-     34.291,
-     34.637
-    ]
-   }
-  },
-  {
-   "idx": 10,
-   "ms": 39.11,
-   "query": "SELECT RegionID, SUM(AdvEngineID), COUNT(*) AS c, AVG(ResolutionWidth), COUNT(DISTINCT UserID) FROM hits GROUP BY RegionID ORDER BY c DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 1.3235,
-    "max_ms": 43.092,
-    "median_ms": 39.1055,
-    "min_ms": 36.136,
-    "p25_ms": 37.89675,
-    "p75_ms": 40.35475,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 39.108,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 37.235,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 43.092,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 39.356,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 37.993,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 36.136,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 38.071,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 40.255,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 40.654,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 41.56,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 39.103,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 37.608,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     39.108,
-     37.235,
-     43.092,
-     39.356,
-     37.993,
-     36.136,
-     38.071,
-     40.255,
-     40.654,
-     41.56,
-     39.103,
-     37.608
-    ]
-   }
-  },
-  {
-   "idx": 11,
-   "ms": 8.23,
-   "query": "SELECT MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhoneModel ORDER BY u DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.296,
-    "max_ms": 9.272,
-    "median_ms": 8.2265,
-    "min_ms": 7.623,
-    "p25_ms": 8.00825,
-    "p75_ms": 8.7075,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.144,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.937,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.147,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.924,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.659,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.144,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.501,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.306,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.623,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.272,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.032,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.853,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     8.144,
-     7.937,
-     8.147,
-     7.924,
-     8.659,
-     9.144,
-     8.501,
-     8.306,
-     7.623,
-     9.272,
-     8.032,
-     8.853
-    ]
-   }
-  },
-  {
-   "idx": 12,
-   "ms": 9.22,
-   "query": "SELECT MobilePhone, MobilePhoneModel, COUNT(DISTINCT UserID) AS u FROM hits WHERE MobilePhoneModel <> '' GROUP BY MobilePhone, MobilePhoneModel ORDER BY u DESC ",
-   "stats": {
-    "mad_ms": 0.508,
-    "max_ms": 10.594,
-    "median_ms": 9.2205,
-    "min_ms": 8.48,
-    "p25_ms": 9.03175,
-    "p75_ms": 9.797,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 10.305,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.67,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.809,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.793,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.48,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.125,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.122,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 10.594,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.686,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.761,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.148,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.293,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     10.305,
-     8.67,
-     9.809,
-     9.793,
-     8.48,
-     9.125,
-     9.122,
-     10.594,
-     9.686,
-     8.761,
-     9.148,
-     9.293
-    ]
-   }
-  },
-  {
-   "idx": 13,
-   "ms": 18.52,
-   "query": "SELECT SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.3845,
-    "max_ms": 20.369,
-    "median_ms": 18.52,
-    "min_ms": 17.245,
-    "p25_ms": 18.20875,
-    "p75_ms": 19.08025,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 17.245,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.224,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.163,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.932,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 17.462,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 20.369,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.313,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.455,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 19.525,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.585,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 18.848,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 20.016,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     17.245,
-     18.224,
-     18.163,
-     18.932,
-     17.462,
-     20.369,
-     18.313,
-     18.455,
-     19.525,
-     18.585,
-     18.848,
-     20.016
-    ]
-   }
-  },
-  {
-   "idx": 14,
-   "ms": 107.93,
-   "query": "SELECT SearchPhrase, COUNT(DISTINCT UserID) AS u FROM hits WHERE SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY u DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 1.604,
-    "max_ms": 111.571,
-    "median_ms": 107.931,
-    "min_ms": 104.739,
-    "p25_ms": 106.86,
-    "p75_ms": 109.5585,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 108.533,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 109.345,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 104.877,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 106.137,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 110.674,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 110.199,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 107.323,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 104.739,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 107.394,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 111.571,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 107.101,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 108.468,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     108.533,
-     109.345,
-     104.877,
-     106.137,
-     110.674,
-     110.199,
-     107.323,
-     104.739,
-     107.394,
-     111.571,
-     107.101,
-     108.468
-    ]
-   }
-  },
-  {
-   "idx": 15,
-   "ms": 23.23,
-   "query": "SELECT SearchEngineID, SearchPhrase, COUNT(*) AS c FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, SearchPhrase ORDER BY c DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.8815,
-    "max_ms": 24.736,
-    "median_ms": 23.227,
-    "min_ms": 21.365,
-    "p25_ms": 22.291,
-    "p75_ms": 24.10425,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 23.519,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 21.408,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 23.432,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 24.317,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 24.736,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 21.949,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 24.117,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 22.405,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 24.1,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 23.022,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 22.854,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 21.365,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     23.519,
-     21.408,
-     23.432,
-     24.317,
-     24.736,
-     21.949,
-     24.117,
-     22.405,
-     24.1,
-     23.022,
-     22.854,
-     21.365
-    ]
-   }
-  },
-  {
-   "idx": 16,
-   "ms": 48.46,
-   "query": "SELECT UserID, COUNT(*) FROM hits GROUP BY UserID ORDER BY COUNT(*) DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.7945,
-    "max_ms": 50.539,
-    "median_ms": 48.4605,
-    "min_ms": 46.685,
-    "p25_ms": 47.7245,
-    "p75_ms": 49.02225,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.9,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.442,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.549,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 46.685,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 48.812,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 48.817,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.783,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 48.758,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 49.685,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 48.163,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 49.638,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 50.539,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     47.9,
-     47.442,
-     47.549,
-     46.685,
-     48.812,
-     48.817,
-     47.783,
-     48.758,
-     49.685,
-     48.163,
-     49.638,
-     50.539
-    ]
-   }
-  },
-  {
-   "idx": 17,
-   "ms": 67.07,
-   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.496,
-    "max_ms": 68.951,
-    "median_ms": 67.0715,
-    "min_ms": 66.218,
-    "p25_ms": 66.64075,
-    "p75_ms": 67.56025,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 66.445,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 66.797,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 66.222,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 67.064,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 66.706,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 68.149,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 68.665,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 66.218,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 67.364,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 68.951,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 67.079,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 67.119,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     66.445,
-     66.797,
-     66.222,
-     67.064,
-     66.706,
-     68.149,
-     68.665,
-     66.218,
-     67.364,
-     68.951,
-     67.079,
-     67.119
-    ]
-   }
-  },
-  {
-   "idx": 18,
-   "ms": 92.27,
-   "query": "SELECT UserID, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, SearchPhrase LIMIT 10;",
-   "stats": {
-    "mad_ms": 1.1135,
-    "max_ms": 93.541,
-    "median_ms": 92.274,
-    "min_ms": 90.346,
-    "p25_ms": 90.8285,
-    "p75_ms": 93.131,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 92.724,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 90.97,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 90.404,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 90.348,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 92.44,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 93.326,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 93.541,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 93.066,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 91.469,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 92.108,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 90.346,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 93.449,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     92.724,
-     90.97,
-     90.404,
-     90.348,
-     92.44,
-     93.326,
-     93.541,
-     93.066,
-     91.469,
-     92.108,
-     90.346,
-     93.449
-    ]
-   }
-  },
-  {
-   "idx": 19,
-   "ms": 117.93,
-   "query": "SELECT UserID, extract(minute FROM EventTime) AS m, SearchPhrase, COUNT(*) FROM hits GROUP BY UserID, m, SearchPhrase ORDER BY COUNT(*) DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 1.5925,
-    "max_ms": 120.018,
-    "median_ms": 117.931,
-    "min_ms": 114.619,
-    "p25_ms": 115.79275,
-    "p75_ms": 119.041,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 119.08,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 118.642,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 118.648,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 116.692,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 117.22,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 115.985,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 115.054,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 120.016,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 115.216,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 120.018,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 119.028,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 114.619,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     119.08,
-     118.642,
-     118.648,
-     116.692,
-     117.22,
-     115.985,
-     115.054,
-     120.016,
-     115.216,
-     120.018,
-     119.028,
-     114.619
-    ]
-   }
-  },
-  {
-   "idx": 20,
-   "ms": 1.4,
-   "query": "SELECT UserID FROM hits WHERE UserID = 435090932899640449;",
-   "stats": {
-    "mad_ms": 0.0195,
-    "max_ms": 1.735,
-    "median_ms": 1.399,
-    "min_ms": 1.357,
-    "p25_ms": 1.3845,
-    "p75_ms": 1.42525,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.394,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.357,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.479,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.405,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.4,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.735,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.386,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.38,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.366,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.419,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.444,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 1.398,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     1.394,
-     1.357,
-     1.479,
-     1.405,
-     1.4,
-     1.735,
-     1.386,
-     1.38,
-     1.366,
-     1.419,
-     1.444,
-     1.398
-    ]
-   }
-  },
-  {
-   "idx": 21,
-   "ms": 2.72,
-   "query": "SELECT COUNT(*) FROM hits WHERE URL LIKE '%google%';",
-   "stats": {
-    "mad_ms": 0.1545,
-    "max_ms": 3.105,
-    "median_ms": 2.722,
-    "min_ms": 2.497,
-    "p25_ms": 2.55575,
-    "p75_ms": 2.8505,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.531,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.497,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.518,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 3.105,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.641,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.905,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.564,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.643,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.873,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.843,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.81,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.801,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     2.531,
-     2.497,
-     2.518,
-     3.105,
-     2.641,
-     2.905,
-     2.564,
-     2.643,
-     2.873,
-     2.843,
-     2.81,
-     2.801
+     3.299,
+     3.212
     ]
    }
   },
   {
    "idx": 22,
-   "ms": 16.12,
+   "ms": 16.73,
    "query": "SELECT SearchPhrase, MIN(URL), COUNT(*) AS c FROM hits WHERE URL LIKE '%google%' AND SearchPhrase <> '' GROUP BY SearchPhrase ORDER BY c DESC LIMIT 10;",
    "stats": {
-    "mad_ms": 0.318,
-    "max_ms": 17.119,
-    "median_ms": 16.124,
-    "min_ms": 14.998,
-    "p25_ms": 15.864,
-    "p75_ms": 16.7245,
+    "mad_ms": 0.0705,
+    "max_ms": 17.716,
+    "median_ms": 16.7305,
+    "min_ms": 16.176,
+    "p25_ms": 16.68675,
+    "p75_ms": 16.82575,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 16.213,
+      "ms": 16.618,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 15.79,
+      "ms": 16.831,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 15.878,
+      "ms": 17.716,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 15.822,
+      "ms": 16.824,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 16.036,
+      "ms": 17.14,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 15.902,
+      "ms": 16.683,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 16.918,
+      "ms": 16.702,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 16.795,
+      "ms": 16.176,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 16.212,
+      "ms": 16.688,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 16.701,
+      "ms": 16.729,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 14.998,
+      "ms": 16.732,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 17.119,
+      "ms": 16.769,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     16.213,
-     15.79,
-     15.878,
-     15.822,
-     16.036,
-     15.902,
-     16.918,
-     16.795,
-     16.212,
-     16.701,
-     14.998,
-     17.119
+     16.618,
+     16.831,
+     17.716,
+     16.824,
+     17.14,
+     16.683,
+     16.702,
+     16.176,
+     16.688,
+     16.729,
+     16.732,
+     16.769
     ]
    }
   },
   {
    "idx": 23,
-   "ms": 29.78,
+   "ms": 31.11,
    "query": "SELECT SearchPhrase, MIN(URL), MIN(Title), COUNT(*) AS c, COUNT(DISTINCT UserID) FROM hits WHERE Title LIKE '%Google%' AND URL NOT LIKE '%.google.%' AND SearchP",
    "stats": {
-    "mad_ms": 0.325,
-    "max_ms": 30.784,
-    "median_ms": 29.7795,
-    "min_ms": 28.818,
-    "p25_ms": 29.3335,
-    "p75_ms": 30.02425,
+    "mad_ms": 0.3915,
+    "max_ms": 31.968,
+    "median_ms": 31.1095,
+    "min_ms": 28.666,
+    "p25_ms": 30.7095,
+    "p75_ms": 31.36675,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 29.915,
+      "ms": 31.071,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.7,
+      "ms": 30.953,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.014,
+      "ms": 31.246,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.182,
+      "ms": 30.811,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.233,
+      "ms": 31.968,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 28.818,
+      "ms": 31.594,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.84,
+      "ms": 28.992,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.719,
+      "ms": 31.148,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.055,
+      "ms": 31.291,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.784,
+      "ms": 31.737,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 29.367,
+      "ms": 30.405,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 30.154,
+      "ms": 28.666,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     29.915,
-     29.7,
-     30.014,
-     29.182,
-     29.233,
-     28.818,
-     29.84,
-     29.719,
-     30.055,
-     30.784,
-     29.367,
-     30.154
+     31.071,
+     30.953,
+     31.246,
+     30.811,
+     31.968,
+     31.594,
+     28.992,
+     31.148,
+     31.291,
+     31.737,
+     30.405,
+     28.666
     ]
    }
   },
   {
    "idx": 24,
-   "ms": 8.14,
+   "ms": 8.77,
    "query": "SELECT * FROM hits WHERE URL LIKE '%google%' ORDER BY EventTime LIMIT 10;",
    "stats": {
-    "mad_ms": 0.319,
-    "max_ms": 8.9,
-    "median_ms": 8.1425,
-    "min_ms": 7.61,
-    "p25_ms": 7.77525,
-    "p75_ms": 8.2765,
+    "mad_ms": 0.067,
+    "max_ms": 9.042,
+    "median_ms": 8.7685,
+    "min_ms": 8.471,
+    "p25_ms": 8.626,
+    "p75_ms": 8.82775,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 8.085,
+      "ms": 9.042,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.778,
+      "ms": 8.827,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.651,
+      "ms": 8.841,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.61,
+      "ms": 8.587,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.9,
+      "ms": 8.736,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.23,
+      "ms": 8.811,
       "order_position": 1,
       "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.116,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.556,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.174,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.416,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.169,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.767,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     8.085,
-     7.778,
-     7.651,
-     7.61,
-     8.9,
-     8.23,
-     8.116,
-     8.556,
-     8.174,
-     8.416,
-     8.169,
-     7.767
-    ]
-   }
-  },
-  {
-   "idx": 25,
-   "ms": 4.52,
-   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.1905,
-    "max_ms": 5.052,
-    "median_ms": 4.52,
-    "min_ms": 4.249,
-    "p25_ms": 4.41975,
-    "p75_ms": 4.74525,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.463,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.052,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.249,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.505,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.327,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.679,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.535,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.449,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.791,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.856,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.73,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.332,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     4.463,
-     5.052,
-     4.249,
-     4.505,
-     4.327,
-     4.679,
-     4.535,
-     4.449,
-     4.791,
-     4.856,
-     4.73,
-     4.332
-    ]
-   }
-  },
-  {
-   "idx": 26,
-   "ms": 6.01,
-   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.037,
-    "max_ms": 6.147,
-    "median_ms": 6.009,
-    "min_ms": 5.889,
-    "p25_ms": 5.96625,
-    "p75_ms": 6.04175,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.994,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.97,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.039,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.889,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.955,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.941,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.147,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.975,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.024,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.041,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.044,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.051,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     5.994,
-     5.97,
-     6.039,
-     5.889,
-     5.955,
-     5.941,
-     6.147,
-     5.975,
-     6.024,
-     6.041,
-     6.044,
-     6.051
-    ]
-   }
-  },
-  {
-   "idx": 27,
-   "ms": 5.08,
-   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.038,
-    "max_ms": 5.469,
-    "median_ms": 5.0815,
-    "min_ms": 5.006,
-    "p25_ms": 5.04675,
-    "p75_ms": 5.11175,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.096,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.05,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.141,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.469,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.075,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.006,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.037,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.02,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.088,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.102,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.06,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.22,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     5.096,
-     5.05,
-     5.141,
-     5.469,
-     5.075,
-     5.006,
-     5.037,
-     5.02,
-     5.088,
-     5.102,
-     5.06,
-     5.22
-    ]
-   }
-  },
-  {
-   "idx": 28,
-   "ms": 5.23,
-   "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
-   "stats": {
-    "mad_ms": 0.3215,
-    "max_ms": 6.239,
-    "median_ms": 5.2265,
-    "min_ms": 4.612,
-    "p25_ms": 4.95725,
-    "p75_ms": 5.57375,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.645,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.971,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.981,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.135,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.885,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.612,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.55,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.021,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.239,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.546,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 4.916,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 5.318,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     5.645,
-     4.971,
-     4.981,
-     5.135,
-     4.885,
-     4.612,
-     5.55,
-     6.021,
-     6.239,
-     5.546,
-     4.916,
-     5.318
-    ]
-   }
-  },
-  {
-   "idx": 29,
-   "ms": 139.24,
-   "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
-   "stats": {
-    "mad_ms": 2.8545,
-    "max_ms": 167.972,
-    "median_ms": 139.2415,
-    "min_ms": 136.281,
-    "p25_ms": 138.363,
-    "p75_ms": 147.721,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 143.585,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 136.493,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 163.779,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 139.456,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 136.281,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 160.129,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 137.214,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 138.883,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 167.972,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 142.461,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 139.027,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 138.746,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     143.585,
-     136.493,
-     163.779,
-     139.456,
-     136.281,
-     160.129,
-     137.214,
-     138.883,
-     167.972,
-     142.461,
-     139.027,
-     138.746
-    ]
-   }
-  },
-  {
-   "idx": 30,
-   "ms": 2.48,
-   "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S",
-   "stats": {
-    "mad_ms": 0.0835,
-    "max_ms": 2.785,
-    "median_ms": 2.4825,
-    "min_ms": 2.352,
-    "p25_ms": 2.413,
-    "p75_ms": 2.6815,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.397,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.352,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.515,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.401,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.681,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.785,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.511,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.454,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.683,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.417,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.726,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 2.436,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     2.397,
-     2.352,
-     2.515,
-     2.401,
-     2.681,
-     2.785,
-     2.511,
-     2.454,
-     2.683,
-     2.417,
-     2.726,
-     2.436
-    ]
-   }
-  },
-  {
-   "idx": 31,
-   "ms": 27.94,
-   "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
-   "stats": {
-    "mad_ms": 0.9465,
-    "max_ms": 31.548,
-    "median_ms": 27.9435,
-    "min_ms": 26.65,
-    "p25_ms": 27.44775,
-    "p75_ms": 29.77775,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 28.154,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 26.944,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 27.315,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 26.65,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 30.071,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 27.733,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 29.68,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 27.524,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 27.492,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 28.837,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 30.174,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 31.548,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     28.154,
-     26.944,
-     27.315,
-     26.65,
-     30.071,
-     27.733,
-     29.68,
-     27.524,
-     27.492,
-     28.837,
-     30.174,
-     31.548
-    ]
-   }
-  },
-  {
-   "idx": 32,
-   "ms": 29.78,
-   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
-   "stats": {
-    "mad_ms": 0.7875,
-    "max_ms": 31.472,
-    "median_ms": 29.7815,
-    "min_ms": 28.902,
-    "p25_ms": 29.387,
-    "p75_ms": 30.75425,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 31.023,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 31.472,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 28.908,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 30.983,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 29.772,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 30.678,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 29.733,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 29.791,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 29.451,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 30.483,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 28.902,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 29.195,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     31.023,
-     31.472,
-     28.908,
-     30.983,
-     29.772,
-     30.678,
-     29.733,
-     29.791,
-     29.451,
-     30.483,
-     28.902,
-     29.195
-    ]
-   }
-  },
-  {
-   "idx": 33,
-   "ms": 182.78,
-   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.806,
-    "max_ms": 185.683,
-    "median_ms": 182.7805,
-    "min_ms": 180.564,
-    "p25_ms": 182.19325,
-    "p75_ms": 183.74425,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 182.957,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 182.604,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 184.613,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 182.277,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 183.554,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 182.973,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 185.683,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 182.584,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 181.942,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 181.337,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 180.564,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 184.315,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     182.957,
-     182.604,
-     184.613,
-     182.277,
-     183.554,
-     182.973,
-     185.683,
-     182.584,
-     181.942,
-     181.337,
-     180.564,
-     184.315
-    ]
-   }
-  },
-  {
-   "idx": 34,
-   "ms": 55.08,
-   "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 0.818,
-    "max_ms": 58.154,
-    "median_ms": 55.083,
-    "min_ms": 53.972,
-    "p25_ms": 54.5325,
-    "p75_ms": 57.2675,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.915,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 55.996,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 57.796,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 57.527,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 57.181,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.653,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 55.251,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.557,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 53.972,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 58.154,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.459,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.36,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     54.915,
-     55.996,
-     57.796,
-     57.527,
-     57.181,
-     54.653,
-     55.251,
-     54.557,
-     53.972,
-     58.154,
-     54.459,
-     54.36
-    ]
-   }
-  },
-  {
-   "idx": 35,
-   "ms": 55.04,
-   "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
-   "stats": {
-    "mad_ms": 1.0755,
-    "max_ms": 58.816,
-    "median_ms": 55.0395,
-    "min_ms": 53.253,
-    "p25_ms": 54.20175,
-    "p75_ms": 56.30125,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.306,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.225,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 58.816,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.784,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 56.283,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 56.356,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.132,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 55.295,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 53.315,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 55.874,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 53.253,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 56.959,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     54.306,
-     54.225,
-     58.816,
-     54.784,
-     56.283,
-     56.356,
-     54.132,
-     55.295,
-     53.315,
-     55.874,
-     53.253,
-     56.959
-    ]
-   }
-  },
-  {
-   "idx": 36,
-   "ms": 54.41,
-   "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
-   "stats": {
-    "mad_ms": 0.5015,
-    "max_ms": 55.855,
-    "median_ms": 54.407,
-    "min_ms": 52.668,
-    "p25_ms": 53.97125,
-    "p75_ms": 54.89875,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.889,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.369,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.978,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 52.668,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.002,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.022,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 53.203,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 53.879,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.445,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.928,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 54.469,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 55.855,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     54.889,
-     54.369,
-     54.978,
-     52.668,
-     54.002,
-     54.022,
-     53.203,
-     53.879,
-     54.445,
-     54.928,
-     54.469,
-     55.855
-    ]
-   }
-  },
-  {
-   "idx": 37,
-   "ms": 15.32,
-   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
-   "stats": {
-    "mad_ms": 0.214,
-    "max_ms": 15.694,
-    "median_ms": 15.3155,
-    "min_ms": 14.936,
-    "p25_ms": 15.10225,
-    "p75_ms": 15.43825,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.553,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.4,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 14.936,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.125,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.0,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.103,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.297,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.694,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.679,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.1,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.391,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 15.334,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     15.553,
-     15.4,
-     14.936,
-     15.125,
-     15.0,
-     15.103,
-     15.297,
-     15.694,
-     15.679,
-     15.1,
-     15.391,
-     15.334
-    ]
-   }
-  },
-  {
-   "idx": 38,
-   "ms": 8.95,
-   "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
-   "stats": {
-    "mad_ms": 0.368,
-    "max_ms": 9.858,
-    "median_ms": 8.9525,
-    "min_ms": 8.159,
-    "p25_ms": 8.831,
-    "p75_ms": 9.394,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.598,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.91,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.528,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.946,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.858,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.159,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.523,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.959,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.907,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.334,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.351,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.603,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     8.598,
-     8.91,
-     9.528,
-     8.946,
-     9.858,
-     8.159,
-     9.523,
-     8.959,
-     8.907,
-     9.334,
-     9.351,
-     8.603
-    ]
-   }
-  },
-  {
-   "idx": 39,
-   "ms": 7.2,
-   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
-   "stats": {
-    "mad_ms": 0.3875,
-    "max_ms": 7.904,
-    "median_ms": 7.1965,
-    "min_ms": 6.056,
-    "p25_ms": 6.7285,
-    "p75_ms": 7.31275,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.264,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.838,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.78,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.227,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.243,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.574,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.567,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.459,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.904,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.621,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 7.166,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 6.056,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     7.264,
-     6.838,
-     6.78,
-     7.227,
-     7.243,
-     6.574,
-     6.567,
-     7.459,
-     7.904,
-     7.621,
-     7.166,
-     6.056
-    ]
-   }
-  },
-  {
-   "idx": 40,
-   "ms": 47.08,
-   "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
-   "stats": {
-    "mad_ms": 0.859,
-    "max_ms": 49.178,
-    "median_ms": 47.083,
-    "min_ms": 45.46,
-    "p25_ms": 46.3395,
-    "p75_ms": 48.1485,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 48.858,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 48.928,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 46.788,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 49.178,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 46.388,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.19,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 46.194,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.912,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 47.504,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 45.892,
-      "order_position": 1,
-      "run_id": "9",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 46.976,
-      "order_position": 1,
-      "run_id": "10",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 45.46,
-      "order_position": 1,
-      "run_id": "11",
-      "warmup_iterations": 2
-     }
-    ],
-    "samples_ms": [
-     48.858,
-     48.928,
-     46.788,
-     49.178,
-     46.388,
-     47.19,
-     46.194,
-     47.912,
-     47.504,
-     45.892,
-     46.976,
-     45.46
-    ]
-   }
-  },
-  {
-   "idx": 41,
-   "ms": 9.3,
-   "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
-   "stats": {
-    "mad_ms": 0.351,
-    "max_ms": 12.083,
-    "median_ms": 9.299,
-    "min_ms": 8.065,
-    "p25_ms": 8.66425,
-    "p75_ms": 9.532,
-    "samples": [
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.117,
-      "order_position": 1,
-      "run_id": "0",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.167,
-      "order_position": 1,
-      "run_id": "1",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 8.065,
-      "order_position": 1,
-      "run_id": "2",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.705,
-      "order_position": 1,
-      "run_id": "3",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.511,
-      "order_position": 1,
-      "run_id": "4",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.595,
-      "order_position": 1,
-      "run_id": "5",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 12.083,
-      "order_position": 1,
-      "run_id": "6",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.24,
-      "order_position": 1,
-      "run_id": "7",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.509,
-      "order_position": 1,
-      "run_id": "8",
-      "warmup_iterations": 2
-     },
-     {
-      "execution_mode": "native-scan",
-      "ms": 9.358,
-      "order_position": 1,
-      "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
       "ms": 8.83,
       "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.576,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.784,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.639,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.471,
+      "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.159,
+      "ms": 8.753,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     8.117,
-     8.167,
-     8.065,
-     9.705,
-     9.511,
-     9.595,
-     12.083,
-     9.24,
-     9.509,
-     9.358,
+     9.042,
+     8.827,
+     8.841,
+     8.587,
+     8.736,
+     8.811,
      8.83,
-     9.159
+     8.576,
+     8.784,
+     8.639,
+     8.471,
+     8.753
+    ]
+   }
+  },
+  {
+   "idx": 25,
+   "ms": 4.88,
+   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.0995,
+    "max_ms": 5.623,
+    "median_ms": 4.8815,
+    "min_ms": 4.663,
+    "p25_ms": 4.806,
+    "p75_ms": 5.1295,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.841,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.434,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.915,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.797,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.809,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.901,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.862,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.663,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.46,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.623,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 4.767,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.028,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     4.841,
+     5.434,
+     4.915,
+     4.797,
+     4.809,
+     4.901,
+     4.862,
+     4.663,
+     5.46,
+     5.623,
+     4.767,
+     5.028
+    ]
+   }
+  },
+  {
+   "idx": 26,
+   "ms": 6.18,
+   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY SearchPhrase LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.0715,
+    "max_ms": 6.587,
+    "median_ms": 6.176,
+    "min_ms": 6.058,
+    "p25_ms": 6.11075,
+    "p75_ms": 6.232,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.076,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.587,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.542,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.117,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.058,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.21,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.178,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.092,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.298,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.183,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.144,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.174,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     6.076,
+     6.587,
+     6.542,
+     6.117,
+     6.058,
+     6.21,
+     6.178,
+     6.092,
+     6.298,
+     6.183,
+     6.144,
+     6.174
+    ]
+   }
+  },
+  {
+   "idx": 27,
+   "ms": 5.69,
+   "query": "SELECT SearchPhrase FROM hits WHERE SearchPhrase <> '' ORDER BY EventTime, SearchPhrase LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.037,
+    "max_ms": 5.768,
+    "median_ms": 5.694,
+    "min_ms": 5.56,
+    "p25_ms": 5.68075,
+    "p75_ms": 5.735,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.56,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.69,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.768,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.577,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.653,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.727,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.702,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.696,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.692,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.759,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.692,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.761,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     5.56,
+     5.69,
+     5.768,
+     5.577,
+     5.653,
+     5.727,
+     5.702,
+     5.696,
+     5.692,
+     5.759,
+     5.692,
+     5.761
+    ]
+   }
+  },
+  {
+   "idx": 28,
+   "ms": 5.81,
+   "query": "SELECT CounterID, AVG(STRLEN(URL)) AS l, COUNT(*) AS c FROM hits WHERE URL <> '' GROUP BY CounterID HAVING COUNT(*) > 100000 ORDER BY l DESC LIMIT 25;",
+   "stats": {
+    "mad_ms": 0.1125,
+    "max_ms": 6.466,
+    "median_ms": 5.813,
+    "min_ms": 5.55,
+    "p25_ms": 5.68375,
+    "p75_ms": 5.875,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.466,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.659,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.861,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.735,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.55,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.622,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.692,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.805,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.821,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.917,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 6.098,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 5.858,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     6.466,
+     5.659,
+     5.861,
+     5.735,
+     5.55,
+     5.622,
+     5.692,
+     5.805,
+     5.821,
+     5.917,
+     6.098,
+     5.858
+    ]
+   }
+  },
+  {
+   "idx": 29,
+   "ms": 141.18,
+   "query": "SELECT REGEXP_REPLACE(Referer, '^https?://(?:www\\.)?([^/]+)/.*$', '\\1') AS k, AVG(STRLEN(Referer)) AS l, COUNT(*) AS c, MIN(Referer) FROM hits WHERE Referer <> ",
+   "stats": {
+    "mad_ms": 0.9065,
+    "max_ms": 142.997,
+    "median_ms": 141.175,
+    "min_ms": 138.937,
+    "p25_ms": 139.91725,
+    "p75_ms": 141.789,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 139.013,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 141.936,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 139.645,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 141.107,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 142.997,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 141.243,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 138.937,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 141.74,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 141.081,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 142.227,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 141.611,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 140.008,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     139.013,
+     141.936,
+     139.645,
+     141.107,
+     142.997,
+     141.243,
+     138.937,
+     141.74,
+     141.081,
+     142.227,
+     141.611,
+     140.008
+    ]
+   }
+  },
+  {
+   "idx": 30,
+   "ms": 2.99,
+   "query": "SELECT SUM(ResolutionWidth), SUM(ResolutionWidth + 1), SUM(ResolutionWidth + 2), SUM(ResolutionWidth + 3), SUM(ResolutionWidth + 4), SUM(ResolutionWidth + 5), S",
+   "stats": {
+    "mad_ms": 0.105,
+    "max_ms": 3.16,
+    "median_ms": 2.9865,
+    "min_ms": 2.757,
+    "p25_ms": 2.82775,
+    "p75_ms": 3.0355,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.779,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.035,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.777,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.999,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.853,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.16,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.037,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.757,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 3.063,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.995,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.978,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 2.844,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     2.779,
+     3.035,
+     2.777,
+     2.999,
+     2.853,
+     3.16,
+     3.037,
+     2.757,
+     3.063,
+     2.995,
+     2.978,
+     2.844
+    ]
+   }
+  },
+  {
+   "idx": 31,
+   "ms": 30.54,
+   "query": "SELECT SearchEngineID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY SearchEngineID, ClientIP ORDER ",
+   "stats": {
+    "mad_ms": 1.4185,
+    "max_ms": 34.546,
+    "median_ms": 30.5365,
+    "min_ms": 28.077,
+    "p25_ms": 29.03325,
+    "p75_ms": 31.11375,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 33.381,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 31.89,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.418,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 34.546,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 28.962,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 29.053,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.655,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 29.242,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 28.974,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 28.077,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.855,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.818,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     33.381,
+     31.89,
+     30.418,
+     34.546,
+     28.962,
+     29.053,
+     30.655,
+     29.242,
+     28.974,
+     28.077,
+     30.855,
+     30.818
+    ]
+   }
+  },
+  {
+   "idx": 32,
+   "ms": 32.55,
+   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits WHERE SearchPhrase <> '' GROUP BY WatchID, ClientIP ORDER BY c DESC LIMI",
+   "stats": {
+    "mad_ms": 0.749,
+    "max_ms": 33.834,
+    "median_ms": 32.549,
+    "min_ms": 30.006,
+    "p25_ms": 31.6295,
+    "p75_ms": 33.21175,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 33.161,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 33.364,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 32.982,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 32.551,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 31.971,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 32.547,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 33.526,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 33.834,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 31.866,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.006,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.92,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 30.555,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     33.161,
+     33.364,
+     32.982,
+     32.551,
+     31.971,
+     32.547,
+     33.526,
+     33.834,
+     31.866,
+     30.006,
+     30.92,
+     30.555
+    ]
+   }
+  },
+  {
+   "idx": 33,
+   "ms": 184.52,
+   "query": "SELECT WatchID, ClientIP, COUNT(*) AS c, SUM(IsRefresh), AVG(ResolutionWidth) FROM hits GROUP BY WatchID, ClientIP ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.2,
+    "max_ms": 187.171,
+    "median_ms": 184.5205,
+    "min_ms": 181.146,
+    "p25_ms": 183.08725,
+    "p75_ms": 185.43775,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 184.62,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 185.141,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 183.237,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 181.146,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 185.879,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 185.5,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 185.417,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 183.404,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 182.638,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 187.171,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 182.145,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 184.421,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     184.62,
+     185.141,
+     183.237,
+     181.146,
+     185.879,
+     185.5,
+     185.417,
+     183.404,
+     182.638,
+     187.171,
+     182.145,
+     184.421
+    ]
+   }
+  },
+  {
+   "idx": 34,
+   "ms": 58.23,
+   "query": "SELECT URL, COUNT(*) AS c FROM hits GROUP BY URL ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 0.5275,
+    "max_ms": 59.69,
+    "median_ms": 58.228,
+    "min_ms": 57.437,
+    "p25_ms": 57.7275,
+    "p75_ms": 58.82175,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.114,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.733,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.488,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.437,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.711,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.989,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.342,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.69,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.626,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.766,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.738,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.572,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     58.114,
+     57.733,
+     59.488,
+     57.437,
+     57.711,
+     58.989,
+     58.342,
+     59.69,
+     57.626,
+     58.766,
+     57.738,
+     58.572
+    ]
+   }
+  },
+  {
+   "idx": 35,
+   "ms": 57.64,
+   "query": "SELECT 1, URL, COUNT(*) AS c FROM hits GROUP BY 1, URL ORDER BY c DESC LIMIT 10;",
+   "stats": {
+    "mad_ms": 1.058,
+    "max_ms": 59.769,
+    "median_ms": 57.639,
+    "min_ms": 55.9,
+    "p25_ms": 56.68225,
+    "p75_ms": 58.715,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 56.802,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.87,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 56.561,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 56.572,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.408,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.001,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 56.719,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.881,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.769,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.9,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.796,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.688,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     56.802,
+     57.87,
+     56.561,
+     56.572,
+     57.408,
+     59.001,
+     56.719,
+     57.881,
+     59.769,
+     55.9,
+     58.796,
+     58.688
+    ]
+   }
+  },
+  {
+   "idx": 36,
+   "ms": 55.91,
+   "query": "SELECT ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3, COUNT(*) AS c FROM hits GROUP BY ClientIP, ClientIP - 1, ClientIP - 2, ClientIP - 3 ORDER BY c DESC L",
+   "stats": {
+    "mad_ms": 0.6265,
+    "max_ms": 59.143,
+    "median_ms": 55.906,
+    "min_ms": 54.032,
+    "p25_ms": 55.6655,
+    "p75_ms": 56.84575,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 56.687,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.296,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.628,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.678,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.143,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 57.322,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 54.032,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 56.549,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.835,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.243,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.693,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 55.977,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     56.687,
+     55.296,
+     55.628,
+     55.678,
+     59.143,
+     57.322,
+     54.032,
+     56.549,
+     55.835,
+     58.243,
+     55.693,
+     55.977
+    ]
+   }
+  },
+  {
+   "idx": 37,
+   "ms": 16.8,
+   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefresh",
+   "stats": {
+    "mad_ms": 0.0885,
+    "max_ms": 17.048,
+    "median_ms": 16.8005,
+    "min_ms": 16.505,
+    "p25_ms": 16.708,
+    "p75_ms": 16.856,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.922,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.826,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.789,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 17.048,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.58,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.736,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.913,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.812,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.505,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.624,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.837,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 16.762,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     16.922,
+     16.826,
+     16.789,
+     17.048,
+     16.58,
+     16.736,
+     16.913,
+     16.812,
+     16.505,
+     16.624,
+     16.837,
+     16.762
+    ]
+   }
+  },
+  {
+   "idx": 38,
+   "ms": 10.23,
+   "query": "SELECT Title, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND DontCountHits = 0 AND IsRefre",
+   "stats": {
+    "mad_ms": 0.0685,
+    "max_ms": 10.745,
+    "median_ms": 10.23,
+    "min_ms": 10.023,
+    "p25_ms": 10.172,
+    "p75_ms": 10.277,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.084,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.262,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.133,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.322,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.185,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.249,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.224,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.604,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.228,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.023,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.745,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.232,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     10.084,
+     10.262,
+     10.133,
+     10.322,
+     10.185,
+     10.249,
+     10.224,
+     10.604,
+     10.228,
+     10.023,
+     10.745,
+     10.232
+    ]
+   }
+  },
+  {
+   "idx": 39,
+   "ms": 8.23,
+   "query": "SELECT URL, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AND IsLink <> 0 A",
+   "stats": {
+    "mad_ms": 0.2135,
+    "max_ms": 8.766,
+    "median_ms": 8.227,
+    "min_ms": 7.909,
+    "p25_ms": 8.01925,
+    "p75_ms": 8.3895,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.025,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.32,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 7.909,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 7.98,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.184,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.698,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.27,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.475,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.032,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.766,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.361,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 8.002,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     8.025,
+     8.32,
+     7.909,
+     7.98,
+     8.184,
+     8.698,
+     8.27,
+     8.475,
+     8.032,
+     8.766,
+     8.361,
+     8.002
+    ]
+   }
+  },
+  {
+   "idx": 40,
+   "ms": 59.33,
+   "query": "SELECT TraficSourceID, SearchEngineID, AdvEngineID, CASE WHEN (SearchEngineID = 0 AND AdvEngineID = 0) THEN Referer ELSE '' END AS Src, URL AS Dst, COUNT(*) AS ",
+   "stats": {
+    "mad_ms": 0.228,
+    "max_ms": 60.594,
+    "median_ms": 59.3315,
+    "min_ms": 58.831,
+    "p25_ms": 59.106,
+    "p75_ms": 59.54625,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.604,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.942,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.397,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.225,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.406,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.143,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.831,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.586,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 58.995,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 60.594,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.266,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 59.533,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     59.604,
+     58.942,
+     59.397,
+     59.225,
+     59.406,
+     59.143,
+     58.831,
+     59.586,
+     58.995,
+     60.594,
+     59.266,
+     59.533
+    ]
+   }
+  },
+  {
+   "idx": 41,
+   "ms": 10.21,
+   "query": "SELECT URLHash, EventDate, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' AND IsRefresh = 0 AN",
+   "stats": {
+    "mad_ms": 0.039,
+    "max_ms": 10.901,
+    "median_ms": 10.2135,
+    "min_ms": 10.046,
+    "p25_ms": 10.19825,
+    "p75_ms": 10.30625,
+    "samples": [
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.21,
+      "order_position": 1,
+      "run_id": "0",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.204,
+      "order_position": 1,
+      "run_id": "1",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.178,
+      "order_position": 1,
+      "run_id": "2",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.046,
+      "order_position": 1,
+      "run_id": "3",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.217,
+      "order_position": 1,
+      "run_id": "4",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.603,
+      "order_position": 1,
+      "run_id": "5",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.421,
+      "order_position": 1,
+      "run_id": "6",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.901,
+      "order_position": 1,
+      "run_id": "7",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.187,
+      "order_position": 1,
+      "run_id": "8",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.202,
+      "order_position": 1,
+      "run_id": "9",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.268,
+      "order_position": 1,
+      "run_id": "10",
+      "warmup_iterations": 2
+     },
+     {
+      "execution_mode": "native-scan",
+      "ms": 10.256,
+      "order_position": 1,
+      "run_id": "11",
+      "warmup_iterations": 2
+     }
+    ],
+    "samples_ms": [
+     10.21,
+     10.204,
+     10.178,
+     10.046,
+     10.217,
+     10.603,
+     10.421,
+     10.901,
+     10.187,
+     10.202,
+     10.268,
+     10.256
     ]
    }
   },
   {
    "idx": 42,
-   "ms": 6.1,
+   "ms": 6.75,
    "query": "SELECT WindowClientWidth, WindowClientHeight, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-01' AND EventDate <= '2013-07-31' A",
    "stats": {
-    "mad_ms": 0.2465,
-    "max_ms": 7.376,
-    "median_ms": 6.104,
-    "min_ms": 5.384,
-    "p25_ms": 5.923,
-    "p75_ms": 6.38425,
+    "mad_ms": 0.0435,
+    "max_ms": 7.148,
+    "median_ms": 6.752,
+    "min_ms": 6.662,
+    "p25_ms": 6.717,
+    "p75_ms": 6.8365,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 6.102,
+      "ms": 6.759,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.106,
+      "ms": 6.662,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.35,
+      "ms": 6.729,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.384,
+      "ms": 6.7,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.857,
+      "ms": 6.775,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.719,
+      "ms": 6.829,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.147,
+      "ms": 6.87,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.487,
+      "ms": 6.717,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.767,
+      "ms": 6.717,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 6.046,
+      "ms": 7.148,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.376,
+      "ms": 6.859,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 5.945,
+      "ms": 6.745,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     6.102,
-     6.106,
-     6.35,
-     5.384,
-     5.857,
-     5.719,
-     6.147,
-     6.487,
-     6.767,
-     6.046,
-     7.376,
-     5.945
+     6.759,
+     6.662,
+     6.729,
+     6.7,
+     6.775,
+     6.829,
+     6.87,
+     6.717,
+     6.717,
+     7.148,
+     6.859,
+     6.745
     ]
    }
   },
   {
    "idx": 43,
-   "ms": 8.74,
+   "ms": 9.5,
    "query": "SELECT DATE_TRUNC('minute', EventTime) AS M, COUNT(*) AS PageViews FROM hits WHERE CounterID = 62 AND EventDate >= '2013-07-14' AND EventDate <= '2013-07-15' AN",
    "stats": {
-    "mad_ms": 0.5345,
-    "max_ms": 9.275,
-    "median_ms": 8.739,
-    "min_ms": 7.263,
-    "p25_ms": 7.89575,
-    "p75_ms": 8.82525,
+    "mad_ms": 0.133,
+    "max_ms": 9.691,
+    "median_ms": 9.504,
+    "min_ms": 9.332,
+    "p25_ms": 9.3725,
+    "p75_ms": 9.6335,
     "samples": [
      {
       "execution_mode": "native-scan",
-      "ms": 8.808,
+      "ms": 9.498,
       "order_position": 1,
       "run_id": "0",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.877,
+      "ms": 9.386,
       "order_position": 1,
       "run_id": "1",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.922,
+      "ms": 9.68,
       "order_position": 1,
       "run_id": "2",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.272,
+      "ms": 9.365,
       "order_position": 1,
       "run_id": "3",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.741,
+      "ms": 9.51,
       "order_position": 1,
       "run_id": "4",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.906,
+      "ms": 9.375,
       "order_position": 1,
       "run_id": "5",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.789,
+      "ms": 9.631,
       "order_position": 1,
       "run_id": "6",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.263,
+      "ms": 9.515,
       "order_position": 1,
       "run_id": "7",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 8.737,
+      "ms": 9.332,
       "order_position": 1,
       "run_id": "8",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.865,
+      "ms": 9.344,
       "order_position": 1,
       "run_id": "9",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 9.275,
+      "ms": 9.691,
       "order_position": 1,
       "run_id": "10",
       "warmup_iterations": 2
      },
      {
       "execution_mode": "native-scan",
-      "ms": 7.494,
+      "ms": 9.641,
       "order_position": 1,
       "run_id": "11",
       "warmup_iterations": 2
      }
     ],
     "samples_ms": [
-     8.808,
-     8.877,
-     7.922,
-     9.272,
-     8.741,
-     7.906,
-     8.789,
-     7.263,
-     8.737,
-     7.865,
-     9.275,
-     7.494
+     9.498,
+     9.386,
+     9.68,
+     9.365,
+     9.51,
+     9.375,
+     9.631,
+     9.515,
+     9.332,
+     9.344,
+     9.691,
+     9.641
     ]
    }
   }
  ],
  "suite": "clickbench-10m",
  "threads": 32,
- "total_ms": 1361.5,
+ "total_ms": 1434.5,
  "version": "0.1.53"
 }

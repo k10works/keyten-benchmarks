@@ -1,0 +1,1314 @@
+{
+  "host_condition": "polling idle; C1/C2 disabled for all arms; restored by supervisor",
+  "candidate_binary_sha256": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06",
+  "board_run": {
+    "status": "complete",
+    "binary_sha256": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06",
+    "wheel_sha256": "8296b5261b65efa143e9a448e990a2236569b86456795cbf7d2c53ff179a6a96",
+    "source_files": {
+      "Cargo.toml": "ca79c1bcaadefba81f9de3dd2ac1871e94bdc0413c52a9a3d58844e66d4d3083",
+      "Cargo.lock": "f8cc47c213c518d7602fa84dbeeba8b30c32c652074536c08b93421396164d65",
+      "examples/jit-matrix.rs": "5cf63ef8a92527a787fe8c52bdd5158bd0df6b698aed49720ece66b6fc0a61bf",
+      "src/exec/prog.rs": "6786cb2c1de88fe30091b3af30a3e29561103895fa6cb305a66e17e5327ff41f",
+      "src/pipeline/eval.rs": "53f82fb35881352244a3a0f5995ebf3dd80c922cce775e9f3e78384e40cbe7a1",
+      "src/pipeline/mod.rs": "ee08c11df1f837dfb1b0b56dc0fb6d8cee605c26e74b1862fd6d24da82635c2f",
+      "src/strategy/modules/expression_backend.rs": "ce22d49c728840edc3f296a183a67aad7abab19de83292f25bb6a32a83fc5b7d",
+      "src/jit/tests.rs": "9047cac934058f670bd3e1539c65b0f66f82b40ba2be535bbae08880f3fe76d1",
+      "src/jit/ir.rs": "b4ff940b88fa6b0a63d2e85e82d3e07624a56d0c75c375f45ee634d2e58f360c",
+      "src/jit/regalloc.rs": "e181d5847bee4dcfa66ae1d4cccda3c50918895b628fc11278f08ec304f77095",
+      "src/jit/bench.rs": "ae29b0e8e98f55d373864eca9f4827bc6465264bbf3d58982a464df9c77cf365",
+      "src/jit/x64.rs": "0e8147c1fb25af523f84a5af5a5307b22ec7a25a6c4c7f6b5be4a2ae5f6a6e8d",
+      "src/jit/mod.rs": "bb7abf93cba50b72d681e24e4d53b5c2c8053db7dad532a4cb8e4675b333e35b",
+      "src/jit/session.rs": "d7874dbe5db8a18c534e23ddb175b963d2d7866f1e95ab5a3b230d66734c8265",
+      "src/jit/calibration.rs": "100d49f5648b0b40d461925b91c9ac40c7c6e3ec520ea4e6d05a4068f5521f5a"
+    },
+    "engine_head": "59db0ef1604780bca023a022d2cbc4649a9f7205",
+    "paired_sequence_gate": {
+      "gate": "pass",
+      "rows": [
+        {
+          "query": 1,
+          "baseline": 126.28156949999999,
+          "candidate": 113.1024615,
+          "delta_ms": -13.179107999999985,
+          "delta_pct": -10.436287775153117,
+          "regression": false
+        },
+        {
+          "query": 2,
+          "baseline": 20.947904,
+          "candidate": 20.571263000000002,
+          "delta_ms": -0.37664099999999934,
+          "delta_pct": -1.7979889539306622,
+          "regression": false
+        },
+        {
+          "query": 3,
+          "baseline": 174.32811800000002,
+          "candidate": 171.9870095,
+          "delta_ms": -2.3411085000000185,
+          "delta_pct": -1.3429322399958554,
+          "regression": false
+        },
+        {
+          "query": 4,
+          "baseline": 77.5997365,
+          "candidate": 75.954519,
+          "delta_ms": -1.645217500000001,
+          "delta_pct": -2.1201328434923243,
+          "regression": false
+        },
+        {
+          "query": 5,
+          "baseline": 101.9100385,
+          "candidate": 102.108701,
+          "delta_ms": 0.19866249999999752,
+          "delta_pct": 0.19493908836075802,
+          "regression": false
+        },
+        {
+          "query": 6,
+          "baseline": 41.860466,
+          "candidate": 40.499565000000004,
+          "delta_ms": -1.3609009999999984,
+          "delta_pct": -3.2510412091446814,
+          "regression": false
+        },
+        {
+          "query": 7,
+          "baseline": 220.345758,
+          "candidate": 219.606114,
+          "delta_ms": -0.7396439999999984,
+          "delta_pct": -0.33567426335477646,
+          "regression": false
+        },
+        {
+          "query": 8,
+          "baseline": 201.8034435,
+          "candidate": 200.1114555,
+          "delta_ms": -1.6919879999999807,
+          "delta_pct": -0.8384336613165775,
+          "regression": false
+        },
+        {
+          "query": 9,
+          "baseline": 335.02706049999995,
+          "candidate": 333.61303350000003,
+          "delta_ms": -1.414026999999919,
+          "delta_pct": -0.4220635186571502,
+          "regression": false
+        },
+        {
+          "query": 10,
+          "baseline": 178.541873,
+          "candidate": 175.1052985,
+          "delta_ms": -3.436574500000006,
+          "delta_pct": -1.9248002960067558,
+          "regression": false
+        },
+        {
+          "query": 11,
+          "baseline": 41.4051585,
+          "candidate": 41.451710500000004,
+          "delta_ms": 0.04655200000000548,
+          "delta_pct": 0.11243043544925804,
+          "regression": false
+        },
+        {
+          "query": 12,
+          "baseline": 97.964031,
+          "candidate": 94.536543,
+          "delta_ms": -3.427488000000011,
+          "delta_pct": -3.498720872357744,
+          "regression": false
+        },
+        {
+          "query": 13,
+          "baseline": 184.80931800000002,
+          "candidate": 184.40288049999998,
+          "delta_ms": -0.4064375000000382,
+          "delta_pct": -0.2199226231655907,
+          "regression": false
+        },
+        {
+          "query": 14,
+          "baseline": 83.4647625,
+          "candidate": 83.424465,
+          "delta_ms": -0.04029750000000831,
+          "delta_pct": -0.0482808538513583,
+          "regression": false
+        },
+        {
+          "query": 15,
+          "baseline": 69.5095965,
+          "candidate": 70.04810649999999,
+          "delta_ms": 0.538509999999988,
+          "delta_pct": 0.774727558661613,
+          "regression": false
+        },
+        {
+          "query": 16,
+          "baseline": 92.096249,
+          "candidate": 92.7163315,
+          "delta_ms": 0.6200824999999952,
+          "delta_pct": 0.673298322931692,
+          "regression": false
+        },
+        {
+          "query": 17,
+          "baseline": 59.2159555,
+          "candidate": 59.167988,
+          "delta_ms": -0.04796749999999861,
+          "delta_pct": -0.08100435025488799,
+          "regression": false
+        },
+        {
+          "query": 18,
+          "baseline": 209.84020700000002,
+          "candidate": 210.86253,
+          "delta_ms": 1.0223229999999717,
+          "delta_pct": 0.48719118924619226,
+          "regression": false
+        },
+        {
+          "query": 19,
+          "baseline": 214.344631,
+          "candidate": 213.60159399999998,
+          "delta_ms": -0.7430370000000153,
+          "delta_pct": -0.3466552889771311,
+          "regression": false
+        },
+        {
+          "query": 20,
+          "baseline": 159.631454,
+          "candidate": 158.48083200000002,
+          "delta_ms": -1.15062199999997,
+          "delta_pct": -0.7207990475360639,
+          "regression": false
+        },
+        {
+          "query": 21,
+          "baseline": 362.25641599999994,
+          "candidate": 361.18245049999996,
+          "delta_ms": -1.0739654999999857,
+          "delta_pct": -0.2964655565962387,
+          "regression": false
+        },
+        {
+          "query": 22,
+          "baseline": 62.114009499999995,
+          "candidate": 60.991868499999995,
+          "delta_ms": -1.1221409999999992,
+          "delta_pct": -1.8065827806527275,
+          "regression": false
+        }
+      ],
+      "sum_query_medians_ms": {
+        "baseline": 3115.297756,
+        "candidate": 3083.5267205
+      },
+      "correctness": "pass",
+      "primary_gate": "pass",
+      "host_condition": "polling idle; C1/C2 disabled for all arms; restored by supervisor",
+      "idle_states": {
+        "/sys/devices/system/cpu/cpu21/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu21/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu11/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu11/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu9/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu9/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu7/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu7/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu28/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu28/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu18/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu18/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu5/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu5/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu26/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu26/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu16/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu16/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu3/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu3/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu24/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu24/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu14/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu14/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu1/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu1/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu22/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu22/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu12/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu12/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu30/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu30/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu20/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu20/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu10/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu10/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu8/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu8/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu29/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu29/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu19/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu19/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu6/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu6/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu27/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu27/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu17/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu17/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu4/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu4/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu25/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu25/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu15/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu15/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu2/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu2/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu23/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu23/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu13/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu13/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu0/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu0/cpuidle/state2/disable": "1",
+        "/sys/devices/system/cpu/cpu31/cpuidle/state1/disable": "1",
+        "/sys/devices/system/cpu/cpu31/cpuidle/state2/disable": "1"
+      },
+      "frequency_policy": {
+        "policy0": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy1": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy2": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy3": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy4": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy5": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy6": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy7": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy8": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy9": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy10": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy11": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy12": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy13": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy14": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy15": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy16": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy17": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy18": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy19": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy20": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy21": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy22": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy23": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy24": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy25": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy26": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy27": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy28": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy29": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy30": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        },
+        "policy31": {
+          "scaling_driver": "amd-pstate-epp",
+          "scaling_governor": "powersave",
+          "energy_performance_preference": "balance_performance",
+          "scaling_min_freq": "1746460",
+          "scaling_max_freq": "5086181"
+        }
+      },
+      "aa_control": {
+        "gate": "pass",
+        "rows": [
+          {
+            "query": 1,
+            "baseline": 126.28156949999999,
+            "candidate": 125.1761395,
+            "delta_ms": -1.1054299999999841,
+            "delta_pct": -0.8753692279695527,
+            "regression": false
+          },
+          {
+            "query": 2,
+            "baseline": 20.947904,
+            "candidate": 20.800438,
+            "delta_ms": -0.14746600000000143,
+            "delta_pct": -0.7039654182108216,
+            "regression": false
+          },
+          {
+            "query": 3,
+            "baseline": 174.32811800000002,
+            "candidate": 175.1956485,
+            "delta_ms": 0.8675304999999867,
+            "delta_pct": 0.4976423252616004,
+            "regression": false
+          },
+          {
+            "query": 4,
+            "baseline": 77.5997365,
+            "candidate": 78.080742,
+            "delta_ms": 0.48100549999999487,
+            "delta_pct": 0.619854553243225,
+            "regression": false
+          },
+          {
+            "query": 5,
+            "baseline": 101.9100385,
+            "candidate": 101.761136,
+            "delta_ms": -0.1489025000000055,
+            "delta_pct": -0.14611171008438534,
+            "regression": false
+          },
+          {
+            "query": 6,
+            "baseline": 41.860466,
+            "candidate": 41.909121,
+            "delta_ms": 0.04865499999999656,
+            "delta_pct": 0.11623138643510696,
+            "regression": false
+          },
+          {
+            "query": 7,
+            "baseline": 220.345758,
+            "candidate": 221.47898500000002,
+            "delta_ms": 1.1332270000000335,
+            "delta_pct": 0.5142949019241085,
+            "regression": false
+          },
+          {
+            "query": 8,
+            "baseline": 201.8034435,
+            "candidate": 201.7907285,
+            "delta_ms": -0.012714999999985821,
+            "delta_pct": -0.006300685349794748,
+            "regression": false
+          },
+          {
+            "query": 9,
+            "baseline": 335.02706049999995,
+            "candidate": 334.53297150000003,
+            "delta_ms": -0.4940889999999172,
+            "delta_pct": -0.1474773408639083,
+            "regression": false
+          },
+          {
+            "query": 10,
+            "baseline": 178.541873,
+            "candidate": 179.01530150000002,
+            "delta_ms": 0.47342850000001135,
+            "delta_pct": 0.26516384758661704,
+            "regression": false
+          },
+          {
+            "query": 11,
+            "baseline": 41.4051585,
+            "candidate": 41.33172999999999,
+            "delta_ms": -0.07342850000000567,
+            "delta_pct": -0.17734142957092092,
+            "regression": false
+          },
+          {
+            "query": 12,
+            "baseline": 97.964031,
+            "candidate": 97.72018399999999,
+            "delta_ms": -0.24384700000001658,
+            "delta_pct": -0.24891482874976487,
+            "regression": false
+          },
+          {
+            "query": 13,
+            "baseline": 184.80931800000002,
+            "candidate": 184.540502,
+            "delta_ms": -0.26881600000001526,
+            "delta_pct": -0.14545586927603685,
+            "regression": false
+          },
+          {
+            "query": 14,
+            "baseline": 83.4647625,
+            "candidate": 83.474145,
+            "delta_ms": 0.009382499999986749,
+            "delta_pct": 0.011241270829695045,
+            "regression": false
+          },
+          {
+            "query": 15,
+            "baseline": 69.5095965,
+            "candidate": 69.68015199999999,
+            "delta_ms": 0.17055549999999187,
+            "delta_pct": 0.24536971668364074,
+            "regression": false
+          },
+          {
+            "query": 16,
+            "baseline": 92.096249,
+            "candidate": 91.9821915,
+            "delta_ms": -0.11405750000000126,
+            "delta_pct": -0.12384597770100415,
+            "regression": false
+          },
+          {
+            "query": 17,
+            "baseline": 59.2159555,
+            "candidate": 59.1318355,
+            "delta_ms": -0.08411999999999864,
+            "delta_pct": -0.1420563077800858,
+            "regression": false
+          },
+          {
+            "query": 18,
+            "baseline": 209.84020700000002,
+            "candidate": 209.50285200000002,
+            "delta_ms": -0.3373550000000023,
+            "delta_pct": -0.16076756920088353,
+            "regression": false
+          },
+          {
+            "query": 19,
+            "baseline": 214.344631,
+            "candidate": 212.9275975,
+            "delta_ms": -1.4170335000000023,
+            "delta_pct": -0.6611005339340654,
+            "regression": false
+          },
+          {
+            "query": 20,
+            "baseline": 159.631454,
+            "candidate": 161.205298,
+            "delta_ms": 1.5738440000000082,
+            "delta_pct": 0.9859234884874307,
+            "regression": false
+          },
+          {
+            "query": 21,
+            "baseline": 362.25641599999994,
+            "candidate": 360.55528200000003,
+            "delta_ms": -1.7011339999999109,
+            "delta_pct": -0.4695938911955423,
+            "regression": false
+          },
+          {
+            "query": 22,
+            "baseline": 62.114009499999995,
+            "candidate": 62.020099,
+            "delta_ms": -0.09391049999999268,
+            "delta_pct": -0.15119052973064423,
+            "regression": false
+          }
+        ],
+        "sum_query_medians_ms": {
+          "baseline": 3115.297756,
+          "candidate": 3113.81308
+        }
+      },
+      "second_baseline_comparison": {
+        "gate": "pass",
+        "rows": [
+          {
+            "query": 1,
+            "baseline": 125.1761395,
+            "candidate": 113.1024615,
+            "delta_ms": -12.073678000000001,
+            "delta_pct": -9.645350981606203,
+            "regression": false
+          },
+          {
+            "query": 2,
+            "baseline": 20.800438,
+            "candidate": 20.571263000000002,
+            "delta_ms": -0.2291749999999979,
+            "delta_pct": -1.1017796836778049,
+            "regression": false
+          },
+          {
+            "query": 3,
+            "baseline": 175.1956485,
+            "candidate": 171.9870095,
+            "delta_ms": -3.208639000000005,
+            "delta_pct": -1.8314604429230472,
+            "regression": false
+          },
+          {
+            "query": 4,
+            "baseline": 78.080742,
+            "candidate": 75.954519,
+            "delta_ms": -2.126222999999996,
+            "delta_pct": -2.723108087266891,
+            "regression": false
+          },
+          {
+            "query": 5,
+            "baseline": 101.761136,
+            "candidate": 102.108701,
+            "delta_ms": 0.347565000000003,
+            "delta_pct": 0.34154984276119227,
+            "regression": false
+          },
+          {
+            "query": 6,
+            "baseline": 41.909121,
+            "candidate": 40.499565000000004,
+            "delta_ms": -1.409555999999995,
+            "delta_pct": -3.3633633117716664,
+            "regression": false
+          },
+          {
+            "query": 7,
+            "baseline": 221.47898500000002,
+            "candidate": 219.606114,
+            "delta_ms": -1.872871000000032,
+            "delta_pct": -0.8456201837840425,
+            "regression": false
+          },
+          {
+            "query": 8,
+            "baseline": 201.7907285,
+            "candidate": 200.1114555,
+            "delta_ms": -1.679272999999995,
+            "delta_pct": -0.8321854093509529,
+            "regression": false
+          },
+          {
+            "query": 9,
+            "baseline": 334.53297150000003,
+            "candidate": 333.61303350000003,
+            "delta_ms": -0.9199380000000019,
+            "delta_pct": -0.2749917282817075,
+            "regression": false
+          },
+          {
+            "query": 10,
+            "baseline": 179.01530150000002,
+            "candidate": 175.1052985,
+            "delta_ms": -3.9100030000000174,
+            "delta_pct": -2.1841725077339365,
+            "regression": false
+          },
+          {
+            "query": 11,
+            "baseline": 41.33172999999999,
+            "candidate": 41.451710500000004,
+            "delta_ms": 0.11998050000001115,
+            "delta_pct": 0.290286663539153,
+            "regression": false
+          },
+          {
+            "query": 12,
+            "baseline": 97.72018399999999,
+            "candidate": 94.536543,
+            "delta_ms": -3.1836409999999944,
+            "delta_pct": -3.2579154783417055,
+            "regression": false
+          },
+          {
+            "query": 13,
+            "baseline": 184.540502,
+            "candidate": 184.40288049999998,
+            "delta_ms": -0.13762150000002293,
+            "delta_pct": -0.07457522793561217,
+            "regression": false
+          },
+          {
+            "query": 14,
+            "baseline": 83.474145,
+            "candidate": 83.424465,
+            "delta_ms": -0.04967999999999506,
+            "delta_pct": -0.05951543438988811,
+            "regression": false
+          },
+          {
+            "query": 15,
+            "baseline": 69.68015199999999,
+            "candidate": 70.04810649999999,
+            "delta_ms": 0.3679544999999962,
+            "delta_pct": 0.528062137407502,
+            "regression": false
+          },
+          {
+            "query": 16,
+            "baseline": 91.9821915,
+            "candidate": 92.7163315,
+            "delta_ms": 0.7341399999999965,
+            "delta_pct": 0.7981327559476515,
+            "regression": false
+          },
+          {
+            "query": 17,
+            "baseline": 59.1318355,
+            "candidate": 59.167988,
+            "delta_ms": 0.03615250000000003,
+            "delta_pct": 0.06113880905996911,
+            "regression": false
+          },
+          {
+            "query": 18,
+            "baseline": 209.50285200000002,
+            "candidate": 210.86253,
+            "delta_ms": 1.359677999999974,
+            "delta_pct": 0.6490021434171092,
+            "regression": false
+          },
+          {
+            "query": 19,
+            "baseline": 212.9275975,
+            "candidate": 213.60159399999998,
+            "delta_ms": 0.673996499999987,
+            "delta_pct": 0.3165378785622127,
+            "regression": false
+          },
+          {
+            "query": 20,
+            "baseline": 161.205298,
+            "candidate": 158.48083200000002,
+            "delta_ms": -2.7244659999999783,
+            "delta_pct": -1.6900598391003119,
+            "regression": false
+          },
+          {
+            "query": 21,
+            "baseline": 360.55528200000003,
+            "candidate": 361.18245049999996,
+            "delta_ms": 0.6271684999999252,
+            "delta_pct": 0.17394517049397298,
+            "regression": false
+          },
+          {
+            "query": 22,
+            "baseline": 62.020099,
+            "candidate": 60.991868499999995,
+            "delta_ms": -1.0282305000000065,
+            "delta_pct": -1.6578988369560752,
+            "regression": false
+          }
+        ],
+        "sum_query_medians_ms": {
+          "baseline": 3113.81308,
+          "candidate": 3083.5267205
+        }
+      },
+      "binaries": {
+        "baseline": [
+          "26ea6597c34c3a7c1469bf026960c0d3e44e0c20451943601057a42cf72d6d47"
+        ],
+        "candidate": [
+          "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06"
+        ]
+      },
+      "protocol": "Full 22-query control with two identical baselines and one JIT candidate.\n\n12 balanced rounds, all six arm orders twice; five timed full sequences after\ntwo warmups per process. Keyten has 32 workers; the full-result checker has one\nPolars thread. Gate requires A/A and both candidate comparisons to pass the\nunchanged combined >2 ms and >5% per-query regression threshold.\n"
+    },
+    "paired_run": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-output-v6-poll-three-arm-20260919",
+    "paired_manifest_sha256": "67cf876b20e22ab828c931d5cb7ff45b41b7ecdcd6a13755eb27f9183d5ec254",
+    "reused_baseline": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo",
+    "host_condition": "polling idle; C1/C2 disabled for all arms; restored by supervisor",
+    "frequency_policy": {
+      "policy0": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy1": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy2": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy3": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy4": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy5": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy6": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy7": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy8": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy9": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy10": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy11": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy12": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy13": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy14": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy15": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy16": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy17": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy18": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy19": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy20": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy21": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy22": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy23": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy24": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy25": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy26": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy27": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy28": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy29": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy30": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      },
+      "policy31": {
+        "scaling_driver": "amd-pstate-epp",
+        "scaling_governor": "powersave",
+        "energy_performance_preference": "balance_performance",
+        "scaling_min_freq": "1746460",
+        "scaling_max_freq": "5086181"
+      }
+    },
+    "idle_states": {
+      "/sys/devices/system/cpu/cpu21/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu21/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu11/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu11/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu9/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu9/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu7/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu7/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu28/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu28/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu18/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu18/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu5/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu5/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu26/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu26/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu16/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu16/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu3/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu3/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu24/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu24/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu14/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu14/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu1/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu1/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu22/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu22/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu12/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu12/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu30/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu30/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu20/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu20/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu10/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu10/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu8/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu8/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu29/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu29/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu19/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu19/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu6/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu6/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu27/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu27/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu17/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu17/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu4/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu4/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu25/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu25/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu15/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu15/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu2/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu2/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu23/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu23/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu13/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu13/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu0/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu0/cpuidle/state2/disable": "1",
+      "/sys/devices/system/cpu/cpu31/cpuidle/state1/disable": "1",
+      "/sys/devices/system/cpu/cpu31/cpuidle/state2/disable": "1"
+    },
+    "runner_patch_sha256": "0985b238d23c11cd84f7262aba6ce9ca9fdb28c335c106dccc20d1cf51704b26",
+    "methodology": "Run a gated, isolated Keyten-only board refresh using retained competitors.\n\nThe paired gate uses five sequences per process; the board retains its existing\n12 fresh-process samples/two warmups for PDS-H and ClickBench and best-of-three\nfor TAQ/Tick. They are separate experiments, with separate recorded protocols.\n",
+    "commands": {
+      "pdsh": {
+        "command": [
+          "./runner/run_pdsh.sh",
+          "10.0"
+        ],
+        "returncode": 0,
+        "binary_sha256": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06"
+      },
+      "clickbench": {
+        "command": [
+          "./runner/run_clickbench.sh",
+          "/home/hetoku/keyten-clickbench/hits10m.parquet"
+        ],
+        "returncode": 0,
+        "binary_sha256": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06"
+      },
+      "taq": {
+        "command": [
+          "./runner/run_taq.sh",
+          "/home/hetoku/keyten-taq-data/small/parquet/rowgroup",
+          "32"
+        ],
+        "returncode": 0,
+        "binary_sha256": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06"
+      },
+      "tickops": {
+        "command": [
+          "./runner/run_tickops.sh",
+          "/home/hetoku/keyten-benchmarks/.work/tickops-data",
+          "32"
+        ],
+        "returncode": 0,
+        "binary_sha256": "e2fe8f105170ac60a574938f9c3fcc0619da5b128c98ce17a97d5191586c0a06"
+      }
+    }
+  },
+  "suites": [
+    {
+      "suite": "taq-small",
+      "common_queries": 53,
+      "totals_ms": {
+        "keyten": 837.41,
+        "duckdb": 3511.45,
+        "polars": 2654.48
+      },
+      "wins": 36,
+      "measured": 53,
+      "prior_keyten_total_ms": 837.45,
+      "keyten_change_pct": -0.004776404561479541,
+      "historical_regression_review": false
+    },
+    {
+      "suite": "clickbench-10m",
+      "common_queries": 43,
+      "totals_ms": {
+        "keyten": 1434.46,
+        "duckdb": 2171.59,
+        "polars": 5571.5599999999995
+      },
+      "wins": 21,
+      "measured": 43,
+      "prior_keyten_total_ms": 1438.72,
+      "keyten_change_pct": -0.29609653024911253,
+      "historical_regression_review": false
+    },
+    {
+      "suite": "pdsh-sf10",
+      "common_queries": 22,
+      "totals_ms": {
+        "keyten": 3187.68,
+        "duckdb": 2663.36,
+        "polars": 6135.389999999999
+      },
+      "wins": 8,
+      "measured": 22,
+      "prior_keyten_total_ms": 3200.58,
+      "keyten_change_pct": -0.40305194683464274,
+      "historical_regression_review": false
+    },
+    {
+      "suite": "tickops",
+      "common_queries": 7,
+      "totals_ms": {
+        "keyten": 3392.16,
+        "duckdb": 10361.43,
+        "polars": 5782.03
+      },
+      "wins": 5,
+      "measured": 8,
+      "prior_keyten_total_ms": 3396.7200000000003,
+      "keyten_change_pct": -0.13424715607999183,
+      "historical_regression_review": false
+    }
+  ],
+  "original_board_review_flags": [
+    {
+      "suite": "taq-small",
+      "query": 35,
+      "keyten_ms": 57.64,
+      "prior_keyten_ms": 54.78,
+      "keyten_change_ms": 2.8599999999999994,
+      "keyten_change_pct": 5.2208835341365445,
+      "baseline_regression_review": true,
+      "best_rival": "polars",
+      "best_rival_ms": 19.37,
+      "gap_ms": 38.269999999999996,
+      "loss": true,
+      "family": "window_rank"
+    }
+  ],
+  "followup_reviews": {
+    "taq": {
+      "gate": "pass",
+      "protocol": "Twelve alternating baseline/candidate pairs of the unchanged full TAQ sequence.\n\nUses the board's original three evaluations/query and minimum-of-three statistic.\nFull-output correctness is a prerequisite from both completed board captures;\ntiming processes retain the original harness without extra result serialization.\nAll 53 query deltas are reviewed at the unchanged combined >2ms and >5% threshold.\nThis follow-up does not replace the original single-sitting Q35 review flag.\n",
+      "q35": {
+        "query": 35,
+        "baseline": 56.775273,
+        "candidate": 57.592937500000005,
+        "delta_ms": 0.8176645000000065,
+        "delta_pct": 1.440177134859407,
+        "regression": false
+      },
+      "summary_sha256": "5b71984ca25ae680fb0e63d718718c3a12b77283ba523ef1d1162c0e143bdc6e",
+      "verification": "../taq-full-review-verification.json"
+    }
+  },
+  "disposition": "Accepted under the recorded polling-idle condition. Original board Q35 flag and original-host-condition rejected JIT gates are retained.",
+  "audit_url": "https://github.com/k10works/keyten/tree/main/audit/jit-dispatch-20260919",
+  "matched_baseline_results": "archive/pre-jit-polling-idle-20260919",
+  "previous_host_results": "archive/pre-jit-original-host-20260919"
+}

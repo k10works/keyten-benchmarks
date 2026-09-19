@@ -9,9 +9,15 @@
   "benchmark_repo": {
    "dirty": true,
    "dirty_paths": [
+    "adapters/clickbench-keyten/queries.sql",
+    "adapters/clickbench-polars/queries.sql",
+    "adapters/clickbench-polars/server_10m.py",
+    "adapters/pdsh-keyten/utils.py",
+    "harnesses/pdsh/queries/keyten/utils.py",
     "results/clickbench-10m/duckdb.json",
     "results/clickbench-10m/keyten.json",
     "results/clickbench-10m/polars.json",
+    "results/index.json",
     "results/pdsh-sf10/duckdb.json",
     "results/pdsh-sf10/keyten.json",
     "results/pdsh-sf10/polars.json",
@@ -20,10 +26,22 @@
     "results/taq-small/polars.json",
     "results/tickops/duckdb.json",
     "results/tickops/keyten.json",
-    "results/tickops/polars.json"
+    "results/tickops/polars.json",
+    "runner/cb_duckdb.py",
+    "runner/check_clickbench_results.py",
+    "runner/check_taq_results.py",
+    "runner/run_clickbench.sh",
+    "runner/test_check_clickbench_results.py",
+    "runner/test_check_taq_results.py",
+    "runner/test_run_scripts.py",
+    "runner/lib/daemon.sh",
+    "runner/test_clickbench_semantics.py",
+    "runner/test_clickbench_ties.py",
+    "runner/test_daemon.py",
+    "runner/test_pdsh_identity.py"
    ],
-   "sha": "f089e8cf4e9b9103c7aca844d0a829bed7268793",
-   "source_dirty": false
+   "sha": "8851975c1100b273b29550fa289b8cb516f4a83e",
+   "source_dirty": true
   },
   "engine_modes": {
    "duckdb": "in-memory",
@@ -45,7 +63,7 @@
       "version": "1.5.5"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
     "version": "1.5.5"
    },
    "keyten": {
@@ -56,13 +74,13 @@
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "26ea6597c34c3a7c1469bf026960c0d3e44e0c20451943601057a42cf72d6d47"
+       "keyten/_keyten.abi3.so": "7bf9fd648c159701f92f96b3ed33287dde9b38a7eed5250b0c2551d2d5f343be"
       },
-      "sha256": "68a772cfde87924cee27bff9ef8e8708c6f5502f28219e063e44ce891cda100f",
+      "sha256": "a586e1728833c37ab22cac3ae16569e52702297dd47fe1461d277c1c6d52829d",
       "version": "0.1.53"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
     "version": "0.1.53"
    },
    "polars": {
@@ -80,11 +98,11 @@
       "native_artifacts": {
        "_polars_runtime_32/_polars_runtime.abi3.so": "bd7cdb9876c63ae705bd918423eb5812e7746a3b9379501cf4f0707e5c151736"
       },
-      "sha256": "1321c3c4f78b3df7088925fb4d679073f87007b9a6d690697bc3539db91b70f2",
+      "sha256": "6a79cb2ec3f69fde9b3022f209d1464f0a822576e6ffabfe1a304550df6c08e0",
       "version": "1.44.2"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
     "version": "1.44.2"
    }
   },
@@ -146,7 +164,7 @@
    "warmups_per_query": 0
   },
   "native_stores": [],
-  "recorded_at": "2026-09-19T21:03:56.815845+00:00",
+  "recorded_at": "2026-09-19T09:11:15.094033+00:00",
   "workers": 32
  },
  "engine": "polars",
@@ -161,47 +179,47 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 415.52,
+   "ms": 415.24,
    "query": "trades.group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym').agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).colle"
   },
   {
    "idx": 2,
-   "ms": 507.23,
+   "ms": 428.05,
    "query": "trades.with_columns([col('price').log().diff().over('sym').alias('ret')]).select(['sym','ts','ret']).collect()"
   },
   {
    "idx": 3,
-   "ms": 856.89,
+   "ms": 739.05,
    "query": "ret.rolling_std(window_size=20, min_samples=20).over('sym')"
   },
   {
    "idx": 4,
-   "ms": 2067.59,
+   "ms": 1486.46,
    "query": "ret.rolling_std_by('ts', window_size='5m', min_samples=2).over('sym')"
   },
   {
    "idx": 5,
-   "ms": 898.04,
+   "ms": 817.91,
    "query": "ret.ewm_std(span=20, min_samples=2).over('sym')"
   },
   {
    "idx": 6,
-   "ms": 838.34,
+   "ms": 754.41,
    "query": "trades.join_asof(quotes, on='ts', by='sym', strategy='backward').collect()"
   },
   {
    "idx": 7,
-   "ms": 758.54,
+   "ms": 777.22,
    "query": "trades.join_asof(quotes, on='ts', by='sym', strategy='backward', tolerance='5s').collect()"
   },
   {
    "idx": 8,
-   "ms": 337.92,
+   "ms": 320.09,
    "query": "value = group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym').agg(sum); rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_i"
   }
  ],
  "suite": "tickops",
  "threads": 32,
- "total_ms": 6680.1,
+ "total_ms": 5738.4,
  "version": "1.44.2"
 }

@@ -149,7 +149,7 @@
   "recorded_at": "2026-09-19T21:03:56.815845+00:00",
   "workers": 32
  },
- "engine": "polars",
+ "engine": "keyten",
  "execution_mode": "in-memory",
  "machine": {
   "cores": 32,
@@ -161,47 +161,47 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 415.52,
-   "query": "trades.group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym').agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).colle"
+   "ms": 124.01,
+   "query": "trades.group_by(['sym', col('ts').truncate('1m')]).agg([...open/high/low/close/volume, (price*size).sum()/size.sum() as vwap]).collect()"
   },
   {
    "idx": 2,
-   "ms": 507.23,
+   "ms": 308.01,
    "query": "trades.with_columns([col('price').log().diff().over('sym').alias('ret')]).select(['sym','ts','ret']).collect()"
   },
   {
    "idx": 3,
-   "ms": 856.89,
-   "query": "ret.rolling_std(window_size=20, min_samples=20).over('sym')"
+   "ms": 390.68,
+   "query": "ret.rolling_std(20).over('sym')"
   },
   {
    "idx": 4,
-   "ms": 2067.59,
-   "query": "ret.rolling_std_by('ts', window_size='5m', min_samples=2).over('sym')"
+   "ms": 410.86,
+   "query": "ret.rolling_std_by('ts', '5m').over('sym')"
   },
   {
    "idx": 5,
-   "ms": 898.04,
-   "query": "ret.ewm_std(span=20, min_samples=2).over('sym')"
+   "ms": 389.95,
+   "query": "ret.ewm_std(span=20).over('sym')"
   },
   {
    "idx": 6,
-   "ms": 838.34,
-   "query": "trades.join_asof(quotes, on='ts', by='sym', strategy='backward').collect()"
+   "ms": 969.45,
+   "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward').collect()"
   },
   {
    "idx": 7,
-   "ms": 758.54,
-   "query": "trades.join_asof(quotes, on='ts', by='sym', strategy='backward', tolerance='5s').collect()"
+   "ms": 1022.88,
+   "query": "trades.join_asof(quotes, ('ts','ts'), [('sym','sym')], strategy='backward', tolerance='5s').collect()"
   },
   {
    "idx": 8,
-   "ms": 337.92,
-   "query": "value = group_by_dynamic(col('ts').alias('minute'), every='1m', group_by='sym').agg(sum); rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_i"
+   "ms": 170.83,
+   "query": "value.rank('ordinal', descending=True).over('minute') <= ceil(0.1 * n_syms_in_minute), summed per minute"
   }
  ],
  "suite": "tickops",
  "threads": 32,
- "total_ms": 6680.1,
- "version": "1.44.2"
+ "total_ms": 3786.7,
+ "version": "0.1.53"
 }

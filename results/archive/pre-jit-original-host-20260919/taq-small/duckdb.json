@@ -9,9 +9,15 @@
   "benchmark_repo": {
    "dirty": true,
    "dirty_paths": [
+    "adapters/clickbench-keyten/queries.sql",
+    "adapters/clickbench-polars/queries.sql",
+    "adapters/clickbench-polars/server_10m.py",
+    "adapters/pdsh-keyten/utils.py",
+    "harnesses/pdsh/queries/keyten/utils.py",
     "results/clickbench-10m/duckdb.json",
     "results/clickbench-10m/keyten.json",
     "results/clickbench-10m/polars.json",
+    "results/index.json",
     "results/pdsh-sf10/duckdb.json",
     "results/pdsh-sf10/keyten.json",
     "results/pdsh-sf10/polars.json",
@@ -20,10 +26,22 @@
     "results/taq-small/polars.json",
     "results/tickops/duckdb.json",
     "results/tickops/keyten.json",
-    "results/tickops/polars.json"
+    "results/tickops/polars.json",
+    "runner/cb_duckdb.py",
+    "runner/check_clickbench_results.py",
+    "runner/check_taq_results.py",
+    "runner/run_clickbench.sh",
+    "runner/test_check_clickbench_results.py",
+    "runner/test_check_taq_results.py",
+    "runner/test_run_scripts.py",
+    "runner/lib/daemon.sh",
+    "runner/test_clickbench_semantics.py",
+    "runner/test_clickbench_ties.py",
+    "runner/test_daemon.py",
+    "runner/test_pdsh_identity.py"
    ],
-   "sha": "f089e8cf4e9b9103c7aca844d0a829bed7268793",
-   "source_dirty": false
+   "sha": "8851975c1100b273b29550fa289b8cb516f4a83e",
+   "source_dirty": true
   },
   "engine_modes": {
    "duckdb": "in-memory",
@@ -45,7 +63,7 @@
       "version": "1.5.5"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/duckdb/__init__.py",
     "version": "1.5.5"
    },
    "keyten": {
@@ -56,13 +74,13 @@
     "distributions": {
      "keyten": {
       "native_artifacts": {
-       "keyten/_keyten.abi3.so": "26ea6597c34c3a7c1469bf026960c0d3e44e0c20451943601057a42cf72d6d47"
+       "keyten/_keyten.abi3.so": "7bf9fd648c159701f92f96b3ed33287dde9b38a7eed5250b0c2551d2d5f343be"
       },
-      "sha256": "68a772cfde87924cee27bff9ef8e8708c6f5502f28219e063e44ce891cda100f",
+      "sha256": "a586e1728833c37ab22cac3ae16569e52702297dd47fe1461d277c1c6d52829d",
       "version": "0.1.53"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/keyten/__init__.py",
     "version": "0.1.53"
    },
    "polars": {
@@ -80,11 +98,11 @@
       "native_artifacts": {
        "_polars_runtime_32/_polars_runtime.abi3.so": "bd7cdb9876c63ae705bd918423eb5812e7746a3b9379501cf4f0707e5c151736"
       },
-      "sha256": "1321c3c4f78b3df7088925fb4d679073f87007b9a6d690697bc3539db91b70f2",
+      "sha256": "6a79cb2ec3f69fde9b3022f209d1464f0a822576e6ffabfe1a304550df6c08e0",
       "version": "1.44.2"
      }
     },
-    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/jit-poll-matched-baseline-board-20260919/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
+    "module": "/home/hetoku/data/work/keyten-benchmarks/.work/filter-lineage-full-board-20260918/repo/.work/venv/lib/python3.14/site-packages/polars/__init__.py",
     "version": "1.44.2"
    }
   },
@@ -142,7 +160,7 @@
    "warmups_per_query": 0
   },
   "native_stores": [],
-  "recorded_at": "2026-09-19T20:50:22.036331+00:00",
+  "recorded_at": "2026-09-19T08:56:58.415879+00:00",
   "workers": 32
  },
  "engine": "duckdb",
@@ -157,325 +175,325 @@
  "queries": [
   {
    "idx": 1,
-   "ms": 117.97,
+   "ms": 83.08,
    "query": "SELECT * FROM quote WHERE time < $1 + INTERVAL '8 hours'",
-   "tags": "rawcolumn,timefilter,simple,originalorder"
+   "tags": "rawcolumn,timefilter,originalorder,simple"
   },
   {
    "idx": 2,
-   "ms": 0.72,
+   "ms": 0.58,
    "query": "SELECT * FROM trade WHERE seq=0",
-   "tags": "simple,emptyresult,rawcolumn"
+   "tags": "emptyresult,rawcolumn,simple"
   },
   {
    "idx": 3,
-   "ms": 32.45,
+   "ms": 23.51,
    "query": "SELECT * FROM trade WHERE 0 < seq AND 0 < price AND time BETWEEN '-infinity'::TIMESTAMP AND 'infinity'::TIMESTAMP AND size < 2147483647",
-   "tags": "rawcolumn,timefilter,manydummyfilters,simple"
+   "tags": "rawcolumn,manydummyfilters,timefilter,simple"
   },
   {
    "idx": 4,
-   "ms": 2.88,
+   "ms": 2.51,
    "query": "SELECT * FROM trade WHERE time BETWEEN $1 + INTERVAL '10 hours' AND $1 + INTERVAL '10 hours 10 seconds'",
-   "tags": "simple,rawcolumn,timefilter"
+   "tags": "timefilter,rawcolumn,simple"
   },
   {
    "idx": 5,
-   "ms": 26.73,
+   "ms": 21.31,
    "query": "SELECT * FROM quote WHERE sym = $1 AND time BETWEEN $2 + INTERVAL '8 hours 30 minutes' AND $2 + INTERVAL '16 hours 30 minutes'",
-   "tags": "rawcolumn,timefilter,simple,singleinstrument"
+   "tags": "singleinstrument,rawcolumn,timefilter,simple"
   },
   {
    "idx": 6,
-   "ms": 22.92,
+   "ms": 17.63,
    "query": "SELECT * FROM quote WHERE sym IN $1 AND time BETWEEN $2 + INTERVAL '8 hours 30 minutes' AND $2 + INTERVAL '8 hours 35 minutes'",
-   "tags": "rawcolumn,timefilter,simple,fewinstruments"
+   "tags": "rawcolumn,fewinstruments,timefilter,simple"
   },
   {
    "idx": 7,
-   "ms": 55.85,
+   "ms": 40.11,
    "query": "SELECT sym, time, price, size, stop, cond, ex FROM trade WHERE source = 'N'",
-   "tags": "simple,rawcolumn"
+   "tags": "rawcolumn,simple"
   },
   {
    "idx": 8,
-   "ms": 6.19,
+   "ms": 8.06,
    "query": "SELECT time, (bid + ask) / 2 AS mid FROM quote WHERE sym = $1",
-   "tags": "simple,singleinstrument"
+   "tags": "singleinstrument,simple"
   },
   {
    "idx": 9,
-   "ms": 6.76,
+   "ms": 7.28,
    "query": "SELECT time, (bid + ask) / 2 AS mid FROM (SELECT * FROM quote WHERE sym = $1)",
-   "tags": "simple,unnecessarycolumnfetch,singleinstrument"
+   "tags": "singleinstrument,unnecessarycolumnfetch,simple"
   },
   {
    "idx": 10,
-   "ms": 32.01,
+   "ms": 29.37,
    "query": "SELECT time, (CAST(bid AS DOUBLE) + CAST(ask AS DOUBLE)) / 2 AS mid FROM quote WHERE sym = $1 ORDER BY mid DESC, rowid ASC",
-   "tags": "simple,sort,singleinstrument"
+   "tags": "singleinstrument,sort,simple"
   },
   {
    "idx": 11,
-   "ms": 16.86,
+   "ms": 13.74,
    "query": "SELECT sym, time, bid, ask, bsize, asize, cond, ex FROM quote WHERE sym = $1",
-   "tags": "simple,rawcolumn,singleinstrument"
+   "tags": "singleinstrument,rawcolumn,simple"
   },
   {
    "idx": 12,
-   "ms": 419.64,
+   "ms": 381.46,
    "query": "SELECT sym, time, bid, ask, bsize, asize, cond, ex FROM quote WHERE sym IN $1 AND 2000<bsize+asize",
-   "tags": "simple,rawcolumn,fewinstruments"
+   "tags": "rawcolumn,fewinstruments,simple"
   },
   {
    "idx": 13,
-   "ms": 3.1,
+   "ms": 3.02,
    "query": "SELECT AVG((bsize * bid + asize * ask) / NULLIF(bsize + asize, 0)) AS avgLiqWMid FROM quote WHERE sym = $1",
-   "tags": "simple,singleinstrument"
+   "tags": "singleinstrument,simple"
   },
   {
    "idx": 14,
-   "ms": 5.49,
+   "ms": 8.52,
    "query": "SELECT * RENAME bucket AS minute FROM (SELECT time_bucket(INTERVAL '10 minutes', time)::TIME AS bucket, ex, AVG((bsize * bid + asize * ask) / NULLIF(bsize + asi",
-   "tags": "simple,groupby,singleinstrument"
+   "tags": "singleinstrument,groupby,simple"
   },
   {
    "idx": 15,
-   "ms": 30.56,
+   "ms": 28.52,
    "query": "WITH filtered AS (SELECT time_bucket(INTERVAL '10 minutes', time)::TIME AS minute, ex, (bsize * bid + asize * ask) / NULLIF(bsize + asize, 0) AS liqWMid FROM qu",
-   "tags": "advanced,groupby,singleinstrument,pivot"
+   "tags": "singleinstrument,advanced,groupby,pivot"
   },
   {
    "idx": 16,
-   "ms": 90.26,
+   "ms": 84.8,
    "query": "WITH filtered AS (SELECT time_bucket(INTERVAL '10 minutes', time)::TIME AS minute, sym, (bsize * bid + asize * ask) / NULLIF(bsize + asize, 0) AS liqWMid FROM q",
-   "tags": "advanced,fewinstruments,groupby,pivot"
+   "tags": "advanced,groupby,fewinstruments,pivot"
   },
   {
    "idx": 17,
-   "ms": 96.42,
+   "ms": 93.39,
    "query": "WITH filtered AS (SELECT time_bucket(INTERVAL '10 minutes', time)::TIME AS minute, sym, (bsize * bid + asize * ask) / NULLIF(bsize + asize, 0) AS liqWMid FROM q",
-   "tags": "fillforward,advanced,fewinstruments,groupby,pivot"
+   "tags": "advanced,fillforward,fewinstruments,groupby,pivot"
   },
   {
    "idx": 18,
-   "ms": 10.11,
+   "ms": 8.9,
    "query": "SELECT * RENAME bucket AS minute FROM (SELECT time_bucket(INTERVAL '10 minutes', time)::TIME AS bucket, AVG(ask - bid) AS avgSpread FROM quote WHERE sym = $1 GR",
-   "tags": "simple,groupby,singleinstrument"
+   "tags": "singleinstrument,groupby,simple"
   },
   {
    "idx": 19,
-   "ms": 67.16,
+   "ms": 56.98,
    "query": "SELECT * RENAME bucket AS minute FROM (SELECT sym, time_bucket(INTERVAL '10 minutes', time)::TIME AS bucket, AVG(ask - bid) AS avgSpread FROM quote WHERE sym IN",
-   "tags": "simple,groupby,fewinstruments"
+   "tags": "groupby,fewinstruments,simple"
   },
   {
    "idx": 20,
-   "ms": 2.84,
+   "ms": 2.78,
    "query": "SELECT weighted_avg(ask - bid, asize + bsize) AS avgWeightedSpread FROM quote WHERE sym=$1",
-   "tags": "advanced,singleinstrument"
+   "tags": "singleinstrument,advanced"
   },
   {
    "idx": 21,
-   "ms": 7.25,
+   "ms": 6.58,
    "query": "SELECT weighted_avg(ask - bid, asize + bsize) AS avgWeightedSpread, STDDEV(ask - bid) AS devSpread, MAX(ask - bid) AS maxSpread, MIN(ask - bid) AS minSpread FRO",
    "tags": "advanced,timefilter"
   },
   {
    "idx": 22,
-   "ms": 15.37,
+   "ms": 14.3,
    "query": "SELECT COALESCE(e.name, '') AS ex, weighted_avg(ask - bid, asize + bsize) AS avgWeightedSpread, STDDEV(ask - bid) AS devSpread, MAX(ask - bid) AS maxSpread, MIN",
-   "tags": "groupby,advanced,singleinstrument"
+   "tags": "singleinstrument,advanced,groupby"
   },
   {
    "idx": 23,
-   "ms": 17.41,
+   "ms": 15.84,
    "query": "SELECT exname AS ex, weighted_avg(spread, sizes) AS avgWeightedSpread, STDDEV(spread) AS devSpread, MAX(spread) AS maxSpread, MIN(spread) AS minSpread FROM (SEL",
-   "tags": "groupby,advanced,singleinstrument"
+   "tags": "singleinstrument,advanced,groupby"
   },
   {
    "idx": 24,
-   "ms": 75.96,
+   "ms": 72.92,
    "query": "SELECT q.sym, COALESCE(e.name, '') AS ex, weighted_avg(ask - bid, asize + bsize) AS avgWeightedSpread, STDDEV(ask - bid) AS devSpread, MAX(ask - bid) AS maxSpre",
-   "tags": "groupby,advanced,fewinstruments"
+   "tags": "advanced,groupby,fewinstruments"
   },
   {
    "idx": 25,
-   "ms": 17.91,
+   "ms": 16.1,
    "query": "SELECT COALESCE(e.name, '') AS ex, weighted_avg(ask - bid, asize + bsize) AS avgWeightedSpread, STDDEV(ask - bid) AS devSpread, MAX(ask - bid) AS maxSpread, MIN",
-   "tags": "groupby,advanced"
+   "tags": "advanced,groupby"
   },
   {
    "idx": 26,
-   "ms": 0.89,
+   "ms": 0.83,
    "query": "SELECT sym, ex FROM trade WHERE size>700000 GROUP BY sym, ex ORDER BY MIN(rowid)",
    "tags": "simple"
   },
   {
    "idx": 27,
-   "ms": 20.12,
+   "ms": 17.75,
    "query": "SELECT sym, weighted_avg(bid, bsize) AS weightedBidPrice, weighted_avg(ask, asize) AS weightedOfferPrice FROM quote WHERE sym IN $1 GROUP BY sym ORDER BY sym::V",
-   "tags": "simple,groupby,fewinstruments"
+   "tags": "groupby,fewinstruments,simple"
   },
   {
    "idx": 28,
-   "ms": 9.62,
+   "ms": 9.34,
    "query": "SELECT time, CASE WHEN COUNT(price) OVER w >= 20 THEN AVG(price) OVER w END AS price FROM trade WHERE sym = $1 WINDOW w AS (ORDER BY time ROWS BETWEEN 19 PRECED",
-   "tags": "advanced,singleinstrument"
+   "tags": "singleinstrument,advanced"
   },
   {
    "idx": 29,
-   "ms": 84.49,
+   "ms": 79.83,
    "query": "SELECT sym, time, AVG((bsize * bid + asize * ask) / NULLIF(bsize + asize, 0)) OVER (PARTITION BY sym ORDER BY time, rowid ROWS BETWEEN 4 PRECEDING AND CURRENT R",
-   "tags": "groupby,advanced,fewinstruments"
+   "tags": "advanced,groupby,fewinstruments"
   },
   {
    "idx": 30,
-   "ms": 1.65,
+   "ms": 1.4,
    "query": "SELECT time, SUM(size) OVER (ORDER BY time ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS size FROM trade WHERE sym = $1",
-   "tags": "advanced,singleinstrument"
+   "tags": "singleinstrument,advanced"
   },
   {
    "idx": 31,
-   "ms": 2.3,
+   "ms": 2.06,
    "query": "SELECT time, SUM(size) OVER (ORDER BY rowid ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS size FROM trade WHERE ex = 'L' ORDER BY rowid",
    "tags": "advanced"
   },
   {
    "idx": 32,
-   "ms": 3.91,
+   "ms": 3.88,
    "query": "SELECT sym, time, price, size, SUM(price * size) OVER (PARTITION BY sym ORDER BY time ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) / SUM(size) OVER (PARTIT",
    "tags": "complex,timefilter,groupby"
   },
   {
    "idx": 33,
-   "ms": 7.42,
+   "ms": 7.47,
    "query": "SELECT time, SUM(size) OVER (ORDER BY rowid ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS size FROM trade WHERE ex = 'T' ORDER BY rowid",
    "tags": "advanced"
   },
   {
    "idx": 34,
-   "ms": 9.42,
+   "ms": 8.53,
    "query": "SELECT * EXCLUDE (max_size, rowid) FROM (SELECT *, rowid, MAX(size) OVER (PARTITION BY ex) AS max_size FROM trade) WHERE size = max_size ORDER BY rowid",
-   "tags": "rawcolumn,groupby,advanced"
+   "tags": "advanced,rawcolumn,groupby"
   },
   {
    "idx": 35,
-   "ms": 33.96,
+   "ms": 31.78,
    "query": "SELECT * EXCLUDE (rowid) FROM (WITH b AS (SELECT *, rowid, MAX(bid) OVER (PARTITION BY ex) AS max_bid, MIN(ask) OVER (PARTITION BY ex) AS min_ask FROM quote WHE",
-   "tags": "groupby,advanced,singleinstrument"
+   "tags": "singleinstrument,advanced,groupby"
   },
   {
    "idx": 36,
-   "ms": 31.51,
+   "ms": 23.63,
    "query": "SELECT * EXCLUDE (min_size, rowid) FROM (SELECT *, MIN(size) OVER (PARTITION BY ex, sym) AS min_size, rowid FROM trade) WHERE size = min_size ORDER BY rowid",
-   "tags": "groupby,advanced"
+   "tags": "advanced,groupby"
   },
   {
    "idx": 37,
-   "ms": 32.91,
+   "ms": 24.57,
    "query": "SELECT * EXCLUDE (min_size, rowid) FROM (SELECT *, rowid, MIN(size) OVER (PARTITION BY ex, sym) AS min_size FROM trade) WHERE size = min_size ORDER BY sym::VARC",
-   "tags": "groupby,advanced"
+   "tags": "advanced,groupby"
   },
   {
    "idx": 38,
-   "ms": 14.89,
+   "ms": 15.75,
    "query": "SELECT sym, seq AS seqDecr FROM (SELECT sym, seq, seq - LAG(seq) OVER (PARTITION BY sym ORDER BY time, rowid) AS seq_delta FROM (SELECT *, rowid FROM trade)) WH",
-   "tags": "groupby,advanced"
+   "tags": "advanced,groupby"
   },
   {
    "idx": 39,
-   "ms": 25.92,
+   "ms": 25.19,
    "query": "WITH tb AS (SELECT *, rowid FROM timeBuckets) SELECT ex, FIRST(bucket) AS timeBucket, COUNT(*) AS cnt, SUM(size) AS size FROM trade t ASOF JOIN tb ON t.time::TI",
    "tags": "complex,groupby"
   },
   {
    "idx": 40,
-   "ms": 2.26,
+   "ms": 2.97,
    "query": "SELECT sym, bucket AS timeBucket, COUNT(*) AS cnt, SUM(size) AS size FROM trade t ASOF JOIN timeBuckets ON t.time::TIME >= timeBuckets.bound WHERE corr != 0 GRO",
    "tags": "complex,groupby"
   },
   {
    "idx": 41,
-   "ms": 16.62,
+   "ms": 13.15,
    "query": "SELECT * RENAME bucket AS minute FROM (SELECT sym, time_bucket(INTERVAL '5 minutes', time)::TIME AS bucket, FIRST(price ORDER BY rowid) AS o, MAX(price) AS h, M",
-   "tags": "simple,groupby,fewinstruments"
+   "tags": "groupby,fewinstruments,simple"
   },
   {
    "idx": 42,
-   "ms": 5.45,
+   "ms": 5.15,
    "query": "SELECT *, (bsize - asize) / (bsize + asize) AS inbal FROM (SELECT time_bucket(INTERVAL '1 minute', time)::TIME AS minute, FIRST(asize ORDER BY rowid) AS asize, ",
-   "tags": "simple,groupby,singleinstrument"
+   "tags": "singleinstrument,groupby,simple"
   },
   {
    "idx": 43,
-   "ms": 191.09,
+   "ms": 156.89,
    "query": "SELECT sym, SUM(asize * ask) AS wsumAsk, SUM(bid * bsize) AS wsumBid, STDDEV(asize) AS sdevasksize, STDDEV(bid) AS sdevbid, CORR(ask, bid) AS corPrice, CORR(asi",
-   "tags": "groupby,advanced,fewinstruments"
+   "tags": "advanced,groupby,fewinstruments"
   },
   {
    "idx": 44,
-   "ms": 8.16,
+   "ms": 7.69,
    "query": "SELECT * EXCLUDE (min_price, rowid) FROM (SELECT *, rowid, MIN(price) OVER (PARTITION BY sym) AS min_price FROM trade) WHERE price = min_price ORDER BY rowid",
-   "tags": "rawcolumn,groupby,advanced"
+   "tags": "advanced,rawcolumn,groupby"
   },
   {
    "idx": 45,
-   "ms": 16.68,
+   "ms": 15.47,
    "query": "WITH src AS (SELECT *, rowid FROM trade WHERE sym = $1), changes AS (SELECT *, (price IS DISTINCT FROM LAG(price) OVER (ORDER BY time, rowid))::INT AS price_cha",
-   "tags": "complex,groupby,singleinstrument"
+   "tags": "complex,singleinstrument,groupby"
   },
   {
    "idx": 46,
-   "ms": 132.05,
+   "ms": 115.57,
    "query": "WITH src AS (SELECT *, rowid FROM trade WHERE sym IN $1), changes AS (SELECT *, (price IS DISTINCT FROM LAG(price) OVER (PARTITION BY sym ORDER BY time, rowid))",
    "tags": "complex,groupby,fewinstruments"
   },
   {
    "idx": 47,
-   "ms": 6.03,
+   "ms": 5.52,
    "query": "WITH src AS (SELECT *, rowid FROM trade WHERE ex IN ('L', 'M')), changes AS (SELECT *, (price IS DISTINCT FROM LAG(price) OVER (PARTITION BY sym ORDER BY time, ",
    "tags": "complex,groupby"
   },
   {
    "idx": 48,
-   "ms": 2.45,
+   "ms": 2.36,
    "query": "SELECT MEDIAN(bsize + asize) AS medMidSize FROM quote WHERE sym=$1",
-   "tags": "simple,singleinstrument"
+   "tags": "singleinstrument,simple"
   },
   {
    "idx": 49,
-   "ms": 16.77,
+   "ms": 13.94,
    "query": "SELECT ex, MEDIAN(size) AS medSize FROM trade GROUP BY ex ORDER BY ex",
-   "tags": "simple,groupby"
+   "tags": "groupby,simple"
   },
   {
    "idx": 50,
-   "ms": 161.69,
+   "ms": 175.89,
    "query": "SELECT t.sym, t.time, t.price, t.size, t.stop, t.cond, t.ex, q.bid, q.ask, q.bsize, q.asize, q.cond AS quotecond, q.ex AS quoteex FROM (SELECT sym, time, price,",
-   "tags": "rawcolumn,advanced,asofjoin,fewinstruments"
+   "tags": "advanced,rawcolumn,fewinstruments,asofjoin"
   },
   {
    "idx": 51,
-   "ms": 37.24,
+   "ms": 31.24,
    "query": "SELECT t.time, t.price, t.size, t.stop, t.cond, t.ex, q.bid, q.ask, q.bsize, q.asize, q.cond AS quotecond, q.ex AS quoteex FROM (SELECT time, price, size, stop,",
-   "tags": "rawcolumn,advanced,asofjoin,singleinstrument"
+   "tags": "singleinstrument,advanced,rawcolumn,asofjoin"
   },
   {
    "idx": 52,
-   "ms": 846.02,
+   "ms": 881.92,
    "query": "SELECT t.sym, t.time, t.price, t.size, t.stop, t.cond, t.ex, q.bid, q.ask, q.bsize, q.asize, q.cond AS quotecond FROM (SELECT sym, time, price, size, stop, cond",
-   "tags": "rawcolumn,advanced,asofjoin"
+   "tags": "advanced,rawcolumn,asofjoin"
   },
   {
    "idx": 53,
-   "ms": 609.11,
+   "ms": 587.85,
    "query": "SELECT t.sym, t.time, t.price, t.size, t.stop, t.cond, t.ex, q.bid, q.ask, q.bsize, q.asize, q.cond AS quotecond FROM (SELECT sym, time, price, size, stop, cond",
-   "tags": "rawcolumn,advanced,asofjoin,timefilter"
+   "tags": "advanced,rawcolumn,asofjoin,timefilter"
   }
  ],
  "suite": "taq-small",
  "threads": 32,
- "total_ms": 3511.4,
+ "total_ms": 3308.9,
  "version": "1.5.5"
 }

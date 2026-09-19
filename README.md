@@ -5,17 +5,42 @@ against DuckDB and Polars, with opt-in QuestDB and [l](https://lv1.sh/)
 adapters for all four suites — and the board that publishes them:
 **[bench.k10.works](https://bench.k10.works/)**.
 
-The rules, applied to every published number:
+The result files and suite notes record each sitting's provenance:
 
-- **Same machine, same data, same queries, same thread count.** All engines run
-  in one sitting on identical input; machine and engine versions are recorded
-  in every result file.
-- **PyPI releases, default settings.** Each engine is installed from PyPI and
-  run through its public API — no source builds, no tuning flags.
-- **Correctness before timing.** Query statuses and result sizes are checked
-  across engines; a query an engine does not complete appears as a gap on the
-  board and is excluded from the common-subset totals.
-- **Best of three** runs per query, timed inside a shared harness.
+- **Same machine, data, queries, and thread count.** Fresh comparative runs use
+  identical inputs. Keyten-only refreshes identify retained competitor captures
+  and timings; a changed host condition requires a matched baseline refresh.
+- **Identified engine builds.** Runners normally install PyPI packages. Development
+  runs may supply a Keyten wheel; its binary hash and build identity are recorded.
+  Optional features and non-default host conditions are disclosed in suite notes.
+- **Correctness before timing.** Current runners validate complete query outputs.
+  A query an engine does not complete appears as a gap and is excluded from the
+  common-subset totals. Earlier sittings retain their recorded check coverage.
+- **Recorded timing protocol.** Current PDS-H and ClickBench runs use medians of
+  twelve fresh-process samples after two warmups. TAQ and Tick use best of three.
+  Separate paired regression experiments are reported separately from board ranks.
+
+## September 19 optional-JIT board
+
+The current board measures a development wheel with `jit-dynasm` enabled under
+polling idle (C1/C2 disabled for all engines during measurement, then restored).
+A fresh pre-JIT all-engine baseline establishes the matched host condition;
+the candidate refresh times only Keyten and retains those competitor timings.
+This is a measured optional-feature experiment, not a default PyPI release claim.
+
+- [Candidate board](https://bench.k10.works/board/)
+- [Matched pre-JIT board](https://bench.k10.works/board/?results=../results/archive/pre-jit-polling-idle-20260919)
+- [Previous host-condition board](https://bench.k10.works/board/?results=../results/archive/pre-jit-original-host-20260919)
+- [Evidence and identities](results/jit-evidence-20260919.json)
+- [Full audit, rejected gates, and remaining gaps](https://github.com/k10works/keyten/tree/main/audit/jit-dispatch-20260919)
+
+The separate PDS-H gate passes both candidate comparisons and its identical-binary
+control. All board suites pass full-output correctness. The board flags TAQ Q35
+(+5.22%, +2.86ms); twelve alternating pairs of the full TAQ sequence pass the
+unchanged >2ms **and** >5% per-query threshold, with Q35 +1.44%/+0.818ms.
+Original-condition JIT rejections remain in the audit. Board totals improve
+0.00–0.40% against the matched baseline; these small differences are not
+statistical-significance claims. LLVM is not included.
 
 ## Reproduce
 
