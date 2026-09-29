@@ -17,9 +17,10 @@ def q(**kwargs: Any) -> Any:
         .select(["c_acctbal", "c_custkey", "cntrycode"])
         .collect()
     )
-    bals = [v for v in q1.column("c_acctbal").to_list() if v is not None and v > 0.0]
-    avg_bal = sum(bals) / len(bals)
     q1 = q1.lazy()
+    avg_bal = utils.scalar(
+        q1.filter(kt.col("c_acctbal") > kt.lit(0.0)).select(kt.col("c_acctbal").mean().alias("m")), "m"
+    )
     return (
         q1.anti_join(orders, [("c_custkey", "o_custkey")])
         .filter(kt.col("c_acctbal") > kt.lit(avg_bal))

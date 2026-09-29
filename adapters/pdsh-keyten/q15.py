@@ -19,7 +19,7 @@ def q(**kwargs: Any) -> Any:
         .agg((kt.col("l_extendedprice") * (kt.lit(1.0) - kt.col("l_discount"))).sum().alias("total_revenue"))
         .collect()
     )
-    best = max(v for v in revenue.column("total_revenue").to_list() if v is not None)
+    best = utils.scalar(revenue.lazy().select(kt.col("total_revenue").max().alias("m")), "m")
     return (
         supplier.inner_join(revenue.lazy(), [("s_suppkey", "l_suppkey")])
         .filter(kt.col("total_revenue") >= kt.lit(best))

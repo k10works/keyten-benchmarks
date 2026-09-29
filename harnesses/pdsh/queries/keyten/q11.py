@@ -21,7 +21,7 @@ def q(**kwargs: Any) -> Any:
         .select([kt.col("ps_partkey"), kt.col("v")])
         .collect()
     )
-    threshold = sum(v for v in q1.column("v").to_list() if v is not None) * var2
+    threshold = utils.scalar(q1.lazy().select(kt.col("v").sum().alias("v")), "v") * var2
     return (
         q1.lazy().group_by(kt.col("ps_partkey"))
         .agg(kt.col("v").sum().alias("_value"))
